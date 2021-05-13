@@ -1,5 +1,5 @@
 class ControllerProdotto:
-    def __init__(self, prodotto):
+    def __init__(self, prodotto) -> object:
         self.model = prodotto
 
     def somma_prodotti(self): pass

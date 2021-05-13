@@ -1,11 +1,10 @@
+import sys
+from PyQt5.QtWidgets import QApplication
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+from home.view.VistaHome import VistaHome
 
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    app = QApplication(sys.argv)
+    vista_home = VistaHome()
+    vista_home.show()
+    sys.exit(app.exec())
