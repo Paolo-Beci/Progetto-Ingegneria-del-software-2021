@@ -4,13 +4,13 @@ class ControllerProdotto:
 
     def somma_prodotti(self): pass
 
-    def modifica_prodotto(self): pass
+    def modifica_prodotto(self, cod_prodotto): pass
 
-    def elimina_prodotto(self): pass
+    def elimina_prodotto(self, cod_prodotto): pass
 
     # GET di servizio
 
-    def get_codice_fattura(self):
+    def get_cod_fattura(self):
         return self.model.codice_fattura
 
     def get_cod_fornitore(self):
@@ -34,11 +34,26 @@ class ControllerProdotto:
     def get_quantita(self):
         return self.model.quantita
 
-    def get_prezzo(self):
-        return self.model.prezzo
+    def get_prezzo_acquisto(self):
+        return self.model.prezzo_acquisto
+
+    def get_prezzo_vendita(self):
+        return self.model.prezzo_vendita
+
+    def get_stagione(self):
+        return self.model.stagione
 
     def get_stato(self):
         return self.model.stato
 
-    def get_stagione(self):
-        return self.model.stagione
+    def get_data_vendita(self):
+        return self.model.data_vendita
+
+    def get_sconto_consigliato(self):
+        return self.model.sconto_consigliato
+
+    def get_sconto(self):
+        return self.model.sconto
+
+    def get_cod_immagine(self):
+        return self.model.cod_immagine

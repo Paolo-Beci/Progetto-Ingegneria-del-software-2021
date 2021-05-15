@@ -8,11 +8,14 @@
    "colore": "BLU",
    "taglia": 41,
    "quantita": 1,
-   "prezzo_di_acquisto": "30,40",
-   "prezzo_di_vendita": 60,
-   "stato": "IN NEGOZIO",
+   "prezzo_acquisto": "30,40",
+   "prezzo_vendita": 60,
    "stagione": "P",
-   "data_di_vendita": "?"
+   "stato": "IN NEGOZIO",
+   "sconto_consigliato": "",
+   "sconto": "",
+   "data_vendita": "",
+   "cod_immagine": ""
  },
  {
    "cod_fattura": "AD31604",
@@ -23,11 +26,14 @@
    "colore": "BLU",
    "taglia": 42,
    "quantita": 2,
-   "prezzo_di_acquisto": "60,80",
-   "prezzo_di_vendita": 80,
-   "stato": "IN NEGOZIO",
+   "prezzo_acquisto": "60,80",
+   "prezzo_vendita": 80,
    "stagione": "P",
-   "data_di_vendita": ""
+   "stato": "IN NEGOZIO",
+   "sconto_consigliato": "",
+   "sconto": "",
+   "data_vendita": "",
+   "cod_immagine": ""
  },
  {
    "cod_fattura": "AD31604",
@@ -38,11 +44,14 @@
    "colore": "BLU",
    "taglia": 43,
    "quantita": 2,
-   "prezzo_di_acquisto": "60,80",
-   "prezzo_di_vendita": 80,
-   "stato": "IN NEGOZIO",
+   "prezzo_acquisto": "60,80",
+   "prezzo_vendita": 80,
    "stagione": "P",
-   "data_di_vendita": ""
+   "stato": "IN NEGOZIO",
+   "sconto_consigliato": "",
+   "sconto": "",
+   "data_vendita": "",
+   "cod_immagine": ""
  },
  {
    "cod_fattura": "AD31604",
@@ -53,11 +62,14 @@
    "colore": "BLU",
    "taglia": 44,
    "quantita": 1,
-   "prezzo_di_acquisto": "30,40",
-   "prezzo_di_vendita": 60,
-   "stato": "IN NEGOZIO",
+   "prezzo_acquisto": "30,40",
+   "prezzo_vendita": 60,
    "stagione": "P",
-   "data_di_vendita": ""
+   "stato": "IN NEGOZIO",
+   "sconto_consigliato": "",
+   "sconto": "",
+   "data_vendita": "",
+   "cod_immagine": ""
  },
  {
    "cod_fattura": "AD31604",
@@ -68,11 +80,14 @@
    "colore": "BLU",
    "taglia": 40,
    "quantita": 1,
-   "prezzo_di_acquisto": "30,40",
-   "prezzo_di_vendita": 60,
-   "stato": "IN NEGOZIO",
+   "prezzo_acquisto": "30,40",
+   "prezzo_vendita": 60,
    "stagione": "P",
-   "data_di_vendita": ""
+   "stato": "IN NEGOZIO",
+   "sconto_consigliato": "",
+   "sconto": "",
+   "data_vendita": "",
+   "cod_immagine": ""
  },
  {
    "cod_fattura": "AD31604",
@@ -83,11 +98,14 @@
    "colore": "GRAFITE",
    "taglia": 40,
    "quantita": 1,
-   "prezzo_di_acquisto": "34,75",
-   "prezzo_di_vendita": 60,
-   "stato": "IN NEGOZIO",
+   "prezzo_acquisto": "34,75",
+   "prezzo_vendita": 60,
    "stagione": "P",
-   "data_di_vendita": ""
+   "stato": "IN NEGOZIO",
+   "sconto_consigliato": "",
+   "sconto": "",
+   "data_vendita": "",
+   "cod_immagine": ""
  },
  {
    "cod_fattura": "AD31604",
@@ -98,11 +116,14 @@
    "colore": "GRAFITE",
    "taglia": 41,
    "quantita": 1,
-   "prezzo_di_acquisto": "34,75",
-   "prezzo_di_vendita": 60,
-   "stato": "IN NEGOZIO",
+   "prezzo_acquisto": "34,75",
+   "prezzo_vendita": 60,
    "stagione": "P",
-   "data_di_vendita": ""
+   "stato": "IN NEGOZIO",
+   "sconto_consigliato": "",
+   "sconto": "",
+   "data_vendita": "",
+   "cod_immagine": ""
  },
  {
    "cod_fattura": "AD31604",
@@ -113,11 +134,14 @@
    "colore": "GRAFITE",
    "taglia": 42,
    "quantita": 1,
-   "prezzo_di_acquisto": "34,75",
-   "prezzo_di_vendita": 60,
-   "stato": "IN NEGOZIO",
+   "prezzo_acquisto": "34,75",
+   "prezzo_vendita": 60,
    "stagione": "P",
-   "data_di_vendita": ""
+   "stato": "IN NEGOZIO",
+   "sconto_consigliato": "",
+   "sconto": "",
+   "data_vendita": "",
+   "cod_immagine": ""
  },
  {
    "cod_fattura": "AD31604",
@@ -128,11 +152,14 @@
    "colore": "GRAFITE",
    "taglia": 43,
    "quantita": 1,
-   "prezzo_di_acquisto": "34,75",
-   "prezzo_di_vendita": 60,
-   "stato": "IN NEGOZIO",
+   "prezzo_acquisto": "34,75",
+   "prezzo_vendita": 60,
    "stagione": "P",
-   "data_di_vendita": ""
+   "stato": "IN NEGOZIO",
+   "sconto_consigliato": "",
+   "sconto": "",
+   "data_vendita": "",
+   "cod_immagine": ""
  },
  {
    "cod_fattura": "AD31604",
@@ -143,11 +170,14 @@
    "colore": "GRAFITE",
    "taglia": 44,
    "quantita": 1,
-   "prezzo_di_acquisto": "34,75",
-   "prezzo_di_vendita": 60,
-   "stato": "IN NEGOZIO",
+   "prezzo_acquisto": "34,75",
+   "prezzo_vendita": 60,
    "stagione": "P",
-   "data_di_vendita": ""
+   "stato": "IN NEGOZIO",
+   "sconto_consigliato": "",
+   "sconto": "",
+   "data_vendita": "",
+   "cod_immagine": ""
  },
  {
    "cod_fattura": "AD31604",
@@ -158,10 +188,13 @@
    "colore": "GRAFITE",
    "taglia": 45,
    "quantita": 1,
-   "prezzo_di_acquisto": "34,75",
-   "prezzo_di_vendita": 60,
-   "stato": "IN NEGOZIO",
+   "prezzo_acquisto": "34,75",
+   "prezzo_vendita": 60,
    "stagione": "P",
-   "data_di_vendita": ""
+   "stato": "IN NEGOZIO",
+   "sconto_consigliato": "",
+   "sconto": "",
+   "data_vendita": "",
+   "cod_immagine": ""
  }
 ]
