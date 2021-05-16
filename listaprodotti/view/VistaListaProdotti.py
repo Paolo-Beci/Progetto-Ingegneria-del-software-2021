@@ -9,7 +9,7 @@ from prodotto.controller.ControllerProdotto import ControllerProdotto
 
 class VistaListaProdotti(QWidget):
     def __init__(self, parent=None):
-        super(VistaListaProdotti, self).__init__()
+        super(VistaListaProdotti, self).__init__(parent)
 
         self.controller = ControllerListaProdotti()
 
@@ -19,25 +19,24 @@ class VistaListaProdotti(QWidget):
         h_layout.addWidget(self.list_view)
 
         buttons_layout = QVBoxLayout()
-        open_button = QPushButton('Apri')
-        # open_button.clicked.connect(self.show_selected_info)
+        open_button = QPushButton('Vedi dettagli')
+        open_button.clicked.connect(self.show_dettagli_prodotto)
         buttons_layout.addWidget(open_button)
-        new_button = QPushButton("Nuovo")
-        # new_button.clicked.connect(self.show_new_prodotto)
+        new_button = QPushButton("Inserisci prodotto")
+        new_button.clicked.connect(self.show_inserici_prodotto)
         buttons_layout.addWidget(new_button)
         buttons_layout.addStretch()
         h_layout.addLayout(buttons_layout)
 
         self.setLayout(h_layout)
-        self.resize(600, 300)
+        #self.resize(600, 300)
         self.setWindowTitle('Area Prodotti')
 
     def update_ui(self):
         self.listview_model = QStandardItemModel(self.list_view)
         for prodotto in self.controller.get_lista_prodotti():
             item = QStandardItem()
-            # per quale cazzo di motivo non mi fa mettere gli int nel setText ?!?!
-            item.setText(prodotto.materiale)
+            item.setText("Materiale: " + prodotto.materiale + "    Taglia: " + str(prodotto.taglia) + "    Quantità: " + str(prodotto.quantita))
             item.setEditable(False)
             font = item.font()
             font.setPointSize(18)
@@ -45,6 +44,16 @@ class VistaListaProdotti(QWidget):
             self.listview_model.appendRow(item)
         self.list_view.setModel(self.listview_model)
 
+    def show_dettagli_prodotto(self):
+        if len(self.list_view.selectedIndexes()) > 0:
+            selected = self.list_view.selectedIndexes()[0].row()
+            prodotto_selezionato = self.controller.get_cod_prodotto(selected)
+            self.vista_prodotto = VistaProdotto(prodotto_selezionato)
+            self.vista_prodotto.show()
+
+    def show_inserici_prodotto(self):
+        self.vista_inserisci_prodotto = VistaInserisciProdotto(self.controller)
+        self.vista_inserisci_prodotto.show()
 
     def closeEvent(self, event):
         self.controller.save_data()

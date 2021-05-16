@@ -6,5 +6,5 @@ from home.view.VistaHome import VistaHome
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     vista_home = VistaHome()
-    vista_home.show()
+    vista_home.showMaximized()
     sys.exit(app.exec())
