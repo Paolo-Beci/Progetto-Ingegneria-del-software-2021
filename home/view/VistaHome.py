@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
 from listaprodotti.view.VistaListaProdotti import VistaListaProdotti
+from prodotto.view import VistaProdotto
 
 
 class VistaHome(QWidget):
@@ -21,4 +22,6 @@ class VistaHome(QWidget):
         return button
 
     def go_lista_prodotti(self):
-        self.vista_lista_prodotti.show()
+        self.vista_lista_prodotti.showMaximized()
+        #self.vista_lista_prodotti.showFullScreen()     Per tutto schermo senza comandi win10
+        self.close()

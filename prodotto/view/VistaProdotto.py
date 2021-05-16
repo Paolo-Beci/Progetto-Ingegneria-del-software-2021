@@ -10,27 +10,29 @@ def get_info(text):
     label.setFont(font)
     return label
 
+
 class VistaProdotto(QWidget):
     def __init__(self, c_prodotto):
         super(VistaProdotto, self).__init__(c_prodotto)
         self.controller = ControllerProdotto(c_prodotto)
         self.elimina_prodotto = self.elimina_prodotto
         self.modifica_prodotto = self.modifica_prodotto
-        self.upadate_prodotti = self.upadate_prodotti
+        self.update_prodotti = self.update_prodotti
 
         v_layout = QVBoxLayout()
 
-        label_nome = QLabel(self.controller.get_cod_prodotto() + " " + self.controller.get_taglia())
+        label_nome = QLabel(c_prodotto + " " + self.controller.get_taglia())
         font_nome = label_nome.font()
         font_nome.setPointSize(30)
         label_nome.setFont(font_nome)
         v_layout.addWidget(label_nome)
 
         # LOAD IMMAGINE
-        #label = QLabel(self)
-        #pixmap = QPixmap('listaprodotti/data/images/immagine_prova.jpg')
-        #label.setPixmap(pixmap)
-        #self.resize(pixmap.width(), pixmap.height())
+        label = QLabel(self)
+        pixmap = QPixmap('listaprodotti/data/images/immagine_prova.jpg')
+        label.setPixmap(pixmap)
+        self.resize(pixmap.width(), pixmap.height())
+
         v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
         v_layout.addWidget(get_info("Codice fattura: {}".format(self.controller.get_cod_fattura())))
@@ -64,10 +66,10 @@ class VistaProdotto(QWidget):
 
     def elimina_prodotto_click(self):
         self.elimina_prodotto(self.controller.get_cod_prodotto())
-        self.upadate_prodotti()
+        self.update_prodotti()
         self.close()
 
     def modifica_prodotto_click(self):
         self.modifica_prodotto(self.controller.get_cod_prodotto())
-        self.upadate_prodotti()
+        self.update_prodotti()
         self.close()

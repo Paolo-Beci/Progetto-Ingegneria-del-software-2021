@@ -29,7 +29,7 @@ class VistaListaProdotti(QWidget):
         h_layout.addLayout(buttons_layout)
 
         self.setLayout(h_layout)
-        self.resize(600, 300)
+        #self.resize(600, 300)
         self.setWindowTitle('Area Prodotti')
 
     def update_ui(self):
@@ -45,7 +45,7 @@ class VistaListaProdotti(QWidget):
         self.list_view.setModel(self.listview_model)
 
     def show_dettagli_prodotto(self):
-        if (len(self.list_view.selectedIndexes()) > 0):
+        if len(self.list_view.selectedIndexes()) > 0:
             selected = self.list_view.selectedIndexes()[0].row()
             prodotto_selezionato = self.controller.get_cod_prodotto(selected)
             self.vista_prodotto = VistaProdotto(prodotto_selezionato)

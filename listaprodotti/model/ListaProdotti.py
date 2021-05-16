@@ -35,9 +35,12 @@ class ListaProdotti:
     def get_lista_prodotti(self):
         return self.lista_prodotti
 
-    def save_data(self):
-        with open('listaprodotti/data/lista_prodotti_salvata.pickle', 'wb') as handle:
-            pickle.dump(self.lista_prodotti, handle, pickle.HIGHEST_PROTOCOL)
+    def get_cod_prodotto(self, cod):
+        return self.lista_prodotti[cod]
 
     def aggiungi_prodotto_da_database(self, prodotto):
         self.lista_prodotti.append(prodotto)
+
+    def save_data(self):
+        with open('listaprodotti/data/lista_prodotti_salvata.pickle', 'wb') as handle:
+            pickle.dump(self.lista_prodotti, handle, pickle.HIGHEST_PROTOCOL)
