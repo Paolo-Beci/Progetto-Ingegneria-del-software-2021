@@ -1,0 +1,28 @@
+[
+ {
+   "nome": "a",
+   "cognome": "b",
+   "data_nascita": "28/02/21",
+   "luogo_nascita": "Roma",
+   "eta": "1,
+   "cf": "vwrtgy4h56h4rwegwg",
+   "codice_utente": 3,
+   "telefono": 45,
+   "ruolo": "capo",
+   "stipendio": 60,
+   "data_scadenza_contratto": "30/05/21"
+ },
+ {
+   "nome": "c",
+   "cognome": "d",
+   "data_nascita": "28/02/21",
+   "luogo_nascita": "Fermo",
+   "eta": 15,
+   "cf": "byrbergevgrebr",
+   "codice_utente": 41,
+   "telefono": 1,
+   "ruolo": "venditore",
+   "stipendio": 60,
+   "data_scadenza_contratto": "05/06/21"
+ }
+]
