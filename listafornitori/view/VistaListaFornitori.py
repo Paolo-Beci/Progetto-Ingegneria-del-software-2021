@@ -12,7 +12,7 @@ class VistaListaFornitori(QWidget):
 
         h_layout = QHBoxLayout()
         self.list_view = QListView()
-        self.update_ui()
+        #self.update_ui()
         h_layout.addWidget(self.list_view)
 
         buttons_layout = QVBoxLayout()
@@ -27,7 +27,7 @@ class VistaListaFornitori(QWidget):
 
         self.setLayout(h_layout)
         self.resize(600, 300)
-        self.setWindowTitle('Area Prodotti')
+        self.setWindowTitle('Area Fornitori')
 
     def update_ui(self):
         self.listview_model = QStandardItemModel(self.list_view)
