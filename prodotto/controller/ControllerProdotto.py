@@ -8,6 +8,9 @@ class ControllerProdotto:
 
     def elimina_prodotto(self, cod_prodotto): pass
 
+    def get_prodotto(self, index):
+        return self.model.get_prodotto(index)
+
     # GET di servizio
 
     def get_cod_fattura(self):
@@ -21,6 +24,9 @@ class ControllerProdotto:
 
     def get_cod_prodotto(self):
         return self.model.cod_prodotto
+
+    # def genere(self):
+    #    return self.model.genere
 
     def get_materiale(self):
         return self.model.materiale

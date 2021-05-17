@@ -47,7 +47,7 @@ class VistaListaProdotti(QWidget):
     def show_dettagli_prodotto(self):
         if len(self.list_view.selectedIndexes()) > 0:
             selected = self.list_view.selectedIndexes()[0].row()
-            prodotto_selezionato = self.controller.get_cod_prodotto(selected)
+            prodotto_selezionato = self.controller.get_prodotto(selected)
             self.vista_prodotto = VistaProdotto(prodotto_selezionato)
             self.vista_prodotto.show()
 

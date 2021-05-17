@@ -35,7 +35,7 @@ class ListaProdotti:
     def get_lista_prodotti(self):
         return self.lista_prodotti
 
-    def get_cod_prodotto(self, cod):
+    def get_prodotto(self, cod):
         return self.lista_prodotti[cod]
 
     def aggiungi_prodotto_da_database(self, prodotto):
