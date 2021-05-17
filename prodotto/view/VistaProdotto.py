@@ -11,7 +11,6 @@ def get_info(text):
     label.setFont(font)
     return label
 
-
 class VistaProdotto(QWidget):
     def __init__(self, c_prodotto, elimina_prodotto, modifica_prodotto, update_prodotti, parent=None):
         super(VistaProdotto, self).__init__(parent)
