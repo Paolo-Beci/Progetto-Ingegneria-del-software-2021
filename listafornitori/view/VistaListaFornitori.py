@@ -2,6 +2,7 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton
 
 from listafornitori.controller.ControllerListaFornitori import ControllerListaFornitori
+from listafornitori.view.VistaInserisciFornitore import VistaInserisciFornitore
 
 
 class VistaListaFornitori(QWidget):
@@ -12,7 +13,7 @@ class VistaListaFornitori(QWidget):
 
         h_layout = QHBoxLayout()
         self.list_view = QListView()
-        #self.update_ui()
+        self.update_ui()
         h_layout.addWidget(self.list_view)
 
         buttons_layout = QVBoxLayout()
@@ -20,7 +21,7 @@ class VistaListaFornitori(QWidget):
         # open_button.clicked.connect(self.show_selected_info)
         buttons_layout.addWidget(open_button)
         new_button = QPushButton("Nuovo")
-        # new_button.clicked.connect(self.show_new_prodotto)
+        new_button.clicked.connect(self.inserisci_fornitore)
         buttons_layout.addWidget(new_button)
         buttons_layout.addStretch()
         h_layout.addLayout(buttons_layout)
@@ -43,5 +44,9 @@ class VistaListaFornitori(QWidget):
 
     def closeEvent(self, event):
         self.controller.save_data()
+
+    def inserisci_fornitore(self):
+        self.vista_inserisci_fornitore= VistaInserisciFornitore(self.controller, self.update_ui)
+        self.vista_inserisci_fornitore.show()
 
 
