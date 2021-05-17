@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPushButton
 from PyQt5.QtGui import QIcon, QPixmap
 from prodotto.controller.ControllerProdotto import ControllerProdotto
+from listaprodotti.model.ListaProdotti import ListaProdotti
 
 
 def get_info(text):
@@ -12,12 +13,13 @@ def get_info(text):
 
 
 class VistaProdotto(QWidget):
-    def __init__(self, c_prodotto):
-        super(VistaProdotto, self).__init__(c_prodotto)
-        self.controller = ControllerProdotto(c_prodotto)
-        self.elimina_prodotto = self.elimina_prodotto
-        self.modifica_prodotto = self.modifica_prodotto
-        self.update_prodotti = self.update_prodotti
+    def __init__(self, c_prodotto, elimina_prodotto, modifica_prodotto, update_prodotti, parent=None):
+        super(VistaProdotto, self).__init__(parent)
+        self.prodotto = self.controller.get_prodotto(c_prodotto)
+        self.controller = ControllerProdotto(self.prodotto)
+        #self.elimina_prodotto = elimina_prodotto
+        #self.modifica_prodotto = modifica_prodotto
+        #self.update_prodotti = update_prodotti
 
         v_layout = QVBoxLayout()
 
@@ -28,10 +30,10 @@ class VistaProdotto(QWidget):
         v_layout.addWidget(label_nome)
 
         # LOAD IMMAGINE
-        label = QLabel(self)
-        pixmap = QPixmap('listaprodotti/data/images/immagine_prova.jpg')
-        label.setPixmap(pixmap)
-        self.resize(pixmap.width(), pixmap.height())
+        #label = QLabel(self)
+        #pixmap = QPixmap('listaprodotti/data/images/immagine_prova.jpg')
+        #label.setPixmap(pixmap)
+        #self.resize(pixmap.width(), pixmap.height())
 
         v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 

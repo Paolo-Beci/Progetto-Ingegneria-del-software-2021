@@ -33,7 +33,8 @@ class VistaHome(QWidget):
 
     def go_lista_prodotti(self):
         self.vista_lista_prodotti = VistaListaProdotti()
-        self.vista_lista_prodotti.show()
+        self.vista_lista_prodotti.showMaximized()
+        self.close()
 
     def go_lista_fornitori(self):
         self.vista_lista_fornitori= VistaListaFornitori()
