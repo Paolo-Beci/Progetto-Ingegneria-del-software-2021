@@ -52,7 +52,7 @@ class VistaListaProdotti(QWidget):
             self.vista_prodotto.show()
 
     def show_inserici_prodotto(self):
-        self.vista_inserisci_prodotto = VistaInserisciProdotto(self.controller)
+        self.vista_inserisci_prodotto = VistaInserisciProdotto(self.controller, self.update_ui)
         self.vista_inserisci_prodotto.show()
 
     def closeEvent(self, event):

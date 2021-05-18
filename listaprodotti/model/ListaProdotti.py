@@ -1,7 +1,9 @@
 import json
 import os.path
-from prodotto.model.Prodotto import Prodotto
 import pickle
+
+from prodotto.model.Prodotto import Prodotto
+
 
 
 class ListaProdotti:
