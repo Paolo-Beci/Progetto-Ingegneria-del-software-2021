@@ -1,15 +1,16 @@
 # model del Prodotto
 class Prodotto:
 
-    def __init__(self, cod_fattura, cod_fornitore, data_ordine, cod_prodotto, genere, materiale,
+    def __init__(self, cod_fattura, cod_fornitore, data_ordine, cod_prodotto, genere, marca, materiale,
                  colore, taglia, quantita, prezzo_acquisto, prezzo_vendita, stagione, stato,
-                 data_vendita, sconto_consigliato, sconto, cod_immagine):
+                 data_vendita, sconto_consigliato, sconto):
         super(Prodotto, self).__init__()
         self.cod_fattura = cod_fattura  # str
         self.cod_fornitore = cod_fornitore  # int
         self.data_ordine = data_ordine  # str
         self.cod_prodotto = cod_prodotto  # int
-        #self.genere = genere  # int
+        # self.genere = genere  # int
+        # self.marca = marca  # int
         self.materiale = materiale  # str
         self.colore = colore  # str
         self.taglia = taglia  # int
@@ -21,4 +22,3 @@ class Prodotto:
         self.data_vendita = data_vendita  # str
         self.sconto_consigliato = sconto_consigliato  # int
         self.sconto = sconto  # int
-        self.cod_immagine = cod_immagine  # int

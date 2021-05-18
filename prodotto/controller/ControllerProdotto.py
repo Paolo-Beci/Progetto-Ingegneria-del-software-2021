@@ -60,6 +60,3 @@ class ControllerProdotto:
 
     def get_sconto(self):
         return self.model.sconto
-
-    def get_cod_immagine(self):
-        return self.model.cod_immagine
