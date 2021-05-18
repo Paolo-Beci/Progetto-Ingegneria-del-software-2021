@@ -9,8 +9,8 @@ class Prodotto:
         self.cod_fornitore = cod_fornitore  # int
         self.data_ordine = data_ordine  # str
         self.cod_prodotto = cod_prodotto  # int
-        # self.genere = genere  # int
-        # self.marca = marca  # int
+        self.genere = genere  # int
+        self.marca = marca  # int
         self.materiale = materiale  # str
         self.colore = colore  # str
         self.taglia = taglia  # int

@@ -48,7 +48,7 @@ class VistaListaProdotti(QWidget):
         if len(self.list_view.selectedIndexes()) > 0:
             selected = self.list_view.selectedIndexes()[0].row()
             prodotto_selezionato = self.controller.get_prodotto(selected)
-            self.vista_prodotto = VistaProdotto(prodotto_selezionato)
+            self.vista_prodotto = VistaProdotto(prodotto_selezionato, self.controller.elimina_prodotto, self.update_ui)
             self.vista_prodotto.show()
 
     def show_inserici_prodotto(self):

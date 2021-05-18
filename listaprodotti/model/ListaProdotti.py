@@ -40,6 +40,13 @@ class ListaProdotti:
     def get_prodotto(self, cod):
         return self.lista_prodotti[cod]
 
+    def elimina_prodotto(self, codice_prodotto):
+        def is_selected_prodotto(utente):
+            if utente.cod_prodotto == codice_prodotto:
+                return True
+            return False
+        self.lista_prodotti.remove(list(filter(is_selected_prodotto, self.lista_prodotti))[0])
+
     def aggiungi_prodotto_da_database(self, prodotto):
         self.lista_prodotti.append(prodotto)
 

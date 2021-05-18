@@ -25,8 +25,11 @@ class ControllerProdotto:
     def get_cod_prodotto(self):
         return self.model.cod_prodotto
 
-    # def genere(self):
-    #    return self.model.genere
+    def get_genere(self):
+        return self.model.genere
+
+    def get_marca(self):
+        return self.model.marca
 
     def get_materiale(self):
         return self.model.materiale
