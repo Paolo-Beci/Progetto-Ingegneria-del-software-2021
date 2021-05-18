@@ -15,5 +15,11 @@ class ControllerListaFornitori():
     def filtra_fornitori(self):
         return None
 
+    def get_fornitore_by_index(self, index):
+        return self.model.get_fornitore_by_index(index)
+
+    def elimina_fornitore_by_codice(self, codice_fornitore):
+        self.model.elimina_fornitore_by_codice(codice_fornitore)
+
     def save_data(self):
         self.model.save_data()

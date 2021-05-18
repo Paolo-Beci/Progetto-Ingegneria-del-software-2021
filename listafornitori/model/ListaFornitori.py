@@ -37,14 +37,14 @@ class ListaFornitori:
     def get_lista_fornitori(self):
         return self.lista_fornitori
 
-    # def rimuovi_fornitore_by_id(self, id):
-    #     def is_selected_fornitore(fornitore):
-    #         if fornitore.codice_fornitore == id:
-    #             return True
-    #         return False
-    #     self.lista_fornitori.remove(list(filter(is_selected_fornitore, self.lista_fornitori))[0])
+    def elimina_fornitore_by_codice(self, codice_fornitore):
+        def is_selected_fornitore(fornitore):
+            if fornitore.codice_fornitore == codice_fornitore:
+                return True
+            return False
+        self.lista_fornitori.remove(list(filter(is_selected_fornitore, self.lista_fornitori))[0])
 
-    def get_dipendente_by_index(self, index):
+    def get_fornitore_by_index(self, index):
         return self.lista_fornitori[index]
 
     def save_data(self):
