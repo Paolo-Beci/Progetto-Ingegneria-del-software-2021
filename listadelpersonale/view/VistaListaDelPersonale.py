@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushB
 
 from listadelpersonale.controller.ControllerListaDelPersonale import ControllerListaDelPersonale
 from listadelpersonale.view.VistaInserisciUtente import VistaInserisciUtente
+from utente.view.VistaUtente import VistaUtente
 
 
 class VistaListaDelPersonale(QWidget):
@@ -18,10 +19,10 @@ class VistaListaDelPersonale(QWidget):
 
         buttons_layout = QVBoxLayout()
         open_button = QPushButton('Apri')
-        # open_button.clicked.connect(self.show_selected_info)
+        open_button.clicked.connect(self.show_utente)
         buttons_layout.addWidget(open_button)
         new_button = QPushButton("Nuovo")
-        new_button.clicked.connect(self.inserisci_utente)
+        new_button.clicked.connect(self.show_inserisci_utente)
         buttons_layout.addWidget(new_button)
         buttons_layout.addStretch()
         h_layout.addLayout(buttons_layout)
@@ -34,7 +35,6 @@ class VistaListaDelPersonale(QWidget):
         self.listview_model = QStandardItemModel(self.list_view)
         for utente in self.controller.get_lista_del_personale():
             item = QStandardItem()
-            # per quale cazzo di motivo non mi fa mettere gli int nel setText ?!?!
             item.setText(utente.nome + " " + utente.cognome)
             item.setEditable(False)
             font = item.font()
@@ -47,8 +47,17 @@ class VistaListaDelPersonale(QWidget):
     def closeEvent(self, event):
         self.controller.save_data()
 
-    def inserisci_utente(self):
+    def show_inserisci_utente(self):
         self.vista_inserisci_utente= VistaInserisciUtente(self.controller, self.update_ui)
         self.vista_inserisci_utente.show()
+
+    def show_utente(self):
+        if (len(self.list_view.selectedIndexes()) > 0):
+            selected = self.list_view.selectedIndexes()[0].row()
+            utente_selezionato = self.controller.get_utente_by_index(selected)
+            self.vista_utente = VistaUtente(utente_selezionato, self.controller.elimina_utente_by_codice,
+                                                  self.update_ui)
+            self.vista_utente.show()
+
 
 

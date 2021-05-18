@@ -12,5 +12,11 @@ class ControllerListaDelPersonale:
     def inserisci_utente(self, utente):
         self.model.lista_del_personale.append(utente)
 
+    def get_utente_by_index(self, index):
+        return self.model.get_utente_by_index(index)
+
+    def elimina_utente_by_codice(self, codice_utente):
+        self.model.elimina_utente_by_codice(codice_utente)
+
     def save_data(self):
         self.model.save_data()
