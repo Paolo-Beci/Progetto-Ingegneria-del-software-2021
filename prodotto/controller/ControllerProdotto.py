@@ -31,6 +31,9 @@ class ControllerProdotto:
     def get_marca(self):
         return self.model.marca
 
+    def get_nome(self):
+        return self.model.nome
+
     def get_materiale(self):
         return self.model.materiale
 

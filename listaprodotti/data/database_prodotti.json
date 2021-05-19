@@ -15,10 +15,10 @@
    "prezzo_acquisto": "60,0",
    "prezzo_vendita": "120,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "26/03/2021"
  },
  {
    "cod_fattura": 100,
@@ -36,10 +36,10 @@
    "prezzo_acquisto": "60,0",
    "prezzo_vendita": "120,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto,In negozio",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -57,10 +57,10 @@
    "prezzo_acquisto": "60,0",
    "prezzo_vendita": "120,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto,In negozio",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -78,10 +78,10 @@
    "prezzo_acquisto": "60,0",
    "prezzo_vendita": "120,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "07/05/2021"
  },
  {
    "cod_fattura": 100,
@@ -99,10 +99,10 @@
    "prezzo_acquisto": "60,0",
    "prezzo_vendita": "120,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto,In negozio",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "29/03/2021"
  },
  {
    "cod_fattura": 100,
@@ -120,10 +120,10 @@
    "prezzo_acquisto": "60,0",
    "prezzo_vendita": "120,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto,In negozio",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -144,7 +144,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -162,10 +162,10 @@
    "prezzo_acquisto": "60,0",
    "prezzo_vendita": "120,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "26/03/2021"
  },
  {
    "cod_fattura": 100,
@@ -186,7 +186,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -204,10 +204,10 @@
    "prezzo_acquisto": "70,5",
    "prezzo_vendita": "141,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto,In negozio",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "01/04/2021"
  },
  {
    "cod_fattura": 100,
@@ -228,7 +228,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -249,7 +249,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -267,10 +267,10 @@
    "prezzo_acquisto": "70,5",
    "prezzo_vendita": "141,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto,In negozio",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "07/05/2021"
  },
  {
    "cod_fattura": 100,
@@ -291,7 +291,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -312,7 +312,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -330,10 +330,10 @@
    "prezzo_acquisto": "70,5",
    "prezzo_vendita": "141,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Reso",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "25/03/2021"
  },
  {
    "cod_fattura": 100,
@@ -354,7 +354,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -375,7 +375,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -393,10 +393,10 @@
    "prezzo_acquisto": "60,0",
    "prezzo_vendita": "120,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto,In negozio",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "01/04/2021"
  },
  {
    "cod_fattura": 100,
@@ -417,7 +417,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -438,7 +438,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -459,7 +459,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -477,10 +477,10 @@
    "prezzo_acquisto": "60,0",
    "prezzo_vendita": "120,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "12/04/2021"
  },
  {
    "cod_fattura": 100,
@@ -501,7 +501,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -522,7 +522,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -540,10 +540,10 @@
    "prezzo_acquisto": "75,0",
    "prezzo_vendita": "150,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto,In negozio",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "27/03/2021"
  },
  {
    "cod_fattura": 100,
@@ -564,7 +564,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -585,7 +585,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -606,7 +606,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -624,10 +624,10 @@
    "prezzo_acquisto": "75,0",
    "prezzo_vendita": "150,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto,In negozio",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "06/04/2021"
  },
  {
    "cod_fattura": 100,
@@ -648,7 +648,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -669,7 +669,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -690,7 +690,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -708,10 +708,10 @@
    "prezzo_acquisto": "70,0",
    "prezzo_vendita": "140,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto,In negozio",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "12/04/2021"
  },
  {
    "cod_fattura": 100,
@@ -732,7 +732,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -753,7 +753,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -774,7 +774,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "07/05/2021"
  },
  {
    "cod_fattura": 100,
@@ -795,7 +795,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -816,7 +816,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -834,10 +834,10 @@
    "prezzo_acquisto": "70,0",
    "prezzo_vendita": "140,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "14/04/2021"
  },
  {
    "cod_fattura": 100,
@@ -858,7 +858,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -876,10 +876,10 @@
    "prezzo_acquisto": "65,0",
    "prezzo_vendita": "130,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto,In negozio",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "17/04/2021"
  },
  {
    "cod_fattura": 100,
@@ -900,7 +900,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -921,7 +921,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -939,10 +939,10 @@
    "prezzo_acquisto": "65,0",
    "prezzo_vendita": "130,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto,In negozio",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "27/03/2021"
  },
  {
    "cod_fattura": 100,
@@ -963,7 +963,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -984,7 +984,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -1002,10 +1002,10 @@
    "prezzo_acquisto": "65,0",
    "prezzo_vendita": "130,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Reso",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "07/05/2021"
  },
  {
    "cod_fattura": 100,
@@ -1026,7 +1026,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -1047,7 +1047,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -1068,7 +1068,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -1086,10 +1086,10 @@
    "prezzo_acquisto": "40,0",
    "prezzo_vendita": "80,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "01/04/2021"
  },
  {
    "cod_fattura": 100,
@@ -1110,7 +1110,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -1131,7 +1131,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -1149,10 +1149,10 @@
    "prezzo_acquisto": "40,0",
    "prezzo_vendita": "80,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "25/03/2021"
  },
  {
    "cod_fattura": 100,
@@ -1173,7 +1173,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -1191,10 +1191,10 @@
    "prezzo_acquisto": "45,0",
    "prezzo_vendita": "90,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "26/03/2021"
  },
  {
    "cod_fattura": 100,
@@ -1215,7 +1215,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -1236,7 +1236,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -1254,10 +1254,10 @@
    "prezzo_acquisto": "45,0",
    "prezzo_vendita": "90,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "29/03/2021"
  },
  {
    "cod_fattura": 100,
@@ -1278,7 +1278,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -1299,7 +1299,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -1320,7 +1320,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 100,
@@ -1338,10 +1338,10 @@
    "prezzo_acquisto": "45,0",
    "prezzo_vendita": "90,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "15/04/2021"
  },
  {
    "cod_fattura": 101,
@@ -1359,10 +1359,10 @@
    "prezzo_acquisto": "60,0",
    "prezzo_vendita": "120,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "12/03/2021"
  },
  {
    "cod_fattura": 101,
@@ -1383,7 +1383,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -1401,10 +1401,10 @@
    "prezzo_acquisto": "60,0",
    "prezzo_vendita": "120,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "10/03/2021,15/05/2021"
  },
  {
    "cod_fattura": 101,
@@ -1425,7 +1425,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -1446,7 +1446,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -1464,10 +1464,10 @@
    "prezzo_acquisto": "60,0",
    "prezzo_vendita": "120,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto,In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "11/03/2021"
  },
  {
    "cod_fattura": 101,
@@ -1488,7 +1488,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -1509,7 +1509,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -1517,7 +1517,7 @@
    "data_ordine": "14/02/2021",
    "cod_prodotto": "S10",
    "marca": "Emporio Armani",
-   "nome": null,
+   "nome": "None",
    "tipo": "Sneakers",
    "genere": "U",
    "materiale": "Tessuto",
@@ -1530,7 +1530,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -1538,7 +1538,7 @@
    "data_ordine": "14/02/2021",
    "cod_prodotto": "S10",
    "marca": "Emporio Armani",
-   "nome": null,
+   "nome": "None",
    "tipo": "Sneakers",
    "genere": "U",
    "materiale": "Tessuto",
@@ -1548,10 +1548,10 @@
    "prezzo_acquisto": "115,0",
    "prezzo_vendita": "230,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto,In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "01/04/2021"
  },
  {
    "cod_fattura": 101,
@@ -1559,7 +1559,7 @@
    "data_ordine": "14/02/2021",
    "cod_prodotto": "S10",
    "marca": "Emporio Armani",
-   "nome": null,
+   "nome": "None",
    "tipo": "Sneakers",
    "genere": "U",
    "materiale": "Tessuto",
@@ -1572,7 +1572,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -1580,7 +1580,7 @@
    "data_ordine": "14/02/2021",
    "cod_prodotto": "S10",
    "marca": "Emporio Armani",
-   "nome": null,
+   "nome": "None",
    "tipo": "Sneakers",
    "genere": "U",
    "materiale": "Tessuto",
@@ -1593,7 +1593,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -1601,7 +1601,7 @@
    "data_ordine": "14/02/2021",
    "cod_prodotto": "S10",
    "marca": "Emporio Armani",
-   "nome": null,
+   "nome": "None",
    "tipo": "Sneakers",
    "genere": "U",
    "materiale": "Tessuto",
@@ -1614,7 +1614,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "26/03/2021"
  },
  {
    "cod_fattura": 101,
@@ -1622,7 +1622,7 @@
    "data_ordine": "14/02/2021",
    "cod_prodotto": "S10",
    "marca": "Emporio Armani",
-   "nome": null,
+   "nome": "None",
    "tipo": "Sneakers",
    "genere": "U",
    "materiale": "Tessuto",
@@ -1635,7 +1635,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -1643,7 +1643,7 @@
    "data_ordine": "14/02/2021",
    "cod_prodotto": "S10",
    "marca": "Emporio Armani",
-   "nome": null,
+   "nome": "None",
    "tipo": "Sneakers",
    "genere": "U",
    "materiale": "Tessuto",
@@ -1656,7 +1656,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -1664,7 +1664,7 @@
    "data_ordine": "14/02/2021",
    "cod_prodotto": "S10",
    "marca": "Emporio Armani",
-   "nome": null,
+   "nome": "None",
    "tipo": "Sneakers",
    "genere": "U",
    "materiale": "Tessuto",
@@ -1677,7 +1677,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -1695,10 +1695,10 @@
    "prezzo_acquisto": "35,0",
    "prezzo_vendita": "70,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Reso",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "14/04/2021"
  },
  {
    "cod_fattura": 101,
@@ -1719,7 +1719,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -1740,7 +1740,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -1758,10 +1758,10 @@
    "prezzo_acquisto": "35,0",
    "prezzo_vendita": "70,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "25/03/2021"
  },
  {
    "cod_fattura": 101,
@@ -1779,10 +1779,10 @@
    "prezzo_acquisto": "35,0",
    "prezzo_vendita": "70,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto,In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "06/04/2021"
  },
  {
    "cod_fattura": 101,
@@ -1803,7 +1803,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -1824,7 +1824,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -1842,10 +1842,10 @@
    "prezzo_acquisto": "35,0",
    "prezzo_vendita": "70,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "12/03/2021"
  },
  {
    "cod_fattura": 101,
@@ -1866,7 +1866,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -1884,10 +1884,10 @@
    "prezzo_acquisto": "43,8",
    "prezzo_vendita": "87,5",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto,In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "17/04/2021"
  },
  {
    "cod_fattura": 101,
@@ -1908,7 +1908,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -1929,7 +1929,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -1947,10 +1947,10 @@
    "prezzo_acquisto": "43,8",
    "prezzo_vendita": "87,5",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto,In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "11/03/2021"
  },
  {
    "cod_fattura": 101,
@@ -1971,7 +1971,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -1992,7 +1992,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -2010,10 +2010,10 @@
    "prezzo_acquisto": "43,8",
    "prezzo_vendita": "87,5",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "07/05/2021"
  },
  {
    "cod_fattura": 101,
@@ -2034,7 +2034,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -2055,7 +2055,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -2073,10 +2073,10 @@
    "prezzo_acquisto": "62,5",
    "prezzo_vendita": "125,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto,In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "25/03/2021"
  },
  {
    "cod_fattura": 101,
@@ -2094,10 +2094,10 @@
    "prezzo_acquisto": "62,5",
    "prezzo_vendita": "125,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "13/04/2021"
  },
  {
    "cod_fattura": 101,
@@ -2118,7 +2118,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -2139,7 +2139,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -2157,10 +2157,10 @@
    "prezzo_acquisto": "62,5",
    "prezzo_vendita": "125,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "07/05/2021"
  },
  {
    "cod_fattura": 101,
@@ -2181,7 +2181,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -2202,7 +2202,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -2220,10 +2220,10 @@
    "prezzo_acquisto": "47,5",
    "prezzo_vendita": "95,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto,In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "17/04/2021"
  },
  {
    "cod_fattura": 101,
@@ -2244,7 +2244,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -2262,10 +2262,10 @@
    "prezzo_acquisto": "47,5",
    "prezzo_vendita": "95,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "25/03/2021"
  },
  {
    "cod_fattura": 101,
@@ -2286,7 +2286,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -2307,7 +2307,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -2328,7 +2328,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -2349,7 +2349,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -2367,10 +2367,10 @@
    "prezzo_acquisto": "25,0",
    "prezzo_vendita": "50,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "29/04/2021"
  },
  {
    "cod_fattura": 101,
@@ -2388,10 +2388,10 @@
    "prezzo_acquisto": "25,0",
    "prezzo_vendita": "50,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "25/03/2021"
  },
  {
    "cod_fattura": 101,
@@ -2412,7 +2412,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -2433,7 +2433,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -2454,7 +2454,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -2472,10 +2472,10 @@
    "prezzo_acquisto": "25,0",
    "prezzo_vendita": "50,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "04/05/2021"
  },
  {
    "cod_fattura": 101,
@@ -2496,7 +2496,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -2517,7 +2517,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -2535,10 +2535,10 @@
    "prezzo_acquisto": "25,0",
    "prezzo_vendita": "50,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "25/03/2021"
  },
  {
    "cod_fattura": 101,
@@ -2556,10 +2556,10 @@
    "prezzo_acquisto": "25,0",
    "prezzo_vendita": "50,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "26/03/2021"
  },
  {
    "cod_fattura": 101,
@@ -2580,7 +2580,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -2601,7 +2601,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -2619,10 +2619,10 @@
    "prezzo_acquisto": "25,0",
    "prezzo_vendita": "50,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "29/04/2021"
  },
  {
    "cod_fattura": 101,
@@ -2643,7 +2643,7 @@
    "stato": "In negozio",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 101,
@@ -2661,10 +2661,10 @@
    "prezzo_acquisto": "25,0",
    "prezzo_vendita": "50,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "25/03/2021"
  },
  {
    "cod_fattura": 101,
@@ -2682,10 +2682,10 @@
    "prezzo_acquisto": "25,0",
    "prezzo_vendita": "50,0",
    "stagione": "P",
-   "stato": "In negozio",
+   "stato": "Venduto",
    "sconto_consigliato": 30,
    "sconto": 35,
-   "data_vendita": null
+   "data_vendita": "17/04/2021"
  },
  {
    "cod_fattura": 102,
@@ -2706,7 +2706,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -2727,7 +2727,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -2748,7 +2748,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -2769,7 +2769,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -2790,7 +2790,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -2811,7 +2811,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -2832,7 +2832,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -2853,7 +2853,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -2874,7 +2874,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -2895,7 +2895,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -2916,7 +2916,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -2937,7 +2937,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -2958,7 +2958,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -2979,7 +2979,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3000,7 +3000,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3021,7 +3021,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3042,7 +3042,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3063,7 +3063,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3084,7 +3084,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3105,7 +3105,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3126,7 +3126,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3147,7 +3147,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3168,7 +3168,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3189,7 +3189,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3210,7 +3210,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3231,7 +3231,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3252,7 +3252,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3273,7 +3273,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3294,7 +3294,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3315,7 +3315,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3336,7 +3336,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3357,7 +3357,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3378,7 +3378,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3399,7 +3399,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3420,7 +3420,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3441,7 +3441,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3462,7 +3462,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3483,7 +3483,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3504,7 +3504,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3525,7 +3525,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3546,7 +3546,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3567,7 +3567,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3588,7 +3588,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3609,7 +3609,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3630,7 +3630,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3651,7 +3651,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3672,7 +3672,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3693,7 +3693,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3714,7 +3714,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3735,7 +3735,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3756,7 +3756,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3777,7 +3777,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3798,7 +3798,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3819,7 +3819,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3840,7 +3840,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3861,7 +3861,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3882,7 +3882,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3903,7 +3903,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3924,7 +3924,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3945,7 +3945,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3966,7 +3966,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -3987,7 +3987,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -4008,7 +4008,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 102,
@@ -4029,7 +4029,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4050,7 +4050,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4071,7 +4071,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4092,7 +4092,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4113,7 +4113,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4134,7 +4134,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4155,7 +4155,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4176,7 +4176,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4197,7 +4197,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4218,7 +4218,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4239,7 +4239,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4260,7 +4260,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4281,7 +4281,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4302,7 +4302,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4323,7 +4323,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4344,7 +4344,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4365,7 +4365,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4386,7 +4386,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4407,7 +4407,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4428,7 +4428,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4449,7 +4449,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4470,7 +4470,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4491,7 +4491,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4512,7 +4512,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4533,7 +4533,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4554,7 +4554,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4575,7 +4575,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4596,7 +4596,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4617,7 +4617,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4638,7 +4638,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4659,7 +4659,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4680,7 +4680,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4701,7 +4701,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4722,7 +4722,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4743,7 +4743,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4764,7 +4764,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4785,7 +4785,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4806,7 +4806,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4827,7 +4827,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4848,7 +4848,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4869,7 +4869,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4890,7 +4890,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4911,7 +4911,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4932,7 +4932,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4953,7 +4953,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4974,7 +4974,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -4995,7 +4995,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -5016,7 +5016,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -5037,7 +5037,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 25,
    "sconto": 20,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -5058,7 +5058,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -5079,7 +5079,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -5100,7 +5100,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -5121,7 +5121,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -5142,7 +5142,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -5163,7 +5163,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -5184,7 +5184,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -5205,7 +5205,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -5226,7 +5226,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -5247,7 +5247,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -5268,7 +5268,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -5289,7 +5289,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -5310,7 +5310,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -5331,7 +5331,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -5352,7 +5352,7 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  },
  {
    "cod_fattura": 103,
@@ -5373,6 +5373,6 @@
    "stato": "In arrivo",
    "sconto_consigliato": 20,
    "sconto": 15,
-   "data_vendita": null
+   "data_vendita": "None"
  }
 ]

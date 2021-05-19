@@ -35,6 +35,7 @@ class VistaProdotto(QWidget):
         v_layout.addWidget(self.get_info("Codice prodotto: {}".format(self.controller.get_cod_prodotto())))
         v_layout.addWidget(self.get_info("Genere: {}".format(self.controller.get_genere())))
         v_layout.addWidget(self.get_info("Marca: {}".format(self.controller.get_marca())))
+        v_layout.addWidget(self.get_info("Nome: {}".format(self.controller.get_nome())))
         v_layout.addWidget(self.get_info("Materiale: {}".format(self.controller.get_materiale())))
         v_layout.addWidget(self.get_info("Colore: {}".format(self.controller.get_colore())))
         v_layout.addWidget(self.get_info("Taglia: {}".format(self.controller.get_taglia())))
