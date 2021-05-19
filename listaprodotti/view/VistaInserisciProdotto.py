@@ -4,9 +4,9 @@ from prodotto.model.Prodotto import Prodotto
 
 
 # DA FARE
-# far funzionare il fottutissimo inserimento che da exit code...e crasha
-# implementare i controlli di correttezza dell'inserimento
+# implementare i controlli di correttezza dell'inserimento (crasha)
 # fare interfaccia
+
 class VistaInserisciProdotto(QWidget):
     def __init__(self, controller, update_ui):
         # callback ??
@@ -47,7 +47,7 @@ class VistaInserisciProdotto(QWidget):
     def get_form_entry(self, nome, tipo):
         self.v_layout.addWidget(QLabel(tipo))
         current_text_edit = QLineEdit(self)
-        self.info[tipo] = current_text_edit
+        self.info[nome] = current_text_edit
         self.v_layout.addWidget(current_text_edit)
 
     def inserisci_prodotto(self):
@@ -74,10 +74,21 @@ class VistaInserisciProdotto(QWidget):
                 QMessageBox.critical(self, 'Errore', 'Per favore, inserisci tutte le informazioni richieste',
                                      QMessageBox.Ok, QMessageBox.Ok)
                 return
-            if data_ordine != "":
-                QMessageBox.critical(self, 'Errore', 'Per favore, inserisci tutte le informazioni richieste',
-                                     QMessageBox.Ok, QMessageBox.Ok)
-                return
+            # I CONTROLLI DANNO PROBLEMI DI CRASH
+            #if taglia > 50:
+            #    QMessageBox.critical(self, 'Errore', 'Per favore, inserisci una taglia valida',
+            #                          QMessageBox.Ok, QMessageBox.Ok)
+            #    return
+            #if sconto > 100 or sconto_consigliato > 100:
+            #    QMessageBox.critical(self, 'Errore', 'Per favore, inserisci uno sconto valido',
+            #                         QMessageBox.Ok, QMessageBox.Ok)
+            #    return
+            #if sconto.isnumeric() or sconto_consigliato.isnumeric():
+            #    return
+            #else:
+            #    QMessageBox.critical(self, 'Errore', 'Per favore, inserisci uno sconto numerico',
+            #                         QMessageBox.Ok, QMessageBox.Ok)
+            #    return
 
         self.controller.inserisci_prodotto(Prodotto(cod_fattura, cod_fornitore, data_ordine, cod_prodotto,
                                                     genere, marca, materiale, colore, taglia, quantita, prezzo_acquisto,

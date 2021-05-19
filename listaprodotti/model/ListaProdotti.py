@@ -21,12 +21,13 @@ class ListaProdotti:
                     self.aggiungi_prodotto_da_database(
                         Prodotto(prodotto_da_caricare["cod_fattura"], prodotto_da_caricare["cod_fornitore"],
                                  prodotto_da_caricare["data_ordine"], prodotto_da_caricare["cod_prodotto"],
+                                 prodotto_da_caricare["genere"], prodotto_da_caricare["marca"],
                                  prodotto_da_caricare["materiale"], prodotto_da_caricare["colore"],
                                  prodotto_da_caricare["taglia"], prodotto_da_caricare["quantita"],
                                  prodotto_da_caricare["prezzo_acquisto"], prodotto_da_caricare["prezzo_vendita"],
                                  prodotto_da_caricare["stagione"], prodotto_da_caricare["stato"],
                                  prodotto_da_caricare["data_vendita"], prodotto_da_caricare["sconto_consigliato"],
-                                 prodotto_da_caricare["sconto"], prodotto_da_caricare["cod_immagine"]))
+                                 prodotto_da_caricare["sconto"]))
 
     def filtra_prodotti(self):
         pass

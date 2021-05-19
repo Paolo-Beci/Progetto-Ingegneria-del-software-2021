@@ -14,7 +14,7 @@ class ControllerProdotto:
     # GET di servizio
 
     def get_cod_fattura(self):
-        return self.model.codice_fattura
+        return self.model.cod_fattura
 
     def get_cod_fornitore(self):
         return self.model.cod_fornitore

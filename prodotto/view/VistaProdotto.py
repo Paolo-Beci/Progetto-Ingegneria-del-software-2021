@@ -15,7 +15,7 @@ class VistaProdotto(QWidget):
 
         v_layout = QVBoxLayout()
 
-        label_nome = QLabel(c_prodotto + " " + self.controller.get_taglia())
+        label_nome = QLabel(str(self.controller.get_cod_prodotto()) + " " + str(self.controller.get_taglia()))
         font_nome = label_nome.font()
         font_nome.setPointSize(30)
         label_nome.setFont(font_nome)
