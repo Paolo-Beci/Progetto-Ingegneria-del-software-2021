@@ -20,7 +20,7 @@ class VistaListaProdotti(QWidget):
 
         buttons_layout = QVBoxLayout()
         open_button = QPushButton('Vedi dettagli')
-        open_button.clicked.connect(self.show_dettagli_prodotto)
+        open_button.clicked.connect(self.show_prodotto)
         buttons_layout.addWidget(open_button)
         new_button = QPushButton("Inserisci prodotto")
         new_button.clicked.connect(self.show_inserici_prodotto)
@@ -44,11 +44,11 @@ class VistaListaProdotti(QWidget):
             self.listview_model.appendRow(item)
         self.list_view.setModel(self.listview_model)
 
-    def show_dettagli_prodotto(self):
+    def show_prodotto(self):
         if len(self.list_view.selectedIndexes()) > 0:
             selected = self.list_view.selectedIndexes()[0].row()
             prodotto_selezionato = self.controller.get_prodotto(selected)
-            self.vista_prodotto = VistaProdotto(prodotto_selezionato, self.controller.elimina_prodotto, self.update_ui)
+            self.vista_prodotto = VistaProdotto(prodotto_selezionato, self.controller.elimina_prodotto_by_codice, self.update_ui)
             self.vista_prodotto.show()
 
     def show_inserici_prodotto(self):
