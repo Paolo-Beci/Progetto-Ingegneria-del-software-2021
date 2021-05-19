@@ -2,11 +2,11 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QSpacerItem
 
 from prodotto.model.Prodotto import Prodotto
 
-
-# DA FARE
+"""
+DA FARE
 # implementare i controlli di correttezza dell'inserimento (crasha)
 # fare interfaccia
-
+"""
 class VistaInserisciProdotto(QWidget):
     def __init__(self, controller, update_ui):
         # callback ??
@@ -24,6 +24,7 @@ class VistaInserisciProdotto(QWidget):
         self.get_form_entry("cod_prodotto", "Codice del prodotto")
         self.get_form_entry("genere", "Genere")
         self.get_form_entry("marca", "Marca")
+        self.get_form_entry("nome", "Nome")
         self.get_form_entry("materiale", "Materiale")
         self.get_form_entry("colore", "Colore")
         self.get_form_entry("taglia", "Taglia")
@@ -57,7 +58,8 @@ class VistaInserisciProdotto(QWidget):
         data_ordine = self.info["Data dell'ordine (dd/mm/AAAA)"].text()
         cod_prodotto = self.info["Codice del prodotto"].text()
         genere = self.info["Genere"].text()
-        marca = self.info["Marca"].text()
+        nome = self.info["Marca"].text()
+        marca = self.info["Nome"].text()
         materiale = self.info["Materiale"].text()
         colore = self.info["Colore"].text()
         taglia = self.info["Taglia"].text()
@@ -91,7 +93,7 @@ class VistaInserisciProdotto(QWidget):
             #    return
 
         self.controller.inserisci_prodotto(Prodotto(cod_fattura, cod_fornitore, data_ordine, cod_prodotto,
-                                                    genere, marca, materiale, colore, taglia, quantita, prezzo_acquisto,
+                                                    genere, marca, nome, materiale, colore, taglia, quantita, prezzo_acquisto,
                                                     prezzo_vendita, stagione, stato, "", sconto_consigliato, sconto))
         # self.callback()
         self.update_ui()
