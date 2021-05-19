@@ -40,7 +40,8 @@ class VistaHome(QWidget):
         self.vista_lista_fornitori.show()
 
     def go_lista_ordini(self):
-        return None
+        self.vista_lista_ordini = VistaListaOrdini()
+        self.vista_lista_ordini.show()
 
     def go_vista_vendita(self):
         return None

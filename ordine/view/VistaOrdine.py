@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPushButton
 from PyQt5.QtGui import QIcon, QPixmap
-from prodotto.controller.ControllerProdotto import ControllerProdotto
+from prodotto.controller.ControllerOrdine import ControllerOrdine
 
 
 def get_info(text):
@@ -11,13 +11,13 @@ def get_info(text):
     return label
 
 
-class VistaProdotto(QWidget):
-    def __init__(self, c_prodotto):
-        super(VistaProdotto, self).__init__(c_prodotto)
-        self.controller = ControllerProdotto(c_prodotto)
-        self.elimina_prodotto = self.elimina_prodotto
-        self.modifica_prodotto = self.modifica_prodotto
-        self.update_prodotti = self.update_prodotti
+class VistaOrdine(QWidget):
+    def __init__(self, c_ordine):
+        super(VistaOrdine, self).__init__(c_ordine)
+        self.controller = ControllerOrdine(c_ordine)
+        self.elimina_ordine = self.elimina_ordine
+        self.modifica_ordine = self.modifica_ordine
+        self.update_ordine = self.update_ordine
 
         v_layout = QVBoxLayout()
 
@@ -27,11 +27,7 @@ class VistaProdotto(QWidget):
         label_nome.setFont(font_nome)
         v_layout.addWidget(label_nome)
 
-        # LOAD IMMAGINE
-        label = QLabel(self)
-        pixmap = QPixmap('listaprodotti/data/images/immagine_prova.jpg')
-        label.setPixmap(pixmap)
-        self.resize(pixmap.width(), pixmap.height())
+
 
         v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
@@ -54,22 +50,22 @@ class VistaProdotto(QWidget):
         v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
         btn_elimina = QPushButton("Elimina")
-        btn_elimina.clicked.connect(self.elimina_prodotto_click)
+        btn_elimina.clicked.connect(self.elimina_ordine_click)
         v_layout.addWidget(btn_elimina)
 
         btn_modifica = QPushButton("Modifica")
-        btn_modifica.clicked.connect(self.modifica_prodotto_click)
+        btn_modifica.clicked.connect(self.modifica_ordine_click)
         v_layout.addWidget(btn_modifica)
 
         self.setLayout(v_layout)
-        self.setWindowTitle(self.controller.get_cod_prodotto())
+        self.setWindowTitle(self.controller.get_cod_ordine())
 
-    def elimina_prodotto_click(self):
-        self.elimina_prodotto(self.controller.get_cod_prodotto())
-        self.update_prodotti()
+    def elimina_ordine_click(self):
+        self.elimina_ordine(self.controller.get_cod_ordine())
+        self.update_ordine()
         self.close()
 
-    def modifica_prodotto_click(self):
-        self.modifica_prodotto(self.controller.get_cod_prodotto())
-        self.update_prodotti()
+    def modifica_ordine_click(self):
+        self.modifica_ordine(self.controller.get_cod_ordine())
+        self.update_ordine()
         self.close()
