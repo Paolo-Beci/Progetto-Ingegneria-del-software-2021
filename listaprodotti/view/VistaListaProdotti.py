@@ -40,8 +40,8 @@ class VistaListaProdotti(QWidget):
         self.listview_model = QStandardItemModel(self.list_view)
         for prodotto in self.controller.get_lista_prodotti():
             item = QStandardItem()
-            item.setText("      Marca: " + str(prodotto.marca) + "      Materiale: " + str(prodotto.materiale) + "      Taglia: "
-                         + str(prodotto.taglia) + "         Quantità: " + str(prodotto.quantita))
+            item.setText("      Marca: " + str(prodotto.marca) + "      Nome: " + str(prodotto.marca) + "      Taglia: "
+                         + str(prodotto.taglia) + "         Quantità: " + str(prodotto.quantita) + "         Stato: " + str(prodotto.stato))
             item.setEditable(False)
             font = item.font()
             font.setPointSize(18)

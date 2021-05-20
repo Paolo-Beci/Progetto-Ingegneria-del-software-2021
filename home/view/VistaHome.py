@@ -4,6 +4,7 @@ from listadelpersonale.view.VistaListaDelPersonale import VistaListaDelPersonale
 from listaprodotti.view.VistaListaProdotti import VistaListaProdotti
 from listafornitori.view.VistaListaFornitori import VistaListaFornitori
 
+
 class VistaHome(QWidget):
     def __init__(self, parent=None):
         super(VistaHome, self).__init__(parent)
@@ -18,9 +19,7 @@ class VistaHome(QWidget):
         grid_layout.addWidget(self.get_generic_button("Area del Personale <<beta>>", self.go_lista_del_personale), 1, 2)
 
         self.setLayout(grid_layout)
-        self.resize(400, 300)
         self.setWindowTitle("Gestore negozio di calzature")
-
 
     def get_generic_button(self, titolo, on_click):
         button = QPushButton(titolo)
@@ -37,7 +36,7 @@ class VistaHome(QWidget):
         self.close()
 
     def go_lista_fornitori(self):
-        self.vista_lista_fornitori= VistaListaFornitori()
+        self.vista_lista_fornitori = VistaListaFornitori()
         self.vista_lista_fornitori.show()
 
     def go_lista_ordini(self):
