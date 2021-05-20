@@ -22,9 +22,10 @@ class VistaInserisciProdotto(QWidget):
         self.get_form_entry("cod_fornitore", "Codice fornitore")
         self.get_form_entry("data_ordine", "Data dell'ordine (dd/mm/AAAA)")
         self.get_form_entry("cod_prodotto", "Codice del prodotto")
-        self.get_form_entry("genere", "Genere")
         self.get_form_entry("marca", "Marca")
         self.get_form_entry("nome", "Nome")
+        self.get_form_entry("tipo", "Tipo")
+        self.get_form_entry("genere", "Genere")
         self.get_form_entry("materiale", "Materiale")
         self.get_form_entry("colore", "Colore")
         self.get_form_entry("taglia", "Taglia")
@@ -57,9 +58,10 @@ class VistaInserisciProdotto(QWidget):
         cod_fornitore = self.info["Codice fornitore"].text()
         data_ordine = self.info["Data dell'ordine (dd/mm/AAAA)"].text()
         cod_prodotto = self.info["Codice del prodotto"].text()
-        genere = self.info["Genere"].text()
         nome = self.info["Marca"].text()
         marca = self.info["Nome"].text()
+        tipo = self.info["Tipo"].text()
+        genere = self.info["Genere"].text()
         materiale = self.info["Materiale"].text()
         colore = self.info["Colore"].text()
         taglia = self.info["Taglia"].text()
@@ -93,8 +95,9 @@ class VistaInserisciProdotto(QWidget):
             #    return
 
         self.controller.inserisci_prodotto(Prodotto(cod_fattura, cod_fornitore, data_ordine, cod_prodotto,
-                                                    genere, marca, nome, materiale, colore, taglia, quantita, prezzo_acquisto,
-                                                    prezzo_vendita, stagione, stato, "", sconto_consigliato, sconto))
+                                                    marca, nome, tipo, genere, materiale, colore, taglia, quantita,
+                                                    prezzo_acquisto, prezzo_vendita, stagione, stato,
+                                                    sconto_consigliato, sconto, "",))
         # self.callback()
         self.update_ui()
         self.close()

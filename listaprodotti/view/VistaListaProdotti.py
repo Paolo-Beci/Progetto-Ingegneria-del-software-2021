@@ -1,6 +1,7 @@
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton
 
+import home.view.VistaHome
 from listaprodotti.controller.ControllerListaProdotti import ControllerListaProdotti
 from prodotto.view.VistaProdotto import VistaProdotto
 from listaprodotti.view.VistaInserisciProdotto import VistaInserisciProdotto
@@ -25,6 +26,9 @@ class VistaListaProdotti(QWidget):
         new_button = QPushButton("Inserisci prodotto")
         new_button.clicked.connect(self.show_inserici_prodotto)
         buttons_layout.addWidget(new_button)
+        home_button = QPushButton("Torna alla HOME")
+        home_button.clicked.connect(self.show_home)
+        buttons_layout.addWidget(home_button)
         buttons_layout.addStretch()
         h_layout.addLayout(buttons_layout)
 
@@ -55,6 +59,11 @@ class VistaListaProdotti(QWidget):
     def show_inserici_prodotto(self):
         self.vista_inserisci_prodotto = VistaInserisciProdotto(self.controller, self.update_ui)
         self.vista_inserisci_prodotto.show()
+
+    def show_home(self):
+        self.vista_home = home.view.VistaHome.VistaHome()
+        self.vista_home.showMaximized()
+        self.close()
 
     def closeEvent(self, event):
         self.controller.save_data()

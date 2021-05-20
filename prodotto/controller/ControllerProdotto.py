@@ -28,6 +28,9 @@ class ControllerProdotto:
     def get_genere(self):
         return self.model.genere
 
+    def get_tipo(self):
+        return self.model.tipo
+
     def get_marca(self):
         return self.model.marca
 

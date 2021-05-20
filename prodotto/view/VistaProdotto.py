@@ -33,9 +33,10 @@ class VistaProdotto(QWidget):
         v_layout.addWidget(self.get_info("Codice fornitore: {}".format(self.controller.get_cod_fornitore())))
         v_layout.addWidget(self.get_info("Data ordine: {}".format(self.controller.get_data_ordine())))
         v_layout.addWidget(self.get_info("Codice prodotto: {}".format(self.controller.get_cod_prodotto())))
-        v_layout.addWidget(self.get_info("Genere: {}".format(self.controller.get_genere())))
         v_layout.addWidget(self.get_info("Marca: {}".format(self.controller.get_marca())))
         v_layout.addWidget(self.get_info("Nome: {}".format(self.controller.get_nome())))
+        v_layout.addWidget(self.get_info("Tipo: {}".format(self.controller.get_tipo())))
+        v_layout.addWidget(self.get_info("Genere: {}".format(self.controller.get_genere())))
         v_layout.addWidget(self.get_info("Materiale: {}".format(self.controller.get_materiale())))
         v_layout.addWidget(self.get_info("Colore: {}".format(self.controller.get_colore())))
         v_layout.addWidget(self.get_info("Taglia: {}".format(self.controller.get_taglia())))
@@ -44,9 +45,9 @@ class VistaProdotto(QWidget):
         v_layout.addWidget(self.get_info("Prezzo di vendita: {}".format(self.controller.get_prezzo_vendita())))
         v_layout.addWidget(self.get_info("Stagione: {}".format(self.controller.get_stagione())))
         v_layout.addWidget(self.get_info("Stato: {}".format(self.controller.get_stato())))
-        v_layout.addWidget(self.get_info("Data di vendita: {}".format(self.controller.get_data_vendita())))
         v_layout.addWidget(self.get_info("Sconto consigliato: {}".format(self.controller.get_sconto_consigliato())))
         v_layout.addWidget(self.get_info("Sconto applicato: {}".format(self.controller.get_sconto())))
+        v_layout.addWidget(self.get_info("Data di vendita: {}".format(self.controller.get_data_vendita())))
 
         v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
