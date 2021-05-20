@@ -1,6 +1,10 @@
-from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QSpacerItem, QSizePolicy, QPushButton
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, \
+    QPushButton
+import sys
 
 from fornitore.controller.ControllerFornitore import ControllerFornitore
+from fornitore.view.VistaModificaFornitore import VistaModificaFornitore
 
 
 class VistaFornitore(QWidget):
@@ -33,7 +37,10 @@ class VistaFornitore(QWidget):
 
         btn_elimina = QPushButton("Elimina")
         btn_elimina.clicked.connect(self.elimina_fornitore_click)
+        btn_modifica = QPushButton("Modifica")
+        btn_modifica.clicked.connect(self.modifica_fornitore_click)
         v_layout.addWidget(btn_elimina)
+        v_layout.addWidget(btn_modifica)
 
         self.setLayout(v_layout)
         self.setWindowTitle(self.controller.get_nome())
@@ -49,3 +56,7 @@ class VistaFornitore(QWidget):
         self.elimina_fornitore_by_codice(self.controller.get_codice_fornitore())
         self.update_ui()
         self.close()
+
+    def modifica_fornitore_click(self):
+        self.vista_modifica_fornitore= VistaModificaFornitore()
+        self.vista_modifica_fornitore.show()

@@ -1,7 +1,6 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QSpacerItem, QSizePolicy, QPushButton, QLabel, QLineEdit, QMessageBox
 
 from fornitore.model.Fornitore import Fornitore
-from utente.model.Utente import Utente
 
 
 class VistaInserisciFornitore(QWidget):
@@ -37,6 +36,7 @@ class VistaInserisciFornitore(QWidget):
     def add_info_text(self, nome, label):
         self.v_layout.addWidget(QLabel(label))
         current_text = QLineEdit(self)
+        current_text.setText("testodiprovazi")
         self.qlines[nome] = current_text
         self.v_layout.addWidget(current_text)
 

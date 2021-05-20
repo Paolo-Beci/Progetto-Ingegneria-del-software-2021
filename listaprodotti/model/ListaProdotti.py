@@ -5,7 +5,6 @@ import pickle
 from prodotto.model.Prodotto import Prodotto
 
 
-
 class ListaProdotti:
 
     def __init__(self):
@@ -21,13 +20,14 @@ class ListaProdotti:
                     self.aggiungi_prodotto_da_database(
                         Prodotto(prodotto_da_caricare["cod_fattura"], prodotto_da_caricare["cod_fornitore"],
                                  prodotto_da_caricare["data_ordine"], prodotto_da_caricare["cod_prodotto"],
-                                 prodotto_da_caricare["genere"], prodotto_da_caricare["marca"], prodotto_da_caricare["nome"],
+                                 prodotto_da_caricare["marca"], prodotto_da_caricare["nome"],
+                                 prodotto_da_caricare["tipo"], prodotto_da_caricare["genere"],
                                  prodotto_da_caricare["materiale"], prodotto_da_caricare["colore"],
                                  prodotto_da_caricare["taglia"], prodotto_da_caricare["quantita"],
                                  prodotto_da_caricare["prezzo_acquisto"], prodotto_da_caricare["prezzo_vendita"],
                                  prodotto_da_caricare["stagione"], prodotto_da_caricare["stato"],
-                                 prodotto_da_caricare["data_vendita"], prodotto_da_caricare["sconto_consigliato"],
-                                 prodotto_da_caricare["sconto"]))
+                                 prodotto_da_caricare["sconto_consigliato"],
+                                 prodotto_da_caricare["sconto"], prodotto_da_caricare["data_vendita"]))
 
     def filtra_prodotti(self):
         pass
@@ -46,6 +46,7 @@ class ListaProdotti:
             if utente.cod_prodotto == codice_prodotto:
                 return True
             return False
+
         self.lista_prodotti.remove(list(filter(is_selected_prodotto, self.lista_prodotti))[0])
 
     def aggiungi_prodotto_da_database(self, prodotto):
