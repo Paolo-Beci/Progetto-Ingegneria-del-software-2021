@@ -1,4 +1,5 @@
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
+import time
 
 from listadelpersonale.view.VistaListaDelPersonale import VistaListaDelPersonale
 from listaprodotti.view.VistaListaProdotti import VistaListaProdotti
@@ -33,6 +34,7 @@ class VistaHome(QWidget):
     def go_lista_prodotti(self):
         self.vista_lista_prodotti = VistaListaProdotti()
         self.vista_lista_prodotti.showMaximized()
+        time.sleep(0.3)
         self.close()
 
     def go_lista_fornitori(self):
