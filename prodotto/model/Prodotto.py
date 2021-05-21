@@ -24,3 +24,21 @@ class Prodotto:
         self.sconto_consigliato = sconto_consigliato  # int
         self.sconto = sconto  # int
         self.data_vendita = data_vendita  # str
+
+
+"""
+    LEGENDA CODICI DATABASE:
+    > TIPO:
+        - Eleganti
+        - Sneakers
+        - Sportive
+        - Trekking
+    > GENERE:
+        - Uomo -> U
+        - Donna -> D
+        - Bambino -> BO
+        - Bambina -> BA
+    > STAGIONE:
+        - Primavera/estate -> P/E
+        - Atunno/inverno -> A/I
+"""

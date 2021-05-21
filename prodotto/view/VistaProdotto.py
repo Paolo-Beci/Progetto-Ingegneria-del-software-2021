@@ -1,16 +1,21 @@
+import time
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPushButton
 from PyQt5.QtGui import QIcon, QPixmap
+from PyQt5 import QtCore, QtGui, QtWidgets
+
+import fornitore.view.VistaModificaFornitore
+import prodotto.view.VistaModificaProdotto
 from prodotto.controller.ControllerProdotto import ControllerProdotto
-from listaprodotti.model.ListaProdotti import ListaProdotti
+import listaprodotti.view.VistaListaProdotti
 
 
 class VistaProdotto(QWidget):
-    def __init__(self, c_prodotto, elimina_prodotto, update_ui, parent=None):
+    def __init__(self, c_prodotto, elimina_prodotto, modifica_prodotto, update_ui, parent=None):
         super(VistaProdotto, self).__init__(parent)
         # self.prodotto = self.controller.get_prodotto(c_prodotto)
         self.controller = ControllerProdotto(c_prodotto)
         self.elimina_prodotto = elimina_prodotto
-        #self.modifica_prodotto = modifica_prodotto
+        self.modifica_prodotto = modifica_prodotto
         self.update_ui = update_ui
 
         v_layout = QVBoxLayout()
@@ -21,13 +26,20 @@ class VistaProdotto(QWidget):
         label_nome.setFont(font_nome)
         v_layout.addWidget(label_nome)
 
+        v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
+
         # LOAD IMMAGINE
         #label = QLabel(self)
         #pixmap = QPixmap('listaprodotti/data/images/immagine_prova.jpg')
         #label.setPixmap(pixmap)
         #self.resize(pixmap.width(), pixmap.height())
 
-        v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
+        #self.photo = QtWidgets.QLabel(self.centralwidget)
+        #self.photo.setGeometry(QtCore.QRect(0, 0, 841, 511))
+        #self.photo.setText("")
+        #self.photo.setPixmap(QtGui.QPixmap("cat.jpg"))
+        #self.photo.setScaledContents(True)
+        #self.photo.setObjectName("photo")
 
         v_layout.addWidget(self.get_info("Codice fattura: {}".format(self.controller.get_cod_fattura())))
         v_layout.addWidget(self.get_info("Codice fornitore: {}".format(self.controller.get_cod_fornitore())))
@@ -55,17 +67,16 @@ class VistaProdotto(QWidget):
         btn_elimina.clicked.connect(self.elimina_prodotto_click)
         v_layout.addWidget(btn_elimina)
 
-        #btn_modifica = QPushButton("Modifica")
-        #btn_modifica.clicked.connect(self.modifica_prodotto_click)
-        #v_layout.addWidget(btn_modifica)
+        btn_modifica = QPushButton("Modifica")
+        btn_modifica.clicked.connect(self.modifica_prodotto_click)
+        v_layout.addWidget(btn_modifica)
+
+        btn_back = QPushButton("Torna indietro")
+        btn_back.clicked.connect(self.show_back_click)
+        v_layout.addWidget(btn_back)
 
         self.setLayout(v_layout)
         self.setWindowTitle(self.controller.get_cod_prodotto())
-
-    def elimina_prodotto_click(self):
-        self.elimina_prodotto(self.controller.get_cod_prodotto())
-        self.update_prodotti()
-        self.close()
 
     def get_info(self, text):
         label = QLabel(text)
@@ -74,7 +85,21 @@ class VistaProdotto(QWidget):
         label.setFont(font)
         return label
 
-    #def modifica_prodotto_click(self):
-    #    self.modifica_prodotto(self.controller.get_cod_prodotto())
-    #    self.update_prodotti()
-    #    self.close()
+    """
+        Eventi trigger click dei bottoni
+    """
+    def elimina_prodotto_click(self):
+        self.elimina_prodotto_by_codice(self.controller.get_cod_prodotto())
+        self.update_ui()
+        self.close()
+
+    def modifica_prodotto_click(self):
+        self.showMaximized(prodotto.view.VistaModificaProdotto.VistaModificaProdotto(self.controller.get_cod_prodotto()))
+        self.update_ui()
+        self.close()
+
+    def show_back_click(self):
+        self.vista_back = listaprodotti.view.VistaListaProdotti.VistaListaProdotti()
+        self.vista_back.showMaximized()
+        time.sleep(0.3)
+        self.close()

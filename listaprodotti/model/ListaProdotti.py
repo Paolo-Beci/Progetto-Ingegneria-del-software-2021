@@ -41,6 +41,9 @@ class ListaProdotti:
     def get_prodotto(self, cod):
         return self.lista_prodotti[cod]
 
+    def modifica_prodotto(self, cod_prodotto, new_value):
+        self.lista_prodotti[cod_prodotto] = new_value
+
     def elimina_prodotto(self, codice_prodotto):
         def is_selected_prodotto(utente):
             if utente.cod_prodotto == codice_prodotto:
