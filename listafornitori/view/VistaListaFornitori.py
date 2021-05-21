@@ -31,16 +31,16 @@ class VistaListaFornitori(QWidget):
         self.setWindowTitle('Area Fornitori')
 
     def update_ui(self):
-        self.listview_model = QStandardItemModel(self.list_view)
-        for fornitore in self.controller.get_lista_fornitori():
-            item = QStandardItem()
-            item.setText(fornitore.nome)
-            item.setEditable(False)
-            font = item.font()
-            font.setPointSize(18)
-            item.setFont(font)
-            self.listview_model.appendRow(item)
-        self.list_view.setModel(self.listview_model)
+         self.listview_model = QStandardItemModel(self.list_view)
+         for fornitore in self.controller.get_lista_fornitori():
+             item = QStandardItem()
+             item.setText(fornitore.nome)
+             item.setEditable(False)
+             font = item.font()
+             font.setPointSize(18)
+             item.setFont(font)
+             self.listview_model.appendRow(item)
+         self.list_view.setModel(self.listview_model)
 
     def closeEvent(self, event):
         self.controller.save_data()

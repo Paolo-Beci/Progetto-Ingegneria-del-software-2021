@@ -21,7 +21,7 @@ class VistaInserisciFornitore(QWidget):
         self.add_info_text("rappresentante", "Rappresentante")
         self.add_info_text("data_affiliazione", "Data di affiliazione (dd/MM/yyyy)")
         self.add_info_text("codice_fornitore", "Codice Fornitore")
-        self.add_info_text("stato", "Stato (Standard/Premium")
+        self.add_info_text("stato", "Stato (Standard/Premium)")
 
 
         self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
@@ -36,7 +36,7 @@ class VistaInserisciFornitore(QWidget):
     def add_info_text(self, nome, label):
         self.v_layout.addWidget(QLabel(label))
         current_text = QLineEdit(self)
-        current_text.setText("testodiprovazi")
+        #current_text.setText("testodiprovazi")
         self.qlines[nome] = current_text
         self.v_layout.addWidget(current_text)
 
@@ -45,7 +45,6 @@ class VistaInserisciFornitore(QWidget):
             if value.text() == "":
                 QMessageBox.critical(self, 'Errore', 'Per favore, inserisci tutte le informazioni richieste.', QMessageBox.Ok, QMessageBox.Ok)
                 return
-
 
         self.controller.inserisci_fornitore(Fornitore(
              self.qlines["nome"].text(),

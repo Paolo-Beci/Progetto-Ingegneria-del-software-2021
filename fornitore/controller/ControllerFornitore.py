@@ -33,34 +33,34 @@ class ControllerFornitore:
     ################# SETTER #################
     
     def set_nome_fornitore(self, nome):
-        self.model.nome == nome
+        self.model.nome = nome
 
-    def set_indirizzo_fornitore(self):
-        return None
+    def set_indirizzo(self, indirizzo):
+        self.model.indirizzo = indirizzo
 
-    def set_partita_iva(self):
-        return None
+    def set_partita_iva(self, partita_iva):
+        self.model.partita_iva= partita_iva
 
-    def set_telefono_fornitore(self):
-        return None
+    def set_telefono(self, telefono):
+        self.model.telefono= telefono
 
-    def set_email_fornitore(self):
-        return None
+    def set_email(self, email):
+        self.model.email= email
 
-    def set_rappresentante(self):
-        return None
+    def set_rappresentante(self, rappresentante):
+        self.model.rappresentante= rappresentante
 
-    def set_data_affiliazione(self):
-        return None
+    def set_data_affiliazione(self, data_affiliazione):
+        self.model.data_affiliazione= data_affiliazione
 
-    def set_codice_fornitore(self):
-        return None
+    def set_codice_fornitore(self, codice_fornitore):
+        self.model.codice_fornitore= codice_fornitore
 
-    def set_stato_fornitore(self):
-        return None
+    def set_stato(self, stato):
+        self.model.stato= stato
 
-    def elimina_fornitore(self):
-        return None
+    # def elimina_fornitore(self):
+    #     return None
 
 
 
