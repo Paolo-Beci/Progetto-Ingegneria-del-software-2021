@@ -4,6 +4,7 @@ import time
 from listadelpersonale.view.VistaListaDelPersonale import VistaListaDelPersonale
 from listaprodotti.view.VistaListaProdotti import VistaListaProdotti
 from listafornitori.view.VistaListaFornitori import VistaListaFornitori
+from prodotto.view.VistaModificaProdotto import VistaModificaProdotto
 
 
 class VistaHome(QWidget):
@@ -46,7 +47,7 @@ class VistaHome(QWidget):
         self.vista_lista_ordini.show()
 
     def go_vista_vendita(self):
-        return None
+        pass
 
     def go_lista_del_personale(self):
         self.vista_lista_del_personale = VistaListaDelPersonale()
