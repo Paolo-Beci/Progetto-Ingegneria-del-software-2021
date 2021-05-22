@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPushButton
 from PyQt5.QtGui import QIcon, QPixmap
-from prodotto.controller.ControllerOrdine import ControllerOrdine
+from ordine.controller.ControllerOrdine import ControllerOrdine
 
 
 def get_info(text):
@@ -21,7 +21,7 @@ class VistaOrdine(QWidget):
 
         v_layout = QVBoxLayout()
 
-        label_nome = QLabel(c_prodotto + " " + self.controller.get_taglia())
+        label_nome = QLabel(c_ordinesf                                                                                                                                   + " " + self.controller.get_taglia())
         font_nome = label_nome.font()
         font_nome.setPointSize(30)
         label_nome.setFont(font_nome)
@@ -39,13 +39,11 @@ class VistaOrdine(QWidget):
         v_layout.addWidget(get_info("Colore: {}".format(self.controller.get_colore())))
         v_layout.addWidget(get_info("Taglia: {}".format(self.controller.get_taglia())))
         v_layout.addWidget(get_info("Quantita: {}".format(self.controller.get_quantita())))
-        v_layout.addWidget(get_info("Prezzo di acquisto: {}".format(self.controller.get_prezzo_acquisto())))
         v_layout.addWidget(get_info("Prezzo di vendita: {}".format(self.controller.get_prezzo_vendita())))
         v_layout.addWidget(get_info("Stagione: {}".format(self.controller.get_stagione())))
         v_layout.addWidget(get_info("Stato: {}".format(self.controller.get_stato())))
         v_layout.addWidget(get_info("Data di vendita: {}".format(self.controller.get_data_vendita())))
-        v_layout.addWidget(get_info("Sconto consigliato: {}".format(self.controller.get_sconto_consigliato())))
-        v_layout.addWidget(get_info("Sconto applicato: {}".format(self.controller.get_sconto())))
+
 
         v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
