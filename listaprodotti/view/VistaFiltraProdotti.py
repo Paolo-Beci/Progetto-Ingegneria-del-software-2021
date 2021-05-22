@@ -1,0 +1,2 @@
+class VistaFiltraProdotti():
+    pass

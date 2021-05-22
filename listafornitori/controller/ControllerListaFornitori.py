@@ -4,7 +4,7 @@ from listafornitori.model.ListaFornitori import ListaFornitori
 class ControllerListaFornitori():
     def __init__(self):
         super(ControllerListaFornitori, self).__init__()
-        self.model= ListaFornitori() #creo un'istanza del model ListaFornitori
+        self.model= ListaFornitori()
 
     def get_lista_fornitori(self):
         return self.model.get_lista_fornitori()
@@ -14,3 +14,12 @@ class ControllerListaFornitori():
 
     def filtra_fornitori(self):
         return None
+
+    def get_fornitore_by_index(self, index):
+        return self.model.get_fornitore_by_index(index)
+
+    def elimina_fornitore_by_codice(self, codice_fornitore):
+        self.model.elimina_fornitore_by_codice(codice_fornitore)
+
+    def save_data(self):
+        self.model.save_data()
