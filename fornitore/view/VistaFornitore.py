@@ -28,8 +28,6 @@ class VistaFornitore(QWidget):
         font_nome= self.label_nome.font()
         font_nome.setPointSize(30)
         self.label_nome.setFont(font_nome)
-        #inserisco uno spazio nel widget
-        #self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
         #imposto un carattere minore per il body (i campi)
         font_indirizzo= self.label_indirizzo.font()
@@ -85,7 +83,7 @@ class VistaFornitore(QWidget):
         self.v_layout.addWidget(btn_elimina)
         self.v_layout.addWidget(btn_modifica)
         self.setLayout(self.v_layout)
-        self.setWindowTitle("Modifica fornitore")
+        self.setWindowTitle("Fornitore")
 
     def update_ui_fornitore(self):
         self.label_nome.setText(self.controller.get_nome())

@@ -46,7 +46,6 @@ class VistaInserisciUtente(QWidget):
                 QMessageBox.critical(self, 'Errore', 'Per favore, inserisci tutte le informazioni richieste.', QMessageBox.Ok, QMessageBox.Ok)
                 return
 
-
         self.controller.inserisci_utente(Utente(
              self.qlines["nome"].text(),
              self.qlines["cognome"].text(),

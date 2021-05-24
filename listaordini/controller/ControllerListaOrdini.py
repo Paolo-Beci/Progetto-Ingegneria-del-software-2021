@@ -5,10 +5,12 @@ class ControllerListaOrdini:
     def __init__(self):
         super(ControllerListaOrdini, self).__init__()
         self.model = ListaOrdini()
+
     def get_filtra_ordini(self):
         pass
+
     def get_lista_ordini(self):
-        return self.model.get_lista_ordine()
+        return self.model.get_lista_ordini()
 
     def inserisci_ordini(self, ordine):
         self.model.aggiungi_ordine(ordine)

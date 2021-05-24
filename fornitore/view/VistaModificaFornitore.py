@@ -9,6 +9,7 @@ class VistaModificaFornitore(QWidget):
         self.controller= controller
         self.update_ui_fornitore= update_ui_fornitore
 
+        self.setWindowTitle("Modifica fornitore")
         self.setObjectName("Form")
         self.resize(579, 427)
         self.horizontalLayoutWidget = QtWidgets.QWidget(self)
@@ -25,10 +26,12 @@ class VistaModificaFornitore(QWidget):
         self.pushButton_3.setObjectName("pushButton_3")
         self.horizontalLayout_3.addWidget(self.pushButton_3)
         self.pushButton_3.clicked.connect(self.save_data)
-
+        #Tasto ANNULLA
         self.pushButton_4 = QtWidgets.QPushButton(self.horizontalLayoutWidget)
         self.pushButton_4.setObjectName("pushButton_4")
         self.horizontalLayout_3.addWidget(self.pushButton_4)
+        self.pushButton_4.clicked.connect(self.close)
+
         self.gridLayoutWidget = QtWidgets.QWidget(self)
         self.gridLayoutWidget.setGeometry(QtCore.QRect(40, 50, 491, 271))
         self.gridLayoutWidget.setObjectName("gridLayoutWidget")
@@ -137,7 +140,7 @@ class VistaModificaFornitore(QWidget):
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
+        Form.setWindowTitle(_translate("Form", "Modifica fornitore"))
         self.pushButton_3.setText(_translate("Form", "Salva"))
         self.pushButton_4.setText(_translate("Form", "Annulla"))
 
@@ -181,7 +184,6 @@ class VistaModificaFornitore(QWidget):
         nome = self.lineEdit_15.text()
         codice = self.lineEdit_16.text()
         stato = str(self.comboBox_2.currentText())
-
 
         #modifico gli attributi del fornitore in base al testo inserito
         self.controller.set_nome_fornitore(nome)
