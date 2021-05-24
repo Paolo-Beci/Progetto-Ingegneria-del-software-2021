@@ -9,6 +9,10 @@ from prodotto.view.VistaModificaProdotto import VistaModificaProdotto
 from prodotto.controller.ControllerProdotto import ControllerProdotto
 import listaprodotti.view.VistaListaProdotti
 
+"""
+    VISUALIZZAZIONE DEI PARAMETRI DEL PRODOTTO
+    Da fare: UI
+"""
 
 class VistaProdotto(QWidget):
     def __init__(self, c_prodotto, elimina_prodotto, modifica_prodotto, update_ui, parent=None):
@@ -98,10 +102,9 @@ class VistaProdotto(QWidget):
         self.close()
 
     def modifica_prodotto_click(self):
-        self.vista_modifica_prodotto = VistaModificaProdotto(self.controller.get_cod_prodotto(), self.update_ui)
+        self.vista_modifica_prodotto = VistaModificaProdotto(self.controller, self.update_ui)
         self.vista_modifica_prodotto.showMaximized()
         self.update_ui()
-        self.close()
 
     def show_back_click(self):
         self.vista_back = listaprodotti.view.VistaListaProdotti.VistaListaProdotti()

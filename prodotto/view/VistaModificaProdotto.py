@@ -1,7 +1,7 @@
-from PyQt5.QtCore import QDateTime, QDate
+from PyQt5.QtCore import QDateTime, QDate, QCoreApplication
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QComboBox, QLabel, QStyleFactory, QApplication, QCheckBox, QHBoxLayout, QGridLayout, \
-    QGroupBox, QWidget, QHBoxLayout, QDateEdit, QDateTimeEdit, QPushButton
+from PyQt5.QtWidgets import QWidget, QComboBox, QLabel, QStyleFactory, QApplication, QCheckBox, QHBoxLayout, \
+    QGridLayout, QGroupBox, QWidget, QHBoxLayout, QDateEdit, QPushButton, QVBoxLayout, QLineEdit
 
 """
     MODIFICA DEI PARAMETRI DEL PRODOTTO
@@ -41,9 +41,14 @@ class VistaModificaProdotto(QWidget):
         mainLayout.setColumnStretch(1, 1)
         self.setLayout(mainLayout)
 
+        # creazione dei bottoni nella parte bassa dell'interfaccia
+        btn_back = QPushButton("Torna indietro")
+        btn_back.clicked.connect(self.show_back_click)
+        mainLayout.addWidget(btn_back)
+
         btn_salva = QPushButton("Salva")
         btn_salva.clicked.connect(self.salva_modifiche_click)
-        btn_salva.addWidget(btn_salva)
+        mainLayout.addWidget(btn_salva)
 
         self.setWindowTitle("Modifica prodotto")
 
@@ -51,32 +56,52 @@ class VistaModificaProdotto(QWidget):
     def createTopLeftGroupBox(self):
         self.topLeftGroupBox = QGroupBox("CODICI PRODOTTO E DETTAGLI ORDINE")
 
+        label1 = QLabel(self.topLeftGroupBox)
+        label1.setText("Codice fattura")
+        line_edit1 = QLineEdit(self.topLeftGroupBox)
+        # line_edit1.setText(QCoreApplication.translate("Form", self.controller.get_cod_fattura))
+
+        layout = QGridLayout()
+        layout.addWidget(label1, 0, 0, 1, 2)
+        layout.addWidget(line_edit1, 0, 1, 1, 2)
+        layout.setRowStretch(5, 1)
+        self.topLeftGroupBox.setLayout(layout)
+
     def createTopRightGroupBox(self):
         self.topRightGroupBox = QGroupBox("IMMAGINE")
 
         # INSERIMENTO IMMAGINE
-        label = QLabel(self)
+        label = QLabel(self.topRightGroupBox)
         pixmap = QPixmap('listaprodotti/data/images/immagine_prova.jpg')
         label.setPixmap(pixmap)
-        self.resize(pixmap.width(),pixmap.height())
-        label.move(1000, 50)
+        self.resize(pixmap.width(), pixmap.height())
+        label.move(100, 50)
+        #   come faccio il resize dell'immagine per farla entrare nel box?
         self.show()
 
     def createBottomLeftGroupBox(self):
         self.bottomLeftGroupBox = QGroupBox("DESCRIZIONE PRODOTTO")
-        dateTimeEdit = QDateEdit(self.bottomLeftGroupBox)
-        dateTimeEdit.setDate(QDate.currentDate())
+
+        dateEdit = QDateEdit(self.bottomLeftGroupBox)
+        dateEdit.setDate(QDate.currentDate())
 
         layout = QGridLayout()
-        layout.addWidget(dateTimeEdit, 0, 0, 1, 2)
+        layout.addWidget(dateEdit, 0, 0, 1, 2)
         layout.setRowStretch(5, 1)
         self.bottomLeftGroupBox.setLayout(layout)
 
     def createBottomRightGroupBox(self):
         self.bottomRightGroupBox = QGroupBox("STATO E SCONTI APPLICABLI")
 
+    """
+            Eventi trigger click dei bottoni
+    """
+
     def salva_modifiche_click(self):
-        campo1 = self.lineEdit_9.text()
-        self.controller.set_nome_fornitore(campo1)
+        # campo1 = self.lineEdit_9.text()
+        # self.controller.set_nome_fornitore(campo1)
         self.update_ui()
+        self.close()
+
+    def show_back_click(self):
         self.close()
