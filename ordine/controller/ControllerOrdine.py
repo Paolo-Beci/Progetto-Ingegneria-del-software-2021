@@ -2,7 +2,7 @@ from listaordini.model.ListaOrdini import ListaOrdini
 
 
 class ControllerOrdine:
-    def __init__(self,ordine) -> object:
+    def __init__(self, ordine):
         self.model = ordine
 
     def somma_prodotti(self): pass
