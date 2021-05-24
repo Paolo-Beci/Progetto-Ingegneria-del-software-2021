@@ -42,7 +42,7 @@ class VistaModificaProdotto(QWidget):
         self.setLayout(mainLayout)
 
         # creazione dei bottoni nella parte bassa dell'interfaccia
-        btn_back = QPushButton("Torna indietro")
+        btn_back = QPushButton("Annulla")
         btn_back.clicked.connect(self.show_back_click)
         mainLayout.addWidget(btn_back)
 
