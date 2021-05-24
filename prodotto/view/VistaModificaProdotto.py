@@ -73,6 +73,7 @@ class VistaModificaProdotto(QWidget):
         # INSERIMENTO IMMAGINE
         label = QLabel(self.topRightGroupBox)
         pixmap = QPixmap('listaprodotti/data/images/immagine_prova.jpg')
+        #pixmap.scaled(100, 100)
         label.setPixmap(pixmap)
         self.resize(pixmap.width(), pixmap.height())
         label.move(100, 50)
