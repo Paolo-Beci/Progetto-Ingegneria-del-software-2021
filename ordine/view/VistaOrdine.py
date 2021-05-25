@@ -1,25 +1,19 @@
 import time
-
-from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPushButton
-from PyQt5.QtGui import QIcon, QPixmap, QPainter
+from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-from prodotto.view.VistaModificaProdotto import VistaModificaProdotto
-from prodotto.controller.ControllerProdotto import ControllerProdotto
-import listaprodotti.view.VistaListaProdotti
+from ordine.controller.ControllerOrdine import ControllerOrdine
+from ordine.model import Ordine
 
-"""
-    VISUALIZZAZIONE DEI PARAMETRI DEL PRODOTTO
-    Da fare: UI
-"""
 
-class VistaProdotto(QWidget):
+class VistaOrdine(QWidget):
     def __init__(self, c_prodotto, elimina_prodotto, modifica_prodotto, update_ui, parent=None):
-        super(VistaProdotto, self).__init__(parent)
-        self.controller = ControllerProdotto(c_prodotto)
-        self.elimina_prodotto = elimina_prodotto
-        self.modifica_prodotto = modifica_prodotto
+        super(VistaOrdine, self).__init__(parent)
+        # self.prodotto = self.controller.get_prodotto(c_prodotto)
+        self.controller = ControllerOrdine(c_prodotto)
+        self.elimina_ordine = elimina_prodotto
+        self.modifica_ordine = modifica_prodotto
         self.update_ui = update_ui
 
         v_layout = QVBoxLayout()
@@ -32,22 +26,18 @@ class VistaProdotto(QWidget):
 
         v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
-        # INSERIMENTO IMMAGINE
-        label = QLabel(self)
-        pixmap = QPixmap('listaprodotti/data/images/immagine_prova.jpg')
-        label.setPixmap(pixmap)
+        # LOAD IMMAGINE
+        #label = QLabel(self)
+        #pixmap = QPixmap('listaprodotti/data/images/immagine_prova.jpg')
+        #label.setPixmap(pixmap)
+        #self.resize(pixmap.width(), pixmap.height())
 
-        #painter = QPainter(self.printer)
-        #rect = painter.viewport()
-        #size = self.imageLabel.pixmap().size()
-        #size.scale(rect.size(), Qt.KeepAspectRatio)
-
-        #self.factor = 0.8
-        #self.scaleFactor *= self.factor
-        #self.label.resize(self.scaleFactor * self.label.pixmap().size())
-
-        label.move(900, 50)
-        self.show()
+        #self.photo = QtWidgets.QLabel(self.centralwidget)
+        #self.photo.setGeometry(QtCore.QRect(0, 0, 841, 511))
+        #self.photo.setText("")
+        #self.photo.setPixmap(QtGui.QPixmap("cat.jpg"))
+        #self.photo.setScaledContents(True)
+        #self.photo.setObjectName("photo")
 
         v_layout.addWidget(self.get_info("Codice fattura: {}".format(self.controller.get_cod_fattura())))
         v_layout.addWidget(self.get_info("Codice fornitore: {}".format(self.controller.get_cod_fornitore())))
@@ -96,18 +86,18 @@ class VistaProdotto(QWidget):
     """
         Eventi trigger click dei bottoni
     """
-    def elimina_prodotto_click(self):
+    def elimina_ordine_click(self):
         self.elimina_prodotto_by_codice(self.controller.get_cod_prodotto())
         self.update_ui()
         self.close()
 
-    def modifica_prodotto_click(self):
-        self.vista_modifica_prodotto = VistaModificaProdotto(self.controller, self.update_ui)
-        self.vista_modifica_prodotto.showMaximized()
+    def modifica_ordine_click(self):
+        self.showMaximized(Ordine.view.VistaModificaOrdine.VistaModificaOrdine(self.controller.get_cod_prodotto()))
         self.update_ui()
+        self.close()
 
-    def show_back_click(self):
-        self.vista_back = listaprodotti.view.VistaListaProdotti.VistaListaProdotti()
+    def show_back_click(self, listaOrdine=None):
+        self.vista_back = listaOrdine.view.VistaListaOrdine.VistaListaOrdini()
         self.vista_back.showMaximized()
         time.sleep(0.3)
         self.close()

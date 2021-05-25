@@ -76,59 +76,59 @@ class ControllerProdotto:
 
     # ----------------SET------------------
 
-    def set_cod_fattura(self, cod_prodotto, new_cod_fattura):
-        self.modifica_prodotto_by_codice(cod_prodotto, new_cod_fattura)
+    def set_cod_fattura(self, cod_fattura):
+        self.model.cod_fattura = cod_fattura
 
-    def set_cod_fornitore(self, cod_prodotto, new_cod_fornitore):
-        self.modifica_prodotto_by_codice(cod_prodotto, new_cod_fornitore)
+    def set_cod_fornitore(self, cod_fornitore):
+        self.model.cod_fornitore = cod_fornitore
 
-    def set_data_ordine(self, cod_prodotto, new_data_ordine):
-        self.modifica_prodotto_by_codice(cod_prodotto, new_data_ordine)
+    def set_data_ordine(self, data_ordine):
+        self.model.data_ordine = data_ordine
 
-    def set_cod_prodotto(self):
-        return self.model.cod_prodotto
+    def set_cod_prodotto(self, cod_prodotto):
+        self.model.cod_prodotto = cod_prodotto
 
-    def set_genere(self):
-        return self.model.genere
+    def set_genere(self, genere):
+        self.model.genere = genere
 
-    def set_tipo(self):
-        return self.model.tipo
+    def set_tipo(self, tipo):
+        self.model.tipo = tipo
 
-    def set_marca(self):
-        return self.model.marca
+    def set_marca(self, marca):
+        self.model.marca = marca
 
-    def set_nome(self):
-        return self.model.nome
+    def set_nome(self, nome):
+        self.model.nome = nome
 
-    def set_materiale(self):
-        return self.model.materiale
+    def set_materiale(self, materiale):
+        self.model.materiale = materiale
 
-    def set_colore(self):
-        return self.model.colore
+    def set_colore(self, colore):
+        self.model.colore = colore
 
-    def set_taglia(self):
-        return self.model.taglia
+    def set_taglia(self, taglia):
+        self.model.taglia = taglia
 
-    def set_quantita(self):
-        return self.model.quantita
+    def set_quantita(self, quantita):
+        self.model.quantita = quantita
 
-    def set_prezzo_acquisto(self):
-        return self.model.prezzo_acquisto
+    def set_prezzo_acquisto(self, prezzo_acquisto):
+        self.model.prezzo_acquisto = prezzo_acquisto
 
-    def set_prezzo_vendita(self):
-        return self.model.prezzo_vendita
+    def set_prezzo_vendita(self, prezzo_vendita):
+        self.model.prezzo_vendita = prezzo_vendita
 
-    def set_stagione(self):
-        return self.model.stagione
+    def set_stagione(self, stagione):
+        self.model.stagione = stagione
 
-    def set_stato(self):
-        return self.model.stato
+    def set_stato(self, stato):
+        self.model.stato = stato
 
-    def set_data_vendita(self):
-        return self.model.data_vendita
+    def set_data_vendita(self, data_vendita):
+        self.model.data_vendita = data_vendita
 
-    def set_sconto_consigliato(self):
-        return self.model.sconto_consigliato
+    def set_sconto_consigliato(self, sconto_consigliato):
+        self.model.sconto_consigliato = sconto_consigliato
 
-    def set_sconto(self):
-        return self.model.sconto
+    def set_sconto(self, sconto):
+        self.model.sconto = sconto

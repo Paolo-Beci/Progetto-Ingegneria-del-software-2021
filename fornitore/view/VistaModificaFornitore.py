@@ -1,123 +1,139 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit
 
 
+#BISOGNA CAMBIARE IL FORM CON SELF!!!!!
 class VistaModificaFornitore(QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, controller, update_ui_fornitore, parent=None):
         super(VistaModificaFornitore, self).__init__(parent)
+        self.controller= controller
+        self.update_ui_fornitore= update_ui_fornitore
 
+        self.setWindowTitle("Modifica fornitore")
         self.setObjectName("Form")
-        self.resize(584, 426)
-        self.horizontalLayoutWidget = QtWidgets.QWidget(self) #BISOGNA CAMBIARE IL FORM CON SELF!!!!!
-        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(410, 360, 160, 51))
+        self.resize(579, 427)
+        self.horizontalLayoutWidget = QtWidgets.QWidget(self)
+        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(400, 360, 160, 51))
         self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
         self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
+
+        self.update_ui_fornitore()
+
+        #Tasto SALVA
         self.pushButton_3 = QtWidgets.QPushButton(self.horizontalLayoutWidget)
         self.pushButton_3.setObjectName("pushButton_3")
         self.horizontalLayout_3.addWidget(self.pushButton_3)
+        self.pushButton_3.clicked.connect(self.save_data)
+        #Tasto ANNULLA
         self.pushButton_4 = QtWidgets.QPushButton(self.horizontalLayoutWidget)
         self.pushButton_4.setObjectName("pushButton_4")
         self.horizontalLayout_3.addWidget(self.pushButton_4)
+        self.pushButton_4.clicked.connect(self.close)
+
         self.gridLayoutWidget = QtWidgets.QWidget(self)
-        self.gridLayoutWidget.setGeometry(QtCore.QRect(50, 50, 471, 281))
+        self.gridLayoutWidget.setGeometry(QtCore.QRect(40, 50, 491, 271))
         self.gridLayoutWidget.setObjectName("gridLayoutWidget")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.gridLayoutWidget)
         self.gridLayout_2.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_2.setObjectName("gridLayout_2")
-        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout_2.addItem(spacerItem, 4, 3, 1, 1)
-        self.lineEdit_9 = QtWidgets.QLineEdit(self.gridLayoutWidget)
-        self.lineEdit_9.setObjectName("lineEdit_9")
-        self.gridLayout_2.addWidget(self.lineEdit_9, 1, 4, 1, 1)
-        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout_2.addItem(spacerItem1, 3, 0, 1, 1)
-        self.textEdit_10 = QtWidgets.QTextEdit(self.gridLayoutWidget)
-        self.textEdit_10.setObjectName("textEdit_10")
-        self.gridLayout_2.addWidget(self.textEdit_10, 8, 0, 1, 1)
-        self.lineEdit_10 = QtWidgets.QLineEdit(self.gridLayoutWidget)
-        self.lineEdit_10.setObjectName("lineEdit_10")
-        self.gridLayout_2.addWidget(self.lineEdit_10, 1, 2, 1, 1)
-        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout_2.addItem(spacerItem2, 0, 1, 1, 1)
-        self.textEdit_11 = QtWidgets.QTextEdit(self.gridLayoutWidget)
-        self.textEdit_11.setObjectName("textEdit_11")
-        self.gridLayout_2.addWidget(self.textEdit_11, 4, 2, 1, 1)
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout_2.addItem(spacerItem, 8, 0, 1, 1)
+
+        #Telefono
         self.lineEdit_11 = QtWidgets.QLineEdit(self.gridLayoutWidget)
         self.lineEdit_11.setObjectName("lineEdit_11")
-        self.gridLayout_2.addWidget(self.lineEdit_11, 5, 0, 1, 1)
-        self.textEdit_12 = QtWidgets.QTextEdit(self.gridLayoutWidget)
-        self.textEdit_12.setObjectName("textEdit_12")
-        self.gridLayout_2.addWidget(self.textEdit_12, 0, 4, 1, 1)
-        self.lineEdit_12 = QtWidgets.QLineEdit(self.gridLayoutWidget)
-        self.lineEdit_12.setObjectName("lineEdit_12")
-        self.gridLayout_2.addWidget(self.lineEdit_12, 5, 2, 1, 1)
-        self.textEdit_13 = QtWidgets.QTextEdit(self.gridLayoutWidget)
-        self.textEdit_13.setObjectName("textEdit_13")
-        self.gridLayout_2.addWidget(self.textEdit_13, 0, 2, 1, 1)
-        self.lineEdit_13 = QtWidgets.QLineEdit(self.gridLayoutWidget)
-        self.lineEdit_13.setObjectName("lineEdit_13")
-        self.gridLayout_2.addWidget(self.lineEdit_13, 9, 0, 1, 1)
-        self.lineEdit_14 = QtWidgets.QLineEdit(self.gridLayoutWidget)
-        self.lineEdit_14.setObjectName("lineEdit_14")
-        self.gridLayout_2.addWidget(self.lineEdit_14, 5, 4, 1, 1)
-        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout_2.addItem(spacerItem3, 7, 2, 1, 1)
-        spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout_2.addItem(spacerItem4, 2, 4, 1, 1)
-        spacerItem5 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout_2.addItem(spacerItem5, 3, 4, 1, 1)
-        spacerItem6 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout_2.addItem(spacerItem6, 8, 1, 1, 1)
-        self.textEdit_14 = QtWidgets.QTextEdit(self.gridLayoutWidget)
-        self.textEdit_14.setObjectName("textEdit_14")
-        self.gridLayout_2.addWidget(self.textEdit_14, 0, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.lineEdit_11, 7, 0, 1, 1)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout_2.addItem(spacerItem1, 1, 1, 1, 1)
+        self.label_7 = QtWidgets.QLabel(self.gridLayoutWidget)
+        self.label_7.setObjectName("label_7")
+        self.gridLayout_2.addWidget(self.label_7, 11, 0, 1, 1)
+        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout_2.addItem(spacerItem2, 3, 5, 1, 1)
+        self.lineEdit_16 = QtWidgets.QLineEdit(self.gridLayoutWidget)
+        self.lineEdit_16.setObjectName("lineEdit_16")
+        self.gridLayout_2.addWidget(self.lineEdit_16, 12, 3, 1, 1)
+        spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout_2.addItem(spacerItem3, 6, 4, 1, 1)
+        self.label_5 = QtWidgets.QLabel(self.gridLayoutWidget)
+        self.label_5.setObjectName("label_5")
+        self.gridLayout_2.addWidget(self.label_5, 6, 3, 1, 1)
+        self.label_2 = QtWidgets.QLabel(self.gridLayoutWidget)
+        self.label_2.setObjectName("label_2")
+        self.gridLayout_2.addWidget(self.label_2, 1, 3, 1, 1)
         self.comboBox_2 = QtWidgets.QComboBox(self.gridLayoutWidget)
         self.comboBox_2.setObjectName("comboBox_2")
         self.comboBox_2.addItem("")
         self.comboBox_2.addItem("")
-        self.gridLayout_2.addWidget(self.comboBox_2, 9, 4, 1, 1)
+        self.gridLayout_2.addWidget(self.comboBox_2, 12, 5, 1, 1)
+        spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout_2.addItem(spacerItem4, 4, 5, 1, 1)
+        spacerItem5 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout_2.addItem(spacerItem5, 9, 3, 1, 1)
+        self.label = QtWidgets.QLabel(self.gridLayoutWidget)
+        self.label.setObjectName("label")
+        self.gridLayout_2.addWidget(self.label, 1, 0, 1, 1)
+        spacerItem6 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout_2.addItem(spacerItem6, 9, 5, 1, 1)
         spacerItem7 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout_2.addItem(spacerItem7, 7, 4, 1, 1)
-        spacerItem8 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout_2.addItem(spacerItem8, 4, 1, 1, 1)
+        self.gridLayout_2.addItem(spacerItem7, 4, 0, 1, 1)
+        self.label_3 = QtWidgets.QLabel(self.gridLayoutWidget)
+        self.label_3.setObjectName("label_3")
+        self.gridLayout_2.addWidget(self.label_3, 1, 5, 1, 1)
+        spacerItem8 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout_2.addItem(spacerItem8, 8, 3, 1, 1)
         spacerItem9 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout_2.addItem(spacerItem9, 2, 0, 1, 1)
-        self.textEdit_15 = QtWidgets.QTextEdit(self.gridLayoutWidget)
-        self.textEdit_15.setObjectName("textEdit_15")
-        self.gridLayout_2.addWidget(self.textEdit_15, 4, 4, 1, 1)
-        self.textEdit_16 = QtWidgets.QTextEdit(self.gridLayoutWidget)
-        self.textEdit_16.setObjectName("textEdit_16")
-        self.gridLayout_2.addWidget(self.textEdit_16, 8, 4, 1, 1)
+        self.gridLayout_2.addItem(spacerItem9, 3, 3, 1, 1)
+        spacerItem10 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout_2.addItem(spacerItem10, 8, 5, 1, 1)
+        self.label_4 = QtWidgets.QLabel(self.gridLayoutWidget)
+        self.label_4.setObjectName("label_4")
+        self.gridLayout_2.addWidget(self.label_4, 6, 0, 1, 1)
+        self.lineEdit_9 = QtWidgets.QLineEdit(self.gridLayoutWidget)
+        self.lineEdit_9.setObjectName("lineEdit_9")
+        self.gridLayout_2.addWidget(self.lineEdit_9, 2, 5, 1, 1)
+        spacerItem11 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout_2.addItem(spacerItem11, 11, 1, 1, 1)
+
         self.lineEdit_15 = QtWidgets.QLineEdit(self.gridLayoutWidget)
         self.lineEdit_15.setObjectName("lineEdit_15")
-        self.gridLayout_2.addWidget(self.lineEdit_15, 1, 0, 1, 1)
-        spacerItem10 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout_2.addItem(spacerItem10, 8, 3, 1, 1)
-        self.textEdit_17 = QtWidgets.QTextEdit(self.gridLayoutWidget)
-        self.textEdit_17.setObjectName("textEdit_17")
-        self.gridLayout_2.addWidget(self.textEdit_17, 4, 0, 1, 1)
-        self.lineEdit_16 = QtWidgets.QLineEdit(self.gridLayoutWidget)
-        self.lineEdit_16.setObjectName("lineEdit_16")
-        self.gridLayout_2.addWidget(self.lineEdit_16, 9, 2, 1, 1)
-        self.textEdit_18 = QtWidgets.QTextEdit(self.gridLayoutWidget)
-        self.textEdit_18.setObjectName("textEdit_18")
-        self.gridLayout_2.addWidget(self.textEdit_18, 8, 2, 1, 1)
-        spacerItem11 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout_2.addItem(spacerItem11, 3, 2, 1, 1)
-        spacerItem12 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout_2.addItem(spacerItem12, 0, 3, 1, 1)
+        self.gridLayout_2.addWidget(self.lineEdit_15, 2, 0, 1, 1)
+
+        self.lineEdit_12 = QtWidgets.QLineEdit(self.gridLayoutWidget)
+        self.lineEdit_12.setObjectName("lineEdit_12")
+        self.gridLayout_2.addWidget(self.lineEdit_12, 7, 3, 1, 1)
+        self.lineEdit_13 = QtWidgets.QLineEdit(self.gridLayoutWidget)
+        self.lineEdit_13.setObjectName("lineEdit_13")
+        self.gridLayout_2.addWidget(self.lineEdit_13, 12, 0, 1, 1)
+        spacerItem12 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout_2.addItem(spacerItem12, 3, 0, 1, 1)
         spacerItem13 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout_2.addItem(spacerItem13, 7, 0, 1, 1)
+        self.gridLayout_2.addItem(spacerItem13, 4, 3, 1, 1)
+        self.lineEdit_10 = QtWidgets.QLineEdit(self.gridLayoutWidget)
+        self.lineEdit_10.setObjectName("lineEdit_10")
+        self.gridLayout_2.addWidget(self.lineEdit_10, 2, 3, 1, 1)
+        self.label_6 = QtWidgets.QLabel(self.gridLayoutWidget)
+        self.label_6.setObjectName("label_6")
+        self.gridLayout_2.addWidget(self.label_6, 6, 5, 1, 1)
         spacerItem14 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout_2.addItem(spacerItem14, 2, 2, 1, 1)
-        spacerItem15 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout_2.addItem(spacerItem15, 6, 0, 1, 1)
-        spacerItem16 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout_2.addItem(spacerItem16, 6, 2, 1, 1)
-        spacerItem17 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout_2.addItem(spacerItem17, 6, 4, 1, 1)
+        self.gridLayout_2.addItem(spacerItem14, 9, 0, 1, 1)
+        self.lineEdit_14 = QtWidgets.QLineEdit(self.gridLayoutWidget)
+        self.lineEdit_14.setObjectName("lineEdit_14")
+        self.gridLayout_2.addWidget(self.lineEdit_14, 7, 5, 1, 1)
+        spacerItem15 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout_2.addItem(spacerItem15, 11, 4, 1, 1)
+        spacerItem16 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout_2.addItem(spacerItem16, 6, 1, 1, 1)
+        spacerItem17 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout_2.addItem(spacerItem17, 1, 4, 1, 1)
+        self.label_8 = QtWidgets.QLabel(self.gridLayoutWidget)
+        self.label_8.setObjectName("label_8")
+        self.gridLayout_2.addWidget(self.label_8, 11, 3, 1, 1)
+        self.label_9 = QtWidgets.QLabel(self.gridLayoutWidget)
+        self.label_9.setObjectName("label_9")
+        self.gridLayout_2.addWidget(self.label_9, 11, 5, 1, 1)
 
         self.retranslateUi(self)
         QtCore.QMetaObject.connectSlotsByName(self)
@@ -127,51 +143,59 @@ class VistaModificaFornitore(QWidget):
         Form.setWindowTitle(_translate("Form", "Modifica fornitore"))
         self.pushButton_3.setText(_translate("Form", "Salva"))
         self.pushButton_4.setText(_translate("Form", "Annulla"))
-        self.textEdit_10.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">Data affiliazione</span></p></body></html>"))
-        self.textEdit_11.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">Email</span></p></body></html>"))
-        self.textEdit_12.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">Partita iva</span></p></body></html>"))
-        self.textEdit_13.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">Indirizzo</span></p></body></html>"))
-        self.textEdit_14.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">Nome</span></p></body></html>"))
+
+        self.lineEdit_11.setText(_translate("Form", self.controller.get_telefono()))
+        self.label_7.setText(_translate("Form", "Data affiliazione"))
+        self.lineEdit_16.setText(_translate("Form", self.controller.get_codice_fornitore()))
+        self.label_5.setText(_translate("Form", "Email"))
+        self.label_2.setText(_translate("Form", "Indirizzo"))
+
         self.comboBox_2.setItemText(0, _translate("Form", "Standard"))
         self.comboBox_2.setItemText(1, _translate("Form", "Premium"))
-        self.textEdit_15.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">Rappresentante</span></p></body></html>"))
-        self.textEdit_16.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">Stato</span></p></body></html>"))
-        self.textEdit_17.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">Telefono</span></p></body></html>"))
-        self.textEdit_18.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">Codice</span></p></body></html>"))
+        #faccio in modo che il valore di default della combobox corrisponda allo stato attuale del fornitore
+        if self.controller.get_stato()=="Standard":
+            index= self.comboBox_2.findText("Standard", QtCore.Qt.MatchFixedString)
+        else:
+            index= self.comboBox_2.findText("Premium", QtCore.Qt.MatchFixedString)
+        self.comboBox_2.setCurrentIndex(index)
 
+        self.label.setText(_translate("Form", "Nome"))
+        self.label_3.setText(_translate("Form", "Partita iva"))
+        self.label_4.setText(_translate("Form", "Telefono"))
+        self.lineEdit_9.setText(_translate("Form", self.controller.get_partita_iva()))
+
+        self.lineEdit_15.setText(_translate("Form", self.controller.get_nome()))
+        self.lineEdit_12.setText(_translate("Form", self.controller.get_email()))
+        self.lineEdit_13.setText(_translate("Form", self.controller.get_data_affiliazione()))
+        self.lineEdit_10.setText(_translate("Form", self.controller.get_indirizzo()))
+        self.label_6.setText(_translate("Form", "Rappresentante"))
+        self.lineEdit_14.setText(_translate("Form", self.controller.get_rappresentante()))
+        self.label_8.setText(_translate("Form", "Codice"))
+        self.label_9.setText(_translate("Form", "Stato"))
+
+    def save_data(self):
+        #prendo il testo che l'utente inserisce in ciascuna lineEdit
+        partita_iva = self.lineEdit_9.text()
+        indirizzo = self.lineEdit_10.text()
+        telefono = self.lineEdit_11.text()
+        email = self.lineEdit_12.text()
+        data_affiliazione = self.lineEdit_13.text()
+        rappresentante = self.lineEdit_14.text()
+        nome = self.lineEdit_15.text()
+        codice = self.lineEdit_16.text()
+        stato = str(self.comboBox_2.currentText())
+
+        #modifico gli attributi del fornitore in base al testo inserito
+        self.controller.set_nome_fornitore(nome)
+        self.controller.set_telefono(telefono)
+        self.controller.set_indirizzo(indirizzo)
+        self.controller.set_partita_iva(partita_iva)
+        self.controller.set_email(email)
+        self.controller.set_rappresentante(rappresentante)
+        self.controller.set_data_affiliazione(data_affiliazione)
+        self.controller.set_codice_fornitore(codice)
+        self.controller.set_stato(stato)
+
+        #aggiorno (in teoria) ahahah
+        self.update_ui_fornitore()
+        self.close()

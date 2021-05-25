@@ -57,6 +57,8 @@ class VistaListaProdotti(QWidget):
             self.vista_prodotto = VistaProdotto(prodotto_selezionato, self.controller.elimina_prodotto_by_codice,
                                                 ControllerProdotto.modifica_prodotto_by_codice, self.update_ui)
             self.vista_prodotto.showMaximized()
+            time.sleep(0.3)
+            self.close()
 
     def show_inserici_prodotto(self):
         self.vista_inserisci_prodotto = VistaInserisciProdotto(self.controller, self.update_ui)
