@@ -6,6 +6,10 @@ from listaprodotti.view.VistaListaProdotti import VistaListaProdotti
 from listafornitori.view.VistaListaFornitori import VistaListaFornitori
 from listastatistiche.view.VistaListaStatistiche import VistaListaStatistiche
 
+"""
+    VISTA HOME
+"""
+
 
 class VistaHome(QWidget):
     def __init__(self, parent=None):

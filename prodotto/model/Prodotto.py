@@ -1,4 +1,6 @@
-# model del Prodotto
+"""
+     Model del Prodotto
+"""
 class Prodotto:
 
     def __init__(self, cod_fattura, cod_fornitore, data_ordine, cod_prodotto, marca, nome, tipo, genere, materiale,
