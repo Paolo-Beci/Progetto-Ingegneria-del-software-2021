@@ -2,7 +2,7 @@ import time
 
 from PyQt5.QtCore import Qt, QDate
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPushButton, QHBoxLayout, \
-    QGridLayout, QGroupBox, QLineEdit, QDateEdit
+    QGridLayout, QGroupBox, QLineEdit, QDateEdit, QMessageBox
 from PyQt5.QtGui import QIcon, QPixmap, QPainter
 from PyQt5 import QtCore, QtGui, QtWidgets
 
@@ -89,7 +89,7 @@ class VistaProdotto(QWidget):
         bottomLayout = QGridLayout()
 
         btn_elimina = QPushButton("Elimina")
-        btn_elimina.clicked.connect(self.elimina_prodotto_click)
+        btn_elimina.clicked.connect(self.popup_elimina)
 
         btn_modifica = QPushButton("Modifica")
         btn_modifica.clicked.connect(self.modifica_prodotto_click)
@@ -134,7 +134,8 @@ class VistaProdotto(QWidget):
         pixmap = QPixmap('listaprodotti/data/images/' + self.controller.get_cod_prodotto() + '.jpg')
         # pixmap.scaled(100, 100)
         label.setPixmap(pixmap)
-        self.resize(pixmap.width(), pixmap.height())
+        label.resize(500, 1000)
+        #self.resize(pixmap.width(), pixmap.height())
         label.move(100, 50)
         #   come faccio il resize dell'immagine per farla entrare nel box?
 
@@ -179,6 +180,16 @@ class VistaProdotto(QWidget):
     """
         Eventi trigger click dei bottoni
     """
+
+    def popup_elimina(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("ATTENZIONE")
+        msg.setText("Sei sicuro di eliminare il prodotto selezionato? \n\nil prodotto eliminato non sarà ripristinabile")
+        msg.setIcon(QMessageBox.Warning)
+        msg.setStandardButtons(QMessageBox.Yes)
+        msg.setDefaultButton(QMessageBox.Yes)
+        msg.exec_()
+        msg.buttonClicked.connect(self.elimina_prodotto_click)
 
     def elimina_prodotto_click(self):
         self.elimina_prodotto_by_codice(self.controller.get_cod_prodotto())
