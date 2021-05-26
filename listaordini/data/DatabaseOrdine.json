@@ -5,8 +5,8 @@
    "stagione": "Primavera/Estate",
    "stato": "In negozio",
    "data_ordine": "28/07/2020",
-   "data_arrivo_prevista": "22/02/2021",
-   "data_arrivo_effettiva": "22/02/2021",
+   "data_arrivo_prevista": "2021-02-22",
+   "data_arrivo_effettiva": "2021-02-22",
    "importo_totale": 3869.5,
    "calzature_totali": 88
  },
@@ -16,8 +16,8 @@
    "stagione": "Primavera/Estate",
    "stato": "In negozio",
    "data_ordine": "14/07/2020",
-   "data_arrivo_prevista": "08/02/2021",
-   "data_arrivo_effettiva": "08/02/2021",
+   "data_arrivo_prevista": "2021-02-08",
+   "data_arrivo_effettiva": "2021-02-16",
    "importo_totale": 3310,
    "calzature_totali": 77
  },
@@ -27,8 +27,8 @@
    "stagione": "Primavera/Estate",
    "stato": "In negozio",
    "data_ordine": "18/07/2020",
-   "data_arrivo_prevista": "15/02/2021",
-   "data_arrivo_effettiva": "16/03/2021",
+   "data_arrivo_prevista": "2021-02-15",
+   "data_arrivo_effettiva": "2021-03-16",
    "importo_totale": 2009,
    "calzature_totali": 64
  },
@@ -38,8 +38,8 @@
    "stagione": "Primavera/Estate",
    "stato": "In arrivo",
    "data_ordine": "26/08/2020",
-   "data_arrivo_prevista": "12/03/2021",
-   "data_arrivo_effettiva": null,
+   "data_arrivo_prevista": "2021-03-12",
+   "data_arrivo_effettiva": "2021-09-15",
    "importo_totale": 2800,
    "calzature_totali": 65
  }

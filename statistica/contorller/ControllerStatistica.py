@@ -1,5 +1,5 @@
 import json
-
+from datetime import datetime
 
 class ControllerStatistica():
     def __init__(self, statistica):
@@ -31,17 +31,17 @@ class ControllerStatistica():
     # Metodo per richiamare la statistica da calcolare in base alla scelta effettuata
     def smistatore_statistica(self, smistatore):
         if smistatore == 0:
-            self.ordinamento_decrescente(self.costruzione_dizionario())
+            self.ordinamento_decrescente_prod(self.costruzione_dizionario())
         elif smistatore == 1:
-            self.ordinamento_crescente(self.costruzione_dizionario())
+            self.ordinamento_crescente_prod(self.costruzione_dizionario())
         elif smistatore == 2:
-            self.ordinamento_decrescente(self.prod_piu_redditizi())
+            self.ordinamento_decrescente_prod(self.prod_piu_redditizi())
         elif smistatore == 3:
-            pass
+            self.ordinamento_decrescente_forn(self.forn_piu_pagati())
         elif smistatore == 4:
-            pass
+            self.ordinamento_decrescente_forn(self.forn_da_cui_acquistiamo_di_piu())
         elif smistatore == 5:
-            pass
+            self.ordinamento_crescente_forn(self.forn_piu_rapidi_nella_consegna())
 
     # Metodo per costruire un dizionario contentente il codice del prodotto associato al numero di prodotti venduti
     def costruzione_dizionario(self):
@@ -61,15 +61,15 @@ class ControllerStatistica():
 
         return dizionario
 
-    # Metodo che calcola i prodotti più venduti
-    def ordinamento_decrescente(self, dizionario):
+    # Metodo che ordina in modo decresente il dizionario passato in base ai valori
+    def ordinamento_decrescente_prod(self, dizionario):
         lista_codici_ordinati = [(k, dizionario[k]) for k in
                                  sorted(dizionario, key=lambda x: dizionario[x], reverse=True)][:10]
 
         return lista_codici_ordinati
 
-    # Metodo che calcola i prodotti più venduti
-    def ordinamento_crescente(self, dizionario):
+    # Metodo che ordina in modo cresente il dizionario passato in base ai valori
+    def ordinamento_crescente_prod(self, dizionario):
         lista_codici_ordinati = [(k, dizionario[k]) for k in
                                  sorted(dizionario, key=lambda x: dizionario[x])][:10]
 
@@ -86,3 +86,64 @@ class ControllerStatistica():
                     dizionario[prodotto["cod_prodotto"]] = prodotto["prezzo_vendita"] - prodotto["prezzo_acquisto"]
 
             return dizionario
+
+    # Metodo che ordina in modo decresente il dizionario passato in base ai valori
+    def ordinamento_decrescente_forn(self, dizionario):
+        lista_codici_ordinati = [(k, dizionario[k]) for k in
+                                 sorted(dizionario, key=lambda x: dizionario[x], reverse=True)][:3]
+
+        return lista_codici_ordinati
+
+    # Metodo che ordina in modo decresente il dizionario passato in base ai valori
+    def ordinamento_crescente_forn(self, dizionario):
+        lista_codici_ordinati = [(k, dizionario[k]) for k in
+                                 sorted(dizionario, key=lambda x: dizionario[x])][:3]
+
+        return lista_codici_ordinati
+
+    # Metodo per calcolare i fornitori più pagati
+    def forn_piu_pagati(self):
+        with open('listaordini/data/DatabaseOrdine.json') as f:
+            lista_ordini = json.load(f)
+            dizionario = {}
+
+        for ordine in lista_ordini:
+            if ordine["cod_fornitore"] not in dizionario.keys():
+                dizionario[ordine["cod_fornitore"]] = 0
+
+        for ordine in lista_ordini:
+            dizionario[ordine["cod_fornitore"]] += ordine["importo_totale"]
+
+        return dizionario
+
+    # Metodo per calcolare i fornitori da cui acquistiamo di più
+    def forn_da_cui_acquistiamo_di_piu(self):
+        with open('listaordini/data/DatabaseOrdine.json') as f:
+            lista_ordini = json.load(f)
+            dizionario = {}
+
+        for ordine in lista_ordini:
+            if ordine["cod_fornitore"] not in dizionario.keys():
+                dizionario[ordine["cod_fornitore"]] = 0
+
+        for ordine in lista_ordini:
+            dizionario[ordine["cod_fornitore"]] += ordine["calzature_totali"]
+
+        return dizionario
+
+    # Metodo per calcolare i fornitori più rapidi nella consegna
+    def forn_piu_rapidi_nella_consegna(self):
+        with open('listaordini/data/DatabaseOrdine.json') as f:
+            lista_ordini = json.load(f)
+            dizionario = {}
+
+        for ordine in lista_ordini:
+            if ordine["cod_fornitore"] not in dizionario.keys():
+                dizionario[ordine["cod_fornitore"]] = 0
+
+        for ordine in lista_ordini:
+            d1 = datetime.strptime(ordine["data_arrivo_prevista"], "%Y-%m-%d")
+            d2 = datetime.strptime(ordine["data_arrivo_effettiva"], "%Y-%m-%d")
+            dizionario[ordine["cod_fornitore"]] = abs((d2 - d1).days)
+
+        return dizionario
