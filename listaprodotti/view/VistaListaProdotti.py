@@ -8,13 +8,24 @@ from prodotto.view.VistaProdotto import VistaProdotto
 from listaprodotti.view.VistaInserisciProdotto import VistaInserisciProdotto
 from prodotto.controller.ControllerProdotto import ControllerProdotto
 
+"""
+    VISUALIZZAZIONE DELLA LISTA DEI PRODOTTI CON POSSIBILITà DI FILTRAGGIO
+"""
 
 class VistaListaProdotti(QWidget):
     def __init__(self, parent=None):
         super(VistaListaProdotti, self).__init__(parent)
-
         self.controller = ControllerListaProdotti()
 
+        """
+            SEZIONE FILTRAGGIO
+        """
+            
+
+
+        """
+            SEZIONE VISUALIZZAZIONE DEI PRODOTTI
+        """
         h_layout = QHBoxLayout()
         self.list_view = QListView()
         self.update_ui()
