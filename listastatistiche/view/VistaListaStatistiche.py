@@ -1,3 +1,5 @@
+import time
+import home.view.VistaHome
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton
 
@@ -26,7 +28,10 @@ class VistaListaStatistiche(QWidget):
 
         buttons_layout = QVBoxLayout()
         open_button = QPushButton("Apri")
+
         open_button.clicked.connect(self.show_statistica)
+
+
         buttons_layout.addWidget(open_button)
         home_button = QPushButton("Torna alla HOME")
         home_button.clicked.connect(self.show_home)
@@ -38,16 +43,23 @@ class VistaListaStatistiche(QWidget):
         self.resize(600, 300)
         self.setWindowTitle('Lista Statistiche')
 
+    #Metodo che consente di visualizzare la statistica selezionata
     def show_statistica(self):
-        selected = self.list_view.selectedIndexes()[0].row()
-        statistica_selezionata = self.controller.get_statistica_by_index(selected)
-        self.vista_statistica = VistaStatistica(statistica_selezionata, selected)
-        self.vista_statistica.show()
+        if len(self.list_view.selectedIndexes()) > 0:
+            selected = self.list_view.selectedIndexes()[0].row()
+            statistica_selezionata = self.controller.get_statistica_by_index(selected)
+            self.vista_statistica = VistaStatistica(statistica_selezionata, selected)
+            self.vista_statistica.showMaximized()
+            time.sleep(0.3)
+            self.close()
 
-    def show_home(self, home):
+    #Metodo che consente di tornare alla schermata home
+    def show_home(self):
         self.vista_home = home.view.VistaHome.VistaHome()
         self.vista_home.showMaximized()
+        time.sleep(0.3)
         self.close()
 
+    #Metodo che consente di effettuare il salvataggio al termine di un evento
     def closeEvent(self, event):
         self.controller.save_data()

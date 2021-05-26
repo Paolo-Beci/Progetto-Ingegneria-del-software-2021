@@ -41,6 +41,18 @@ class ListaProdotti:
     def get_prodotto(self, cod):
         return self.lista_prodotti[cod]
 
+    def get_marca_prodotto_by_code(self, codice):
+        for prodotto in self.lista_prodotti:
+            if prodotto.cod_prodotto == codice:
+                return prodotto.marca
+
+    def get_nome_prodotto_by_code(self, codice):
+        for prodotto in self.lista_prodotti:
+            if prodotto.cod_prodotto == codice and prodotto.nome is not None:
+                return prodotto.nome
+            elif prodotto.cod_prodotto == codice and prodotto.nome is None:
+                return "Nessuno"
+
     def elimina_prodotto(self, codice_prodotto):
         def is_selected_prodotto(utente):
             if utente.cod_prodotto == codice_prodotto:

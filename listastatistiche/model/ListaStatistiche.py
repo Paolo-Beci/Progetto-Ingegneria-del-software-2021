@@ -35,16 +35,3 @@ class ListaStatistiche():
     def save_data(self):
         with open('listastatistiche/data/lista_statistiche.pickle', 'wb') as handle:
             pickle.dump(self.lista_statistiche, handle, pickle.HIGHEST_PROTOCOL)
-
-
-
-
-    #Metodo che restituisce i prodotti più venduti presenti nel database
-    def calcolo_prodotti_più_venduti(self):
-        lista_piu_venduti = []
-        dizionario_prodotti = {}
-        with open('listaprodotti/data/database_prodotti.json') as f:
-            lista_prodotti = json.load(f)
-            cont = 0
-            for prodotto in lista_prodotti:
-                pass
