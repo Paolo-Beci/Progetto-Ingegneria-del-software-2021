@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
 import time
-
+from listaordini.view.VistaListaOrdini import VistaListaOrdini
 from listadelpersonale.view.VistaListaDelPersonale import VistaListaDelPersonale
 from listaprodotti.view.VistaListaProdotti import VistaListaProdotti
 from listafornitori.view.VistaListaFornitori import VistaListaFornitori
