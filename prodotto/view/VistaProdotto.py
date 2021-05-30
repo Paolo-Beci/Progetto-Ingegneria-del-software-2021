@@ -4,7 +4,6 @@ from PyQt5.QtCore import Qt, QDate
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPushButton, QHBoxLayout, \
     QGridLayout, QGroupBox, QLineEdit, QDateEdit, QMessageBox
 from PyQt5.QtGui import QIcon, QPixmap, QPainter
-from PyQt5 import QtCore, QtGui, QtWidgets
 
 from prodotto.view.VistaModificaProdotto import VistaModificaProdotto
 from prodotto.controller.ControllerProdotto import ControllerProdotto
@@ -197,7 +196,7 @@ class VistaProdotto(QWidget):
         self.close()
 
     def modifica_prodotto_click(self):
-        self.vista_modifica_prodotto = VistaModificaProdotto(self.controller, self.update_ui)
+        self.vista_modifica_prodotto = VistaModificaProdotto()
         self.vista_modifica_prodotto.showMaximized()
         self.update_ui()
 
