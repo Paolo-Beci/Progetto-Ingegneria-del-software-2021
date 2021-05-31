@@ -1,10 +1,12 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit
+from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QMessageBox
+import keyboard
 import time
 
 import home.view.VistaHome
 from listaprodotti.controller.ControllerListaProdotti import ControllerListaProdotti
+from listaprodotti.model.ListaProdotti import ListaProdotti
 from prodotto.view.VistaProdotto import VistaProdotto
 from listaprodotti.view.VistaInserisciProdotto import VistaInserisciProdotto
 from prodotto.controller.ControllerProdotto import ControllerProdotto
@@ -17,6 +19,9 @@ from prodotto.controller.ControllerProdotto import ControllerProdotto
 class VistaListaProdotti(QWidget):
     def __init__(self, parent=None):
         super(VistaListaProdotti, self).__init__(parent)
+        self.controller = ControllerListaProdotti()
+        self.listaProdotti = ListaProdotti()
+        self.lista_prodotti_filtrata = []
         self.setWindowTitle("Lista Prodotti")
         self.setObjectName("Lista Prodotti")
 
@@ -25,7 +30,7 @@ class VistaListaProdotti(QWidget):
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName("verticalLayout")
 
-        #---------------topWidget------------------
+        # ---------------topWidget------------------
         self.topWidget = QtWidgets.QWidget(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -42,7 +47,7 @@ class VistaListaProdotti(QWidget):
         self.logo.setPixmap(pixmap)
         self.logo.resize(100, 100)
         self.gridLayout_3.addWidget(self.logo, 0, 6, 1, 1, QtCore.Qt.AlignHCenter)
-        #barra di ricerca
+        # barra di ricerca
         self.cerca = QtWidgets.QLineEdit(self.topWidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -53,42 +58,50 @@ class VistaListaProdotti(QWidget):
         self.cerca.setObjectName("cerca")
         self.cerca.setPlaceholderText("Cerca per Cod. prodotto")
         self.gridLayout_3.addWidget(self.cerca, 0, 10, 1, 1)
-        #----------FILTRI COMBOBOX--------------
-        #taglia
+        # ????!!? non funziaaa
+        if keyboard.is_pressed('enter'):
+            self.cerca_prodotto()
+        # ----------FILTRI COMBOBOX--------------
+        # taglia
         self.taglia = QtWidgets.QComboBox(self.topWidget)
         self.taglia.setObjectName("taglia")
-        self.taglia.addItem("")
+        for count in range(16, 49):
+            self.taglia.addItem(str(count))
         self.gridLayout_3.addWidget(self.taglia, 3, 7, 1, 1)
-        #genere
+        # genere
         self.genere = QtWidgets.QComboBox(self.topWidget)
         self.genere.setObjectName("genere")
-        self.genere.addItem("")
-        self.genere.addItem("")
-        self.genere.addItem("")
-        self.genere.addItem("")
+        self.genere.addItem("Uomo")
+        self.genere.addItem("Uomo")
+        self.genere.addItem("Donna")
+        self.genere.addItem("Bambino")
+        self.genere.addItem("Bambina")
         self.gridLayout_3.addWidget(self.genere, 3, 6, 1, 1)
-        #tipo
+        # tipo
         self.tipo = QtWidgets.QComboBox(self.topWidget)
         self.tipo.setObjectName("tipo")
-        self.tipo.addItem("")
-        self.tipo.addItem("")
-        self.tipo.addItem("")
-        self.tipo.addItem("")
+        self.tipo.addItem("Eleganti")  # I don't know why but it's ok :)
+        self.tipo.addItem("Sneakers")
+        self.tipo.addItem("Sportive")
+        self.tipo.addItem("Trekking")
+        self.tipo.addItem("Eleganti")
         self.gridLayout_3.addWidget(self.tipo, 3, 5, 1, 1)
-        #collezione
+        # collezione
         self.collezione = QtWidgets.QComboBox(self.topWidget)
         self.collezione.setObjectName("collezione")
-        self.collezione.addItem("")
-        self.collezione.addItem("")
+        self.collezione.addItem("Primavera / Estate")
+        self.collezione.addItem("Primavera / Estate")
+        self.collezione.addItem("Autunno / Inverno")
         self.gridLayout_3.addWidget(self.collezione, 3, 8, 1, 1)
-        #marca
+        # marca
         self.marca = QtWidgets.QComboBox(self.topWidget)
-        self.marca.setPlaceholderText("")
         self.marca.setObjectName("marca")
-        self.marca.addItem("")
-        self.marca.addItem("")
+        self.marca.addItem("Marca")
+        for item in self.controller.get_lista_marche():
+            self.marca.addItem(str(item))    # non escono le marche
+            #self.marca.addItem(str(count))
         self.gridLayout_3.addWidget(self.marca, 3, 4, 1, 1)
-        #spacer
+        # spacer
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_3.addItem(spacerItem1, 1, 4, 1, 1)
         spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
@@ -105,15 +118,15 @@ class VistaListaProdotti(QWidget):
         self.gridLayout_3.addItem(spacerItem6, 1, 10, 1, 1)
         spacerItem7 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_3.addItem(spacerItem7, 2, 0, 1, 11)
-        #in_arrivo button
+        # in_arrivo button
         self.in_arrivo = QtWidgets.QPushButton(self.topWidget)
         self.in_arrivo.setObjectName("in_arrivo")
         self.gridLayout_3.addWidget(self.in_arrivo, 1, 0, 1, 1)
-        #in_negozio button
+        # in_negozio button
         self.in_negozio = QtWidgets.QPushButton(self.topWidget)
         self.in_negozio.setObjectName("in_negozio")
         self.gridLayout_3.addWidget(self.in_negozio, 1, 1, 1, 1)
-        #venduto button
+        # venduto button
         self.venduto = QtWidgets.QPushButton(self.topWidget)
         self.venduto.setObjectName("venduto")
         self.gridLayout_3.addWidget(self.venduto, 1, 2, 1, 1)
@@ -135,7 +148,7 @@ class VistaListaProdotti(QWidget):
 
         self.verticalLayout.addWidget(self.topWidget)
 
-        #-------------centralWidget---------------
+        # -------------centralWidget---------------
         self.scrollArea = QtWidgets.QScrollArea(self.centralwidget)
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
@@ -148,127 +161,96 @@ class VistaListaProdotti(QWidget):
         self.widget.setObjectName("widget")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.widget)
         self.gridLayout_2.setObjectName("gridLayout_2")
-        #primo blocco    (da iterare con un for?)
-        self.prima_colonna = QtWidgets.QWidget(self.widget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.prima_colonna.sizePolicy().hasHeightForWidth())
-        self.prima_colonna.setSizePolicy(sizePolicy)
-        self.prima_colonna.setMinimumSize(QtCore.QSize(200, 400))
-        self.prima_colonna.setObjectName("prima_colonna")
-        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.prima_colonna)
-        self.verticalLayout_2.setObjectName("verticalLayout_2")
-        self.immagine = QtWidgets.QLabel(self.prima_colonna)
-        self.immagine.setObjectName("immagine")
-        pixmap = QPixmap('listaprodotti/data/images/' + str(self.cod_prodotto()) + '.jpg')
-        self.immagine.setPixmap(pixmap)
-        self.verticalLayout_2.addWidget(self.immagine)
-        self.nome_marca = QtWidgets.QLabel(self.prima_colonna)
-        self.nome_marca.setObjectName("nome_marca")
-        self.verticalLayout_2.addWidget(self.nome_marca)
-        self.prezzo = QtWidgets.QLabel(self.prima_colonna)
-        self.prezzo.setObjectName("prezzo")
-        self.verticalLayout_2.addWidget(self.prezzo)
-        self.gridLayout_2.addWidget(self.prima_colonna, 0, 0, 1, 1)
-        # terzo blocco
-        self.terza_colonna = QtWidgets.QWidget(self.widget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.terza_colonna.sizePolicy().hasHeightForWidth())
-        self.terza_colonna.setSizePolicy(sizePolicy)
-        self.terza_colonna.setMinimumSize(QtCore.QSize(200, 400))
-        self.terza_colonna.setObjectName("terza_colonna")
-        self.gridLayout_2.addWidget(self.terza_colonna, 0, 4, 1, 1)
+        # display prodotto
+        r = 0
+        c = 0
+        i = 0
+        for prodotto in self.controller.get_lista_prodotti():
+            cod = prodotto.cod_prodotto
+            self.display_prodotto = QtWidgets.QWidget(self.widget)
+            sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+            sizePolicy.setHorizontalStretch(0)
+            sizePolicy.setVerticalStretch(0)
+            sizePolicy.setHeightForWidth(self.display_prodotto.sizePolicy().hasHeightForWidth())
+            self.display_prodotto.setSizePolicy(sizePolicy)
+            self.display_prodotto.setMinimumSize(QtCore.QSize(200, 400))
+            self.display_prodotto.setObjectName("display_prodotto")
+            self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.display_prodotto)
+            self.verticalLayout_2.setObjectName("verticalLayout_2")
+            self.immagine = QtWidgets.QLabel(self.display_prodotto)   # come lo allineo centrale??
+            self.immagine.setObjectName("immagine")
+            pixmap = QPixmap('listaprodotti/data/images/' + str(cod) + '.jpg')
+            self.immagine.setPixmap(pixmap)
+            self.verticalLayout_2.addWidget(self.immagine, QtCore.Qt.AlignHCenter)
+            self.nome_marca = QtWidgets.QLabel(self.display_prodotto)
+            self.nome_marca.setObjectName("nome_marca")
+            self.nome_marca.setText(self.controller.get_nome_prodotto_by_code(cod) + " " + self.controller.get_marca_prodotto_by_code(cod))
+            self.verticalLayout_2.addWidget(self.nome_marca)
+            self.prezzo = QtWidgets.QLabel(self.display_prodotto)
+            self.prezzo.setObjectName("prezzo")
+            self.prezzo.setText(self.controller.get_prezzo_prodotto_by_code(cod))
+            self.verticalLayout_2.addWidget(self.prezzo)
+            self.dettagli = QtWidgets.QPushButton(self.topWidget)
+            self.dettagli.setObjectName("dettagli")
+            self.dettagli.setText("Dettagli")
+            #self.dettagli.clicked.connect(self.show_prodotto(cod))
+            self.verticalLayout_2.addWidget(self.dettagli)
 
-        self.widget_2 = QtWidgets.QWidget(self.widget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.widget_2.sizePolicy().hasHeightForWidth())
-        self.widget_2.setSizePolicy(sizePolicy)
-        self.widget_2.setMinimumSize(QtCore.QSize(200, 400))
-        self.widget_2.setObjectName("widget_2")
-        self.gridLayout_2.addWidget(self.widget_2, 2, 0, 1, 1)
-        self.widget_5 = QtWidgets.QWidget(self.widget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.widget_5.sizePolicy().hasHeightForWidth())
-        self.widget_5.setSizePolicy(sizePolicy)
-        self.widget_5.setMinimumSize(QtCore.QSize(200, 400))
-        self.widget_5.setObjectName("widget_5")
-        self.gridLayout_2.addWidget(self.widget_5, 2, 2, 1, 1)
-        self.line_2 = QtWidgets.QFrame(self.widget)
-        self.line_2.setFrameShape(QtWidgets.QFrame.HLine)
-        self.line_2.setFrameShadow(QtWidgets.QFrame.Sunken)
-        self.line_2.setObjectName("line_2")
-        self.gridLayout_2.addWidget(self.line_2, 1, 4, 1, 1)
-        self.line = QtWidgets.QFrame(self.widget)
-        self.line.setFrameShape(QtWidgets.QFrame.HLine)
-        self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
-        self.line.setObjectName("line")
-        self.gridLayout_2.addWidget(self.line, 1, 0, 1, 1)
-        self.line_6 = QtWidgets.QFrame(self.widget)
-        self.line_6.setFrameShape(QtWidgets.QFrame.VLine)
-        self.line_6.setFrameShadow(QtWidgets.QFrame.Sunken)
-        self.line_6.setObjectName("line_6")
-        self.gridLayout_2.addWidget(self.line_6, 0, 3, 1, 1)
-        self.line_5 = QtWidgets.QFrame(self.widget)
-        self.line_5.setFrameShape(QtWidgets.QFrame.VLine)
-        self.line_5.setFrameShadow(QtWidgets.QFrame.Sunken)
-        self.line_5.setObjectName("line_5")
-        self.gridLayout_2.addWidget(self.line_5, 2, 1, 1, 1)
-        self.line_7 = QtWidgets.QFrame(self.widget)
-        self.line_7.setFrameShape(QtWidgets.QFrame.VLine)
-        self.line_7.setFrameShadow(QtWidgets.QFrame.Sunken)
-        self.line_7.setObjectName("line_7")
-        self.gridLayout_2.addWidget(self.line_7, 2, 3, 1, 1)
-        self.seconda_colonna = QtWidgets.QWidget(self.widget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.seconda_colonna.sizePolicy().hasHeightForWidth())
-        self.seconda_colonna.setSizePolicy(sizePolicy)
-        self.seconda_colonna.setMinimumSize(QtCore.QSize(200, 400))
-        self.seconda_colonna.setObjectName("seconda_colonna")
-        self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.seconda_colonna)
-        self.verticalLayout_3.setObjectName("verticalLayout_3")
-        self.immagine_2 = QtWidgets.QLabel(self.seconda_colonna)
-        self.immagine_2.setObjectName("immagine_2")
-        self.verticalLayout_3.addWidget(self.immagine_2)
-        self.nome_marca_2 = QtWidgets.QLabel(self.seconda_colonna)
-        self.nome_marca_2.setObjectName("nome_marca_2")
-        self.verticalLayout_3.addWidget(self.nome_marca_2)
-        self.prezzo_2 = QtWidgets.QLabel(self.seconda_colonna)
-        self.prezzo_2.setObjectName("prezzo_2")
-        self.verticalLayout_3.addWidget(self.prezzo_2)
-        self.gridLayout_2.addWidget(self.seconda_colonna, 0, 2, 1, 1)
-        self.widget_6 = QtWidgets.QWidget(self.widget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.widget_6.sizePolicy().hasHeightForWidth())
-        self.widget_6.setSizePolicy(sizePolicy)
-        self.widget_6.setMinimumSize(QtCore.QSize(200, 400))
-        self.widget_6.setObjectName("widget_6")
-        self.gridLayout_2.addWidget(self.widget_6, 2, 4, 1, 1)
-        self.line_4 = QtWidgets.QFrame(self.widget)
-        self.line_4.setFrameShape(QtWidgets.QFrame.VLine)
-        self.line_4.setFrameShadow(QtWidgets.QFrame.Sunken)
-        self.line_4.setObjectName("line_4")
-        self.gridLayout_2.addWidget(self.line_4, 0, 1, 1, 1)
-        self.line_3 = QtWidgets.QFrame(self.widget)
-        self.line_3.setFrameShape(QtWidgets.QFrame.HLine)
-        self.line_3.setFrameShadow(QtWidgets.QFrame.Sunken)
-        self.line_3.setObjectName("line_3")
-        self.gridLayout_2.addWidget(self.line_3, 1, 2, 1, 1)
+            # c = colonne , r = righe del display
+            self.gridLayout_2.addWidget(self.display_prodotto, c, r, 1, 1)
+            if r == 4:
+                r = 0
+            else:
+                r = r + 2
+            if i == 3:
+                i = 0
+                c = c + 2
+            else:
+                i = i + 1
+
+        # linee separatorie
+        # self.line_2 = QtWidgets.QFrame(self.widget)
+        # self.line_2.setFrameShape(QtWidgets.QFrame.HLine)
+        # self.line_2.setFrameShadow(QtWidgets.QFrame.Sunken)
+        # self.line_2.setObjectName("line_2")
+        # self.gridLayout_2.addWidget(self.line_2, 1, 4, 1, 1)
+        # self.line = QtWidgets.QFrame(self.widget)
+        # self.line.setFrameShape(QtWidgets.QFrame.HLine)
+        # self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
+        # self.line.setObjectName("line")
+        # self.gridLayout_2.addWidget(self.line, 1, 0, 1, 1)
+        # self.line_6 = QtWidgets.QFrame(self.widget)
+        # self.line_6.setFrameShape(QtWidgets.QFrame.VLine)
+        # self.line_6.setFrameShadow(QtWidgets.QFrame.Sunken)
+        # self.line_6.setObjectName("line_6")
+        # self.gridLayout_2.addWidget(self.line_6, 0, 3, 1, 1)
+        # self.line_5 = QtWidgets.QFrame(self.widget)
+        # self.line_5.setFrameShape(QtWidgets.QFrame.VLine)
+        # self.line_5.setFrameShadow(QtWidgets.QFrame.Sunken)
+        # self.line_5.setObjectName("line_5")
+        # self.gridLayout_2.addWidget(self.line_5, 2, 1, 1, 1)
+        # self.line_7 = QtWidgets.QFrame(self.widget)
+        # self.line_7.setFrameShape(QtWidgets.QFrame.VLine)
+        # self.line_7.setFrameShadow(QtWidgets.QFrame.Sunken)
+        # self.line_7.setObjectName("line_7")
+        # self.gridLayout_2.addWidget(self.line_7, 2, 3, 1, 1)
+        # self.line_4 = QtWidgets.QFrame(self.widget)
+        # self.line_4.setFrameShape(QtWidgets.QFrame.VLine)
+        # self.line_4.setFrameShadow(QtWidgets.QFrame.Sunken)
+        # self.line_4.setObjectName("line_4")
+        # self.gridLayout_2.addWidget(self.line_4, 0, 1, 1, 1)
+        # self.line_3 = QtWidgets.QFrame(self.widget)
+        # self.line_3.setFrameShape(QtWidgets.QFrame.HLine)
+        # self.line_3.setFrameShadow(QtWidgets.QFrame.Sunken)
+        # self.line_3.setObjectName("line_3")
+        # self.gridLayout_2.addWidget(self.line_3, 1, 2, 1, 1)
+
+        # CREAZIONE DEI WIDGET
         self.gridLayout.addWidget(self.widget, 0, 0, 1, 1)
-
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.verticalLayout.addWidget(self.scrollArea)
-        #QtWidgets.QMainWindow.setCentralWidget(self.centralwidget)     NON RIESCO A METTERLA A TUTTO SCHERMO
+        # QtWidgets.QMainWindow.setCentralWidget(self.centralwidget)     NON RIESCO A METTERLA A TUTTO SCHERMO
+        self.centralwidget.setGeometry(QtCore.QRect(0, 0, 1920, 1080))   # settata ad una risoluzione HD
 
         self.retranslateUi(self)
         QtCore.QMetaObject.connectSlotsByName(self)
@@ -277,29 +259,76 @@ class VistaListaProdotti(QWidget):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.taglia.setItemText(0, _translate("MainWindow", "Taglia"))
-        self.genere.setItemText(0, _translate("MainWindow", "Uomo"))
-        self.genere.setItemText(1, _translate("MainWindow", "Donna"))
-        self.genere.setItemText(2, _translate("MainWindow", "Bambino"))
-        self.genere.setItemText(3, _translate("MainWindow", "Bambina"))
+        self.genere.setItemText(0, _translate("MainWindow", "Genere"))
         self.in_arrivo.setText(_translate("MainWindow", "IN ARRIVO"))
-        self.tipo.setItemText(0, _translate("MainWindow", "Eleganti"))
-        self.tipo.setItemText(1, _translate("MainWindow", "Sneakers"))
-        self.tipo.setItemText(2, _translate("MainWindow", "Sportive"))
-        self.tipo.setItemText(3, _translate("MainWindow", "Trekking"))
+        self.tipo.setItemText(0, _translate("MainWindow", "Tipo"))
         self.in_negozio.setText(_translate("MainWindow", "IN NEGOZIO"))
-        self.marca.setCurrentText(_translate("MainWindow", "Armani"))
-        self.marca.setItemText(0, _translate("MainWindow", "Armani"))
-        self.marca.setItemText(1, _translate("MainWindow", "Pier One"))
-        self.collezione.setItemText(0, _translate("MainWindow", "Primavera/Estate"))
-        self.collezione.setItemText(1, _translate("MainWindow", "Autunno/Inverno"))
+        self.marca.setCurrentText(_translate("MainWindow", "Marca"))
+        self.collezione.setItemText(0, _translate("MainWindow", "Collezione"))
         self.venduto.setText(_translate("MainWindow", "VENDUTO"))
         self.indietro.setText(_translate("MainWindow", "< Indietro"))
         self.reso.setText(_translate("MainWindow", "RESO"))
         self.nome_marca.setText(_translate("MainWindow", "Marca - Nome prodotto"))
         self.prezzo.setText(_translate("MainWindow", "Prezzo"))
-        self.immagine_2.setText(_translate("MainWindow", "TextLabel"))
-        self.nome_marca_2.setText(_translate("MainWindow", "Marca - Nome prodotto"))
-        self.prezzo_2.setText(_translate("MainWindow", "Prezzo"))
+        self.dettagli.setText(_translate("MainWindow", "Dettagli"))
+
+    def show_inserici_prodotto(self):
+        self.vista_inserisci_prodotto = VistaInserisciProdotto(self.controller, self.update_ui)
+        self.vista_inserisci_prodotto.show()
+
+    def show_home(self):
+        self.vista_home = home.view.VistaHome.VistaHome()
+        self.vista_home.showMaximized()
+        time.sleep(0.3)
+        self.close()
+
+    def cerca_prodotto(self):
+        cod_prodotto = self.cerca.text()
+        cod_prodotto.capitalize()
+        if cod_prodotto.isalnum() and cod_prodotto.startswith('S'):
+            self.filtro_lista(cod_prodotto)
+        else:
+            self.popup_errore()
+
+    # crea l'elenco dei codici dei prodotti da visualizzare basati sui filtri
+    def filtro_lista(self, cod):
+        return 'S01'
+
+    def get_lista_filtrata(self):
+        return self.lista_prodotti_filtrata
+
+    def show_in_arrivo(self):
+        pass
+
+    def show_in_negozio(self):
+        pass
+
+    def show_venduto(self):
+        pass
+
+    def show_reso(self):
+        pass
+
+    def show_prodotto(self, cod):
+        prodotto_selezionato = self.controller.get_prodotto_by_code(cod)
+        self.vista_prodotto = VistaProdotto(prodotto_selezionato, self.controller.elimina_prodotto_by_codice,
+                                            ControllerProdotto.modifica_prodotto_by_codice, self.retranslateUi)
+        self.vista_prodotto.showMaximized()
+        time.sleep(0.3)
+        self.close()
+
+    def closeEvent(self, event):
+        pass
+        # self.controller.save_data()
+
+    def popup_errore(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("ATTENZIONE")
+        msg.setText("Hai inserito un codice prodotto non valido! \n\nProva con un formato del tipo: S03")
+        msg.setIcon(QMessageBox.Warning)
+        msg.setStandardButtons(QMessageBox.Yes)
+        msg.setDefaultButton(QMessageBox.Yes)
+        msg.exec_()
 
     # class VistaListaProdotti(QWidget):
     #     def __init__(self, parent=None):
@@ -363,33 +392,3 @@ class VistaListaProdotti(QWidget):
     #         self.vista_prodotto.showMaximized()
     #         time.sleep(0.3)
     #         self.close()
-
-    def show_inserici_prodotto(self):
-        self.vista_inserisci_prodotto = VistaInserisciProdotto(self.controller, self.update_ui)
-        self.vista_inserisci_prodotto.show()
-
-    def show_home(self):
-        self.vista_home = home.view.VistaHome.VistaHome()
-        self.vista_home.showMaximized()
-        time.sleep(0.3)
-        self.close()
-
-    # crea l'elenco dei codici dei prodotti da visualizzare basati sui filtri
-    def cod_prodotto(self):
-        return 'S01'
-
-    def show_in_arrivo(self):
-        pass
-
-    def show_in_negozio(self):
-        pass
-
-    def show_venduto(self):
-        pass
-
-    def show_reso(self):
-        pass
-
-    def closeEvent(self, event):
-        pass
-        #self.controller.save_data()

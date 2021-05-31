@@ -10,6 +10,7 @@ class ListaProdotti:
     def __init__(self):
         super(ListaProdotti, self).__init__()
         self.lista_prodotti = []
+        self.lista_marche = []
         if os.path.isfile('listaprodotti/data/lista_prodotti_salvata.pickle'):
             with open('listaprodotti/data/lista_prodotti_salvata.pickle', 'rb') as f:
                 self.lista_prodotti = pickle.load(f)
@@ -17,6 +18,10 @@ class ListaProdotti:
             with open('listaprodotti/data/database_prodotti.json') as f:
                 self.lista_prodotti_json = json.load(f)
                 for prodotto_da_caricare in self.lista_prodotti_json:
+                    if prodotto_da_caricare["marca"] in self.lista_marche:
+                        pass
+                    else:
+                        self.lista_marche.append(prodotto_da_caricare["marca"])
                     self.aggiungi_prodotto_da_database(
                         Prodotto(prodotto_da_caricare["cod_fattura"], prodotto_da_caricare["cod_fornitore"],
                                  prodotto_da_caricare["data_ordine"], prodotto_da_caricare["cod_prodotto"],
@@ -38,6 +43,15 @@ class ListaProdotti:
     def get_lista_prodotti(self):
         return self.lista_prodotti
 
+    def get_lista_marche(self):
+        return self.lista_marche
+
+    def get_dimensione_lista(self):
+        return len(self.lista_prodotti)
+
+    def get_dimensione_lista_marche(self):
+        return len(self.lista_marche)
+
     def get_prodotto(self, cod):
         return self.lista_prodotti[cod]
 
@@ -52,6 +66,18 @@ class ListaProdotti:
                 return prodotto.nome
             elif prodotto.cod_prodotto == codice and prodotto.nome is None:
                 return "Nessuno"
+
+    def get_prodotto_by_code(self, codice):
+        for prodotto in self.lista_prodotti:
+            if prodotto.cod_prodotto == codice:
+                return prodotto
+            elif prodotto.cod_prodotto != codice:
+                return "Nessuno"
+
+    def get_prezzo_prodotto_by_code(self, codice):
+        for prodotto in self.lista_prodotti:
+            if prodotto.prezzo_vendita == codice:
+                return prodotto.prezzo_vendita
 
     def elimina_prodotto(self, codice_prodotto):
         def is_selected_prodotto(utente):

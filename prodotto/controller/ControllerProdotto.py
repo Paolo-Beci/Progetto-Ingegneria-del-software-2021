@@ -13,6 +13,9 @@ class ControllerProdotto:
     def get_prodotto(self, index):
         return self.model.get_prodotto(index)
 
+    def get_dimensione_lista(self):
+        return self.model.get_dimensione_lista()
+
     # ----------------GET------------------
 
     def get_cod_fattura(self):
