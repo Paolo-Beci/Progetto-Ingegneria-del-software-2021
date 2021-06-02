@@ -16,11 +16,11 @@ import listaprodotti.view.VistaListaProdotti
 
 
 class VistaProdotto(QWidget):
-    def __init__(self, c_prodotto, elimina_prodotto, modifica_prodotto, update_ui, parent=None):
+    def __init__(self, c_prodotto, elimina_prodotto, update_ui, parent=None):
         super(VistaProdotto, self).__init__(parent)
         self.controller = ControllerProdotto(c_prodotto)
         self.elimina_prodotto = elimina_prodotto
-        self.modifica_prodotto = modifica_prodotto
+        #self.modifica_prodotto = modifica_prodotto    serve???
         self.update_ui = update_ui
 
         """
@@ -196,9 +196,9 @@ class VistaProdotto(QWidget):
         self.close()
 
     def modifica_prodotto_click(self):
-        self.vista_modifica_prodotto = VistaModificaProdotto()
-        self.vista_modifica_prodotto.showMaximized()
-        self.update_ui()
+        self.vista_modifica_prodotto = VistaModificaProdotto(self.controller, self.update_ui)
+        self.vista_modifica_prodotto.show()
+        #self.update_ui()
 
     def show_back_click(self):
         self.vista_back = listaprodotti.view.VistaListaProdotti.VistaListaProdotti()

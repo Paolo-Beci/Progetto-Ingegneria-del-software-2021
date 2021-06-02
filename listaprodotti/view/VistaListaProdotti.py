@@ -7,6 +7,7 @@ import time
 import home.view.VistaHome
 from listaprodotti.controller.ControllerListaProdotti import ControllerListaProdotti
 from listaprodotti.model.ListaProdotti import ListaProdotti
+from prodotto.view.VistaModificaProdotto import VistaModificaProdotto
 from prodotto.view.VistaProdotto import VistaProdotto
 from listaprodotti.view.VistaInserisciProdotto import VistaInserisciProdotto
 from prodotto.controller.ControllerProdotto import ControllerProdotto
@@ -48,6 +49,14 @@ class VistaListaProdotti(QWidget):
         self.logo.resize(100, 100)
         self.gridLayout_3.addWidget(self.logo, 0, 6, 1, 1, QtCore.Qt.AlignHCenter)
         # barra di ricerca
+        self.cerca_button = QtWidgets.QPushButton(self.topWidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.cerca_button.sizePolicy().hasHeightForWidth())
+        self.cerca_button.setSizePolicy(sizePolicy)
+        self.cerca_button.setObjectName("cerca_button")
+        self.gridLayout_3.addWidget(self.cerca_button, 0, 9, 1, 1)
         self.cerca = QtWidgets.QLineEdit(self.topWidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -58,9 +67,7 @@ class VistaListaProdotti(QWidget):
         self.cerca.setObjectName("cerca")
         self.cerca.setPlaceholderText("Cerca per Cod. prodotto")
         self.gridLayout_3.addWidget(self.cerca, 0, 10, 1, 1)
-        # ????!!? non funziaaa
-        if keyboard.is_pressed('enter'):
-            self.cerca_prodotto()
+        #self.cerca_button.clicked.connect(self.cerca_prodotto())
         # ----------FILTRI COMBOBOX--------------
         # taglia
         self.taglia = QtWidgets.QComboBox(self.topWidget)
@@ -98,8 +105,7 @@ class VistaListaProdotti(QWidget):
         self.marca.setObjectName("marca")
         self.marca.addItem("Marca")
         for item in self.controller.get_lista_marche():
-            self.marca.addItem(str(item))    # non escono le marche
-            #self.marca.addItem(str(count))
+            self.marca.addItem(str(item))    # non escono le marche!?!?
         self.gridLayout_3.addWidget(self.marca, 3, 4, 1, 1)
         # spacer
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
@@ -122,18 +128,22 @@ class VistaListaProdotti(QWidget):
         self.in_arrivo = QtWidgets.QPushButton(self.topWidget)
         self.in_arrivo.setObjectName("in_arrivo")
         self.gridLayout_3.addWidget(self.in_arrivo, 1, 0, 1, 1)
+        self.in_arrivo.clicked.connect(self.show_in_arrivo)
         # in_negozio button
         self.in_negozio = QtWidgets.QPushButton(self.topWidget)
         self.in_negozio.setObjectName("in_negozio")
         self.gridLayout_3.addWidget(self.in_negozio, 1, 1, 1, 1)
+        self.in_negozio.clicked.connect(self.show_in_arrivo)
         # venduto button
         self.venduto = QtWidgets.QPushButton(self.topWidget)
         self.venduto.setObjectName("venduto")
         self.gridLayout_3.addWidget(self.venduto, 1, 2, 1, 1)
+        self.venduto.clicked.connect(self.show_venduto)
         # reso button
         self.reso = QtWidgets.QPushButton(self.topWidget)
         self.reso.setObjectName("reso")
         self.gridLayout_3.addWidget(self.reso, 1, 3, 1, 1)
+        self.reso.clicked.connect(self.show_reso)
 
         # indietro
         self.indietro = QtWidgets.QPushButton(self.topWidget)
@@ -165,48 +175,51 @@ class VistaListaProdotti(QWidget):
         r = 0
         c = 0
         i = 0
+        cod_precedente = 'S00'
         for prodotto in self.controller.get_lista_prodotti():
             cod = prodotto.cod_prodotto
-            self.display_prodotto = QtWidgets.QWidget(self.widget)
-            sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
-            sizePolicy.setHorizontalStretch(0)
-            sizePolicy.setVerticalStretch(0)
-            sizePolicy.setHeightForWidth(self.display_prodotto.sizePolicy().hasHeightForWidth())
-            self.display_prodotto.setSizePolicy(sizePolicy)
-            self.display_prodotto.setMinimumSize(QtCore.QSize(200, 400))
-            self.display_prodotto.setObjectName("display_prodotto")
-            self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.display_prodotto)
-            self.verticalLayout_2.setObjectName("verticalLayout_2")
-            self.immagine = QtWidgets.QLabel(self.display_prodotto)   # come lo allineo centrale??
-            self.immagine.setObjectName("immagine")
-            pixmap = QPixmap('listaprodotti/data/images/' + str(cod) + '.jpg')
-            self.immagine.setPixmap(pixmap)
-            self.verticalLayout_2.addWidget(self.immagine, QtCore.Qt.AlignHCenter)
-            self.nome_marca = QtWidgets.QLabel(self.display_prodotto)
-            self.nome_marca.setObjectName("nome_marca")
-            self.nome_marca.setText(self.controller.get_nome_prodotto_by_code(cod) + " " + self.controller.get_marca_prodotto_by_code(cod))
-            self.verticalLayout_2.addWidget(self.nome_marca)
-            self.prezzo = QtWidgets.QLabel(self.display_prodotto)
-            self.prezzo.setObjectName("prezzo")
-            self.prezzo.setText(self.controller.get_prezzo_prodotto_by_code(cod))
-            self.verticalLayout_2.addWidget(self.prezzo)
-            self.dettagli = QtWidgets.QPushButton(self.topWidget)
-            self.dettagli.setObjectName("dettagli")
-            self.dettagli.setText("Dettagli")
-            #self.dettagli.clicked.connect(self.show_prodotto(cod))
-            self.verticalLayout_2.addWidget(self.dettagli)
+            if cod != cod_precedente:
+                self.display_prodotto = QtWidgets.QWidget(self.widget)
+                sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+                sizePolicy.setHorizontalStretch(0)
+                sizePolicy.setVerticalStretch(0)
+                sizePolicy.setHeightForWidth(self.display_prodotto.sizePolicy().hasHeightForWidth())
+                self.display_prodotto.setSizePolicy(sizePolicy)
+                self.display_prodotto.setMinimumSize(QtCore.QSize(200, 400))
+                self.display_prodotto.setObjectName("display_prodotto")
+                self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.display_prodotto)
+                self.verticalLayout_2.setObjectName("verticalLayout_2")
+                self.immagine = QtWidgets.QLabel(self.display_prodotto)   # come lo allineo centrale??
+                self.immagine.setObjectName("immagine")
+                pixmap = QPixmap('listaprodotti/data/images/' + str(cod) + '.jpg')
+                self.immagine.setPixmap(pixmap)
+                self.verticalLayout_2.addWidget(self.immagine, QtCore.Qt.AlignHCenter)
+                self.nome_marca = QtWidgets.QLabel(self.display_prodotto)
+                self.nome_marca.setObjectName("nome_marca")
+                self.nome_marca.setText(self.controller.get_nome_prodotto_by_code(cod) + " - " + self.controller.get_marca_prodotto_by_code(cod))
+                self.verticalLayout_2.addWidget(self.nome_marca)
+                self.prezzo = QtWidgets.QLabel(self.display_prodotto)
+                self.prezzo.setObjectName("prezzo")
+                self.prezzo.setText(self.controller.get_prezzo_prodotto_by_code(cod))
+                self.verticalLayout_2.addWidget(self.prezzo)
+                self.dettagli = QtWidgets.QPushButton(self.topWidget)
+                self.dettagli.setObjectName("dettagli")
+                self.dettagli.setText("Dettagli")
+                #self.dettagli.clicked.connect(self.show_prodotto(cod))
+                self.verticalLayout_2.addWidget(self.dettagli)
 
-            # c = colonne , r = righe del display
-            self.gridLayout_2.addWidget(self.display_prodotto, c, r, 1, 1)
-            if r == 4:
-                r = 0
-            else:
-                r = r + 2
-            if i == 3:
-                i = 0
-                c = c + 2
-            else:
-                i = i + 1
+                # c = colonne , r = righe del display
+                self.gridLayout_2.addWidget(self.display_prodotto, c, r, 1, 1)
+                if r == 4:
+                    r = 0
+                else:
+                    r = r + 2
+                if i == 3:
+                    i = 0
+                    c = c + 2
+                else:
+                    i = i + 1
+                cod_precedente = cod
 
         # linee separatorie
         # self.line_2 = QtWidgets.QFrame(self.widget)
@@ -271,9 +284,10 @@ class VistaListaProdotti(QWidget):
         self.nome_marca.setText(_translate("MainWindow", "Marca - Nome prodotto"))
         self.prezzo.setText(_translate("MainWindow", "Prezzo"))
         self.dettagli.setText(_translate("MainWindow", "Dettagli"))
+        self.cerca_button.setText(_translate("MainWindow", "Cerca"))
 
     def show_inserici_prodotto(self):
-        self.vista_inserisci_prodotto = VistaInserisciProdotto(self.controller, self.update_ui)
+        self.vista_inserisci_prodotto = VistaInserisciProdotto(self.controller, self.updateUi)
         self.vista_inserisci_prodotto.show()
 
     def show_home(self):
@@ -297,8 +311,10 @@ class VistaListaProdotti(QWidget):
     def get_lista_filtrata(self):
         return self.lista_prodotti_filtrata
 
-    def show_in_arrivo(self):
-        pass
+    def show_in_arrivo(self):      # PROVA TEMPORANEA
+        prodotto_selezionato = self.controller.get_prodotto_by_code("S01")
+        self.vista_prodotto = VistaProdotto(prodotto_selezionato, self.controller.elimina_prodotto_by_codice, self.update_ui(self))
+        self.vista_prodotto.showMaximized()
 
     def show_in_negozio(self):
         pass
@@ -320,6 +336,9 @@ class VistaListaProdotti(QWidget):
     def closeEvent(self, event):
         pass
         # self.controller.save_data()
+
+    def update_ui(self, event):
+        pass
 
     def popup_errore(self):
         msg = QMessageBox()

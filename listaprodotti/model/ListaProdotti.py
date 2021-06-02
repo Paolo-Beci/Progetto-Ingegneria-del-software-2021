@@ -21,7 +21,7 @@ class ListaProdotti:
                     if prodotto_da_caricare["marca"] in self.lista_marche:
                         pass
                     else:
-                        self.lista_marche.append(prodotto_da_caricare["marca"])
+                        self.lista_marche.append(Prodotto(prodotto_da_caricare["marca"]))
                     self.aggiungi_prodotto_da_database(
                         Prodotto(prodotto_da_caricare["cod_fattura"], prodotto_da_caricare["cod_fornitore"],
                                  prodotto_da_caricare["data_ordine"], prodotto_da_caricare["cod_prodotto"],
