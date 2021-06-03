@@ -4,7 +4,6 @@ from PyQt5.QtCore import Qt, QDate
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPushButton, QHBoxLayout, \
     QGridLayout, QGroupBox, QLineEdit, QDateEdit, QMessageBox
 from PyQt5.QtGui import QIcon, QPixmap, QPainter
-from PyQt5 import QtCore, QtGui, QtWidgets
 
 from prodotto.view.VistaModificaProdotto import VistaModificaProdotto
 from prodotto.controller.ControllerProdotto import ControllerProdotto
@@ -17,11 +16,11 @@ import listaprodotti.view.VistaListaProdotti
 
 
 class VistaProdotto(QWidget):
-    def __init__(self, c_prodotto, elimina_prodotto, modifica_prodotto, update_ui, parent=None):
+    def __init__(self, c_prodotto, elimina_prodotto, update_ui, parent=None):
         super(VistaProdotto, self).__init__(parent)
         self.controller = ControllerProdotto(c_prodotto)
         self.elimina_prodotto = elimina_prodotto
-        self.modifica_prodotto = modifica_prodotto
+        #self.modifica_prodotto = modifica_prodotto    serve???
         self.update_ui = update_ui
 
         """
@@ -184,7 +183,7 @@ class VistaProdotto(QWidget):
     def popup_elimina(self):
         msg = QMessageBox()
         msg.setWindowTitle("ATTENZIONE")
-        msg.setText("Sei sicuro di eliminare il prodotto selezionato? \n\nil prodotto eliminato non sarà ripristinabile")
+        msg.setText("Sei sicuro di voler eliminare il prodotto selezionato? \n\nil prodotto eliminato non sarà ripristinabile")
         msg.setIcon(QMessageBox.Warning)
         msg.setStandardButtons(QMessageBox.Yes)
         msg.setDefaultButton(QMessageBox.Yes)
@@ -198,8 +197,8 @@ class VistaProdotto(QWidget):
 
     def modifica_prodotto_click(self):
         self.vista_modifica_prodotto = VistaModificaProdotto(self.controller, self.update_ui)
-        self.vista_modifica_prodotto.showMaximized()
-        self.update_ui()
+        self.vista_modifica_prodotto.show()
+        #self.update_ui()
 
     def show_back_click(self):
         self.vista_back = listaprodotti.view.VistaListaProdotti.VistaListaProdotti()

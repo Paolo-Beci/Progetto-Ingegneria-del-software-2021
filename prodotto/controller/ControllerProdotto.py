@@ -10,10 +10,11 @@ class ControllerProdotto:
     def modifica_prodotto_by_codice(self, cod_prodotto, new_value):
         self.model.ListaProdotti.modifica_prodotto(cod_prodotto, new_value)
 
-    def elimina_prodotto(self, cod_prodotto): pass
-
     def get_prodotto(self, index):
         return self.model.get_prodotto(index)
+
+    def get_dimensione_lista(self):
+        return self.model.get_dimensione_lista()
 
     # ----------------GET------------------
 
