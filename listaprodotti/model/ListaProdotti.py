@@ -55,11 +55,12 @@ class ListaProdotti:
     def get_prodotto(self, cod):
         return self.lista_prodotti[cod]
 
-    def get_prodotto_by_code(self, code):
-        for prodotto in self.lista_prodotti:
-            if prodotto.cod_prodotto == code:
-                return prodotto
+    # def get_prodotto_by_code(self, code):
+    #     for prodotto in self.lista_prodotti:
+    #         if prodotto.cod_prodotto == code:
+    #             return prodotto
 
+    # Giuseppe
     def get_anno_prodotto_by_code(self, codice):
         for prodotto in self.lista_prodotti:
             if prodotto.cod_prodotto == codice and prodotto.data_ordine is not None:
@@ -67,6 +68,7 @@ class ListaProdotti:
                 anno = splitted_date[2]
                 return anno
 
+    #Giuseppe
     def get_nome_prodotto_by_code(self, codice):
         for prodotto in self.lista_prodotti:
             if prodotto.cod_prodotto == codice and prodotto.nome is not None:
@@ -74,6 +76,7 @@ class ListaProdotti:
             elif prodotto.cod_prodotto == codice and prodotto.nome is None:
                 return "Nessuno"
 
+    #Giuseppe
     def get_prodotto_by_code(self, codice):
         for prodotto in self.lista_prodotti:
             if prodotto.cod_prodotto == codice:
@@ -85,6 +88,11 @@ class ListaProdotti:
         for prodotto in self.lista_prodotti:
             if prodotto.prezzo_vendita == codice:
                 return prodotto.prezzo_vendita
+
+    def get_marca_by_code(self, codice):
+        for prodotto in self.lista_prodotti:
+            if prodotto.prezzo_vendita == codice:
+                return prodotto.marca
 
     def elimina_prodotto(self, codice_prodotto):
         def is_selected_prodotto(utente):
