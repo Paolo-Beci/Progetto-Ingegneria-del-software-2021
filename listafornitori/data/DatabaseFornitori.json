@@ -41,6 +41,28 @@
    "sito_web": "https://extremesportpoint.com",
    "rappresentante": "Fabiana Forgione",
    "data_affiliazione": "11/01/2019",
+   "stato": "P"
+ },
+   {
+   "cod_fornitore": "AD004",
+   "nome": "Gavetti Giulia Srl",
+   "indirizzo": "Piazza Roma, 5, 60121 Ancona (AN), Italy",
+   "telefono": 204412,
+   "partita_iva": 86330918333,
+   "sito_web": "null",
+   "rappresentante": "Giulia Gavetti",
+   "data_affiliazione": "15/01/2020",
    "stato": "S"
+ },
+   {
+   "cod_fornitore": "AD005",
+   "nome": "FashionPo",
+   "indirizzo": "Via Rubettino, 7, 47921 Rimini (RN), Italy",
+   "telefono": 657421,
+   "partita_iva": 86334000333,
+   "sito_web": "https://www.fashionpo.com",
+   "rappresentante": "Franco Lucia",
+   "data_affiliazione": "15/02/2018",
+   "stato": "P"
  }
 ]

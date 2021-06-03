@@ -29,5 +29,10 @@
     "nome" : "Fornitori piu' rapidi nella consegna",
     "quantita" : 3,
     "contenuto" : []
+  },
+    {
+    "nome" : "Andamento finanziario",
+    "quantita" : null,
+    "contenuto" : []
   }
 ]

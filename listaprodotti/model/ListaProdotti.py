@@ -41,10 +41,17 @@ class ListaProdotti:
     def get_prodotto(self, cod):
         return self.lista_prodotti[cod]
 
-    def get_marca_prodotto_by_code(self, codice):
+    def get_prodotto_by_code(self, code):
         for prodotto in self.lista_prodotti:
-            if prodotto.cod_prodotto == codice:
-                return prodotto.marca
+            if prodotto.cod_prodotto == code:
+                return prodotto
+
+    def get_anno_prodotto_by_code(self, codice):
+        for prodotto in self.lista_prodotti:
+            if prodotto.cod_prodotto == codice and prodotto.data_ordine is not None:
+                splitted_date = prodotto.data_ordine.split("/")
+                anno = splitted_date[2]
+                return anno
 
     def get_nome_prodotto_by_code(self, codice):
         for prodotto in self.lista_prodotti:
