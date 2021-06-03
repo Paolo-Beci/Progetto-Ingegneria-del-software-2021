@@ -183,7 +183,7 @@ class VistaProdotto(QWidget):
     def popup_elimina(self):
         msg = QMessageBox()
         msg.setWindowTitle("ATTENZIONE")
-        msg.setText("Sei sicuro di eliminare il prodotto selezionato? \n\nil prodotto eliminato non sarà ripristinabile")
+        msg.setText("Sei sicuro di voler eliminare il prodotto selezionato? \n\nil prodotto eliminato non sarà ripristinabile")
         msg.setIcon(QMessageBox.Warning)
         msg.setStandardButtons(QMessageBox.Yes)
         msg.setDefaultButton(QMessageBox.Yes)

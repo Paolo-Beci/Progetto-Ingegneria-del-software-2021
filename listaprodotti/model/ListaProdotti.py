@@ -16,12 +16,12 @@ class ListaProdotti:
                 self.lista_prodotti = pickle.load(f)
         else:
             with open('listaprodotti/data/database_prodotti.json') as f:
-                self.lista_prodotti_json = json.load(f)
-                for prodotto_da_caricare in self.lista_prodotti_json:
+                lista_prodotti_json = json.load(f)
+                for prodotto_da_caricare in lista_prodotti_json:
                     if prodotto_da_caricare["marca"] in self.lista_marche:
                         pass
                     else:
-                        self.lista_marche.append(Prodotto(prodotto_da_caricare["marca"]))
+                        self.lista_marche.append(prodotto_da_caricare["marca"])
                     self.aggiungi_prodotto_da_database(
                         Prodotto(prodotto_da_caricare["cod_fattura"], prodotto_da_caricare["cod_fornitore"],
                                  prodotto_da_caricare["data_ordine"], prodotto_da_caricare["cod_prodotto"],

@@ -1,5 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtCore import QDateTime, QDate
+from PyQt5.QtWidgets import QWidget, QDateEdit
+from pip._internal.utils.misc import enum
 
 """
     MODIFICA DEI PARAMETRI DEL PRODOTTO
@@ -14,6 +16,10 @@ class VistaModificaProdotto(QWidget):
         self.update_ui = update_ui
         self.setObjectName("MainWindow")
         self.resize(1071, 715)
+        # FONT
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setWeight(75)
 
         self.centralwidget = QtWidgets.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
@@ -38,16 +44,15 @@ class VistaModificaProdotto(QWidget):
         self.pushButton_annulla = QtWidgets.QPushButton(self.widget)
         self.pushButton_annulla.setObjectName("pushButton_annulla")
         self.horizontalLayout.addWidget(self.pushButton_annulla)
+        self.pushButton_annulla.clicked.connect(self.annulla_click)
         # SALVA
         spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem2)
         self.pushButton_salva = QtWidgets.QPushButton(self.widget)
-        font = QtGui.QFont()
-        font.setBold(True)
-        font.setWeight(75)
         self.pushButton_salva.setFont(font)
         self.pushButton_salva.setObjectName("pushButton_salva")
         self.horizontalLayout.addWidget(self.pushButton_salva)
+        self.pushButton_salva.clicked.connect(self.salva_modifiche_click)
         spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem3)
 
@@ -56,6 +61,7 @@ class VistaModificaProdotto(QWidget):
         # SCONTO
         self.label_sconto = QtWidgets.QLabel(self.centralwidget)
         self.label_sconto.setObjectName("label_sconto")
+        self.label_sconto.setFont(font)
         self.gridLayout.addWidget(self.label_sconto, 22, 5, 1, 1)
 
         self.lineEdit_sconto = QtWidgets.QLineEdit(self.centralwidget)
@@ -64,6 +70,7 @@ class VistaModificaProdotto(QWidget):
         # QUANTITA
         self.label_quantita = QtWidgets.QLabel(self.centralwidget)
         self.label_quantita.setObjectName("label_quantita")
+        self.label_quantita.setFont(font)
         self.gridLayout.addWidget(self.label_quantita, 16, 5, 1, 1)
 
         self.lineEdit_quantita = QtWidgets.QLineEdit(self.centralwidget)
@@ -72,24 +79,30 @@ class VistaModificaProdotto(QWidget):
         # TAGLIA
         self.label_taglia = QtWidgets.QLabel(self.centralwidget)
         self.label_taglia.setObjectName("label_taglia")
+        self.label_taglia.setFont(font)
         self.gridLayout.addWidget(self.label_taglia, 16, 3, 1, 1)
 
         self.comboBox_taglia = QtWidgets.QComboBox(self.centralwidget)
         self.comboBox_taglia.setObjectName("comboBox_taglia")
+        for count in range(16, 49):
+            self.comboBox_taglia.addItem(str(count))
         self.gridLayout.addWidget(self.comboBox_taglia, 17, 3, 1, 1)
         # GENERE
         self.label_genere = QtWidgets.QLabel(self.centralwidget)
         self.label_genere.setObjectName("label_genere")
+        self.label_genere.setFont(font)
         self.gridLayout.addWidget(self.label_genere, 12, 3, 1, 1)
 
         self.comboBox_genere = QtWidgets.QComboBox(self.centralwidget)
         self.comboBox_genere.setObjectName("comboBox_genere")
+        self.comboBox_genere.addItem("Uomo")
+        self.comboBox_genere.addItem("Donna")
+        self.comboBox_genere.addItem("Bambino")
+        self.comboBox_genere.addItem("Bambina")
         self.gridLayout.addWidget(self.comboBox_genere, 14, 3, 1, 1)
         # DATA ORDINE
         self.label_data_ordine = QtWidgets.QLabel(self.centralwidget)
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        self.label_data_ordine.setFont(font)     #    <-----------------------
+        self.label_data_ordine.setFont(font)
         self.label_data_ordine.setObjectName("label_data_ordine")
         self.gridLayout.addWidget(self.label_data_ordine, 0, 5, 1, 1)
 
@@ -98,10 +111,8 @@ class VistaModificaProdotto(QWidget):
         self.gridLayout.addWidget(self.dateEdit_data_ordine, 1, 5, 1, 1)
         # CODICE FORNITORE
         self.label_cod_fornitore = QtWidgets.QLabel(self.centralwidget)
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        self.label_cod_fornitore.setFont(font)
         self.label_cod_fornitore.setObjectName("label_cod_fornitore")
+        self.label_cod_fornitore.setFont(font)
         self.gridLayout.addWidget(self.label_cod_fornitore, 0, 3, 1, 1)
 
         self.lineEdit_cod_fornitore = QtWidgets.QLineEdit(self.centralwidget)
@@ -113,10 +124,6 @@ class VistaModificaProdotto(QWidget):
         self.gridLayout.addWidget(self.lineEdit_cod_fattura, 1, 1, 1, 1)
 
         self.label_cod_fattura = QtWidgets.QLabel(self.centralwidget)
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
         self.label_cod_fattura.setFont(font)
         self.label_cod_fattura.setTextFormat(QtCore.Qt.AutoText)
         self.label_cod_fattura.setObjectName("label_cod_fattura")
@@ -124,6 +131,7 @@ class VistaModificaProdotto(QWidget):
         # CODICE PRODOTTO
         self.label_cod_prodotto = QtWidgets.QLabel(self.centralwidget)
         self.label_cod_prodotto.setObjectName("label_cod_prodotto")
+        self.label_cod_prodotto.setFont(font)
         self.gridLayout.addWidget(self.label_cod_prodotto, 7, 1, 1, 1)
 
         self.lineEdit_cod_prodotto = QtWidgets.QLineEdit(self.centralwidget)
@@ -132,6 +140,7 @@ class VistaModificaProdotto(QWidget):
         # COLORE
         self.label_colore = QtWidgets.QLabel(self.centralwidget)
         self.label_colore.setObjectName("label_colore")
+        self.label_colore.setFont(font)
         self.gridLayout.addWidget(self.label_colore, 16, 1, 1, 1)
 
         self.lineEdit_colore = QtWidgets.QLineEdit(self.centralwidget)
@@ -140,6 +149,7 @@ class VistaModificaProdotto(QWidget):
         # MATERIALE
         self.label_materiale = QtWidgets.QLabel(self.centralwidget)
         self.label_materiale.setObjectName("label_materiale")
+        self.label_materiale.setFont(font)
         self.gridLayout.addWidget(self.label_materiale, 12, 5, 1, 1)
 
         self.lineEdit_materiale = QtWidgets.QLineEdit(self.centralwidget)
@@ -148,11 +158,15 @@ class VistaModificaProdotto(QWidget):
         # TIPO
         self.label_tipo = QtWidgets.QLabel(self.centralwidget)
         self.label_tipo.setObjectName("label_tipo")
+        self.label_tipo.setFont(font)
         self.gridLayout.addWidget(self.label_tipo, 12, 1, 1, 1)
 
         self.comboBox_tipo = QtWidgets.QComboBox(self.centralwidget)
-        self.comboBox_tipo.setCurrentText("")
         self.comboBox_tipo.setObjectName("comboBox_tipo")
+        self.comboBox_tipo.addItem("Eleganti")
+        self.comboBox_tipo.addItem("Sneakers")
+        self.comboBox_tipo.addItem("Sportive")
+        self.comboBox_tipo.addItem("Trekking")
         self.gridLayout.addWidget(self.comboBox_tipo, 14, 1, 1, 1)
         # PREZZO ACQUISTO
         self.lineEdit_prezzo_acquisto = QtWidgets.QLineEdit(self.centralwidget)
@@ -161,10 +175,12 @@ class VistaModificaProdotto(QWidget):
 
         self.label_prezzo_acquisto = QtWidgets.QLabel(self.centralwidget)
         self.label_prezzo_acquisto.setObjectName("label_prezzo_acquisto")
+        self.label_prezzo_acquisto.setFont(font)
         self.gridLayout.addWidget(self.label_prezzo_acquisto, 19, 1, 1, 1)
         # NOME
         self.label_nome = QtWidgets.QLabel(self.centralwidget)
         self.label_nome.setObjectName("label_nome")
+        self.label_nome.setFont(font)
         self.gridLayout.addWidget(self.label_nome, 7, 5, 1, 1)
 
         self.lineEdit_nome = QtWidgets.QLineEdit(self.centralwidget)
@@ -173,14 +189,20 @@ class VistaModificaProdotto(QWidget):
         # STATO
         self.comboBox_stato = QtWidgets.QComboBox(self.centralwidget)
         self.comboBox_stato.setObjectName("comboBox_stato")
+        self.comboBox_stato.addItem("In arrivo")
+        self.comboBox_stato.addItem("In negozio")
+        self.comboBox_stato.addItem("Venduto")
+        self.comboBox_stato.addItem("Reso")
         self.gridLayout.addWidget(self.comboBox_stato, 23, 1, 1, 1)
 
         self.label_stato = QtWidgets.QLabel(self.centralwidget)
         self.label_stato.setObjectName("label_stato")
+        self.label_stato.setFont(font)
         self.gridLayout.addWidget(self.label_stato, 22, 1, 1, 1)
         # SCONTO CONSIGLIATO
         self.label_sconto_consigliato = QtWidgets.QLabel(self.centralwidget)
         self.label_sconto_consigliato.setObjectName("label_sconto_consigliato")
+        self.label_sconto_consigliato.setFont(font)
         self.gridLayout.addWidget(self.label_sconto_consigliato, 22, 3, 1, 1)
 
         self.lineEdit_sconto_consigliato = QtWidgets.QLineEdit(self.centralwidget)
@@ -189,18 +211,27 @@ class VistaModificaProdotto(QWidget):
         # STAGIONE
         self.label_stagione = QtWidgets.QLabel(self.centralwidget)
         self.label_stagione.setObjectName("label_stagione")
+        self.label_stagione.setFont(font)
         self.gridLayout.addWidget(self.label_stagione, 19, 5, 1, 1)
 
         self.comboBox_stagione = QtWidgets.QComboBox(self.centralwidget)
         self.comboBox_stagione.setObjectName("comboBox_stagione")
+        self.comboBox_stagione.addItem("Primavera / Estate")
+        self.comboBox_stagione.addItem("Autunno / Inverno")
         self.gridLayout.addWidget(self.comboBox_stagione, 20, 5, 1, 1)
         # MARCA
+        self.label_marca = QtWidgets.QLabel(self.centralwidget)
+        self.label_marca.setObjectName("label_marca")
+        self.label_marca.setFont(font)
+        self.gridLayout.addWidget(self.label_marca, 7, 3, 1, 1)
+
         self.lineEdit_marca = QtWidgets.QLineEdit(self.centralwidget)
         self.lineEdit_marca.setObjectName("lineEdit_marca")
         self.gridLayout.addWidget(self.lineEdit_marca, 8, 3, 1, 1)
         # PREZZO VENDITA
         self.label_prezzo_vendita = QtWidgets.QLabel(self.centralwidget)
         self.label_prezzo_vendita.setObjectName("label_prezzo_vendita")
+        self.label_prezzo_vendita.setFont(font)
         self.gridLayout.addWidget(self.label_prezzo_vendita, 19, 3, 1, 1)
 
         self.lineEdit_prezzo_vendita = QtWidgets.QLineEdit(self.centralwidget)
@@ -233,18 +264,30 @@ class VistaModificaProdotto(QWidget):
         QtCore.QMetaObject.connectSlotsByName(self)
 
     def retranslateUi(self, MainWindow):
+        global index
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Modifica prodotto"))
         self.label_marca.setText(_translate("MainWindow", "Marca"))
         self.lineEdit_marca.setText(_translate("Form", str(self.controller.get_marca())))
-        self.label_sconto.setText(_translate("MainWindow", "Sconto"))
+        self.label_sconto.setText(_translate("MainWindow", "Sconto  (%)"))
         self.lineEdit_sconto.setText(_translate("Form", str(self.controller.get_sconto())))
         self.label_taglia.setText(_translate("MainWindow", "Taglia"))
-        #self.lineEdit_taglia.setText(_translate("Form", str(self.controller.get_taglia())))
+        numero = self.controller.get_taglia() - 16
+        self.comboBox_taglia.setCurrentIndex(numero)
         self.label_genere.setText(_translate("MainWindow", "Genere"))
-        #self.lineEdit_genere.setText(_translate("Form", self.controller.get_genere()))
+        if self.controller.get_genere() == "U":
+            index = self.comboBox_genere.findText("Uomo", QtCore.Qt.MatchFixedString)
+        elif self.controller.get_genere() == "D":
+            index = self.comboBox_genere.findText("Donna", QtCore.Qt.MatchFixedString)
+        elif self.controller.get_genere() == "BO":
+            index = self.comboBox_genere.findText("Bambino", QtCore.Qt.MatchFixedString)
+        elif self.controller.get_genere() == "BA":
+            index = self.comboBox_genere.findText("Bambina", QtCore.Qt.MatchFixedString)
+        self.comboBox_genere.setCurrentIndex(index)
         self.label_data_ordine.setText(_translate("MainWindow", "Data ordine"))
-        #self.lineEdit_data_ordine.setText(_translate("Form", self.controller.get_data_ordine()))
+        data = self.controller.get_data_ordine()
+        data_split = data.split("/")
+        self.dateEdit_data_ordine.setDate(QDate(int(data_split[2]), int(data_split[1]), int(data_split[0])))
         self.label_cod_fornitore.setText(_translate("MainWindow", "Codice fornitore"))
         self.lineEdit_cod_fornitore.setText(_translate("Form", str(self.controller.get_cod_fornitore())))
         self.label_cod_prodotto.setText(_translate("MainWindow", "Codice prodotto"))
@@ -254,23 +297,43 @@ class VistaModificaProdotto(QWidget):
         self.label_materiale.setText(_translate("MainWindow", "Materiale"))
         self.lineEdit_materiale.setText(_translate("Form", str(self.controller.get_materiale())))
         self.label_tipo.setText(_translate("MainWindow", "Tipo"))
-        #self.lineEdit_tipo.setText(_translate("Form", self.controller.get_tipo()))
-        self.label_prezzo_acquisto.setText(_translate("MainWindow", "Prezzo di acquisto"))
+        if self.controller.get_tipo() == "Eleganti":
+            index = self.comboBox_tipo.findText("Eleganti", QtCore.Qt.MatchFixedString)
+        elif self.controller.get_tipo() == "Trekking":
+            index = self.comboBox_tipo.findText("Trekking", QtCore.Qt.MatchFixedString)
+        elif self.controller.get_tipo() == "Sneakers":
+            index = self.comboBox_tipo.findText("Sneakers", QtCore.Qt.MatchFixedString)
+        elif self.controller.get_tipo() == "Sportive":
+            index = self.comboBox_tipo.findText("Sportive", QtCore.Qt.MatchFixedString)
+        self.comboBox_tipo.setCurrentIndex(index)
+        self.label_prezzo_acquisto.setText(_translate("MainWindow", "Prezzo di acquisto  (€)"))
         self.lineEdit_prezzo_acquisto.setText(_translate("Form", str(self.controller.get_prezzo_acquisto())))
         self.label_nome.setText(_translate("MainWindow", "Nome"))
         self.lineEdit_nome.setText(_translate("Form",str(self.controller.get_nome())))
-        self.label_sconto_consigliato.setText(_translate("MainWindow", "Sconto consigliato"))
+        self.label_sconto_consigliato.setText(_translate("MainWindow", "Sconto consigliato  (%)"))
         self.lineEdit_sconto_consigliato.setText(_translate("Form", str(self.controller.get_sconto_consigliato())))
         self.label_cod_fattura.setText(_translate("MainWindow", "Codice fattura"))
         self.lineEdit_cod_fattura.setText(_translate("Form", str(self.controller.get_cod_fattura())))
-        self.label_prezzo_vendita.setText(_translate("MainWindow", "Prezzo di vendita"))
+        self.label_prezzo_vendita.setText(_translate("MainWindow", "Prezzo di vendita  (€)"))
         self.lineEdit_prezzo_vendita.setText(_translate("Form", str(self.controller.get_prezzo_vendita())))
         self.label_stagione.setText(_translate("MainWindow", "Stagione"))
-        #self.lineEdit_stagione.setText(_translate("Form", self.controller.get_stagione()))
+        if self.controller.get_stagione() == "P/E":
+            index = self.comboBox_stagione.findText("Primavera / Estate", QtCore.Qt.MatchFixedString)
+        elif self.controller.get_stagione() == "A/I":
+            index = self.comboBox_stagione.findText("Autunno / Inverno", QtCore.Qt.MatchFixedString)
+        self.comboBox_stagione.setCurrentIndex(index)
         self.label_quantita.setText(_translate("MainWindow", "Quantità"))
         self.lineEdit_quantita.setText(_translate("Form", str(self.controller.get_quantita())))
         self.label_stato.setText(_translate("MainWindow", "Stato"))
-        #self.lineEdit_stato.setText(_translate("Form", self.controller.get_stato()))
+        if self.controller.get_stato() == "In arrivo":
+            index = self.comboBox_stato.findText("In arrivo", QtCore.Qt.MatchFixedString)
+        elif self.controller.get_stato() == "In negozio":
+            index = self.comboBox_stato.findText("In negozio", QtCore.Qt.MatchFixedString)
+        elif self.controller.get_stato() == "Venduto":
+            index = self.comboBox_stato.findText("Venduto", QtCore.Qt.MatchFixedString)
+        elif self.controller.get_stato() == "Reso":
+            index = self.comboBox_stato.findText("Reso", QtCore.Qt.MatchFixedString)
+        self.comboBox_stato.setCurrentIndex(index)
         self.pushButton_annulla.setText(_translate("MainWindow", "Annulla"))
         self.pushButton_salva.setText(_translate("MainWindow", "Salva"))
 
@@ -280,29 +343,49 @@ class VistaModificaProdotto(QWidget):
 
     def salva_modifiche_click(self):
         # prendo il testo che l'utente inserisce in ciascuna lineEdit
-        partita_iva = self.lineEdit_9.text()
-        indirizzo = self.lineEdit_10.text()
-        telefono = self.lineEdit_11.text()
-        email = self.lineEdit_12.text()
-        data_affiliazione = self.lineEdit_13.text()
-        rappresentante = self.lineEdit_14.text()
-        nome = self.lineEdit_15.text()
-        codice = self.lineEdit_16.text()
-        stato = str(self.comboBox_2.currentText())
+        cod_fattura = self.lineEdit_cod_fattura.text()
+        cod_fornitore = self.lineEdit_cod_fornitore.text()
+        aaaa = 0
+        mm = 0
+        gg = 0
+        self.dateEdit_data_ordine.getDate(aaaa, mm, gg)
+        data_ordine = str(gg) + "/" + str(mm) + "/" + str(aaaa)
+        cod_prodotto = self.lineEdit_cod_prodotto.text()
+        marca = self.lineEdit_marca.text()
+        nome = self.lineEdit_nome.text()
+        tipo = str(self.comboBox_tipo.currentText())
+        genere = str(self.comboBox_genere.currentText())
+        materiale = self.lineEdit_materiale.text()
+        colore = self.lineEdit_colore.text()
+        taglia = str(self.comboBox_taglia.currentText())
+        quantita = self.lineEdit_quantita.text()
+        prezzo_acquisto = self.lineEdit_prezzo_acquisto.text()
+        prezzo_vendita = self.lineEdit_prezzo_vendita.text()
+        stagione = str(self.comboBox_stagione.currentText())
+        stato = str(self.comboBox_stato.currentText())
+        sconto_consigliato = self.lineEdit_sconto_consigliato.text()
+        sconto = self.lineEdit_sconto.text()
 
         # modifico gli attributi del fornitore in base al testo inserito
-        self.controller.set_nome_fornitore(nome)
-        self.controller.set_telefono(telefono)
-        self.controller.set_indirizzo(indirizzo)
-        self.controller.set_partita_iva(partita_iva)
-        self.controller.set_email(email)
-        self.controller.set_rappresentante(rappresentante)
-        self.controller.set_data_affiliazione(data_affiliazione)
-        self.controller.set_cod_fornitore(codice)
+        self.controller.set_cod_fornitore(cod_fornitore)
+        self.controller.set_cod_fattura(cod_fattura)
+        self.controller.set_data_ordine(data_ordine)
+        self.controller.set_cod_prodotto(cod_prodotto)
+        self.controller.set_marca(marca)
+        self.controller.set_nome(nome)
+        self.controller.set_tipo(tipo)
+        self.controller.set_genere(genere)
+        self.controller.set_materiale(materiale)
+        self.controller.set_colore(colore)
+        self.controller.set_taglia(taglia)
+        self.controller.set_quantita(quantita)
+        self.controller.set_prezzo_acquisto(prezzo_acquisto)
+        self.controller.set_prezzo_vendita(prezzo_vendita)
+        self.controller.set_stagione(stagione)
         self.controller.set_stato(stato)
+        self.controller.set_sconto_consigliato(sconto_consigliato)
+        self.controller.set_sconto(sconto)
 
-        # campo1 = self.lineEdit_9.text()
-        # self.controller.set_nome_fornitore(campo1)
         self.update_ui()
         self.close()
 
