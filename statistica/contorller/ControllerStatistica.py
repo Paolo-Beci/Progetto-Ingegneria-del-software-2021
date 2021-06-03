@@ -97,7 +97,7 @@ class ControllerStatistica():
         for prodotto in lista_prodotti:
             if prodotto["cod_prodotto"] not in dizionario.keys() and prodotto["stato"] != "In arrivo" \
                     and prodotto["stagione"] == stagione:
-                if anno == "":
+                if anno is None:
                     dizionario[prodotto["cod_prodotto"]] = prodotto["prezzo_vendita"] - prodotto["prezzo_acquisto"]
                 elif anno in prodotto["data_ordine"]:
                     dizionario[prodotto["cod_prodotto"]] = prodotto["prezzo_vendita"] - prodotto["prezzo_acquisto"]
