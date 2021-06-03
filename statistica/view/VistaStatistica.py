@@ -54,8 +54,6 @@ class VistaStatistica(QWidget):
     def update_ui(self, lista_ordinata):
         self.listview_model = QStandardItemModel(self.list_view)
 
-        print(lista_ordinata)
-
         if not lista_ordinata:
             item = QStandardItem()
             item.setText("Nessun dato disponibile")

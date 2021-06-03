@@ -81,8 +81,8 @@ class ListaProdotti:
         for prodotto in self.lista_prodotti:
             if prodotto.cod_prodotto == codice:
                 return prodotto
-            elif prodotto.cod_prodotto != codice:
-                return "Nessuno"
+            # elif prodotto.cod_prodotto != codice:
+            #     return "Nessuno"
 
     def get_prezzo_prodotto_by_code(self, codice):
         for prodotto in self.lista_prodotti:

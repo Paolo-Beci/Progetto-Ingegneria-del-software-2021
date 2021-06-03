@@ -197,8 +197,8 @@ class VistaListaProdotti(QWidget):
                 self.nome_marca = QtWidgets.QLabel(self.display_prodotto)
                 self.nome_marca.setObjectName("nome_marca")
                 self.nome_marca.setText(
-                    self.controller.get_nome_prodotto_by_code(cod) + " - " + self.controller.get_marca_prodotto_by_code(
-                        cod))
+                    str(self.controller.get_nome_prodotto_by_code(cod)) + " - " + str(self.controller.get_marca_prodotto_by_code(
+                        cod)))
                 self.verticalLayout_2.addWidget(self.nome_marca)
                 self.prezzo = QtWidgets.QLabel(self.display_prodotto)
                 self.prezzo.setObjectName("prezzo")
