@@ -1,7 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QMessageBox
-import keyboard
+from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QMessageBox, QApplication
 import time
 
 import home.view.VistaHome
@@ -49,14 +48,6 @@ class VistaListaProdotti(QWidget):
         self.logo.resize(100, 100)
         self.gridLayout_3.addWidget(self.logo, 0, 6, 1, 1, QtCore.Qt.AlignHCenter)
         # barra di ricerca
-        self.cerca_button = QtWidgets.QPushButton(self.topWidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.cerca_button.sizePolicy().hasHeightForWidth())
-        self.cerca_button.setSizePolicy(sizePolicy)
-        self.cerca_button.setObjectName("cerca_button")
-        self.gridLayout_3.addWidget(self.cerca_button, 0, 9, 1, 1)
         self.cerca = QtWidgets.QLineEdit(self.topWidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -67,6 +58,16 @@ class VistaListaProdotti(QWidget):
         self.cerca.setObjectName("cerca")
         self.cerca.setPlaceholderText("Cerca per Cod. prodotto")
         self.gridLayout_3.addWidget(self.cerca, 0, 10, 1, 1)
+        self.cerca.returnPressed.connect(self.cerca_prodotto)
+        # FACOLTATIVO
+        self.cerca_button = QtWidgets.QPushButton(self.topWidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.cerca_button.sizePolicy().hasHeightForWidth())
+        self.cerca_button.setSizePolicy(sizePolicy)
+        self.cerca_button.setObjectName("cerca_button")
+        self.gridLayout_3.addWidget(self.cerca_button, 0, 9, 1, 1)
         # self.cerca_button.clicked.connect(self.cerca_prodotto())
         # ----------FILTRI COMBOBOX--------------
         # taglia
@@ -175,10 +176,13 @@ class VistaListaProdotti(QWidget):
         r = 0
         c = 0
         i = 1
+        x = 0
+        self.btn = []
         cod_precedente = 'S00'
         for prodotto in self.controller.get_lista_prodotti():
             cod = prodotto.cod_prodotto
             if cod != cod_precedente:
+
                 self.display_prodotto = QtWidgets.QWidget(self.widget)
                 sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
                 sizePolicy.setHorizontalStretch(0)
@@ -196,20 +200,26 @@ class VistaListaProdotti(QWidget):
                 self.verticalLayout_2.addWidget(self.immagine, QtCore.Qt.AlignHCenter)
                 self.nome_marca = QtWidgets.QLabel(self.display_prodotto)
                 self.nome_marca.setObjectName("nome_marca")
-                self.nome_marca.setText(
-                    str(self.controller.get_nome_prodotto_by_code(cod)) + " - " + str(self.controller.get_marca_prodotto_by_code(
-                        cod)))
+                self.nome_marca.setText(str(self.controller.get_nome_prodotto_by_code(cod)) + " - " +
+                                        str(self.controller.get_marca_prodotto_by_code(cod)))
                 self.verticalLayout_2.addWidget(self.nome_marca)
                 self.prezzo = QtWidgets.QLabel(self.display_prodotto)
                 self.prezzo.setObjectName("prezzo")
                 self.prezzo.setText(self.controller.get_prezzo_prodotto_by_code(cod))
                 self.verticalLayout_2.addWidget(self.prezzo)
                 # creare un altra classe in cui definiamo la scheda del prodotto ceh prende in argomento il prodotto
-                self.dettagli = QtWidgets.QPushButton(self.topWidget)
-                self.dettagli.setObjectName("dettagli")
-                self.dettagli.setText("Dettagli")
+                nome_button_dettagli = "dettagli_" + cod
+
+                self.btn.append(x)
+                self.btn[x] = QtWidgets.QPushButton(self)
+                self.btn[x].setText('Dettagli ' + str(x))
+                self.btn[x].clicked.connect(lambda a=cod: self.show_prodotto(a))
+                self.verticalLayout_2.addWidget(self.btn[x])
+                x = x + 1
+                # self.dettagli.setObjectName(nome_button_dettagli)
+                # self.dettagli.setText("Dettagli")
                 # self.dettagli.clicked.connect(self.show_prodotto(cod))
-                self.verticalLayout_2.addWidget(self.dettagli)
+                # self.verticalLayout_2.addWidget(self.dettagli)
 
                 # c = colonne , r = righe del display
                 self.gridLayout_2.addWidget(self.display_prodotto, r, c, 1, 1)
@@ -265,15 +275,19 @@ class VistaListaProdotti(QWidget):
         self.gridLayout.addWidget(self.widget, 0, 0, 1, 1)
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.verticalLayout.addWidget(self.scrollArea)
-        # QtWidgets.QMainWindow.setCentralWidget(self.centralwidget)     NON RIESCO A METTERLA A TUTTO SCHERMO
-        self.centralwidget.setGeometry(QtCore.QRect(0, 0, 1920, 1080))  # settata ad una risoluzione HD
 
-        self.retranslateUi(self)
+        self.desktop = QApplication.desktop()
+        self.screenRect = self.desktop.screenGeometry()
+        height = self.screenRect.height()
+        width = self.screenRect.width()
+        self.centralwidget.setGeometry(QtCore.QRect(0, 0, width, height))
+
+        self.retranslateUi()
         QtCore.QMetaObject.connectSlotsByName(self)
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.taglia.setItemText(0, _translate("MainWindow", "Taglia"))
         self.genere.setItemText(0, _translate("MainWindow", "Genere"))
         self.in_arrivo.setText(_translate("MainWindow", "IN ARRIVO"))
@@ -286,7 +300,7 @@ class VistaListaProdotti(QWidget):
         self.reso.setText(_translate("MainWindow", "RESO"))
         self.nome_marca.setText(_translate("MainWindow", "Marca - Nome prodotto"))
         self.prezzo.setText(_translate("MainWindow", "Prezzo"))
-        self.dettagli.setText(_translate("MainWindow", "Dettagli"))
+        # self.dettagli.setText(_translate("MainWindow", "Dettagli"))
         self.cerca_button.setText(_translate("MainWindow", "Cerca"))
 
     def show_inserici_prodotto(self):
@@ -332,7 +346,7 @@ class VistaListaProdotti(QWidget):
     def show_prodotto(self, cod):
         prodotto_selezionato = self.controller.get_prodotto_by_code(cod)
         self.vista_prodotto = VistaProdotto(prodotto_selezionato, self.controller.elimina_prodotto_by_codice,
-                                            ControllerProdotto.modifica_prodotto_by_codice, self.retranslateUi)
+                                            self.retranslateUi)
         self.vista_prodotto.showMaximized()
         time.sleep(0.3)
         self.close()
@@ -353,7 +367,13 @@ class VistaListaProdotti(QWidget):
         msg.setDefaultButton(QMessageBox.Yes)
         msg.exec_()
 
-
+    # def crea_bottone(self, nome, cod):
+    #     self.dettagli = nome
+    #     self.dettagli = QtWidgets.QPushButton(self.topWidget)
+    #     self.dettagli.setObjectName()
+    #     self.dettagli.setText("Dettagli")
+    #     # self.dettagli.clicked.connect(self.show_prodotto(cod))
+    #     self.verticalLayout_2.addWidget(self.dettagli)
 
     # def show_prodotto(self):
     #     if len(self.list_view.selectedIndexes()) > 0:
