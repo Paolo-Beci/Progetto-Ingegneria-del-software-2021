@@ -1,10 +1,7 @@
 import time
-
 from PyQt5 import QtWidgets, QtCore
-from PyQt5.QtCore import Qt, QDate
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPushButton, QHBoxLayout, \
-    QGridLayout, QGroupBox, QLineEdit, QDateEdit, QMessageBox, QApplication
-from PyQt5.QtGui import QIcon, QPixmap, QPainter
+from PyQt5.QtWidgets import QWidget, QMessageBox, QApplication
+from PyQt5.QtGui import QPixmap
 
 from prodotto.view.VistaModificaProdotto import VistaModificaProdotto
 from prodotto.controller.ControllerProdotto import ControllerProdotto
@@ -12,19 +9,18 @@ import listaprodotti.view.VistaListaProdotti
 
 """
     VISUALIZZAZIONE DEI PARAMETRI DEL PRODOTTO
-    Da fare: UI
 """
 
 
 class VistaProdotto(QWidget):
-    def __init__(self, c_prodotto, elimina_prodotto, update_ui, parent=None):
+    def __init__(self, prodotto, elimina_prodotto, update_ui, parent=None):
         super(VistaProdotto, self).__init__(parent)
-        self.controller = ControllerProdotto(c_prodotto)
+        self.controller = ControllerProdotto(prodotto)
         self.elimina_prodotto = elimina_prodotto
-        # self.modifica_prodotto = modifica_prodotto    serve???
         self.update_ui = update_ui
         self.setObjectName("MainWindow")
         self.resize(1173, 700)
+
         self.centralwidget = QtWidgets.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
@@ -78,12 +74,22 @@ class VistaProdotto(QWidget):
         self.label_stagione.setObjectName("label_stagione")
         self.gridLayout_3.addWidget(self.label_stagione, 4, 1, 1, 1)
         self.gridLayout.addWidget(self.groupBox_dettagli_prodotto, 2, 1, 2, 2)
-        self.pushButton_annulla = QtWidgets.QPushButton(self.widget_2)
-        self.pushButton_annulla.setObjectName("pushButton_annulla")
-        self.gridLayout.addWidget(self.pushButton_annulla, 5, 2, 1, 1)
+        # modifica button
+        self.pushButton_modifica = QtWidgets.QPushButton(self.widget_2)
+        self.pushButton_modifica.setObjectName("pushButton_modifica")
+        self.gridLayout.addWidget(self.pushButton_modifica, 5, 2, 1, 1)
+        self.pushButton_modifica.clicked.connect(self.modifica_prodotto_click)
+        # elimina button
+        self.pushButton_elimina = QtWidgets.QPushButton(self.widget_2)
+        self.pushButton_elimina.setObjectName("pushButton_elimina")
+        self.gridLayout.addWidget(self.pushButton_elimina, 5, 1, 1, 1)
+        self.pushButton_elimina.clicked.connect(self.elimina_prodotto_click)
+        # indetro button
         self.pushButton_indietro = QtWidgets.QPushButton(self.widget_2)
         self.pushButton_indietro.setObjectName("pushButton_indietro")
         self.gridLayout.addWidget(self.pushButton_indietro, 0, 0, 1, 1)
+        self.pushButton_indietro.clicked.connect(self.show_back_click)
+
         self.groupBox_prezzi_sconti = QtWidgets.QGroupBox(self.widget_2)
         self.groupBox_prezzi_sconti.setObjectName("groupBox_prezzi_sconti")
         self.gridLayout_4 = QtWidgets.QGridLayout(self.groupBox_prezzi_sconti)
@@ -109,9 +115,7 @@ class VistaProdotto(QWidget):
         self.label_stato.setObjectName("label_stato")
         self.gridLayout_4.addWidget(self.label_stato, 2, 0, 1, 1)
         self.gridLayout.addWidget(self.groupBox_prezzi_sconti, 4, 1, 1, 2)
-        self.pushButton_elimina = QtWidgets.QPushButton(self.widget_2)
-        self.pushButton_elimina.setObjectName("pushButton_elimina")
-        self.gridLayout.addWidget(self.pushButton_elimina, 5, 1, 1, 1)
+
         self.groupBox_codici_prodotto = QtWidgets.QGroupBox(self.widget_2)
         self.groupBox_codici_prodotto.setObjectName("groupBox_codici_prodotto")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.groupBox_codici_prodotto)
@@ -124,17 +128,23 @@ class VistaProdotto(QWidget):
         self.label_cod_fornitore.setAlignment(QtCore.Qt.AlignCenter)
         self.label_cod_fornitore.setObjectName("label_cod_fornitore")
         self.gridLayout_2.addWidget(self.label_cod_fornitore, 0, 1, 1, 1)
-        self.label_cod_ordine = QtWidgets.QLabel(self.groupBox_codici_prodotto)
-        self.label_cod_ordine.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_cod_ordine.setObjectName("label_cod_ordine")
-        self.gridLayout_2.addWidget(self.label_cod_ordine, 1, 0, 1, 1)
         self.label_cod_prodotto = QtWidgets.QLabel(self.groupBox_codici_prodotto)
         self.label_cod_prodotto.setAlignment(QtCore.Qt.AlignCenter)
         self.label_cod_prodotto.setObjectName("label_cod_prodotto")
         self.gridLayout_2.addWidget(self.label_cod_prodotto, 1, 1, 1, 1)
         self.gridLayout.addWidget(self.groupBox_codici_prodotto, 1, 1, 1, 2)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem1, 6, 1, 1, 1)
+
         self.immagine = QtWidgets.QWidget(self.widget_2)
         self.immagine.setObjectName("immagine")
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.immagine)
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.label = QtWidgets.QLabel(self.immagine)
+        self.label.setObjectName("label")
+        pixmap = QPixmap('listaprodotti/data/images/' + str(self.controller.get_cod_prodotto) + '.jpg')
+        self.label.setPixmap(pixmap)
+        self.verticalLayout_2.addWidget(self.label)
         self.gridLayout.addWidget(self.immagine, 1, 0, 4, 1)
         self.verticalLayout.addWidget(self.widget_2)
 
@@ -160,21 +170,20 @@ class VistaProdotto(QWidget):
         self.label_colore.setText(_translate("MainWindow", "Colore: " + str(self.controller.get_colore())))
         self.label_taglia.setText(_translate("MainWindow", "Taglia/e: " + str(self.controller.get_taglia())))
         self.label_quantita.setText(_translate("MainWindow", "Quantità: " + str(self.controller.get_quantita())))
-        self.label_stagione.setText(_translate("MainWindow", "Stagione:"))
-        self.pushButton_annulla.setText(_translate("MainWindow", "Modifica"))
+        self.label_stagione.setText(_translate("MainWindow", "Stagione: " + str(self.controller.get_stagione())))
+        self.pushButton_modifica.setText(_translate("MainWindow", "Modifica"))
         self.pushButton_indietro.setText(_translate("MainWindow", "< Indietro"))
         self.groupBox_prezzi_sconti.setTitle(_translate("MainWindow", "Prezzi e sconti"))
-        self.label_prezzo_acquisto.setText(_translate("MainWindow", "Prezzo di acquisto:"))
-        self.label_prezzo_vendita.setText(_translate("MainWindow", "Prezzo di vendita:"))
-        self.label_sconto.setText(_translate("MainWindow", "Sconto:"))
-        self.label_sconto_consigliato.setText(_translate("MainWindow", "Sconto cosigliato:"))
-        self.label_stato.setText(_translate("MainWindow", "Stato:"))
+        self.label_prezzo_acquisto.setText(_translate("MainWindow", "Prezzo di acquisto: " + str(self.controller.get_prezzo_acquisto())))
+        self.label_prezzo_vendita.setText(_translate("MainWindow", "Prezzo di vendita: " + str(self.controller.get_prezzo_vendita())))
+        self.label_sconto.setText(_translate("MainWindow", "Sconto: " + str(self.controller.get_sconto())))
+        self.label_sconto_consigliato.setText(_translate("MainWindow", "Sconto cosigliato: " + str(self.controller.get_sconto_consigliato())))
+        self.label_stato.setText(_translate("MainWindow", "Stato: " + str(self.controller.get_stato())))
         self.pushButton_elimina.setText(_translate("MainWindow", "Elimina"))
         self.groupBox_codici_prodotto.setTitle(_translate("MainWindow", "Codici prodotto"))
-        self.label_cod_fattura.setText(_translate("MainWindow", "Codice fattura:"))
-        self.label_cod_fornitore.setText(_translate("MainWindow", "Codice fornitore:"))
-        self.label_cod_ordine.setText(_translate("MainWindow", "Codice ordine:"))
-        self.label_cod_prodotto.setText(_translate("MainWindow", "Codice prodotto:"))
+        self.label_cod_fattura.setText(_translate("MainWindow", "Codice fattura: " + str(self.controller.get_cod_fattura())))
+        self.label_cod_fornitore.setText(_translate("MainWindow", "Codice fornitore: " + str(self.controller.get_cod_fornitore())))
+        self.label_cod_prodotto.setText(_translate("MainWindow", "Codice prodotto: " + str(self.controller.get_cod_prodotto())))
 
     """
         Eventi trigger click dei bottoni
@@ -198,8 +207,11 @@ class VistaProdotto(QWidget):
 
     def modifica_prodotto_click(self):
         self.vista_modifica_prodotto = VistaModificaProdotto(self.controller, self.update_ui)
-        self.vista_modifica_prodotto.show()
-        # self.update_ui()
+        self.vista_modifica_prodotto.showMaximized()
+        time.sleep(0.3)
+        self.update_ui()
+        self.close()
+
 
     def show_back_click(self):
         self.vista_back = listaprodotti.view.VistaListaProdotti.VistaListaProdotti()

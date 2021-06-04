@@ -1,4 +1,4 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QMessageBox, QApplication
 import time
@@ -207,20 +207,13 @@ class VistaListaProdotti(QWidget):
                 self.prezzo.setObjectName("prezzo")
                 self.prezzo.setText(self.controller.get_prezzo_prodotto_by_code(cod))
                 self.verticalLayout_2.addWidget(self.prezzo)
-                # creare un altra classe in cui definiamo la scheda del prodotto ceh prende in argomento il prodotto
-                nome_button_dettagli = "dettagli_" + cod
-
+                # bottone dettagli
                 self.btn.append(x)
                 self.btn[x] = QtWidgets.QPushButton(self)
-                self.btn[x].setText('Dettagli ' + str(x))
+                self.btn[x].setText('Dettagli ')
                 self.btn[x].clicked.connect(lambda a=cod: self.show_prodotto(a))
                 self.verticalLayout_2.addWidget(self.btn[x])
                 x = x + 1
-                # self.dettagli.setObjectName(nome_button_dettagli)
-                # self.dettagli.setText("Dettagli")
-                # self.dettagli.clicked.connect(self.show_prodotto(cod))
-                # self.verticalLayout_2.addWidget(self.dettagli)
-
                 # c = colonne , r = righe del display
                 self.gridLayout_2.addWidget(self.display_prodotto, r, c, 1, 1)
                 if c == 4:
@@ -300,8 +293,11 @@ class VistaListaProdotti(QWidget):
         self.reso.setText(_translate("MainWindow", "RESO"))
         self.nome_marca.setText(_translate("MainWindow", "Marca - Nome prodotto"))
         self.prezzo.setText(_translate("MainWindow", "Prezzo"))
-        # self.dettagli.setText(_translate("MainWindow", "Dettagli"))
         self.cerca_button.setText(_translate("MainWindow", "Cerca"))
+
+    """
+         Eventi trigger click dei bottoni
+    """
 
     def show_inserici_prodotto(self):
         self.vista_inserisci_prodotto = VistaInserisciProdotto(self.controller, self.updateUi)
@@ -366,21 +362,3 @@ class VistaListaProdotti(QWidget):
         msg.setStandardButtons(QMessageBox.Yes)
         msg.setDefaultButton(QMessageBox.Yes)
         msg.exec_()
-
-    # def crea_bottone(self, nome, cod):
-    #     self.dettagli = nome
-    #     self.dettagli = QtWidgets.QPushButton(self.topWidget)
-    #     self.dettagli.setObjectName()
-    #     self.dettagli.setText("Dettagli")
-    #     # self.dettagli.clicked.connect(self.show_prodotto(cod))
-    #     self.verticalLayout_2.addWidget(self.dettagli)
-
-    # def show_prodotto(self):
-    #     if len(self.list_view.selectedIndexes()) > 0:
-    #         selected = self.list_view.selectedIndexes()[0].row()
-    #         prodotto_selezionato = self.controller.get_prodotto(selected)
-    #         self.vista_prodotto = VistaProdotto(prodotto_selezionato, self.controller.elimina_prodotto_by_codice,
-    #                                             ControllerProdotto.modifica_prodotto_by_codice, self.update_ui)
-    #         self.vista_prodotto.showMaximized()
-    #         time.sleep(0.3)
-    #         self.close()

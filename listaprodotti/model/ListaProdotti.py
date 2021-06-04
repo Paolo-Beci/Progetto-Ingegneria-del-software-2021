@@ -4,6 +4,10 @@ import pickle
 
 from prodotto.model.Prodotto import Prodotto
 
+"""
+    CARICAMENTO E GESTIONE DEI DATI CHE RIGUARDANO I PRODOTTI
+"""
+
 
 class ListaProdotti:
 
@@ -68,7 +72,7 @@ class ListaProdotti:
                 anno = splitted_date[2]
                 return anno
 
-    #Giuseppe
+    # Giuseppe
     def get_nome_prodotto_by_code(self, codice):
         for prodotto in self.lista_prodotti:
             if prodotto.cod_prodotto == codice and prodotto.nome is not None:
@@ -76,13 +80,13 @@ class ListaProdotti:
             elif prodotto.cod_prodotto == codice and prodotto.nome is None:
                 return "Nessuno"
 
-    #Giuseppe
+    # Giuseppe
     def get_prodotto_by_code(self, codice):
         for prodotto in self.lista_prodotti:
             if prodotto.cod_prodotto == codice:
                 return prodotto
-            # elif prodotto.cod_prodotto != codice:
-            #     return "Nessuno"
+            elif prodotto.cod_prodotto != codice:
+                return "Nessuno"
 
     def get_prezzo_prodotto_by_code(self, codice):
         for prodotto in self.lista_prodotti:
