@@ -12,10 +12,10 @@ class ListaFornitori:
         self.lista_fornitori = []
         if os.path.isfile('listafornitori/data/DatabaseFornitori.pickle'):
             with open('listafornitori/data/DatabaseFornitori.pickle', 'rb') as f:
-                #try:
+                try:
                     self.lista_fornitori = pickle.load(f)
-                #except EOFError:
-                    #return None
+                except EOFError:
+                    return None
         else:
              with open('listafornitori/data/DatabaseFornitori.json') as f:
                  lista_fornitori_json = json.load(f)

@@ -4,20 +4,23 @@ class ControllerFornitore:
 
     ################# GETTER #################
 
+    def get_cod_fornitore(self):
+        return self.model.cod_fornitore
+
     def get_nome(self):
         return self.model.nome
 
     def get_indirizzo(self):
         return self.model.indirizzo
 
-    def get_partita_iva(self):
-        return self.model.partita_iva
-
     def get_telefono(self):
         return self.model.telefono
 
-    def get_email(self):
-        return self.model.email
+    def get_partita_iva(self):
+        return self.model.partita_iva
+
+    def get_sito_web(self):
+        return self.model.sito_web
 
     def get_rappresentante(self):
         return self.model.rappresentante
@@ -25,14 +28,18 @@ class ControllerFornitore:
     def get_data_affiliazione(self):
         return self.model.data_affiliazione
 
-    def get_cod_fornitore(self):
-        return self.model.codice_fornitore
-
     def get_stato(self):
-        return self.model.stato
+        if self.model.stato == "S":
+            return "Standard"
+        else:
+            return "Premium"
+
     ################# SETTER #################
-    
-    def set_nome_fornitore(self, nome):
+
+    def set_cod_fornitore(self, codice_fornitore):
+        self.model.cod_fornitore= codice_fornitore
+
+    def set_nome(self, nome):
         self.model.nome = nome
 
     def set_indirizzo(self, indirizzo):
@@ -44,8 +51,8 @@ class ControllerFornitore:
     def set_telefono(self, telefono):
         self.model.telefono= telefono
 
-    def set_email(self, email):
-        self.model.email= email
+    def set_sito_web(self, sito_web):
+        self.model.sito_web= sito_web
 
     def set_rappresentante(self, rappresentante):
         self.model.rappresentante= rappresentante
@@ -53,11 +60,11 @@ class ControllerFornitore:
     def set_data_affiliazione(self, data_affiliazione):
         self.model.data_affiliazione= data_affiliazione
 
-    def set_cod_fornitore(self, codice_fornitore):
-        self.model.codice_fornitore= codice_fornitore
-
     def set_stato(self, stato):
-        self.model.stato= stato
+        if stato=="Standard":
+            self.model.stato= "S"
+        else:
+            self.model.stato= "P"
 
     # def elimina_fornitore(self):
     #     return None
