@@ -1,12 +1,20 @@
+import sys
+from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
 import time
 
-from listadelpersonale.view.VistaListaDelPersonale import VistaListaDelPersonale
-#from listaordini.view.VistaListaOrdini import VistaListaOrdini
 from listaordini.view.VistaListaOrdini import VistaListaOrdini
+from listadelpersonale.view.VistaListaDelPersonale import VistaListaDelPersonale
 from listaprodotti.view.VistaListaProdotti import VistaListaProdotti
 from listafornitori.view.VistaListaFornitori import VistaListaFornitori
+from listastatistiche.view.VistaListaStatistiche import VistaListaStatistiche
 from prodotto.view.VistaModificaProdotto import VistaModificaProdotto
+
+"""
+    VISTA HOME
+"""
+
+
 class VistaHome(QWidget):
     def __init__(self, parent=None):
         super(VistaHome, self).__init__(parent)
@@ -30,7 +38,10 @@ class VistaHome(QWidget):
         return button
 
     def go_lista_statistiche(self):
-        return None
+        self.vista_lista_statistiche = VistaListaStatistiche()
+        self.vista_lista_statistiche.showMaximized()
+        time.sleep(0.3)
+        self.close()
 
     def go_lista_prodotti(self):
         self.vista_lista_prodotti = VistaListaProdotti()

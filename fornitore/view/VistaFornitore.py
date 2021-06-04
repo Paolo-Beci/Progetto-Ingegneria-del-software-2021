@@ -93,12 +93,12 @@ class VistaFornitore(QWidget):
         self.label_email.setText("Email: {}".format(self.controller.get_email()))
         self.label_rappresentante.setText("Rappresentante: {}".format(self.controller.get_rappresentante()))
         self.label_data_affiliazione.setText("Data affiliazione: {}".format(self.controller.get_data_affiliazione()))
-        self.label_codice.setText("Codice fornitore: {}".format(self.controller.get_codice_fornitore()))
+        self.label_codice.setText("Codice fornitore: {}".format(self.controller.get_cod_fornitore()))
         self.label_stato.setText("Stato: {}".format(self.controller.get_stato()))
         self.update_ui()
 
     def elimina_fornitore_click(self):
-        self.elimina_fornitore_by_codice(self.controller.get_codice_fornitore())
+        self.elimina_fornitore_by_codice(self.controller.get_cod_fornitore())
         self.update_ui()
         #chiude la finestra corrente
         self.close()

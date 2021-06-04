@@ -40,7 +40,7 @@ class VistaInserisciOrdine(QWidget):
         self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
         btn_ok = QPushButton("OK")
-        btn_ok.clicked.connect(self.inserisci_prodotto)
+        btn_ok.clicked.connect(self.inserisci_ordine)
         self.v_layout.addWidget(btn_ok)
 
         self.setLayout(self.v_layout)

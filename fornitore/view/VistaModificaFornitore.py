@@ -146,7 +146,7 @@ class VistaModificaFornitore(QWidget):
 
         self.lineEdit_11.setText(_translate("Form", self.controller.get_telefono()))
         self.label_7.setText(_translate("Form", "Data affiliazione"))
-        self.lineEdit_16.setText(_translate("Form", self.controller.get_codice_fornitore()))
+        self.lineEdit_16.setText(_translate("Form", self.controller.get_cod_fornitore()))
         self.label_5.setText(_translate("Form", "Email"))
         self.label_2.setText(_translate("Form", "Indirizzo"))
 
@@ -193,7 +193,7 @@ class VistaModificaFornitore(QWidget):
         self.controller.set_email(email)
         self.controller.set_rappresentante(rappresentante)
         self.controller.set_data_affiliazione(data_affiliazione)
-        self.controller.set_codice_fornitore(codice)
+        self.controller.set_cod_fornitore(codice)
         self.controller.set_stato(stato)
 
         #aggiorno (in teoria) ahahah

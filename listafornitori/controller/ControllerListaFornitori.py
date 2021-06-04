@@ -18,6 +18,14 @@ class ControllerListaFornitori():
     def get_fornitore_by_index(self, index):
         return self.model.get_fornitore_by_index(index)
 
+    # Giuseppe
+    def get_foritore_by_code(self, codice):
+        return self.model.get_fornitore_by_code(codice)
+
+    # Giuseppe
+    def get_stato_fornitore_by_code(self, codice):
+        return self.model.get_stato_fornitore_by_code(codice)
+
     def elimina_fornitore_by_codice(self, codice_fornitore):
         self.model.elimina_fornitore_by_codice(codice_fornitore)
 

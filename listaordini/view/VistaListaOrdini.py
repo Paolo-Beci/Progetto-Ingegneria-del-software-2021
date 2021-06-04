@@ -7,7 +7,7 @@ from listaordini.controller.ControllerListaOrdini import ControllerListaOrdini
 from listaordini.view.VistaInserisciOrdine import VistaInserisciOrdine
 from ordine.controller.ControllerOrdine import ControllerOrdine
 from ordine.view.VistaOrdine import VistaOrdine
-
+from listaordini.view.VistaInserisciOrdine import VistaInserisciOrdine
 
 class VistaListaOrdini(QWidget):
     def __init__(self, parent=None):
@@ -22,13 +22,15 @@ class VistaListaOrdini(QWidget):
 
         buttons_layout = QVBoxLayout()
         open_button = QPushButton('Vedi dettagli')
-        #open_button.clicked.connect(self.show_prodotto)
+        #ici jai juste appliquer le bouton
+        open_button.clicked.connect(self.show_ordine)
         buttons_layout.addWidget(open_button)
         new_button = QPushButton("Inserisci ordine")
         new_button.clicked.connect(self.show_inserici_ordine)
         buttons_layout.addWidget(new_button)
         home_button = QPushButton("Torna alla HOME")
-        #home_button.clicked.connect(self.show_home)
+        #home_button.clicked.connect(s
+        home_button.clicked.connect(self.show_home)
         buttons_layout.addWidget(home_button)
         buttons_layout.addStretch()
         h_layout.addLayout(buttons_layout)
@@ -49,6 +51,8 @@ class VistaListaOrdini(QWidget):
             self.listview_model.appendRow(item)
         self.list_view.setModel(self.listview_model)
 
+
+
     def show_ordine(self):
         if len(self.list_view.selectedIndexes()) > 0:
             selected = self.list_view.selectedIndexes()[0].row()
@@ -56,10 +60,18 @@ class VistaListaOrdini(QWidget):
             self.vista_ordine = VistaOrdine(ordine_selezionato, self.controller.elimina_ordine_by_codice,
                                                 ControllerOrdine.modifica_ordine_by_codice, self.update_ui)
             self.vista_ordine.showMaximized()
+            time.sleep(0.3)
+            self.close()
 
     def show_inserici_ordine(self):
         self.vista_inserisci_ordine = VistaInserisciOrdine(self.controller, self.update_ui)
         self.vista_inserisci_ordine.show()
+
+    def show_home(self):
+            self.vista_home = home.view.VistaHome.VistaHome()
+            self.vista_home.showMaximized()
+            time.sleep(0.3)
+            self.close()
 
     def closeEvent(self, event):
         self.controller.save_data()

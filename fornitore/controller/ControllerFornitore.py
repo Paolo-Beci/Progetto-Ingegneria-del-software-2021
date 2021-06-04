@@ -25,7 +25,7 @@ class ControllerFornitore:
     def get_data_affiliazione(self):
         return self.model.data_affiliazione
 
-    def get_codice_fornitore(self):
+    def get_cod_fornitore(self):
         return self.model.codice_fornitore
 
     def get_stato(self):
@@ -53,7 +53,7 @@ class ControllerFornitore:
     def set_data_affiliazione(self, data_affiliazione):
         self.model.data_affiliazione= data_affiliazione
 
-    def set_codice_fornitore(self, codice_fornitore):
+    def set_cod_fornitore(self, codice_fornitore):
         self.model.codice_fornitore= codice_fornitore
 
     def set_stato(self, stato):

@@ -1,0 +1,38 @@
+[
+  {
+    "nome" : "Prodotti piu' venduti",
+    "quantita" : 10,
+    "contenuto" : []
+
+  },
+  {
+    "nome" : "Prodotti meno venduti",
+    "quantita" : 10,
+    "contenuto" : []
+  },
+  {
+    "nome" : "Prodotti piu' redditizi",
+    "quantita" : 10,
+    "contenuto" : []
+  },
+  {
+    "nome" : "Fornitori piu' pagati",
+    "quantita" : 3,
+    "contenuto" : []
+  },
+  {
+    "nome" : "Fornitori da cui acquistiamo di piu'",
+    "quantita" : 3,
+    "contenuto" : []
+  },
+  {
+    "nome" : "Fornitori piu' rapidi nella consegna",
+    "quantita" : 3,
+    "contenuto" : []
+  },
+    {
+    "nome" : "Andamento finanziario",
+    "quantita" : null,
+    "contenuto" : []
+  }
+]
