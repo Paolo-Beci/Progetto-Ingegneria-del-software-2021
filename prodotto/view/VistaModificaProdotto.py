@@ -1,6 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QDateTime, QDate
-from PyQt5.QtWidgets import QWidget, QDateEdit
+from PyQt5.QtWidgets import QWidget, QDateEdit, QApplication
 from pip._internal.utils.misc import enum
 
 """
@@ -257,8 +257,12 @@ class VistaModificaProdotto(QWidget):
         self.gridLayout.addItem(spacerItem11, 21, 1, 1, 1)
         spacerItem12 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem12, 18, 1, 1, 1)
-        #self.setCentralWidget(self.centralwidget)
-        self.centralwidget.setGeometry(QtCore.QRect(0, 0, 1071, 715))  # settata in finestra
+
+        self.desktop = QApplication.desktop()
+        self.screenRect = self.desktop.screenGeometry()
+        height = self.screenRect.height()
+        width = self.screenRect.width()
+        self.centralwidget.setGeometry(QtCore.QRect(0, 0, width, height))
 
         self.retranslateUi(self)
         QtCore.QMetaObject.connectSlotsByName(self)
@@ -336,6 +340,7 @@ class VistaModificaProdotto(QWidget):
         self.comboBox_stato.setCurrentIndex(index)
         self.pushButton_annulla.setText(_translate("MainWindow", "Annulla"))
         self.pushButton_salva.setText(_translate("MainWindow", "Salva"))
+
 
     """
             Eventi trigger click dei bottoni
