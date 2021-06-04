@@ -43,7 +43,10 @@ class VistaListaOrdini(QWidget):
         self.listview_model = QStandardItemModel(self.list_view)
         for ordine in self.controller.get_lista_ordini():
             item = QStandardItem()
-            item.setText("Marca: " + self.controller.get_lista_ordini())
+            item.setText("      Marca: " + str(ordine.marca) + "      Nome: " + str(ordine.marca) + "      Taglia: "
+                         + str(ordine.taglia) + "         Quantità: " + str(
+                ordine.quantita) + "         Stato: " + str(ordine.stato))
+           # item.setText("Marca: " + self.controller.get_lista_ordini())
             item.setEditable(False)
             font = item.font()
             font.setPointSize(18)
