@@ -1,7 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import QDateTime, QDate
-from PyQt5.QtWidgets import QWidget, QDateEdit, QApplication
-from pip._internal.utils.misc import enum
+from PyQt5.QtCore import QDate
+from PyQt5.QtWidgets import QWidget, QApplication
 
 """
     MODIFICA DEI PARAMETRI DEL PRODOTTO
