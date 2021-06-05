@@ -17,6 +17,3 @@ class ControllerListaStatistiche():
     #Metodo dedicato a richiamare il metodo nella classe ListaStatistiche per slvare la lista delle statistiche
     def save_data(self):
         self.model.save_data()
-
-    def costruzione_dizionario(self):
-        self.model.costruzione_dizionario()

@@ -1,6 +1,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import QDate
 from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit
 
+#manca da aggiustare il sizepolicy
 
 #BISOGNA CAMBIARE IL FORM CON SELF!!!!!
 class VistaModificaFornitore(QWidget):
@@ -13,9 +15,19 @@ class VistaModificaFornitore(QWidget):
         self.setObjectName("Form")
         self.resize(579, 427)
         self.horizontalLayoutWidget = QtWidgets.QWidget(self)
-        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(400, 360, 160, 51))
+
+        # sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        # sizePolicy.setHorizontalStretch(0)
+        # sizePolicy.setVerticalStretch(0)
+        # sizePolicy.setHeightForWidth(self.horizontalLayoutWidget.sizePolicy().hasHeightForWidth())
+        # self.horizontalLayoutWidget.setSizePolicy(sizePolicy)
+        # self.horizontalLayoutWidget.setMinimumSize(0, 80)
+
+        #self.horizontalLayoutWidget.setGeometry(QtCore.QRect(400, 360, 160, 51))
+        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(205, 360, 160, 51))
         self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
+        #self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
 
@@ -104,9 +116,13 @@ class VistaModificaFornitore(QWidget):
         self.lineEdit_12 = QtWidgets.QLineEdit(self.gridLayoutWidget)
         self.lineEdit_12.setObjectName("lineEdit_12")
         self.gridLayout_2.addWidget(self.lineEdit_12, 7, 3, 1, 1)
-        self.lineEdit_13 = QtWidgets.QLineEdit(self.gridLayoutWidget)
-        self.lineEdit_13.setObjectName("lineEdit_13")
-        self.gridLayout_2.addWidget(self.lineEdit_13, 12, 0, 1, 1)
+        #self.lineEdit_13 = QtWidgets.QLineEdit(self.gridLayoutWidget)
+
+        self.dateEdit_1= QtWidgets.QDateEdit(self.gridLayoutWidget)
+        self.dateEdit_1.setObjectName("dateEdit_1")
+        self.gridLayout_2.addWidget(self.dateEdit_1, 12, 0, 1, 1)
+        #self.lineEdit_13.setObjectName("lineEdit_13")
+        #self.gridLayout_2.addWidget(self.lineEdit_13, 12, 0, 1, 1)
         spacerItem12 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_2.addItem(spacerItem12, 3, 0, 1, 1)
         spacerItem13 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -144,10 +160,10 @@ class VistaModificaFornitore(QWidget):
         self.pushButton_3.setText(_translate("Form", "Salva"))
         self.pushButton_4.setText(_translate("Form", "Annulla"))
 
-        self.lineEdit_11.setText(_translate("Form", self.controller.get_telefono()))
+        self.lineEdit_11.setText(_translate("Form", str(self.controller.get_telefono())))
         self.label_7.setText(_translate("Form", "Data affiliazione"))
-        self.lineEdit_16.setText(_translate("Form", self.controller.get_cod_fornitore()))
-        self.label_5.setText(_translate("Form", "Email"))
+        self.lineEdit_16.setText(_translate("Form", str(self.controller.get_cod_fornitore())))
+        self.label_5.setText(_translate("Form", "Sito web"))
         self.label_2.setText(_translate("Form", "Indirizzo"))
 
         self.comboBox_2.setItemText(0, _translate("Form", "Standard"))
@@ -162,14 +178,18 @@ class VistaModificaFornitore(QWidget):
         self.label.setText(_translate("Form", "Nome"))
         self.label_3.setText(_translate("Form", "Partita iva"))
         self.label_4.setText(_translate("Form", "Telefono"))
-        self.lineEdit_9.setText(_translate("Form", self.controller.get_partita_iva()))
+        self.lineEdit_9.setText(_translate("Form", str(self.controller.get_partita_iva())))
+        self.lineEdit_15.setText(_translate("Form", str(self.controller.get_nome())))
+        self.lineEdit_12.setText(_translate("Form", str(self.controller.get_sito_web())))
 
-        self.lineEdit_15.setText(_translate("Form", self.controller.get_nome()))
-        self.lineEdit_12.setText(_translate("Form", self.controller.get_email()))
-        self.lineEdit_13.setText(_translate("Form", self.controller.get_data_affiliazione()))
-        self.lineEdit_10.setText(_translate("Form", self.controller.get_indirizzo()))
+        data= self.controller.get_data_affiliazione()
+        data_split= data.split("/")
+        self.dateEdit_1.setDate(QDate(int(data_split[2]), int(data_split[1]), int(data_split[0])))
+
+        #self.lineEdit_13.setText(_translate("Form", str(self.controller.get_data_affiliazione())))
+        self.lineEdit_10.setText(_translate("Form", str(self.controller.get_indirizzo())))
         self.label_6.setText(_translate("Form", "Rappresentante"))
-        self.lineEdit_14.setText(_translate("Form", self.controller.get_rappresentante()))
+        self.lineEdit_14.setText(_translate("Form", str(self.controller.get_rappresentante())))
         self.label_8.setText(_translate("Form", "Codice"))
         self.label_9.setText(_translate("Form", "Stato"))
 
@@ -178,19 +198,23 @@ class VistaModificaFornitore(QWidget):
         partita_iva = self.lineEdit_9.text()
         indirizzo = self.lineEdit_10.text()
         telefono = self.lineEdit_11.text()
-        email = self.lineEdit_12.text()
-        data_affiliazione = self.lineEdit_13.text()
+        sito_web = self.lineEdit_12.text()
+        aaaa = self.dateEdit_1.date().year()
+        mm = self.dateEdit_1.date().month()
+        gg= self.dateEdit_1.date().day()
+        data_affiliazione = str(gg) + "/" + str(mm) + "/" + str(aaaa)
+        #data_affiliazione = self.lineEdit_13.text()
         rappresentante = self.lineEdit_14.text()
         nome = self.lineEdit_15.text()
         codice = self.lineEdit_16.text()
         stato = str(self.comboBox_2.currentText())
 
         #modifico gli attributi del fornitore in base al testo inserito
-        self.controller.set_nome_fornitore(nome)
+        self.controller.set_nome(nome)
         self.controller.set_telefono(telefono)
         self.controller.set_indirizzo(indirizzo)
         self.controller.set_partita_iva(partita_iva)
-        self.controller.set_email(email)
+        self.controller.set_sito_web(sito_web)
         self.controller.set_rappresentante(rappresentante)
         self.controller.set_data_affiliazione(data_affiliazione)
         self.controller.set_cod_fornitore(codice)

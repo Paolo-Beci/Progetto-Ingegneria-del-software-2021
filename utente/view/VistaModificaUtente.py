@@ -204,7 +204,7 @@ class VistaModificaUtente(QWidget):
         stato = str(self.comboBox_2.currentText())
 
         #modifico gli attributi del fornitore in base al testo inserito
-        self.controller.set_nome_fornitore(nome)
+        self.controller.set_nome(nome)
         self.controller.set_telefono(telefono)
         self.controller.set_indirizzo(indirizzo)
         self.controller.set_partita_iva(partita_iva)

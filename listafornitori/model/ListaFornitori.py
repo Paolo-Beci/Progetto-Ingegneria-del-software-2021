@@ -13,7 +13,7 @@ class ListaFornitori:
         if os.path.isfile('listafornitori/data/DatabaseFornitori.pickle'):
             with open('listafornitori/data/DatabaseFornitori.pickle', 'rb') as f:
                 try:
-                    self.lista_fornitori= pickle.load(f)
+                    self.lista_fornitori = pickle.load(f)
                 except EOFError:
                     return None
         else:
@@ -46,11 +46,13 @@ class ListaFornitori:
     def get_fornitore_by_index(self, index):
         return self.lista_fornitori[index]
 
-    def get_nome_fornitore_by_code(self, codice):
+    # Giuseppe
+    def get_fornitore_by_code(self, codice):
         for fornitore in self.lista_fornitori:
             if fornitore.cod_fornitore == codice:
-                return fornitore.nome
+                return fornitore
 
+    # Giuseppe
     def get_stato_fornitore_by_code(self, codice):
         for fornitore in self.lista_fornitori:
             if fornitore.cod_fornitore == codice and fornitore.stato == 'P':

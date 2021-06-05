@@ -1,10 +1,14 @@
+import sys
+from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
 import time
+
 from listaordini.view.VistaListaOrdini import VistaListaOrdini
 from listadelpersonale.view.VistaListaDelPersonale import VistaListaDelPersonale
 from listaprodotti.view.VistaListaProdotti import VistaListaProdotti
 from listafornitori.view.VistaListaFornitori import VistaListaFornitori
 from listastatistiche.view.VistaListaStatistiche import VistaListaStatistiche
+from prodotto.view.VistaModificaProdotto import VistaModificaProdotto
 
 """
     VISTA HOME
@@ -56,7 +60,7 @@ class VistaHome(QWidget):
         self.close()
 
     def go_vista_vendita(self):
-        return None
+        pass
 
     def go_lista_del_personale(self):
         self.vista_lista_del_personale = VistaListaDelPersonale()

@@ -1,10 +1,7 @@
 import time
-
-from PyQt5.QtCore import Qt, QDate
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPushButton, QHBoxLayout, \
-    QGridLayout, QGroupBox, QLineEdit, QDateEdit, QMessageBox
-from PyQt5.QtGui import QIcon, QPixmap, QPainter
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtWidgets, QtCore
+from PyQt5.QtWidgets import QWidget, QMessageBox, QApplication
+from PyQt5.QtGui import QPixmap
 
 from prodotto.view.VistaModificaProdotto import VistaModificaProdotto
 from prodotto.controller.ControllerProdotto import ControllerProdotto
@@ -12,170 +9,181 @@ import listaprodotti.view.VistaListaProdotti
 
 """
     VISUALIZZAZIONE DEI PARAMETRI DEL PRODOTTO
-    Da fare: UI
 """
 
 
 class VistaProdotto(QWidget):
-    def __init__(self, c_prodotto, elimina_prodotto, modifica_prodotto, update_ui, parent=None):
+    def __init__(self, prodotto, elimina_prodotto, update_ui, parent=None):
         super(VistaProdotto, self).__init__(parent)
-        self.controller = ControllerProdotto(c_prodotto)
+        self.controller = ControllerProdotto(prodotto)
         self.elimina_prodotto = elimina_prodotto
-        self.modifica_prodotto = modifica_prodotto
         self.update_ui = update_ui
+        self.setObjectName("MainWindow")
+        self.resize(1173, 700)
 
-        """
-            SEZIONE SUPERIORE INTERFACCIA (topLayout)
-        """
-        topLayout = QGridLayout()
-        topLayout.addItem(QSpacerItem(10, 10, QSizePolicy.Minimum, QSizePolicy.Expanding))
-        btn_back = QPushButton("Torna indietro")
-        btn_back.clicked.connect(self.show_back_click)
-        topLayout.addWidget(btn_back)
-        topLayout.addLayout(topLayout, 0, 0, 1, 2)
-        topLayout.setColumnStretch(0, 1)
-        topLayout.setColumnStretch(1, 1)
-        topLayout.setColumnStretch(2, 1)
-        topLayout.setColumnStretch(3, 1)
-        topLayout.setColumnStretch(4, 1)
-        topLayout.setColumnStretch(5, 1)
-        topLayout.addItem(QSpacerItem(10, 10, QSizePolicy.Minimum, QSizePolicy.Expanding))
+        self.centralwidget = QtWidgets.QWidget(self)
+        self.centralwidget.setObjectName("centralwidget")
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.widget_2 = QtWidgets.QWidget(self.centralwidget)
+        self.widget_2.setObjectName("widget_2")
+        self.gridLayout = QtWidgets.QGridLayout(self.widget_2)
+        self.gridLayout.setObjectName("gridLayout")
+        self.groupBox_dettagli_prodotto = QtWidgets.QGroupBox(self.widget_2)
+        self.groupBox_dettagli_prodotto.setObjectName("groupBox_dettagli_prodotto")
+        self.gridLayout_3 = QtWidgets.QGridLayout(self.groupBox_dettagli_prodotto)
+        self.gridLayout_3.setObjectName("gridLayout_3")
+        self.label_data_ordine = QtWidgets.QLabel(self.groupBox_dettagli_prodotto)
+        self.label_data_ordine.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_data_ordine.setObjectName("label_data_ordine")
+        self.gridLayout_3.addWidget(self.label_data_ordine, 0, 0, 1, 1)
+        self.label_marca = QtWidgets.QLabel(self.groupBox_dettagli_prodotto)
+        self.label_marca.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_marca.setObjectName("label_marca")
+        self.gridLayout_3.addWidget(self.label_marca, 0, 1, 1, 1)
+        self.label_nome = QtWidgets.QLabel(self.groupBox_dettagli_prodotto)
+        self.label_nome.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_nome.setObjectName("label_nome")
+        self.gridLayout_3.addWidget(self.label_nome, 1, 0, 1, 1)
+        self.label_tipo = QtWidgets.QLabel(self.groupBox_dettagli_prodotto)
+        self.label_tipo.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_tipo.setObjectName("label_tipo")
+        self.gridLayout_3.addWidget(self.label_tipo, 1, 1, 1, 1)
+        self.label_genere = QtWidgets.QLabel(self.groupBox_dettagli_prodotto)
+        self.label_genere.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_genere.setObjectName("label_genere")
+        self.gridLayout_3.addWidget(self.label_genere, 2, 0, 1, 1)
+        self.label_materiale = QtWidgets.QLabel(self.groupBox_dettagli_prodotto)
+        self.label_materiale.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_materiale.setObjectName("label_materiale")
+        self.gridLayout_3.addWidget(self.label_materiale, 2, 1, 1, 1)
+        self.label_colore = QtWidgets.QLabel(self.groupBox_dettagli_prodotto)
+        self.label_colore.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_colore.setObjectName("label_colore")
+        self.gridLayout_3.addWidget(self.label_colore, 3, 0, 1, 1)
+        self.label_taglia = QtWidgets.QLabel(self.groupBox_dettagli_prodotto)
+        self.label_taglia.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_taglia.setObjectName("label_taglia")
+        self.gridLayout_3.addWidget(self.label_taglia, 3, 1, 1, 1)
+        self.label_quantita = QtWidgets.QLabel(self.groupBox_dettagli_prodotto)
+        self.label_quantita.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_quantita.setObjectName("label_quantita")
+        self.gridLayout_3.addWidget(self.label_quantita, 4, 0, 1, 1)
+        self.label_stagione = QtWidgets.QLabel(self.groupBox_dettagli_prodotto)
+        self.label_stagione.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_stagione.setObjectName("label_stagione")
+        self.gridLayout_3.addWidget(self.label_stagione, 4, 1, 1, 1)
+        self.gridLayout.addWidget(self.groupBox_dettagli_prodotto, 2, 1, 2, 2)
+        # modifica button
+        self.pushButton_modifica = QtWidgets.QPushButton(self.widget_2)
+        self.pushButton_modifica.setObjectName("pushButton_modifica")
+        self.gridLayout.addWidget(self.pushButton_modifica, 5, 2, 1, 1)
+        self.pushButton_modifica.clicked.connect(self.modifica_prodotto_click)
+        # elimina button
+        self.pushButton_elimina = QtWidgets.QPushButton(self.widget_2)
+        self.pushButton_elimina.setObjectName("pushButton_elimina")
+        self.gridLayout.addWidget(self.pushButton_elimina, 5, 1, 1, 1)
+        self.pushButton_elimina.clicked.connect(self.elimina_prodotto_click)
+        # indetro button
+        self.pushButton_indietro = QtWidgets.QPushButton(self.widget_2)
+        self.pushButton_indietro.setObjectName("pushButton_indietro")
+        self.gridLayout.addWidget(self.pushButton_indietro, 0, 0, 1, 1)
+        self.pushButton_indietro.clicked.connect(self.show_back_click)
 
-        """
-            SEZIONE CENTRALE INTERFACCIA (centerLayout)
-        """
-        # inizializzazione blocchi interfaccia
-        self.createTopLeftGroupBox()
-        self.createTopRightGroupBox()
-        self.createBottomLeftGroupBox()
-        self.createBottomRightGroupBox()
+        self.groupBox_prezzi_sconti = QtWidgets.QGroupBox(self.widget_2)
+        self.groupBox_prezzi_sconti.setObjectName("groupBox_prezzi_sconti")
+        self.gridLayout_4 = QtWidgets.QGridLayout(self.groupBox_prezzi_sconti)
+        self.gridLayout_4.setObjectName("gridLayout_4")
+        self.label_prezzo_acquisto = QtWidgets.QLabel(self.groupBox_prezzi_sconti)
+        self.label_prezzo_acquisto.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_prezzo_acquisto.setObjectName("label_prezzo_acquisto")
+        self.gridLayout_4.addWidget(self.label_prezzo_acquisto, 0, 0, 1, 1)
+        self.label_prezzo_vendita = QtWidgets.QLabel(self.groupBox_prezzi_sconti)
+        self.label_prezzo_vendita.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_prezzo_vendita.setObjectName("label_prezzo_vendita")
+        self.gridLayout_4.addWidget(self.label_prezzo_vendita, 0, 1, 1, 1)
+        self.label_sconto = QtWidgets.QLabel(self.groupBox_prezzi_sconti)
+        self.label_sconto.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_sconto.setObjectName("label_sconto")
+        self.gridLayout_4.addWidget(self.label_sconto, 1, 0, 1, 1)
+        self.label_sconto_consigliato = QtWidgets.QLabel(self.groupBox_prezzi_sconti)
+        self.label_sconto_consigliato.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_sconto_consigliato.setObjectName("label_sconto_consigliato")
+        self.gridLayout_4.addWidget(self.label_sconto_consigliato, 1, 1, 1, 1)
+        self.label_stato = QtWidgets.QLabel(self.groupBox_prezzi_sconti)
+        self.label_stato.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_stato.setObjectName("label_stato")
+        self.gridLayout_4.addWidget(self.label_stato, 2, 0, 1, 1)
+        self.gridLayout.addWidget(self.groupBox_prezzi_sconti, 4, 1, 1, 2)
 
-        # posizionamento interfaccia
-        centerLayout = QGridLayout()
-        centerLayout.addWidget(self.topLeftGroupBox, 1, 0)
-        centerLayout.addWidget(self.topRightGroupBox, 1, 1)
-        centerLayout.addWidget(self.bottomLeftGroupBox, 2, 0)
-        centerLayout.addWidget(self.bottomRightGroupBox, 2, 1)
-        centerLayout.setRowStretch(1, 1)
-        centerLayout.setRowStretch(2, 1)
-        centerLayout.setColumnStretch(0, 1)
-        centerLayout.setColumnStretch(1, 1)
+        self.groupBox_codici_prodotto = QtWidgets.QGroupBox(self.widget_2)
+        self.groupBox_codici_prodotto.setObjectName("groupBox_codici_prodotto")
+        self.gridLayout_2 = QtWidgets.QGridLayout(self.groupBox_codici_prodotto)
+        self.gridLayout_2.setObjectName("gridLayout_2")
+        self.label_cod_fattura = QtWidgets.QLabel(self.groupBox_codici_prodotto)
+        self.label_cod_fattura.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_cod_fattura.setObjectName("label_cod_fattura")
+        self.gridLayout_2.addWidget(self.label_cod_fattura, 0, 0, 1, 1)
+        self.label_cod_fornitore = QtWidgets.QLabel(self.groupBox_codici_prodotto)
+        self.label_cod_fornitore.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_cod_fornitore.setObjectName("label_cod_fornitore")
+        self.gridLayout_2.addWidget(self.label_cod_fornitore, 0, 1, 1, 1)
+        self.label_cod_prodotto = QtWidgets.QLabel(self.groupBox_codici_prodotto)
+        self.label_cod_prodotto.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_cod_prodotto.setObjectName("label_cod_prodotto")
+        self.gridLayout_2.addWidget(self.label_cod_prodotto, 1, 1, 1, 1)
+        self.gridLayout.addWidget(self.groupBox_codici_prodotto, 1, 1, 1, 2)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem1, 6, 1, 1, 1)
 
-        # v_layout.addWidget(self.get_info("Codice fattura: {}".format(self.controller.get_cod_fattura())))
-        # v_layout.addWidget(self.get_info("Codice fornitore: {}".format(self.controller.get_cod_fornitore())))
-        # v_layout.addWidget(self.get_info("Data ordine: {}".format(self.controller.get_data_ordine())))
-        # v_layout.addWidget(self.get_info("Codice prodotto: {}".format(self.controller.get_cod_prodotto())))
-        # v_layout.addWidget(self.get_info("Marca: {}".format(self.controller.get_marca())))
-        # v_layout.addWidget(self.get_info("Nome: {}".format(self.controller.get_nome())))
-        # v_layout.addWidget(self.get_info("Tipo: {}".format(self.controller.get_tipo())))
-        # v_layout.addWidget(self.get_info("Genere: {}".format(self.controller.get_genere())))
-        # v_layout.addWidget(self.get_info("Materiale: {}".format(self.controller.get_materiale())))
-        # v_layout.addWidget(self.get_info("Colore: {}".format(self.controller.get_colore())))
-        # v_layout.addWidget(self.get_info("Taglia: {}".format(self.controller.get_taglia())))
-        # v_layout.addWidget(self.get_info("Quantita: {}".format(self.controller.get_quantita())))
-        # v_layout.addWidget(self.get_info("Prezzo di acquisto: {}".format(self.controller.get_prezzo_acquisto())))
-        # v_layout.addWidget(self.get_info("Prezzo di vendita: {}".format(self.controller.get_prezzo_vendita())))
-        # v_layout.addWidget(self.get_info("Stagione: {}".format(self.controller.get_stagione())))
-        # v_layout.addWidget(self.get_info("Stato: {}".format(self.controller.get_stato())))
-        # v_layout.addWidget(self.get_info("Sconto consigliato: {}".format(self.controller.get_sconto_consigliato())))
-        # v_layout.addWidget(self.get_info("Sconto applicato: {}".format(self.controller.get_sconto())))
-        # v_layout.addWidget(self.get_info("Data di vendita: {}".format(self.controller.get_data_vendita())))
+        self.immagine = QtWidgets.QWidget(self.widget_2)
+        self.immagine.setObjectName("immagine")
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.immagine)
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.label = QtWidgets.QLabel(self.immagine)
+        self.label.setObjectName("label")
+        pixmap = QPixmap('listaprodotti/data/images/' + str(self.controller.get_cod_prodotto) + '.jpg')
+        self.label.setPixmap(pixmap)
+        self.verticalLayout_2.addWidget(self.label)
+        self.gridLayout.addWidget(self.immagine, 1, 0, 4, 1)
+        self.verticalLayout.addWidget(self.widget_2)
 
-        centerLayout.addItem(QSpacerItem(10, 10, QSizePolicy.Minimum, QSizePolicy.Expanding))
+        self.desktop = QApplication.desktop()
+        self.screenRect = self.desktop.screenGeometry()
+        height = self.screenRect.height()
+        width = self.screenRect.width()
+        self.centralwidget.setGeometry(QtCore.QRect(0, 0, width, height))
 
-        """
-            SEZIONE INFERIORE INTERFACCIA (bottomLayout)
-        """
-        bottomLayout = QGridLayout()
+        self.retranslateUi(self)
+        QtCore.QMetaObject.connectSlotsByName(self)
 
-        btn_elimina = QPushButton("Elimina")
-        btn_elimina.clicked.connect(self.popup_elimina)
-
-        btn_modifica = QPushButton("Modifica")
-        btn_modifica.clicked.connect(self.modifica_prodotto_click)
-
-        bottomLayout.setColumnStretch(1, 1)
-        bottomLayout.setColumnStretch(2, 1)
-        bottomLayout.setColumnStretch(3, 1)
-        bottomLayout.addWidget(btn_modifica, 1, 3)
-        bottomLayout.addWidget(btn_elimina, 1, 5)
-
-        # Allocazione interfaccia generale
-        mainLayout = QGridLayout()
-        mainLayout.addLayout(topLayout, 0, 0, 1, 2)
-        mainLayout.addLayout(centerLayout, 1, 0, 1, 2)
-        mainLayout.addLayout(bottomLayout, 2, 0, 1, 2)
-        mainLayout.setRowStretch(1, 1)
-        mainLayout.setRowStretch(2, 1)
-        mainLayout.setColumnStretch(0, 1)
-        mainLayout.setColumnStretch(1, 1)
-        self.setLayout(mainLayout)
-        self.setWindowTitle(self.controller.get_cod_prodotto())
-        # self.setWindowIcon('path')
-
-    """
-        Dettagli comuni per le label
-    """
-
-    def get_info_label(self, text):
-        label = QLabel(text)
-        font = label.font()
-        font.setPointSize(17)
-        label.setFont(font)
-        return label
-
-        # CREAZIONE DEI COMPONENTI
-
-    def createTopLeftGroupBox(self):
-        self.topLeftGroupBox = QGroupBox("IMMAGINE")
-
-        # INSERIMENTO IMMAGINE
-        label = QLabel(self.topLeftGroupBox)
-        pixmap = QPixmap('listaprodotti/data/images/' + self.controller.get_cod_prodotto() + '.jpg')
-        # pixmap.scaled(100, 100)
-        label.setPixmap(pixmap)
-        label.resize(500, 1000)
-        #self.resize(pixmap.width(), pixmap.height())
-        label.move(100, 50)
-        #   come faccio il resize dell'immagine per farla entrare nel box?
-
-        layout = QGridLayout()
-        layout.addWidget(label, 0, 0, 2, 4)
-
-        layout.setRowStretch(5, 1)
-        self.topLeftGroupBox.setLayout(layout)
-
-    def createTopRightGroupBox(self):
-        self.topRightGroupBox = QGroupBox("CODICI PRODOTTO E DETTAGLI ORDINE")
-
-        label_nome = QLabel(self.topRightGroupBox)
-        label_nome.setText("Codice fattura")
-
-        layout = QGridLayout()
-        layout.addWidget(label_nome, 0, 0, 1, 2)
-        layout.setRowStretch(4, 1)
-        self.topRightGroupBox.setLayout(layout)
-
-    def createBottomLeftGroupBox(self):
-        self.bottomLeftGroupBox = QGroupBox("DESCRIZIONE PRODOTTO")
-
-        label_nome = QLabel(self.bottomLeftGroupBox)
-        font_nome = label_nome.font()
-        font_nome.setPointSize(30)
-        label_nome.setFont(font_nome)
-        label_nome.setText("Codice fattura")
-
-        dateEdit = QDateEdit(self.bottomLeftGroupBox)
-        dateEdit.setDate(QDate.currentDate())
-
-        layout = QGridLayout()
-        layout.addWidget(dateEdit, 0, 0, 1, 2)
-        layout.addWidget(label_nome, 1, 0, 1, 2)
-        layout.setRowStretch(4, 1)
-        self.bottomLeftGroupBox.setLayout(layout)
-
-    def createBottomRightGroupBox(self):
-        self.bottomRightGroupBox = QGroupBox("STATO E SCONTI APPLICABLI")
+    def retranslateUi(self, MainWindow):
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.groupBox_dettagli_prodotto.setTitle(_translate("MainWindow", "Dettagli prodotto"))
+        self.label_data_ordine.setText(_translate("MainWindow", "Data dell\'ordine: " + str(self.controller.get_data_ordine())))
+        self.label_marca.setText(_translate("MainWindow", "Marca: " + str(self.controller.get_marca())))
+        self.label_nome.setText(_translate("MainWindow", "Nome: " + str(self.controller.get_nome())))
+        self.label_tipo.setText(_translate("MainWindow", "Tipo: " + str(self.controller.get_tipo())))
+        self.label_genere.setText(_translate("MainWindow", "Genere: " + str(self.controller.get_genere())))
+        self.label_materiale.setText(_translate("MainWindow", "Materiale: " + str(self.controller.get_materiale())))
+        self.label_colore.setText(_translate("MainWindow", "Colore: " + str(self.controller.get_colore())))
+        self.label_taglia.setText(_translate("MainWindow", "Taglia/e: " + str(self.controller.get_taglia())))
+        self.label_quantita.setText(_translate("MainWindow", "Quantità: " + str(self.controller.get_quantita())))
+        self.label_stagione.setText(_translate("MainWindow", "Stagione: " + str(self.controller.get_stagione())))
+        self.pushButton_modifica.setText(_translate("MainWindow", "Modifica"))
+        self.pushButton_indietro.setText(_translate("MainWindow", "< Indietro"))
+        self.groupBox_prezzi_sconti.setTitle(_translate("MainWindow", "Prezzi e sconti"))
+        self.label_prezzo_acquisto.setText(_translate("MainWindow", "Prezzo di acquisto: " + str(self.controller.get_prezzo_acquisto())))
+        self.label_prezzo_vendita.setText(_translate("MainWindow", "Prezzo di vendita: " + str(self.controller.get_prezzo_vendita())))
+        self.label_sconto.setText(_translate("MainWindow", "Sconto: " + str(self.controller.get_sconto())))
+        self.label_sconto_consigliato.setText(_translate("MainWindow", "Sconto cosigliato: " + str(self.controller.get_sconto_consigliato())))
+        self.label_stato.setText(_translate("MainWindow", "Stato: " + str(self.controller.get_stato())))
+        self.pushButton_elimina.setText(_translate("MainWindow", "Elimina"))
+        self.groupBox_codici_prodotto.setTitle(_translate("MainWindow", "Codici prodotto"))
+        self.label_cod_fattura.setText(_translate("MainWindow", "Codice fattura: " + str(self.controller.get_cod_fattura())))
+        self.label_cod_fornitore.setText(_translate("MainWindow", "Codice fornitore: " + str(self.controller.get_cod_fornitore())))
+        self.label_cod_prodotto.setText(_translate("MainWindow", "Codice prodotto: " + str(self.controller.get_cod_prodotto())))
 
     """
         Eventi trigger click dei bottoni
@@ -184,7 +192,8 @@ class VistaProdotto(QWidget):
     def popup_elimina(self):
         msg = QMessageBox()
         msg.setWindowTitle("ATTENZIONE")
-        msg.setText("Sei sicuro di eliminare il prodotto selezionato? \n\nil prodotto eliminato non sarà ripristinabile")
+        msg.setText(
+            "Sei sicuro di voler eliminare il prodotto selezionato? \n\nil prodotto eliminato non sarà ripristinabile")
         msg.setIcon(QMessageBox.Warning)
         msg.setStandardButtons(QMessageBox.Yes)
         msg.setDefaultButton(QMessageBox.Yes)
@@ -199,7 +208,10 @@ class VistaProdotto(QWidget):
     def modifica_prodotto_click(self):
         self.vista_modifica_prodotto = VistaModificaProdotto(self.controller, self.update_ui)
         self.vista_modifica_prodotto.showMaximized()
-        self.update_ui()
+        time.sleep(0.3)
+        #self.update_ui()
+        self.close()
+
 
     def show_back_click(self):
         self.vista_back = listaprodotti.view.VistaListaProdotti.VistaListaProdotti()

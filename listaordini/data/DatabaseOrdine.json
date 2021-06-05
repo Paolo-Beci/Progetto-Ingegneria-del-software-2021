@@ -2,9 +2,9 @@
  {
    "cod_fattura": 100,
    "cod_fornitore": "AD000",
-   "stagione": "Primavera/Estate",
+   "stagione": "P/E",
    "stato": "In negozio",
-   "data_ordine": "28/07/2020",
+   "data_ordine": "2020-07-28",
    "data_arrivo_prevista": "2021-02-22",
    "data_arrivo_effettiva": "2021-02-22",
    "importo_totale": 3869.5,
@@ -13,9 +13,9 @@
  {
    "cod_fattura": 101,
    "cod_fornitore": "AD001",
-   "stagione": "Primavera/Estate",
+   "stagione": "P/E",
    "stato": "In negozio",
-   "data_ordine": "14/07/2020",
+   "data_ordine": "2020-07-14",
    "data_arrivo_prevista": "2021-02-08",
    "data_arrivo_effettiva": "2021-02-16",
    "importo_totale": 3310,
@@ -24,9 +24,9 @@
  {
    "cod_fattura": 102,
    "cod_fornitore": "AD002",
-   "stagione": "Primavera/Estate",
+   "stagione": "P/E",
    "stato": "In negozio",
-   "data_ordine": "18/07/2020",
+   "data_ordine": "2020-07-18",
    "data_arrivo_prevista": "2021-02-15",
    "data_arrivo_effettiva": "2021-03-16",
    "importo_totale": 2009,
@@ -35,12 +35,34 @@
  {
    "cod_fattura": 103,
    "cod_fornitore": "AD003",
-   "stagione": "Primavera/Estate",
+   "stagione": "P/E",
    "stato": "In arrivo",
-   "data_ordine": "26/08/2020",
+   "data_ordine": "2020-08-26",
    "data_arrivo_prevista": "2021-03-12",
-   "data_arrivo_effettiva": "2021-09-15",
+   "data_arrivo_effettiva": null,
    "importo_totale": 2800,
    "calzature_totali": 65
+ },
+  {
+   "cod_fattura": 104,
+   "cod_fornitore": "AD004",
+   "stagione": "P/E",
+   "stato": "In negozio",
+   "data_ordine": "2020-07-28",
+   "data_arrivo_prevista": "2021-02-15",
+   "data_arrivo_effettiva": "2021-02-28",
+   "importo_totale": 2950,
+   "calzature_totali": 70
+ },
+    {
+   "cod_fattura": 105,
+   "cod_fornitore": "AD005",
+   "stagione": "P/E",
+   "stato": "In negozio",
+   "data_ordine": "2020-07-14",
+   "data_arrivo_prevista": "2021-02-08",
+   "data_arrivo_effettiva": "2021-03-23",
+   "importo_totale": 2700,
+   "calzature_totali": 55
  }
 ]
