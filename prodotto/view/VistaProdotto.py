@@ -209,7 +209,7 @@ class VistaProdotto(QWidget):
         self.vista_modifica_prodotto = VistaModificaProdotto(self.controller, self.update_ui)
         self.vista_modifica_prodotto.showMaximized()
         time.sleep(0.3)
-        self.update_ui()
+        #self.update_ui()
         self.close()
 
 

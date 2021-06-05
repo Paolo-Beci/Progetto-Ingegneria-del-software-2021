@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QWidget, QApplication
 
 """
     MODIFICA DEI PARAMETRI DEL PRODOTTO
-    prende in input un prodotto e ne permette di modificare i campi (visualizzandone i vecchi?)
+    prende in input un prodotto e ne permette di modificare i campi visualizzandone quelli già presenti
 """
 
 
@@ -18,6 +18,7 @@ class VistaModificaProdotto(QWidget):
         # FONT
         font = QtGui.QFont()
         font.setBold(True)
+        font.setPixelSize(15)
         font.setWeight(75)
 
         self.centralwidget = QtWidgets.QWidget(self)
@@ -349,10 +350,9 @@ class VistaModificaProdotto(QWidget):
         # prendo il testo che l'utente inserisce in ciascuna lineEdit
         cod_fattura = self.lineEdit_cod_fattura.text()
         cod_fornitore = self.lineEdit_cod_fornitore.text()
-        aaaa = 0
-        mm = 0
-        gg = 0
-        self.dateEdit_data_ordine.getDate(aaaa, mm, gg)
+        aaaa = self.dateEdit_data_ordine.date().year()
+        mm = self.dateEdit_data_ordine.date().month()
+        gg = self.dateEdit_data_ordine.date().day()
         data_ordine = str(gg) + "/" + str(mm) + "/" + str(aaaa)
         cod_prodotto = self.lineEdit_cod_prodotto.text()
         marca = self.lineEdit_marca.text()

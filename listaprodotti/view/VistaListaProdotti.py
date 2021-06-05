@@ -22,6 +22,7 @@ class VistaListaProdotti(QWidget):
         self.controller = ControllerListaProdotti()
         self.listaProdotti = ListaProdotti()
         self.lista_prodotti_filtrata = []
+        self.lista_codici = []
         self.setWindowTitle("Lista Prodotti")
         self.setObjectName("Lista Prodotti")
 
@@ -59,16 +60,16 @@ class VistaListaProdotti(QWidget):
         self.cerca.setPlaceholderText("Cerca per Cod. prodotto")
         self.gridLayout_3.addWidget(self.cerca, 0, 10, 1, 1)
         self.cerca.returnPressed.connect(self.cerca_prodotto)
-        # FACOLTATIVO
-        self.cerca_button = QtWidgets.QPushButton(self.topWidget)
+        # inserisci prodotto
+        self.inserisci_button = QtWidgets.QPushButton(self.topWidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.cerca_button.sizePolicy().hasHeightForWidth())
-        self.cerca_button.setSizePolicy(sizePolicy)
-        self.cerca_button.setObjectName("cerca_button")
-        self.gridLayout_3.addWidget(self.cerca_button, 0, 9, 1, 1)
-        # self.cerca_button.clicked.connect(self.cerca_prodotto())
+        sizePolicy.setHeightForWidth(self.inserisci_button.sizePolicy().hasHeightForWidth())
+        self.inserisci_button.setSizePolicy(sizePolicy)
+        self.inserisci_button.setObjectName("inserisci_button")
+        self.gridLayout_3.addWidget(self.inserisci_button, 0, 9, 1, 1)
+        self.inserisci_button.clicked.connect(self.inserisci_prodotto)
         # ----------FILTRI COMBOBOX--------------
         # taglia
         self.taglia = QtWidgets.QComboBox(self.topWidget)
@@ -182,7 +183,7 @@ class VistaListaProdotti(QWidget):
         for prodotto in self.controller.get_lista_prodotti():
             cod = prodotto.cod_prodotto
             if cod != cod_precedente:
-
+                self.lista_codici.append(cod)
                 self.display_prodotto = QtWidgets.QWidget(self.widget)
                 sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
                 sizePolicy.setHorizontalStretch(0)
@@ -210,8 +211,10 @@ class VistaListaProdotti(QWidget):
                 # bottone dettagli
                 self.btn.append(x)
                 self.btn[x] = QtWidgets.QPushButton(self)
-                self.btn[x].setText('Dettagli ')
-                self.btn[x].clicked.connect(lambda a=cod: self.show_prodotto(a))
+                self.btn[x].setText('Dettagli')
+                codice = self.lista_codici[x]
+                print(codice)
+                self.btn[x].clicked.connect(lambda: self.show_prodotto(x))
                 self.verticalLayout_2.addWidget(self.btn[x])
                 x = x + 1
                 # c = colonne , r = righe del display
@@ -293,7 +296,7 @@ class VistaListaProdotti(QWidget):
         self.reso.setText(_translate("MainWindow", "RESO"))
         self.nome_marca.setText(_translate("MainWindow", "Marca - Nome prodotto"))
         self.prezzo.setText(_translate("MainWindow", "Prezzo"))
-        self.cerca_button.setText(_translate("MainWindow", "Cerca"))
+        self.inserisci_button.setText(_translate("MainWindow", "Inserisci prodotto"))
 
     """
          Eventi trigger click dei bottoni
@@ -346,6 +349,10 @@ class VistaListaProdotti(QWidget):
         self.vista_prodotto.showMaximized()
         time.sleep(0.3)
         self.close()
+
+    def inserisci_prodotto(self):
+        self.inserisci_prodotto = VistaInserisciProdotto(self.controller, self.update_ui)
+        self.inserisci_prodotto.showMaximized()
 
     def closeEvent(self, event):
         pass
