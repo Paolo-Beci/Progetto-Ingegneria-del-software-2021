@@ -1,4 +1,4 @@
-from PyQt5 import QtCore, QtWidgets
+from PyQt5 import QtCore, QtWidgets, QtGui
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QMessageBox, QApplication
 import time
@@ -30,6 +30,12 @@ class VistaListaProdotti(QWidget):
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName("verticalLayout")
+
+        # FONT
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setPixelSize(20)
+        font.setWeight(75)
 
         # ---------------topWidget------------------
         self.topWidget = QtWidgets.QWidget(self.centralwidget)
@@ -196,24 +202,30 @@ class VistaListaProdotti(QWidget):
                 self.verticalLayout_2.setObjectName("verticalLayout_2")
                 self.immagine = QtWidgets.QLabel(self.display_prodotto)  # come lo allineo centrale??
                 self.immagine.setObjectName("immagine")
+                self.immagine.setAlignment(QtCore.Qt.AlignCenter)
                 pixmap = QPixmap('listaprodotti/data/images/' + str(cod) + '.jpg')
+                if cod_precedente == "S32":
+                    pixmap = QPixmap('listaprodotti/data/images/noimage.jpg')
                 self.immagine.setPixmap(pixmap)
                 self.verticalLayout_2.addWidget(self.immagine, QtCore.Qt.AlignHCenter)
                 self.nome_marca = QtWidgets.QLabel(self.display_prodotto)
                 self.nome_marca.setObjectName("nome_marca")
+                self.nome_marca.setFont(font)
+                self.nome_marca.setAlignment(QtCore.Qt.AlignCenter)
                 self.nome_marca.setText(str(self.controller.get_nome_prodotto_by_code(cod)) + " - " +
                                         str(self.controller.get_marca_prodotto_by_code(cod)))
                 self.verticalLayout_2.addWidget(self.nome_marca)
                 self.prezzo = QtWidgets.QLabel(self.display_prodotto)
                 self.prezzo.setObjectName("prezzo")
-                self.prezzo.setText(self.controller.get_prezzo_prodotto_by_code(cod))
+                self.prezzo.setFont(font)
+                self.prezzo.setAlignment(QtCore.Qt.AlignCenter)
+                self.prezzo.setText(str(self.controller.get_prezzo_prodotto_by_code(cod)) + " €")
                 self.verticalLayout_2.addWidget(self.prezzo)
                 # bottone dettagli
                 self.btn.append(x)
                 self.btn[x] = QtWidgets.QPushButton(self)
                 self.btn[x].setText('Dettagli')
                 codice = self.lista_codici[x]
-                print(codice)
                 self.btn[x].clicked.connect(lambda: self.show_prodotto(x))
                 self.verticalLayout_2.addWidget(self.btn[x])
                 x = x + 1
@@ -294,8 +306,6 @@ class VistaListaProdotti(QWidget):
         self.venduto.setText(_translate("MainWindow", "VENDUTO"))
         self.indietro.setText(_translate("MainWindow", "< Indietro"))
         self.reso.setText(_translate("MainWindow", "RESO"))
-        self.nome_marca.setText(_translate("MainWindow", "Marca - Nome prodotto"))
-        self.prezzo.setText(_translate("MainWindow", "Prezzo"))
         self.inserisci_button.setText(_translate("MainWindow", "Inserisci prodotto"))
 
     """
@@ -303,7 +313,7 @@ class VistaListaProdotti(QWidget):
     """
 
     def show_inserici_prodotto(self):
-        self.vista_inserisci_prodotto = VistaInserisciProdotto(self.controller, self.updateUi)
+        self.vista_inserisci_prodotto = VistaInserisciProdotto(self.controller, self.retranslateUi)
         self.vista_inserisci_prodotto.show()
 
     def show_home(self):
@@ -330,7 +340,7 @@ class VistaListaProdotti(QWidget):
     def show_in_arrivo(self):  # PROVA TEMPORANEA
         prodotto_selezionato = self.controller.get_prodotto_by_code("S01")
         self.vista_prodotto = VistaProdotto(prodotto_selezionato, self.controller.elimina_prodotto_by_codice,
-                                            self.update_ui(self))
+                                            self.retranslateUi)
         self.vista_prodotto.showMaximized()
 
     def show_in_negozio(self):
@@ -351,15 +361,12 @@ class VistaListaProdotti(QWidget):
         self.close()
 
     def inserisci_prodotto(self):
-        self.inserisci_prodotto = VistaInserisciProdotto(self.controller, self.update_ui)
+        self.inserisci_prodotto = VistaInserisciProdotto(self.controller, self.retranslateUi)
         self.inserisci_prodotto.showMaximized()
 
     def closeEvent(self, event):
         pass
         # self.controller.save_data()
-
-    def update_ui(self, event):
-        pass
 
     def popup_errore(self):
         msg = QMessageBox()

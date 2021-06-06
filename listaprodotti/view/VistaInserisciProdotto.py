@@ -323,26 +323,26 @@ class VistaInserisciProdotto(QWidget):
         sconto_consigliato = self.lineEdit_sconto_consigliato.text()
         sconto = self.lineEdit_sconto.text()
 
-        for value in self.info.values():
-            if value.text() == "":
-                QMessageBox.critical(self, 'Errore', 'Per favore, inserisci tutte le informazioni richieste',
-                                     QMessageBox.Ok, QMessageBox.Ok)
-                return
-            # I CONTROLLI DANNO PROBLEMI DI CRASH
-            # if taglia > 50:
-            #    QMessageBox.critical(self, 'Errore', 'Per favore, inserisci una taglia valida',
-            #                          QMessageBox.Ok, QMessageBox.Ok)
-            #    return
-            # if sconto > 100 or sconto_consigliato > 100:
-            #    QMessageBox.critical(self, 'Errore', 'Per favore, inserisci uno sconto valido',
-            #                         QMessageBox.Ok, QMessageBox.Ok)
-            #    return
-            # if sconto.isnumeric() or sconto_consigliato.isnumeric():
-            #    return
-            # else:
-            #    QMessageBox.critical(self, 'Errore', 'Per favore, inserisci uno sconto numerico',
-            #                         QMessageBox.Ok, QMessageBox.Ok)
-            #    return
+        # for value in self.info.values():
+        #     if value.text() == "":
+        #         QMessageBox.critical(self, 'Errore', 'Per favore, inserisci tutte le informazioni richieste',
+        #                              QMessageBox.Ok, QMessageBox.Ok)
+        #         return
+        # I CONTROLLI DANNO PROBLEMI DI CRASH
+        # if taglia > 50:
+        #    QMessageBox.critical(self, 'Errore', 'Per favore, inserisci una taglia valida',
+        #                          QMessageBox.Ok, QMessageBox.Ok)
+        #    return
+        # if sconto > 100 or sconto_consigliato > 100:
+        #    QMessageBox.critical(self, 'Errore', 'Per favore, inserisci uno sconto valido',
+        #                         QMessageBox.Ok, QMessageBox.Ok)
+        #    return
+        # if sconto.isnumeric() or sconto_consigliato.isnumeric():
+        #    return
+        # else:
+        #    QMessageBox.critical(self, 'Errore', 'Per favore, inserisci uno sconto numerico',
+        #                         QMessageBox.Ok, QMessageBox.Ok)
+        #    return
 
         self.controller.inserisci_prodotto(Prodotto(cod_fattura, cod_fornitore, data_ordine, cod_prodotto,
                                                     marca, nome, tipo, genere, materiale, colore, taglia, quantita,
