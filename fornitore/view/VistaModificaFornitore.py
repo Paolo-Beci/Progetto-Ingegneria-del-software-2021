@@ -197,8 +197,9 @@ class VistaModificaFornitore(QWidget):
     def save_data(self):
         #prendo il testo che l'utente inserisce in ciascuna lineEdit
         partita_iva = self.lineEdit_9.text()
+        codice = self.lineEdit_16.text()
         for fornitore in self.controller_lista.get_lista_fornitori():
-            if fornitore.partita_iva== partita_iva :
+            if fornitore.cod_fornitore!=codice and fornitore.partita_iva== partita_iva :
                 QMessageBox.critical(self, 'Errore', 'Fornitore già presente in lista!', QMessageBox.Ok, QMessageBox.Ok)
                 return
             else:
@@ -214,7 +215,6 @@ class VistaModificaFornitore(QWidget):
 
         rappresentante = self.lineEdit_14.text()
         nome = self.lineEdit_15.text()
-        codice = self.lineEdit_16.text()
         stato = str(self.comboBox_2.currentText())
 
         #modifico gli attributi del fornitore in base al testo inserito
