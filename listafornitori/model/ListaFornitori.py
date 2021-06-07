@@ -63,6 +63,8 @@ class ListaFornitori:
     def save_data(self):
         with open('listafornitori/data/DatabaseFornitori.pickle', 'wb') as handle:
             pickle.dump(self.lista_fornitori, handle, pickle.HIGHEST_PROTOCOL)
+        # with open("listafornitori/data/DatabaseFornitori.json", "w") as f:
+        #     json.dump(self.lista_fornitori, f)
 
     def aggiungi_fornitore_da_database(self, fornitore):
         self.lista_fornitori.append(fornitore)

@@ -94,7 +94,7 @@ class VistaUtente(QWidget):
         self.setWindowTitle("Modifica utente")
 
     def update_ui_utente(self):
-        self.label_nome_cognome.setText(self.controller.get_nome()+""+self.controller.get_cognome())
+        self.label_nome_cognome.setText(self.controller.get_nome()+" "+self.controller.get_cognome())
         self.label_data_nascita.setText("Data nascita: {}".format(self.controller.get_data_nascita()))
         self.label_luogo_nascita.setText("Luogo nascita: {}".format(self.controller.get_luogo_nascita()))
         self.label_eta.setText("Età: {}".format(self.controller.get_eta()))

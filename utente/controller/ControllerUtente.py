@@ -27,7 +27,10 @@ class ControllerUtente:
         return self.model.telefono
 
     def get_ruolo(self):
-        return self.model.ruolo
+        if self.model.ruolo=="D":
+            return "Dipendente"
+        else:
+            return "Amministratore"
 
     def get_stipendio(self):
         return  self.model.stipendio
@@ -60,7 +63,10 @@ class ControllerUtente:
         self.model.telefono= telefono
 
     def set_ruolo(self, ruolo):
-        self.model.ruolo= ruolo
+        if ruolo=="Dipendente":
+            self.model.ruolo= "D"
+        else:
+            self.model.ruolo= "A"
 
     def set_stipendio(self, stipendio):
         self.model.stipendio= stipendio
