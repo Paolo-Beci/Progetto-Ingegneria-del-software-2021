@@ -1,3 +1,4 @@
+from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QSpacerItem, QSizePolicy, QPushButton, QLabel, QLineEdit, QMessageBox
 
 from fornitore.model.Fornitore import Fornitore
@@ -17,11 +18,20 @@ class VistaInserisciFornitore(QWidget):
         self.add_info_text("indirizzo", "Indirizzo")
         self.add_info_text("partita_iva", "Partita iva")
         self.add_info_text("telefono", "Telefono")
-        self.add_info_text("email", "Email")
+        self.add_info_text("sito_web", "Sito web")
         self.add_info_text("rappresentante", "Rappresentante")
-        self.add_info_text("data_affiliazione", "Data di affiliazione (dd/MM/yyyy)")
+        self.label_data_affiliazione= QLabel("Data affiliazione")
+        self.v_layout.addWidget(self.label_data_affiliazione)
+        self.dateEdit_data_affiliazione= QtWidgets.QDateEdit(self)
+        self.v_layout.addWidget(self.dateEdit_data_affiliazione)
         self.add_info_text("codice_fornitore", "Codice Fornitore")
-        self.add_info_text("stato", "Stato (Standard/Premium)")
+        self.label_stato = QLabel("Stato")
+        self.v_layout.addWidget(self.label_stato)
+        self.combo_box_stato= QtWidgets.QComboBox(self)
+        self.combo_box_stato.addItem("Standard")
+        self.combo_box_stato.addItem("Premium")
+        self.combo_box_stato.setCurrentIndex(0)
+        self.v_layout.addWidget(self.combo_box_stato)
 
 
         self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
@@ -36,7 +46,6 @@ class VistaInserisciFornitore(QWidget):
     def add_info_text(self, nome, label):
         self.v_layout.addWidget(QLabel(label))
         current_text = QLineEdit(self)
-        #current_text.setText("testodiprovazi")
         self.qlines[nome] = current_text
         self.v_layout.addWidget(current_text)
 
@@ -45,17 +54,30 @@ class VistaInserisciFornitore(QWidget):
             if value.text() == "":
                 QMessageBox.critical(self, 'Errore', 'Per favore, inserisci tutte le informazioni richieste.', QMessageBox.Ok, QMessageBox.Ok)
                 return
+        for fornitore in self.controller.get_lista_fornitori():
+            if fornitore.partita_iva == self.qlines["partita_iva"].text():
+                QMessageBox.critical(self, 'Errore', 'Fornitore già presente in lista!', QMessageBox.Ok, QMessageBox.Ok)
+                return
+
+        gg= str(self.dateEdit_data_affiliazione.date().day())
+        mm= str(self.dateEdit_data_affiliazione.date().month())
+        aaaa= str(self.dateEdit_data_affiliazione.date().year())
+        data_affiliazione= gg + "/" + mm + "/" + aaaa
+        if str(self.combo_box_stato.currentText()) == "Standard":
+            stato= "S"
+        else:
+            stato= "P"
 
         self.controller.inserisci_fornitore(Fornitore(
+             self.qlines["codice_fornitore"].text(),
              self.qlines["nome"].text(),
              self.qlines["indirizzo"].text(),
-             self.qlines["partita_iva"].text(),
              self.qlines["telefono"].text(),
-             self.qlines["email"].text(),
+             self.qlines["partita_iva"].text(),
+             self.qlines["sito_web"].text(),
              self.qlines["rappresentante"].text(),
-             self.qlines["data_affiliazione"].text(),
-             self.qlines["codice_fornitore"].text(),
-             self.qlines["stato"].text()))
+             data_affiliazione,
+             stato))
         self.update_ui()
         self.close()
 

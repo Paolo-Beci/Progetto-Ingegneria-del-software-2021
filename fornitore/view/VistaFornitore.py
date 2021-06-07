@@ -3,9 +3,10 @@ from fornitore.controller.ControllerFornitore import ControllerFornitore
 from fornitore.view.VistaModificaFornitore import VistaModificaFornitore
 
 class VistaFornitore(QWidget):
-    def __init__(self, fornitore, elimina_fornitore_by_codice, update_ui, parent=None):
+    def __init__(self, fornitore, elimina_fornitore_by_codice, update_ui, controller,parent=None):
         super(VistaFornitore, self).__init__(parent)
         self.controller= ControllerFornitore(fornitore)
+        self.controller_lista= controller
         self.elimina_fornitore_by_codice= elimina_fornitore_by_codice
         self.update_ui= update_ui
 
@@ -104,6 +105,6 @@ class VistaFornitore(QWidget):
         self.close()
 
     def modifica_fornitore_click(self):
-        self.vista_modifica_fornitore= VistaModificaFornitore(self.controller, self.update_ui_fornitore)
+        self.vista_modifica_fornitore= VistaModificaFornitore(self.controller, self.controller_lista, self.update_ui_fornitore)
         self.vista_modifica_fornitore.show()
         self.update_ui()

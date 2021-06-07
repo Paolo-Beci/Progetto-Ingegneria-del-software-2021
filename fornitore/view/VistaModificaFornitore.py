@@ -1,14 +1,16 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QDate
-from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit
+from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QMessageBox
+
 
 #manca da aggiustare il sizepolicy
 
 #BISOGNA CAMBIARE IL FORM CON SELF!!!!!
 class VistaModificaFornitore(QWidget):
-    def __init__(self, controller, update_ui_fornitore, parent=None):
+    def __init__(self, controller, controller_lista, update_ui_fornitore, parent=None):
         super(VistaModificaFornitore, self).__init__(parent)
         self.controller= controller
+        self.controller_lista= controller_lista
         self.update_ui_fornitore= update_ui_fornitore
 
         self.setWindowTitle("Modifica fornitore")
@@ -186,7 +188,6 @@ class VistaModificaFornitore(QWidget):
         data_split= data.split("/")
         self.dateEdit_1.setDate(QDate(int(data_split[2]), int(data_split[1]), int(data_split[0])))
 
-        #self.lineEdit_13.setText(_translate("Form", str(self.controller.get_data_affiliazione())))
         self.lineEdit_10.setText(_translate("Form", str(self.controller.get_indirizzo())))
         self.label_6.setText(_translate("Form", "Rappresentante"))
         self.lineEdit_14.setText(_translate("Form", str(self.controller.get_rappresentante())))
@@ -196,14 +197,21 @@ class VistaModificaFornitore(QWidget):
     def save_data(self):
         #prendo il testo che l'utente inserisce in ciascuna lineEdit
         partita_iva = self.lineEdit_9.text()
+        for fornitore in self.controller_lista.get_lista_fornitori():
+            if fornitore.partita_iva== partita_iva :
+                QMessageBox.critical(self, 'Errore', 'Fornitore già presente in lista!', QMessageBox.Ok, QMessageBox.Ok)
+                return
+            else:
+                self.controller.set_partita_iva(partita_iva)
+
         indirizzo = self.lineEdit_10.text()
         telefono = self.lineEdit_11.text()
         sito_web = self.lineEdit_12.text()
-        aaaa = self.dateEdit_1.date().year()
-        mm = self.dateEdit_1.date().month()
-        gg= self.dateEdit_1.date().day()
-        data_affiliazione = str(gg) + "/" + str(mm) + "/" + str(aaaa)
-        #data_affiliazione = self.lineEdit_13.text()
+        aaaa = str(self.dateEdit_1.date().year())
+        mm = str(self.dateEdit_1.date().month())
+        gg= str(self.dateEdit_1.date().day())
+        data_affiliazione = gg + "/" + mm + "/" + aaaa
+
         rappresentante = self.lineEdit_14.text()
         nome = self.lineEdit_15.text()
         codice = self.lineEdit_16.text()
@@ -220,6 +228,5 @@ class VistaModificaFornitore(QWidget):
         self.controller.set_cod_fornitore(codice)
         self.controller.set_stato(stato)
 
-        #aggiorno (in teoria) ahahah
         self.update_ui_fornitore()
         self.close()

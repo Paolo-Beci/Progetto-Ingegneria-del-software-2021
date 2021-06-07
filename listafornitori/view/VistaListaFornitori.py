@@ -58,5 +58,5 @@ class VistaListaFornitori(QWidget):
         if(len(self.list_view.selectedIndexes()) > 0):
             selected = self.list_view.selectedIndexes()[0].row()
             fornitore_selezionato = self.controller.get_fornitore_by_index(selected)
-            self.vista_fornitore = VistaFornitore(fornitore_selezionato, self.controller.elimina_fornitore_by_codice, self.update_ui)
+            self.vista_fornitore = VistaFornitore(fornitore_selezionato, self.controller.elimina_fornitore_by_codice, self.update_ui, self.controller)
             self.vista_fornitore.show()

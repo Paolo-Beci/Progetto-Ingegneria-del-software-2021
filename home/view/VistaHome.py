@@ -159,8 +159,8 @@ class VistaHome(QWidget):
         self.label_clock= QLabel()
         self.label_clock.setAlignment(Qt.AlignCenter)
         self.label_clock.setFont(font_clock)
-        #self.label_clock.setAutoFillBackground(True)
-        self.label_clock.setMinimumSize(QtCore.QSize(150, 0))
+        #self.label_clock.setAutoFillBackground(True) #150,0
+        self.label_clock.setMinimumSize(QtCore.QSize(240, 50))
         self.label_clock.setMaximumSize(QtCore.QSize(16777215, 60))
         self.label_clock.setObjectName("label_clock")
         self.gridLayout_4.addWidget(self.label_clock, 1, 1, 1, 1)
@@ -228,12 +228,6 @@ class VistaHome(QWidget):
         currentTime= QTime.currentTime()
         display_text= currentTime.toString("hh:mm:ss")
         self.label_clock.setText(display_text)
-
-    # def get_generic_button(self, titolo, on_click):
-    #     button = QPushButton(titolo)
-    #     button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-    #     button.clicked.connect(on_click)
-    #     return button
 
     def go_lista_statistiche(self):
         self.vista_lista_statistiche = VistaListaStatistiche()
