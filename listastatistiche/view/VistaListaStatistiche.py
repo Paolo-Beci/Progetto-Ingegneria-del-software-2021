@@ -29,7 +29,7 @@ class VistaListaStatistiche(QWidget):
         buttons_layout.addWidget(open_button)
 
         home_button = QPushButton("Torna alla HOME")
-        home_button.clicked.connect(self.show_home)
+        home_button.clicked.connect(self.close)
         buttons_layout.addWidget(home_button)
 
         lista_stat_button = QPushButton("Prodotti e Fornitori")
@@ -69,13 +69,6 @@ class VistaListaStatistiche(QWidget):
             self.vista_statistica.showMaximized()
             time.sleep(0.3)
             self.close()
-
-    # Metodo che consente di tornare alla schermata home
-    def show_home(self):
-        self.vista_home = home.view.VistaHome.VistaHome()
-        self.vista_home.showMaximized()
-        time.sleep(0.3)
-        self.close()
 
     # Metodo che consente di visualizare la lista di tutte le statistiche
     def show_lista_stat(self):

@@ -24,6 +24,9 @@ class VistaListaDelPersonale(QWidget):
         new_button = QPushButton("Nuovo")
         new_button.clicked.connect(self.show_inserisci_utente)
         buttons_layout.addWidget(new_button)
+        home_button = QPushButton('Torna alla HOME')
+        home_button.clicked.connect(self.close)
+        buttons_layout.addWidget(home_button)
         buttons_layout.addStretch()
         h_layout.addLayout(buttons_layout)
 

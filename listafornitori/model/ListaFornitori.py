@@ -38,7 +38,7 @@ class ListaFornitori:
 
     def elimina_fornitore_by_codice(self, codice_fornitore):
         def is_selected_fornitore(fornitore):
-            if fornitore.codice_fornitore == codice_fornitore:
+            if fornitore.cod_fornitore == codice_fornitore:
                 return True
             return False
         self.lista_fornitori.remove(list(filter(is_selected_fornitore, self.lista_fornitori))[0])

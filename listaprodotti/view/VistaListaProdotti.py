@@ -162,7 +162,7 @@ class VistaListaProdotti(QWidget):
         self.indietro.setSizePolicy(sizePolicy)
         self.indietro.setObjectName("indietro")
         self.gridLayout_3.addWidget(self.indietro, 0, 0, 1, 1)
-        self.indietro.clicked.connect(self.show_home)
+        self.indietro.clicked.connect(self.close)
 
         self.verticalLayout.addWidget(self.topWidget)
 
@@ -315,12 +315,6 @@ class VistaListaProdotti(QWidget):
     def show_inserici_prodotto(self):
         self.vista_inserisci_prodotto = VistaInserisciProdotto(self.controller, self.retranslateUi)
         self.vista_inserisci_prodotto.show()
-
-    def show_home(self):
-        self.vista_home = home.view.VistaHome.VistaHome()
-        self.vista_home.showMaximized()
-        time.sleep(0.3)
-        self.close()
 
     def cerca_prodotto(self):
         cod_prodotto = self.cerca.text()
