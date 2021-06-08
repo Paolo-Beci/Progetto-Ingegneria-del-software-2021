@@ -268,7 +268,7 @@ class VistaModificaProdotto(QWidget):
         QtCore.QMetaObject.connectSlotsByName(self)
 
     def retranslateUi(self, MainWindow):
-        global index
+        index = 0
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Modifica prodotto"))
         self.label_marca.setText(_translate("MainWindow", "Marca"))

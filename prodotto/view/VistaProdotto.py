@@ -13,10 +13,9 @@ import listaprodotti.view.VistaListaProdotti
 
 
 class VistaProdotto(QWidget):
-    def __init__(self, prodotto, elimina_prodotto, update_ui, parent=None):
+    def __init__(self, prodotto, update_ui, parent=None):
         super(VistaProdotto, self).__init__(parent)
         self.controller = ControllerProdotto(prodotto)
-        self.elimina_prodotto = elimina_prodotto
         self.update_ui = update_ui
         self.setObjectName("MainWindow")
         self.resize(1173, 700)

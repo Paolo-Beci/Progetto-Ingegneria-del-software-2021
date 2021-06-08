@@ -5,7 +5,7 @@ from datetime import date
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QTime, QTimer, Qt
-from PyQt5.QtGui import QFont
+from PyQt5.QtGui import QFont, QPixmap
 from PyQt5.QtWidgets import QWidget, QPushButton, QSizePolicy, QApplication, QLabel
 import time
 
@@ -58,6 +58,8 @@ class VistaHome(QWidget):
         self.label = QtWidgets.QLabel(self)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
+        pixmap = QPixmap('listaprodotti/data/images/logo_mini.png')
+        self.label.setPixmap(pixmap)
         self.gridLayout_2.addWidget(self.label, 0, 1, 1, 1)
         self.pushButton_prodotti = QtWidgets.QPushButton(self)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
@@ -208,8 +210,6 @@ class VistaHome(QWidget):
         self.pushButton_personale.setText(_translate("Home", "Area del personale"))
         self.pushButton_personale.clicked.connect(self.go_lista_del_personale)
 
-        # LAVORO PER PAOLO (inserire logo)
-        self.label.setText(_translate("Home", "LOGO"))
         #---------------------------------
 
         i=datetime.datetime.now()
