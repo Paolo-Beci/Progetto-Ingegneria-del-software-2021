@@ -222,6 +222,7 @@ class VistaHome(QWidget):
         self.pushButton_statistiche.setText(_translate("Home", "Area statistiche"))
         self.pushButton_statistiche.clicked.connect(self.go_lista_statistiche)
         self.pushButton_ordini.setText(_translate("Home", "Area ordini"))
+        self.pushButton_ordini.clicked.connect(self.go_lista_ordini)  
         ###########
 
     def show_time(self):
