@@ -10,7 +10,10 @@ class VistaInserisciUtente(QWidget):
         self.controller = controller
         self.update_ui = update_ui
 
-        self.setFixedHeight(700)
+        #self.setMinimumHeight(700)
+        self.setMinimumSize(250, 700)
+        #self.setFixedHeight(700)
+        #self.setFixedWidth(250)
 
         self.v_layout = QVBoxLayout()
 
@@ -21,13 +24,13 @@ class VistaInserisciUtente(QWidget):
         self.add_info_text("nome", "Nome")
         self.add_info_text("cognome", "Cognome")
 
-        self.label_data_nascita = QLabel("Data nascita")
+        self.label_data_nascita = QLabel("Data di nascita")
         self.v_layout.addWidget(self.label_data_nascita)
         self.dateEdit_data_nascita = QtWidgets.QDateEdit(self)
         self.v_layout.addWidget(self.dateEdit_data_nascita)
 
         self.add_info_text("luogo_n", "Luogo di nascita")
-        self.add_info_text("cf", "Codice Fiscale")
+        self.add_info_text("cf", "Codice fiscale")
 
         self.label_data_inizio_contratto = QLabel("Data inizio contratto")
         self.v_layout.addWidget(self.label_data_inizio_contratto)
@@ -82,10 +85,6 @@ class VistaInserisciUtente(QWidget):
             self.lineEdit_username.setParent(None)
             self.label_password.setParent(None)
             self.lineEdit_password.setParent(None)
-            # self.v_layout.removeWidget(self.label_username)
-            # self.v_layout.removeWidget(self.lineEdit_password)
-            # self.v_layout.removeWidget(self.label_password)
-            # self.v_layout.removeWidget(self.lineEdit_password)
 
     def add_info_text(self, nome, label):
         self.v_layout.addWidget(QLabel(label))
@@ -116,8 +115,12 @@ class VistaInserisciUtente(QWidget):
 
         if str(self.combo_box_ruolo.currentText()) == "Dipendente":
             ruolo= "D"
+            username= None
+            password= None
         else:
             ruolo= "A"
+            username= self.lineEdit_username.text()
+            password= self.lineEdit_password.text()
 
         self.controller.inserisci_utente(Utente(
             self.qlines["codice_utente"].text(),
@@ -132,8 +135,8 @@ class VistaInserisciUtente(QWidget):
              self.qlines["indirizzo"].text(),
              self.qlines["telefono"].text(),
              self.qlines["stipendio"].text(),
-             None,
-             None))
+             username,
+             password))
 
         self.update_ui()
         self.close()
