@@ -19,7 +19,6 @@ class VistaListaProdotti(QWidget):
         super(VistaListaProdotti, self).__init__(parent)
         self.controller = ControllerListaProdotti()
         self.lista_prodotti_filtrata = []
-        self.lista_codici = []
         self.display_prodotti_array = []
         self.setWindowTitle("Lista Prodotti")
         self.setObjectName("Lista Prodotti")
@@ -81,6 +80,7 @@ class VistaListaProdotti(QWidget):
         for count in range(16, 49):
             self.taglia.addItem(str(count))
         self.gridLayout_3.addWidget(self.taglia, 3, 7, 1, 1)
+        self.taglia.currentIndexChanged.connect(self.filtro_lista)
         # genere
         self.genere = QtWidgets.QComboBox(self.topWidget)
         self.genere.setObjectName("genere")
@@ -211,21 +211,53 @@ class VistaListaProdotti(QWidget):
         r = 0
         c = 0
         i = 1
-
         # display prodotto
-        for prodotto in self.controller.get_lista_prodotti():
-            self.vista_display_prodotto = VistaDisplayProdotto(prodotto, self.retranslateUi, self.widget, r, c, self.gridLayout_2)
-            #self.display_prodotti_array.append(self.vista_display_prodotto)
-            if c == 4:
-                c = 0
-            else:
-                c = c + 2
-            if i == 3:
-                i = 1
-                r = r + 2
-            else:
-                i = i + 1
+        if not self.lista_prodotti_filtrata:
+            for prodotto in self.controller.get_lista_prodotti():
+                self.vista_display_prodotto = VistaDisplayProdotto(prodotto, self.retranslateUi, self.widget, r, c,
+                                                                   self.gridLayout_2)
+                self.display_prodotti_array.append(self.vista_display_prodotto)
+                if c == 4:
+                    c = 0
+                else:
+                    c = c + 2
+                if i == 3:
+                    i = 1
+                    r = r + 2
+                else:
+                    i = i + 1
+        else:
+            self.scrollArea.close()
+            self.scrollArea = QtWidgets.QScrollArea(self.centralwidget)
+            self.scrollArea.setWidgetResizable(True)
+            self.scrollArea.setObjectName("scrollArea")
+            self.scrollAreaWidgetContents = QtWidgets.QWidget()
+            self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 1172, 851))
+            self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
+            self.gridLayout = QtWidgets.QGridLayout(self.scrollAreaWidgetContents)
+            self.gridLayout.setObjectName("gridLayout")
+            self.widget = QtWidgets.QWidget(self.scrollAreaWidgetContents)
+            self.widget.setObjectName("widget")
+            self.gridLayout_2 = QtWidgets.QGridLayout(self.widget)
+            self.gridLayout_2.setObjectName("gridLayout_2")
 
+            # CREAZIONE DEI WIDGET
+            self.gridLayout.addWidget(self.widget, 0, 0, 1, 1)
+            self.scrollArea.setWidget(self.scrollAreaWidgetContents)
+            self.verticalLayout.addWidget(self.scrollArea)
+            for prodotto in self.lista_prodotti_filtrata:
+                self.vista_display_prodotto = VistaDisplayProdotto(prodotto, self.retranslateUi, self.widget, r, c,
+                                                                   self.gridLayout_2)
+                self.display_prodotti_array.append(self.vista_display_prodotto)
+                if c == 4:
+                    c = 0
+                else:
+                    c = c + 2
+                if i == 3:
+                    i = 1
+                    r = r + 2
+                else:
+                    i = i + 1
 
     """
          Eventi trigger click dei bottoni
@@ -250,40 +282,57 @@ class VistaListaProdotti(QWidget):
             self.popup_errore()
 
     # crea l'elenco dei codici dei prodotti da visualizzare basati sui filtri
-    def filtro_lista(self, cod):
-        return 'S01'
+    def filtro_lista(self):
+        filtro_marca = self.marca.currentText()
+        filtro_tipo = self.tipo.currentText()
+        filtro_genere = self.genere.currentText()
+        filtro_taglia = self.taglia.currentText()
+        filtro_collezione = self.collezione.currentText()
+
+        if filtro_taglia is not None:
+            for prodotto in self.controller.get_lista_prodotti():
+                if prodotto.taglia == filtro_taglia:
+                    self.lista_prodotti_filtrata.append(prodotto)
+
+        self.retranslateUi()
 
     def get_lista_filtrata(self):
         return self.lista_prodotti_filtrata
 
-    def show_in_arrivo(self):  # PROVA TEMPORANEA
-        prodotto_selezionato = self.controller.get_prodotto_by_code("S01")
-        self.vista_prodotto = VistaProdotto(prodotto_selezionato, self.controller.elimina_prodotto_by_codice,
-                                            self.retranslateUi)
-        self.vista_prodotto.showMaximized()
+    def show_in_arrivo(self):
+        self.lista_prodotti_filtrata.clear()
+        for prodotto in self.controller.get_lista_prodotti():
+            if prodotto.stato == "In arrivo":
+                self.lista_prodotti_filtrata.append(prodotto)
+        self.retranslateUi()
 
     def show_in_negozio(self):
-            for prodotto in self.controller.get_lista_prodotti():
-                if prodotto.stato == "In negozio":
-                    self.lista_prodotti_filtrata.append(prodotto)
-                else:
-                    pass
-            self.verticalLayout_2.deleteLater()
-            self.retranslateUi()
+        self.lista_prodotti_filtrata.clear()
+        for prodotto in self.controller.get_lista_prodotti():
+            if prodotto.stato == "In negozio":
+                self.lista_prodotti_filtrata.append(prodotto)
+        self.retranslateUi()
 
     def show_venduto(self):
-        pass
+        self.lista_prodotti_filtrata.clear()
+        for prodotto in self.controller.get_lista_prodotti():
+            if prodotto.stato == "Venduto":
+                self.lista_prodotti_filtrata.append(prodotto)
+
+        self.retranslateUi()
 
     def show_reso(self):
-        pass
+        self.lista_prodotti_filtrata.clear()
+        for prodotto in self.controller.get_lista_prodotti():
+            if prodotto.stato == "Reso":
+                self.lista_prodotti_filtrata.append(prodotto)
+
+        self.display_prodotti_array.clear()
+        self.retranslateUi()
 
     def inserisci_prodotto(self):
         self.inserisci_prodotto = VistaInserisciProdotto(self.controller, self.retranslateUi)
         self.inserisci_prodotto.showMaximized()
-
-    def closeEvent(self, event):
-        pass
-        # self.controller.save_data()
 
     def popup_errore(self):
         msg = QMessageBox()

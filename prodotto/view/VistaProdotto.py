@@ -5,7 +5,6 @@ from PyQt5.QtGui import QPixmap
 
 from prodotto.view.VistaModificaProdotto import VistaModificaProdotto
 from prodotto.controller.ControllerProdotto import ControllerProdotto
-import listaprodotti.view.VistaListaProdotti
 
 """
     VISUALIZZAZIONE DEI PARAMETRI DEL PRODOTTO
@@ -213,7 +212,4 @@ class VistaProdotto(QWidget):
 
 
     def show_back_click(self):
-        self.vista_back = listaprodotti.view.VistaListaProdotti.VistaListaProdotti()
-        self.vista_back.showMaximized()
-        time.sleep(0.3)
         self.close()

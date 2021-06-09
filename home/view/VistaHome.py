@@ -1,12 +1,9 @@
 import datetime
-import sys
-import threading
-from datetime import date
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QTime, QTimer, Qt
 from PyQt5.QtGui import QFont, QPixmap
-from PyQt5.QtWidgets import QWidget, QPushButton, QSizePolicy, QApplication, QLabel
+from PyQt5.QtWidgets import QWidget, QLabel
 import time
 
 from listaordini.view.VistaListaOrdini import VistaListaOrdini
@@ -19,13 +16,15 @@ from listastatistiche.view.VistaListaStatistiche import VistaListaStatistiche
     VISTA HOME
 """
 
-
 class VistaHome(QWidget):
     def __init__(self, parent=None):
         super(VistaHome, self).__init__(parent)
         ###########
         self.setObjectName("Home")
         self.resize(965, 530)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_mini.png'), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        self.setWindowIcon(icon)
         self.gridLayout = QtWidgets.QGridLayout(self)
         self.gridLayout.setObjectName("gridLayout")
         self.gridLayout_2 = QtWidgets.QGridLayout()
@@ -239,6 +238,7 @@ class VistaHome(QWidget):
         self.vista_lista_prodotti = VistaListaProdotti()
         self.vista_lista_prodotti.showMaximized()
         time.sleep(0.3)
+        self.close()
 
     def go_lista_fornitori(self):
         self.vista_lista_fornitori = VistaListaFornitori()
