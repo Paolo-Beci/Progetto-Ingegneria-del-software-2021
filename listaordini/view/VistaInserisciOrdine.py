@@ -7,6 +7,8 @@ DA FARE
 # implementare i controlli di correttezza dell'inserimento (crasha)
 # fare interfaccia
 """
+
+
 class VistaInserisciOrdine(QWidget):
     def __init__(self, controller, update_ui):
         # callback ??
@@ -20,22 +22,15 @@ class VistaInserisciOrdine(QWidget):
 
         self.get_form_entry("cod_fattura", "Codice fattura")
         self.get_form_entry("cod_fornitore", "Codice fornitore")
-        self.get_form_entry("data_ordine", "Data dell'ordine (dd/mm/AAAA)")
-        self.get_form_entry("cod_prodotto", "Codice del prodotto")
-        self.get_form_entry("marca", "Marca")
-        self.get_form_entry("nome", "Nome")
-        self.get_form_entry("tipo", "Tipo")
-        self.get_form_entry("genere", "Genere")
-        self.get_form_entry("materiale", "Materiale")
-        self.get_form_entry("colore", "Colore")
-        self.get_form_entry("taglia", "Taglia")
-        self.get_form_entry("quantita", "Quantità")
-        self.get_form_entry("prezzo_acquisto", "Prezzo di acquisto")
-        self.get_form_entry("prezzo_vendita", "Prezzo di vendita")
         self.get_form_entry("stagione", "Stagione")
         self.get_form_entry("stato", "Stato")
-        self.get_form_entry("sconto_consigliato", "Sconto consigliato")
-        self.get_form_entry("sconto", "Sconto")
+        self.get_form_entry("data_ordine", "Data dell'ordine (dd/mm/AAAA)")
+        self.get_form_entry("data_arrivo_prevista", "data arrivo prevista")
+        self.get_form_entry("data_arrivo_effettiva", "data arrivo effettiva")
+        self.get_form_entry("importo_totale", "importo totale")
+        self.get_form_entry("calzature_totali", "calzature totali")
+
+
 
         self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
@@ -54,24 +49,17 @@ class VistaInserisciOrdine(QWidget):
 
     def inserisci_ordine(self):
 
-        cod_fattura = self.info["Codice fattura"].text()
-        cod_fornitore = self.info["Codice fornitore"].text()
-        data_ordine = self.info["Data dell'ordine (dd/mm/AAAA)"].text()
-        cod_prodotto = self.info["Codice del prodotto"].text()
-        nome = self.info["Marca"].text()
-        marca = self.info["Nome"].text()
-        tipo = self.info["Tipo"].text()
-        genere = self.info["Genere"].text()
-        materiale = self.info["Materiale"].text()
-        colore = self.info["Colore"].text()
-        taglia = self.info["Taglia"].text()
-        quantita = self.info["Quantità"].text()
-        prezzo_acquisto = self.info["Prezzo di acquisto"].text()
-        prezzo_vendita = self.info["Prezzo di vendita"].text()
-        stagione = self.info["Stagione"].text()
-        stato = self.info["Stato"].text()
-        sconto_consigliato = self.info["Sconto consigliato"].text()
-        sconto = self.info["Sconto"].text()
+        cod_fattura = self.info["cod_fattura"].text()
+        cod_fornitore = self.info["cod_fornitore"].text()
+        stagione = self.info["stagione"].text()
+        stato = self.info["stato"].text()
+        data_ordine = self.info["data_ordine"].text()
+        data_arrivo_prevista= self.info["data_arrivo_prevista"].text()
+        data_arrivo_effettiva= self.info["data_arrivo_effettiva"].text()
+        importo_totale = self.info["importo_totale"]
+        calzature_totali = self.info["calzature_totali"].text()
+
+
 
         for value in self.info.values():
             if value.text() == "":
@@ -79,25 +67,24 @@ class VistaInserisciOrdine(QWidget):
                                      QMessageBox.Ok, QMessageBox.Ok)
                 return
             # I CONTROLLI DANNO PROBLEMI DI CRASH
-            #if taglia > 50:
+            # if taglia > 50:
             #    QMessageBox.critical(self, 'Errore', 'Per favore, inserisci una taglia valida',
             #                          QMessageBox.Ok, QMessageBox.Ok)
             #    return
-            #if sconto > 100 or sconto_consigliato > 100:
+            # if sconto > 100 or sconto_consigliato > 100:
             #    QMessageBox.critical(self, 'Errore', 'Per favore, inserisci uno sconto valido',
             #                         QMessageBox.Ok, QMessageBox.Ok)
             #    return
-            #if sconto.isnumeric() or sconto_consigliato.isnumeric():
+            # if sconto.isnumeric() or sconto_consigliato.isnumeric():
             #    return
-            #else:
+            # else:
             #    QMessageBox.critical(self, 'Errore', 'Per favore, inserisci uno sconto numerico',
             #                         QMessageBox.Ok, QMessageBox.Ok)
             #    return
 
-        self.controller.inserisci_ordine( Ordine(cod_fattura, cod_fornitore, data_ordine, cod_prodotto,
-                                                    marca, nome, tipo, genere, materiale, colore, taglia, quantita,
-                                                    prezzo_acquisto, prezzo_vendita, stagione, stato,
-                                                    sconto_consigliato, sconto, "",))
+        self.controller.inserisci_ordine(Ordine(cod_fattura, cod_fornitore, stagione,
+                                                stato, data_ordine, data_arrivo_prevista, data_arrivo_effettiva, importo_totale, calzature_totali
+                                                ))
         # self.callback()
         self.update_ui()
         self.close()

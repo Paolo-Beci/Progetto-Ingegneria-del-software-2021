@@ -12,7 +12,7 @@ class ControllerListaOrdini:
     def get_lista_ordini(self):
         return self.model.get_lista_ordini()
 
-    def inserisci_ordini(self, ordine):
+    def inserisci_ordine(self, ordine):
         self.model.aggiungi_ordine(ordine)
 
     def save_data(self):
