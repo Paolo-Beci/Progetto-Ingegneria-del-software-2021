@@ -1,3 +1,5 @@
+import sys
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QDate
 from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QMessageBox
@@ -7,12 +9,18 @@ from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QMessageBox
 
 #BISOGNA CAMBIARE IL FORM CON SELF!!!!!
 class VistaModificaFornitore(QWidget):
-    def __init__(self, controller, controller_lista, update_ui_fornitore, parent=None):
+    def __init__(self, fornitore, controller, controller_lista, update_ui_fornitore, parent=None):
         super(VistaModificaFornitore, self).__init__(parent)
         self.controller= controller
         self.controller_lista= controller_lista
         self.update_ui_fornitore= update_ui_fornitore
+        self.fornitore_selezionato= fornitore
 
+        lista= self.controller_lista.get_lista_fornitori()
+        self.new_lista_fornitori= lista[:]
+        self.new_lista_fornitori.remove(self.fornitore_selezionato)
+
+        self.end1 = False
         self.setWindowTitle("Modifica fornitore")
         self.setObjectName("Form")
         self.resize(579, 427)
@@ -39,6 +47,7 @@ class VistaModificaFornitore(QWidget):
         self.pushButton_3 = QtWidgets.QPushButton(self.horizontalLayoutWidget)
         self.pushButton_3.setObjectName("pushButton_3")
         self.horizontalLayout_3.addWidget(self.pushButton_3)
+        self.pushButton_3.setDefault(True)
         self.pushButton_3.clicked.connect(self.save_data)
         #Tasto ANNULLA
         self.pushButton_4 = QtWidgets.QPushButton(self.horizontalLayoutWidget)
@@ -195,16 +204,16 @@ class VistaModificaFornitore(QWidget):
         self.label_9.setText(_translate("Form", "Stato"))
 
     def save_data(self):
+        self.end1 = True
         #prendo il testo che l'utente inserisce in ciascuna lineEdit
+
+        for fornitore in self.new_lista_fornitori:
+            if str(fornitore.cod_fornitore) == self.lineEdit_16.text() or fornitore.partita_iva == self.lineEdit_9.text():
+                QMessageBox.critical(self, 'Errore', 'Utente già presente in lista!', QMessageBox.Ok, QMessageBox.Ok)
+                return
+
         partita_iva = self.lineEdit_9.text()
         codice = self.lineEdit_16.text()
-        for fornitore in self.controller_lista.get_lista_fornitori():
-            if fornitore.cod_fornitore!=codice and fornitore.partita_iva== partita_iva :
-                QMessageBox.critical(self, 'Errore', 'Fornitore già presente in lista!', QMessageBox.Ok, QMessageBox.Ok)
-                return
-            else:
-                self.controller.set_partita_iva(partita_iva)
-
         indirizzo = self.lineEdit_10.text()
         telefono = self.lineEdit_11.text()
         sito_web = self.lineEdit_12.text()
@@ -218,6 +227,7 @@ class VistaModificaFornitore(QWidget):
         stato = str(self.comboBox_2.currentText())
 
         #modifico gli attributi del fornitore in base al testo inserito
+        self.controller.set_cod_fornitore = codice
         self.controller.set_nome(nome)
         self.controller.set_telefono(telefono)
         self.controller.set_indirizzo(indirizzo)
@@ -225,8 +235,24 @@ class VistaModificaFornitore(QWidget):
         self.controller.set_sito_web(sito_web)
         self.controller.set_rappresentante(rappresentante)
         self.controller.set_data_affiliazione(data_affiliazione)
-        self.controller.set_cod_fornitore(codice)
         self.controller.set_stato(stato)
+        self.controller.set_partita_iva(partita_iva)
 
         self.update_ui_fornitore()
         self.close()
+        self.end1 =False
+
+    def closeEvent(self, event):
+        if self.end1==False:
+            reply = QMessageBox.question(self, 'Annullare?',
+                                         'Sicuro di voler annullare? Tutte le modifiche andranno perse.',
+                                         QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+
+            if reply == QMessageBox.Yes:
+                if not type(event) == bool:
+                    event.accept()
+                else:
+                    sys.exit()
+            else:
+                if not type(event) == bool:
+                    event.ignore()

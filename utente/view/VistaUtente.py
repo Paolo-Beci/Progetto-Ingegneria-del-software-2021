@@ -1,16 +1,21 @@
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPushButton
+import sys
+
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPushButton, QMessageBox
 
 from utente.controller.ControllerUtente import ControllerUtente
 from utente.view.VistaModificaUtente import VistaModificaUtente
 
 
 class VistaUtente(QWidget):
-    def __init__(self, utente, elimina_utente_by_codice, update_ui, parent=None):
+    def __init__(self, utente, elimina_utente_by_codice, update_ui, controller, parent=None):
         super(VistaUtente, self).__init__(parent)
+        self.utente_selezionato= utente
         self.controller= ControllerUtente(utente)
+        self.controller_lista= controller
         self.elimina_utente_by_codice= elimina_utente_by_codice
         self.update_ui= update_ui
 
+        self.end1 = False
         # istanzio un vertical layout
         self.v_layout = QVBoxLayout()
         # istanzio due Label, una per il nome e una per il body (gli altri campi)
@@ -114,12 +119,31 @@ class VistaUtente(QWidget):
         self.update_ui()
 
     def elimina_utente_click(self):
-        self.elimina_utente_by_codice(self.controller.get_cod_utente())
-        self.update_ui()
+        self.end1 = True
+        #self.elimina_utente_by_codice(self.controller.get_cod_utente())
+        #self.update_ui()
         # chiude la finestra corrente
         self.close()
+        self.end1 = False
 
     def modifica_utente_click(self):
-        self.vista_modifica_utente = VistaModificaUtente(self.controller, self.update_ui_utente)
+        self.vista_modifica_utente = VistaModificaUtente(self.utente_selezionato,self.controller, self.controller_lista, self.update_ui_utente)
         self.vista_modifica_utente.show()
         self.update_ui()
+
+    def closeEvent(self, event):
+        if self.end1==True:
+            reply = QMessageBox.question(self, 'Eliminare?',
+                                         "Sicuro di voler eliminare l'utente selezionato?",
+                                         QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+
+            if reply == QMessageBox.Yes:
+                if not type(event) == bool:   #SI
+                    event.accept()
+                    self.elimina_utente_by_codice(self.controller.get_cod_utente())
+                    self.update_ui()
+                else:
+                    sys.exit()
+            else:
+                if not type(event) == bool:    #NO
+                    event.ignore()

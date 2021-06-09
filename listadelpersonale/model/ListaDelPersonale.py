@@ -10,12 +10,13 @@ class ListaDelPersonale:
     def __init__(self):
         super(ListaDelPersonale, self).__init__()
         self.lista_del_personale = []
-        if os.path.isfile('listadelpersonale/data/DatabaseDelPersonale.pickle'):
+
+        if os.path.isfile('listadelpersonale/data/DatabaseDelPersonale.pickle') and os.stat('listadelpersonale/data/DatabaseDelPersonale.pickle').st_size != 0:
             with open('listadelpersonale/data/DatabaseDelPersonale.pickle', 'rb') as f:
                 try:
                     self.lista_del_personale = pickle.load(f)
                 except EOFError:
-                    return None
+                    return
         else:
             with open('listadelpersonale/data/DatabaseDelPersonale.json') as f:
                 lista_del_personale_json= json.load(f)
