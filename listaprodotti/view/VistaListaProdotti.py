@@ -5,7 +5,6 @@ import time
 
 import home.view.VistaHome
 from listaprodotti.controller.ControllerListaProdotti import ControllerListaProdotti
-from prodotto.view.VistaProdotto import VistaProdotto
 from listaprodotti.view.VistaInserisciProdotto import VistaInserisciProdotto
 from listaprodotti.view.VistaDisplayProdotto import VistaDisplayProdotto
 
@@ -90,6 +89,7 @@ class VistaListaProdotti(QWidget):
         self.genere.addItem("Bambino")
         self.genere.addItem("Bambina")
         self.gridLayout_3.addWidget(self.genere, 3, 6, 1, 1)
+        self.genere.currentIndexChanged.connect(self.filtro_lista)
         # tipo
         self.tipo = QtWidgets.QComboBox(self.topWidget)
         self.tipo.setObjectName("tipo")
@@ -99,6 +99,7 @@ class VistaListaProdotti(QWidget):
         self.tipo.addItem("Trekking")
         self.tipo.addItem("Eleganti")
         self.gridLayout_3.addWidget(self.tipo, 3, 5, 1, 1)
+        self.tipo.currentIndexChanged.connect(self.filtro_lista)
         # collezione
         self.collezione = QtWidgets.QComboBox(self.topWidget)
         self.collezione.setObjectName("collezione")
@@ -106,6 +107,7 @@ class VistaListaProdotti(QWidget):
         self.collezione.addItem("Primavera / Estate")
         self.collezione.addItem("Autunno / Inverno")
         self.gridLayout_3.addWidget(self.collezione, 3, 8, 1, 1)
+        self.collezione.currentIndexChanged.connect(self.filtro_lista)
         # marca
         self.marca = QtWidgets.QComboBox(self.topWidget)
         self.marca.setObjectName("marca")
@@ -113,6 +115,7 @@ class VistaListaProdotti(QWidget):
         for item in self.controller.get_lista_marche():
             self.marca.addItem(str(item))
         self.gridLayout_3.addWidget(self.marca, 3, 4, 1, 1)
+        self.marca.currentIndexChanged.connect(self.filtro_lista)
         # spacer
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_3.addItem(spacerItem1, 1, 4, 1, 1)
@@ -277,9 +280,12 @@ class VistaListaProdotti(QWidget):
         cod_prodotto = self.cerca.text()
         cod_prodotto.capitalize()
         if cod_prodotto.isalnum() and cod_prodotto.startswith('S'):
-            self.filtro_lista(cod_prodotto)
+            for prodotto in self.controller.get_lista_prodotti():
+                if prodotto.cod_prodotto == cod_prodotto:
+                    self.lista_prodotti_filtrata.append(prodotto)
         else:
             self.popup_errore()
+        self.retranslateUi()
 
     # crea l'elenco dei codici dei prodotti da visualizzare basati sui filtri
     def filtro_lista(self):
@@ -288,12 +294,51 @@ class VistaListaProdotti(QWidget):
         filtro_genere = self.genere.currentText()
         filtro_taglia = self.taglia.currentText()
         filtro_collezione = self.collezione.currentText()
-
-        if filtro_taglia is not None:
+        print(filtro_taglia)
+        print(filtro_marca)
+        print(filtro_genere)
+        print(filtro_collezione)
+        print(filtro_tipo)
+        if filtro_taglia != "Taglia":
             for prodotto in self.controller.get_lista_prodotti():
-                if prodotto.taglia == filtro_taglia:
+                if prodotto.taglia == int(filtro_taglia):
                     self.lista_prodotti_filtrata.append(prodotto)
+            if filtro_marca != "Marca":
+                for prodotto in self.lista_prodotti_filtrata:
+                    if prodotto.marca == str(filtro_marca):
+                        self.lista_prodotti_filtrata.append(prodotto)
+            if filtro_genere != "Genere":
+                for prodotto in self.lista_prodotti_filtrata:
+                    if prodotto.genere == str(filtro_genere):
+                        self.lista_prodotti_filtrata.append(prodotto)
+            if filtro_collezione != "Collezione":
+                for prodotto in self.lista_prodotti_filtrata:
+                    if prodotto.collezione == str(filtro_collezione):
+                        self.lista_prodotti_filtrata.append(prodotto)
+            if filtro_tipo != "Tipo":
+                for prodotto in self.lista_prodotti_filtrata:
+                    if prodotto.tipo == str(filtro_tipo):
+                        self.lista_prodotti_filtrata.append(prodotto)
 
+                # IT'S NOT FUCKING POSSIBLE!??!
+                # DOBBIAMO METTERE UN BOTTONE CHE DA IL TRIGGER FILTRA!
+
+        if filtro_marca != "Marca":
+            for prodotto in self.controller.get_lista_prodotti():
+                if prodotto.marca == str(filtro_marca):
+                    self.lista_prodotti_filtrata.append(prodotto)
+        if filtro_tipo != "Tipo":
+            for prodotto in self.controller.get_lista_prodotti():
+                if prodotto.tipo == str(filtro_tipo):
+                    self.lista_prodotti_filtrata.append(prodotto)
+        if filtro_genere != "Genere":
+            for prodotto in self.controller.get_lista_prodotti():
+                if prodotto.genere == str(filtro_genere):
+                    self.lista_prodotti_filtrata.append(prodotto)
+        if filtro_collezione != "Collezione":
+            for prodotto in self.controller.get_lista_prodotti():
+                if prodotto.stagione == str(filtro_collezione):
+                    self.lista_prodotti_filtrata.append(prodotto)
         self.retranslateUi()
 
     def get_lista_filtrata(self):
