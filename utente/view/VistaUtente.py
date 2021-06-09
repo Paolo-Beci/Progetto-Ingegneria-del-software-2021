@@ -97,7 +97,7 @@ class VistaUtente(QWidget):
         self.v_layout.addWidget(btn_elimina)
         self.v_layout.addWidget(btn_modifica)
         self.setLayout(self.v_layout)
-        self.setWindowTitle("Modifica utente")
+        self.setWindowTitle("Visualizza utente")
 
     def update_ui_utente(self):
         self.label_nome_cognome.setText(self.controller.get_nome()+" "+self.controller.get_cognome())

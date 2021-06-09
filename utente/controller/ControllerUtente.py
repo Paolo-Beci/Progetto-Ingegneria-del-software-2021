@@ -24,10 +24,16 @@ class ControllerUtente:
         return self.model.cf
 
     def get_data_inizio_contratto(self):
-        return self.model.data_inizio_contratto
+        if self.model.data_inizio_contratto is None:
+            return "00/00/0000"
+        else:
+            return self.model.data_inizio_contratto
 
     def get_data_scadenza_contratto(self):
-        return self.model.data_scadenza_contratto
+        if self.model.data_scadenza_contratto is None:
+            return "31/12/9999"
+        else:
+            return self.model.data_scadenza_contratto
 
     def get_ruolo(self):
         if self.model.ruolo=="D":
@@ -48,13 +54,13 @@ class ControllerUtente:
         if self.model.ruolo== "A":
             return self.model.username
         else:
-            raise EOFError
+            return None
 
     def get_password(self):
         if self.model.ruolo== "A":
             return self.model.password
         else:
-            raise EOFError
+            return None
 
     # SETTER
 
@@ -98,14 +104,9 @@ class ControllerUtente:
         self.model.stipendio= stipendio
 
     def set_username(self, username):
-        if self.model.ruolo=="A":
-            self.model.username= username
-        else:
-            raise EOFError
+        self.model.username= username
 
     def set_password(self, password):
-        if self.model.ruolo=="A":
-            self.model.password= password
-        else:
-            raise EOFError
+        self.model.password= password
+
 
