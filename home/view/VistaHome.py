@@ -22,6 +22,9 @@ class VistaHome(QWidget):
         ###########
         self.setObjectName("Home")
         self.resize(965, 530)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_mini.png'), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        self.setWindowIcon(icon)
         self.gridLayout = QtWidgets.QGridLayout(self)
         self.gridLayout.setObjectName("gridLayout")
         self.gridLayout_2 = QtWidgets.QGridLayout()
@@ -235,6 +238,7 @@ class VistaHome(QWidget):
         self.vista_lista_prodotti = VistaListaProdotti()
         self.vista_lista_prodotti.showMaximized()
         time.sleep(0.3)
+        self.close()
 
     def go_lista_fornitori(self):
         self.vista_lista_fornitori = VistaListaFornitori()

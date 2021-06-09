@@ -22,6 +22,8 @@ class VistaDisplayProdotto(QWidget):
         self.righe = r
         self.colonne = c
         self.gridLayout_2 = grid_layout
+        self.array_taglie = []
+        self.array_quantita = []
         self.controller = ControllerListaProdotti()
 
         # FONT
@@ -53,7 +55,7 @@ class VistaDisplayProdotto(QWidget):
         self.nome_marca.setObjectName("nome_marca")
         self.nome_marca.setFont(font)
         self.nome_marca.setAlignment(QtCore.Qt.AlignCenter)
-        self.nome_marca.setText(str(prodotto.nome) + " - " + str(prodotto.marca))
+        self.nome_marca.setText(str(self.controller.get_nome_prodotto_by_code(prodotto.cod_prodotto)) + " - " + str(prodotto.marca))
         self.verticalLayout_2.addWidget(self.nome_marca)
         self.prezzo = QtWidgets.QLabel(self.display_prodotto)
         self.prezzo.setObjectName("prezzo")
@@ -63,10 +65,10 @@ class VistaDisplayProdotto(QWidget):
         self.verticalLayout_2.addWidget(self.prezzo)
 
         self.taglia_quantita = QtWidgets.QLabel(self.display_prodotto)
-        self.taglia_quantita.setObjectName("taglia_quantita")
+        self.taglia_quantita.setObjectName("prezzo")
         self.taglia_quantita.setFont(font)
         self.taglia_quantita.setAlignment(QtCore.Qt.AlignCenter)
-        self.taglia_quantita.setText("Taglia: " + str(prodotto.taglia) + " - Qt.: " + str(prodotto.quantita))
+        self.taglia_quantita.setText("Taglia: " + str(prodotto.taglia) + " - Quantità: " + str(prodotto.quantita))
         self.verticalLayout_2.addWidget(self.taglia_quantita)
 
         self.dettagli_button = QtWidgets.QPushButton(self.widget)

@@ -35,5 +35,5 @@ class ListaOrdini:
         return self.lista_ordini
 
     def save_data(self):
-        with open('listaordini/data/lista_ordine_salvata.pickle', 'wb') as handle:
+        with open('listaordini/data/DatabaseOrdini.pickle',                                                                     'wb') as handle:
             pickle.dump(self.lista_ordini, handle, pickle.HIGHEST_PROTOCOL)
