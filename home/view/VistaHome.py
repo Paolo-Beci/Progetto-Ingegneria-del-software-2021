@@ -1,12 +1,9 @@
 import datetime
-import sys
-import threading
-from datetime import date
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QTime, QTimer, Qt
 from PyQt5.QtGui import QFont, QPixmap
-from PyQt5.QtWidgets import QWidget, QPushButton, QSizePolicy, QApplication, QLabel
+from PyQt5.QtWidgets import QWidget, QLabel
 import time
 
 from listaordini.view.VistaListaOrdini import VistaListaOrdini
@@ -18,7 +15,6 @@ from listastatistiche.view.VistaListaStatistiche import VistaListaStatistiche
 """
     VISTA HOME
 """
-
 
 class VistaHome(QWidget):
     def __init__(self, parent=None):
