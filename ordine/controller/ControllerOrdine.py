@@ -26,53 +26,23 @@ class ControllerOrdine:
     def get_data_ordine(self):
         return self.model.data_ordine
 
-    def get_cod_prodotto(self):
-        return self.model.cod_prodotto
+    def get_data_arrivo_prevista(self):
+        return self.model.data_arrivo_prevista
 
-    def get_genere(self):
-        return self.model.genere
-
-    def get_tipo(self):
-        return self.model.tipo
-
-    def get_marca(self):
-        return self.model.marca
-
-    def get_nome(self):
-        return self.model.nome
-
-    def get_materiale(self):
-        return self.model.materiale
-
-    def get_colore(self):
-        return self.model.colore
-
-    def get_taglia(self):
-        return self.model.taglia
-
-    def get_quantita(self):
-        return self.model.quantita
-
-    def get_prezzo_acquisto(self):
-        return self.model.prezzo_acquisto
-
-    def get_prezzo_vendita(self):
-        return self.model.prezzo_vendita
+    def get_data_arrivo_effettiva(self):
+        return self.model.data_arrivo_effettiva
 
     def get_stagione(self):
         return self.model.stagione
 
     def get_stato(self):
         return self.model.stato
+    def get_importo_totale(self):
+        return self.model.importo_totale
+    def get_calzature_totali(self):
+        return self.model.calzature_totali
 
-    def get_data_vendita(self):
-        return self.model.data_vendita
 
-    def get_sconto_consigliato(self):
-        return self.model.sconto_consigliato
-
-    def get_sconto(self):
-        return self.model.sconto
 
     # ----------------SET------------------
 
@@ -85,38 +55,8 @@ class ControllerOrdine:
     def set_data_ordine(self, cod_prodotto, new_data_ordine):
         self.modifica_prodotto_by_codice(cod_prodotto, new_data_ordine)
 
-    def set_cod_prodotto(self):
-        return self.model.cod_prodotto
-
-    def set_genere(self):
-        return self.model.genere
-
-    def set_tipo(self):
-        return self.model.tipo
-
-    def set_marca(self):
-        return self.model.marca
-
-    def set_nome(self):
-        return self.model.nome
-
-    def set_materiale(self):
-        return self.model.materiale
-
-    def set_colore(self):
-        return self.model.colore
-
-    def set_taglia(self):
-        return self.model.taglia
-
-    def set_quantita(self):
-        return self.model.quantita
-
-    def set_prezzo_acquisto(self):
-        return self.model.prezzo_acquisto
-
-    def set_prezzo_vendita(self):
-        return self.model.prezzo_vendita
+    def set_calzature_totali(self):
+        return self.model.calzature_totali
 
     def set_stagione(self):
         return self.model.stagione
@@ -127,8 +67,3 @@ class ControllerOrdine:
     def set_data_vendita(self):
         return self.model.data_vendita
 
-    def set_sconto_consigliato(self):
-        return self.model.sconto_consigliato
-
-    def set_sconto(self):
-        return self.model.sconto

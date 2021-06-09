@@ -120,7 +120,7 @@ class ControllerStatistica():
 
     # Metodo per calcolare i fornitori più pagati
     def forn_piu_pagati(self, anno, stagione):
-        with open('listaordini/data/DatabaseOrdine.json') as f:
+        with open('listaordini/data/DatabaseOrdini.json') as f:
             lista_ordini = json.load(f)
             dizionario = {}
 
@@ -142,7 +142,7 @@ class ControllerStatistica():
 
     # Metodo per calcolare i fornitori da cui acquistiamo di più
     def forn_da_cui_acquistiamo_di_piu(self, anno, stagione):
-        with open('listaordini/data/DatabaseOrdine.json') as f:
+        with open('listaordini/data/DatabaseOrdini.json') as f:
             lista_ordini = json.load(f)
             dizionario = {}
 
@@ -164,7 +164,7 @@ class ControllerStatistica():
 
     # Metodo per calcolare i fornitori più rapidi nella consegna
     def forn_piu_rapidi_nella_consegna(self, anno, stagione):
-        with open('listaordini/data/DatabaseOrdine.json') as f:
+        with open('listaordini/data/DatabaseOrdini.json') as f:
             lista_ordini = json.load(f)
             dizionario = {}
 
