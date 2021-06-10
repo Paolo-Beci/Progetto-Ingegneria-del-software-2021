@@ -43,7 +43,8 @@ class VistaListaOrdini(QWidget):
         self.listview_model = QStandardItemModel(self.list_view)
         for ordine in self.controller.get_lista_ordini():
             item = QStandardItem()
-            item.setText("Codice fattura: "+ str(ordine.cod_fattura)+ "\n"  " Data arrivo prevista: "+ str(ordine.data_arrivo_prevista)+ "\n"  " Calzature totali: "+str(ordine.calzature_totali ))
+            print(ordine.calzature_totali)
+            item.setText("Codice fattura: "+ str(ordine.cod_fattura)+ " Data arrivo prevista: "+ str(ordine.data_arrivo_prevista)+" Calzature totali: "+str(ordine.calzature_totali))
            # item.setText("Marca: " + self.controller.get_lista_ordini())
             item.setEditable(False)
             font = item.font()
@@ -57,9 +58,8 @@ class VistaListaOrdini(QWidget):
     def show_ordine(self):
         if len(self.list_view.selectedIndexes()) > 0:
             selected = self.list_view.selectedIndexes()[0].row()
-            ordine_selezionato = self.controller.get_ordine(selected)
-            self.vista_ordine = VistaOrdine(ordine_selezionato, self.controller.elimina_ordine_by_codice,
-                                                ControllerOrdine.modifica_ordine_by_codice, self.update_ui)
+            ordine_selezionato = self.controller.get_lista_ordini()
+            self.vista_ordine = VistaOrdine(ordine_selezionato, self.controller.get_lista_ordini. self.update_ui)
             self.vista_ordine.showMaximized()
             time.sleep(0.3)
             self.close()
