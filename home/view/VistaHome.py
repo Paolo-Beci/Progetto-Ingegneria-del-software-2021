@@ -11,6 +11,7 @@ from listadelpersonale.view.VistaListaDelPersonale import VistaListaDelPersonale
 from listaprodotti.view.VistaListaProdotti import VistaListaProdotti
 from listafornitori.view.VistaListaFornitori import VistaListaFornitori
 from listastatistiche.view.VistaListaStatistiche import VistaListaStatistiche
+from vendita.view.VistaVendita import VistaVendita
 
 """
     VISTA HOME
@@ -212,7 +213,7 @@ class VistaHome(QWidget):
         #---------------------------------
 
         i=datetime.datetime.now()
-        self.label_data.setText("%s/%s/%s"%((i.day,i.month,i.year)))
+        self.label_data.setText("%s/%s/%s" % (i.day, i.month, i.year))
         self.pushButton_prodotti.setText(_translate("Home", "Area prodotti"))
         self.pushButton_prodotti.clicked.connect(self.go_lista_prodotti)
         self.push_button_login.setText(_translate("Home", "Logout"))
@@ -251,7 +252,8 @@ class VistaHome(QWidget):
         time.sleep(0.3)
 
     def go_vista_vendita(self):
-        pass
+        self.vista_vendita = VistaVendita()
+        self.vista_vendita.show()
 
     def go_lista_del_personale(self):
         self.vista_lista_del_personale = VistaListaDelPersonale()

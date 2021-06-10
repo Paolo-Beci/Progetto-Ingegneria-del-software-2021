@@ -1,4 +1,7 @@
+import datetime
+
 from listaprodotti.model.ListaProdotti import ListaProdotti
+import time
 
 
 class ControllerProdotto:
@@ -76,6 +79,12 @@ class ControllerProdotto:
         return self.model.sconto
 
     # ----------------SET------------------
+
+    def set_venduto(self):
+        # Da controllare con più quantità
+        self.model.stato = "Venduto"
+        i = datetime.datetime.now()
+        self.model.data_vendita = str("%s/%s/%s" % (i.day, i.month, i.year))
 
     def set_cod_fattura(self, cod_fattura):
         self.model.cod_fattura = cod_fattura

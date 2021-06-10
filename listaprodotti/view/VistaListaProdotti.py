@@ -21,6 +21,9 @@ class VistaListaProdotti(QWidget):
         self.display_prodotti_array = []
         self.setWindowTitle("Lista Prodotti")
         self.setObjectName("Lista Prodotti")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_mini.png'), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        self.setWindowIcon(icon)
 
         self.centralwidget = QtWidgets.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
@@ -46,7 +49,7 @@ class VistaListaProdotti(QWidget):
         self.gridLayout_3.setObjectName("gridLayout_3")
         # LOGO
         self.logo = QLabel(self.topWidget)
-        pixmap = QPixmap('listaprodotti/data/images/logo_mini.png')
+        pixmap = QPixmap('listaprodotti/data/images/logo_mini2.png')
         self.logo.setPixmap(pixmap)
         self.logo.resize(100, 100)
         self.gridLayout_3.addWidget(self.logo, 0, 6, 1, 1, QtCore.Qt.AlignHCenter)
@@ -289,56 +292,39 @@ class VistaListaProdotti(QWidget):
 
     # crea l'elenco dei codici dei prodotti da visualizzare basati sui filtri
     def filtro_lista(self):
-        filtro_marca = self.marca.currentText()
-        filtro_tipo = self.tipo.currentText()
-        filtro_genere = self.genere.currentText()
-        filtro_taglia = self.taglia.currentText()
-        filtro_collezione = self.collezione.currentText()
+        filtro_marca = str(self.marca.currentText())
+        filtro_tipo = str(self.tipo.currentText())
+        filtro_genere = str(self.genere.currentText())
+        filtro_taglia = str(self.taglia.currentText())
+        filtro_collezione = str(self.collezione.currentText())
         print(filtro_taglia)
         print(filtro_marca)
         print(filtro_genere)
         print(filtro_collezione)
         print(filtro_tipo)
+        lista = self.controller.get_lista_prodotti()
+        self.lista_prodotti_filtrata = lista[:]
+
         if filtro_taglia != "Taglia":
-            for prodotto in self.controller.get_lista_prodotti():
-                if prodotto.taglia == int(filtro_taglia):
-                    self.lista_prodotti_filtrata.append(prodotto)
-            if filtro_marca != "Marca":
-                for prodotto in self.lista_prodotti_filtrata:
-                    if prodotto.marca == str(filtro_marca):
-                        self.lista_prodotti_filtrata.append(prodotto)
-            if filtro_genere != "Genere":
-                for prodotto in self.lista_prodotti_filtrata:
-                    if prodotto.genere == str(filtro_genere):
-                        self.lista_prodotti_filtrata.append(prodotto)
-            if filtro_collezione != "Collezione":
-                for prodotto in self.lista_prodotti_filtrata:
-                    if prodotto.collezione == str(filtro_collezione):
-                        self.lista_prodotti_filtrata.append(prodotto)
-            if filtro_tipo != "Tipo":
-                for prodotto in self.lista_prodotti_filtrata:
-                    if prodotto.tipo == str(filtro_tipo):
-                        self.lista_prodotti_filtrata.append(prodotto)
-
-                # IT'S NOT FUCKING POSSIBLE!??!
-                # DOBBIAMO METTERE UN BOTTONE CHE DA IL TRIGGER FILTRA!
-
+            for prodotto in self.lista_prodotti_filtrata:
+                if prodotto.taglia != int(filtro_taglia):
+                    self.lista_prodotti_filtrata.remove(prodotto)
         if filtro_marca != "Marca":
-            for prodotto in self.controller.get_lista_prodotti():
-                if prodotto.marca == str(filtro_marca):
-                    self.lista_prodotti_filtrata.append(prodotto)
+            for prodotto in self.lista_prodotti_filtrata:
+                if prodotto.marca != str(filtro_marca):
+                    self.lista_prodotti_filtrata.remove(prodotto)
         if filtro_tipo != "Tipo":
-            for prodotto in self.controller.get_lista_prodotti():
-                if prodotto.tipo == str(filtro_tipo):
-                    self.lista_prodotti_filtrata.append(prodotto)
+            for prodotto in self.lista_prodotti_filtrata:
+                if prodotto.tipo != str(filtro_tipo):
+                    self.lista_prodotti_filtrata.remove(prodotto)
         if filtro_genere != "Genere":
-            for prodotto in self.controller.get_lista_prodotti():
-                if prodotto.genere == str(filtro_genere):
-                    self.lista_prodotti_filtrata.append(prodotto)
+            for prodotto in self.lista_prodotti_filtrata:
+                if prodotto.genere != str(filtro_genere):
+                    self.lista_prodotti_filtrata.remove(prodotto)
         if filtro_collezione != "Collezione":
-            for prodotto in self.controller.get_lista_prodotti():
-                if prodotto.stagione == str(filtro_collezione):
-                    self.lista_prodotti_filtrata.append(prodotto)
+            for prodotto in self.lista_prodotti_filtrata:
+                if prodotto.stagione != str(filtro_collezione):
+                    self.lista_prodotti_filtrata.remove(prodotto)
         self.retranslateUi()
 
     def get_lista_filtrata(self):
