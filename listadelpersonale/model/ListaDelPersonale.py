@@ -35,7 +35,6 @@ class ListaDelPersonale:
                                                            utente_da_caricare["stipendio"],
                                                            utente_da_caricare["username"],
                                                            utente_da_caricare["password"]))
-
     def filtra_utenti(self):
         pass
 
