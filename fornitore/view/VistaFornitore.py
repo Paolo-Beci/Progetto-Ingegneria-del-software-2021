@@ -1,4 +1,6 @@
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QPushButton
+import sys
+
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QPushButton, QMessageBox
 from fornitore.controller.ControllerFornitore import ControllerFornitore
 from fornitore.view.VistaModificaFornitore import VistaModificaFornitore
 
@@ -9,6 +11,8 @@ class VistaFornitore(QWidget):
         self.controller_lista= controller
         self.elimina_fornitore_by_codice= elimina_fornitore_by_codice
         self.update_ui= update_ui
+        self.fornitore_selezionato= fornitore
+        self.end1 = False
 
         #istanzio un vertical layout
         self.v_layout = QVBoxLayout()
@@ -99,12 +103,30 @@ class VistaFornitore(QWidget):
         self.update_ui()
 
     def elimina_fornitore_click(self):
-        self.elimina_fornitore_by_codice(self.controller.get_cod_fornitore())
-        self.update_ui()
+
+        self.end1 = True
         #chiude la finestra corrente
         self.close()
+        self.end1 = False
 
     def modifica_fornitore_click(self):
-        self.vista_modifica_fornitore= VistaModificaFornitore(self.controller, self.controller_lista, self.update_ui_fornitore)
+        self.vista_modifica_fornitore= VistaModificaFornitore(self.fornitore_selezionato, self.controller, self.controller_lista, self.update_ui_fornitore)
         self.vista_modifica_fornitore.show()
         self.update_ui()
+
+    def closeEvent(self, event):
+        if self.end1==True:
+            reply = QMessageBox.question(self, 'Eliminare?',
+                                         "Sicuro di voler eliminare l'utente selezionato?",
+                                         QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+
+            if reply == QMessageBox.Yes:
+                if not type(event) == bool:   #SI
+                    event.accept()
+                    self.elimina_fornitore_by_codice(self.controller.get_cod_fornitore())
+                    self.update_ui()
+                else:
+                    sys.exit()
+            else:
+                if not type(event) == bool:    #NO
+                    event.ignore()

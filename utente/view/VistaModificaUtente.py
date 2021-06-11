@@ -1,14 +1,22 @@
+import sys
+
 from PyQt5 import QtCore, QtWidgets, QtGui
 from PyQt5.QtCore import QDate
-from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit
+from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QMessageBox
 
 
 class VistaModificaUtente(QWidget):
-    def __init__(self, controller, update_ui_utente):
+    def __init__(self, utente, controller, controller_lista, update_ui_utente):
         super(VistaModificaUtente, self).__init__()
+        self.utente_selezionato= utente
         self.controller= controller
+        self.controller_lista= controller_lista
         self.update_ui_utente= update_ui_utente
+        self.end1= False
 
+        lista = self.controller_lista.get_lista_del_personale()
+        self.new_lista_del_personale = lista[:]
+        self.new_lista_del_personale.remove(self.utente_selezionato)
         self.setObjectName("Form")
         self.resize(626, 464)
         icon = QtGui.QIcon()
@@ -30,6 +38,7 @@ class VistaModificaUtente(QWidget):
         sizePolicy.setHeightForWidth(self.pushButton_salva.sizePolicy().hasHeightForWidth())
         self.pushButton_salva.setSizePolicy(sizePolicy)
         self.pushButton_salva.setObjectName("pushButton_salva")
+        self.pushButton_salva.setDefault(True)
         self.pushButton_salva.clicked.connect(self.save_data)
         self.horizontalLayout_3.addWidget(self.pushButton_salva)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
@@ -493,6 +502,12 @@ class VistaModificaUtente(QWidget):
             self.lineEdit_password.deleteLater()
 
     def save_data(self):
+        self.end1= True
+        for utente in self.new_lista_del_personale:
+            if str(utente.cod_utente)==self.lineEdit_codice.text() or utente.cf== self.lineEdit_cf.text():
+                QMessageBox.critical(self, 'Errore', 'Utente già presente in lista!', QMessageBox.Ok, QMessageBox.Ok)
+                return
+
         #prendo il testo che l'utente inserisce in ciascuna lineEdit
         codice = self.lineEdit_codice.text()
         nome= self.lineEdit_nome.text()
@@ -512,11 +527,12 @@ class VistaModificaUtente(QWidget):
         aaaa_s = str(self.dateEdit_scadenza_contratto.date().year())
         data_scadenza_contratto = dd_s + "/" + mm_s + "/" + aaaa_s
         ruolo = str(self.comboBox_ruolo.currentText())
-        self.controller.set_ruolo(ruolo)
         indirizzo= self.lineEdit_indirizzo.text()
         telefono= self.lineEdit_telefono.text()
         stipendio= self.lineEdit_stipendio.text()
 
+        #E' necessario settare ruolo QUI
+        self.controller.set_ruolo(ruolo)
         if self.comboBox_ruolo.currentText()== "Amministratore":
             username= self.lineEdit_username.text()
             self.controller.set_username(username)
@@ -539,7 +555,21 @@ class VistaModificaUtente(QWidget):
         self.controller.set_telefono(telefono)
         self.controller.set_stipendio(stipendio)
 
-
-        #aggiorno (in teoria) ahahah
         self.update_ui_utente()
         self.close()
+        self.end1= False
+
+    def closeEvent(self, event):
+        if self.end1==False:
+            reply = QMessageBox.question(self, 'Annullare?',
+                                         'Sicuro di voler annullare? Tutte le modifiche andranno perse.',
+                                         QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+
+            if reply == QMessageBox.Yes:
+                if not type(event) == bool:
+                    event.accept()
+                else:
+                    sys.exit()
+            else:
+                if not type(event) == bool:
+                    event.ignore()

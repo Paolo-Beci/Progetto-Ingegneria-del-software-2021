@@ -1,3 +1,5 @@
+import sys
+
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QSpacerItem, QSizePolicy, QPushButton, QLabel, QLineEdit, QMessageBox
 
@@ -10,6 +12,7 @@ class VistaInserisciFornitore(QWidget):
         self.controller = controller
         self.update_ui = update_ui
 
+        self.end1 = False
         self.v_layout = QVBoxLayout()
 
         #oggetto: "campo", "valore"
@@ -50,12 +53,13 @@ class VistaInserisciFornitore(QWidget):
         self.v_layout.addWidget(current_text)
 
     def inserisci_utente(self):
+        self.end1 = True
         for value in self.qlines.values():
             if value.text() == "":
                 QMessageBox.critical(self, 'Errore', 'Per favore, inserisci tutte le informazioni richieste.', QMessageBox.Ok, QMessageBox.Ok)
                 return
         for fornitore in self.controller.get_lista_fornitori():
-            if fornitore.partita_iva == self.qlines["partita_iva"].text():
+            if fornitore.partita_iva == self.qlines["partita_iva"].text() or fornitore.cod_fornitore==self.qlines["codice_fornitore"].text():
                 QMessageBox.critical(self, 'Errore', 'Fornitore già presente in lista!', QMessageBox.Ok, QMessageBox.Ok)
                 return
 
@@ -80,4 +84,20 @@ class VistaInserisciFornitore(QWidget):
              stato))
         self.update_ui()
         self.close()
+        self.end1 = False
+
+    def closeEvent(self, event):
+        if self.end1==False:
+            reply = QMessageBox.question(self, 'Annullare?',
+                                         'Sicuro di voler annullare? Tutte le modifiche andranno perse.',
+                                         QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+
+            if reply == QMessageBox.Yes:
+                if not type(event) == bool:
+                    event.accept()
+                else:
+                    sys.exit()
+            else:
+                if not type(event) == bool:
+                    event.ignore()
 

@@ -1,3 +1,5 @@
+import sys
+
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QSpacerItem, QSizePolicy, QPushButton, QLabel, QLineEdit, QMessageBox
 
@@ -10,6 +12,7 @@ class VistaInserisciUtente(QWidget):
         self.controller = controller
         self.update_ui = update_ui
 
+        self.end1=False
         #self.setMinimumHeight(700)
         self.setMinimumSize(250, 700)
         #self.setFixedHeight(700)
@@ -93,6 +96,7 @@ class VistaInserisciUtente(QWidget):
         self.v_layout.addWidget(current_text)
 
     def inserisci_utente(self):
+        self.end1=True
         for value in self.qlines.values():
             if value.text() == "":
                 QMessageBox.critical(self, 'Errore', 'Per favore, inserisci tutte le informazioni richieste.', QMessageBox.Ok, QMessageBox.Ok)
@@ -122,13 +126,25 @@ class VistaInserisciUtente(QWidget):
             username= self.lineEdit_username.text()
             password= self.lineEdit_password.text()
 
+        allert= False
+        for utente in self.controller.get_lista_del_personale():
+            if str(utente.cod_utente)==self.qlines["codice_utente"].text() or utente.cf== self.qlines["cf"].text():
+                allert= True
+
+        if allert==True:
+            QMessageBox.critical(self, 'Errore', 'Utente già presente in lista.', QMessageBox.Ok, QMessageBox.Ok)
+            return
+        else:
+            self.codice= self.qlines["codice_utente"].text()
+            self.cf= self.qlines["cf"].text()
+
         self.controller.inserisci_utente(Utente(
-            self.qlines["codice_utente"].text(),
+             self.codice,
              self.qlines["nome"].text(),
              self.qlines["cognome"].text(),
              data_nascita,
              self.qlines["luogo_n"].text(),
-             self.qlines["cf"].text(),
+             self.cf,
              data_inizio_contratto,
              data_scadenza_contratto,
              ruolo,
@@ -140,3 +156,19 @@ class VistaInserisciUtente(QWidget):
 
         self.update_ui()
         self.close()
+        self.end1=False
+
+    def closeEvent(self, event):
+        if self.end1==False:
+            reply = QMessageBox.question(self, 'Annullare?',
+                                         'Sicuro di voler annullare? Tutte le modifiche andranno perse.',
+                                         QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+
+            if reply == QMessageBox.Yes:
+                if not type(event) == bool:
+                    event.accept()
+                else:
+                    sys.exit()
+            else:
+                if not type(event) == bool:
+                    event.ignore()

@@ -58,7 +58,7 @@ class VistaListaDelPersonale(QWidget):
         if (len(self.list_view.selectedIndexes()) > 0):
             selected = self.list_view.selectedIndexes()[0].row()
             utente_selezionato = self.controller.get_utente_by_index(selected)
-            self.vista_utente = VistaUtente(utente_selezionato, self.controller.elimina_utente_by_codice, self.update_ui)
+            self.vista_utente = VistaUtente(utente_selezionato, self.controller.elimina_utente_by_codice, self.update_ui, self.controller)
             self.vista_utente.show()
 
 
