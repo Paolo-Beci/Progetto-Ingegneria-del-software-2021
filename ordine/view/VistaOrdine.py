@@ -8,17 +8,17 @@ from ordine.model import Ordine
 
 
 class VistaOrdine(QWidget):
-    def __init__(self, c_prodotto, elimina_prodotto, modifica_prodotto, update_ui, parent=None):
+    def __init__(self, cod_fattura, elimina_ordine, modifica_ordine, update_ui, parent=None):
         super(VistaOrdine, self).__init__(parent)
-        # self.prodotto = self.controller.get_prodotto(c_prodotto)
-        self.controller = ControllerOrdine(c_prodotto)
-        self.elimina_ordine = elimina_prodotto
-        self.modifica_ordine = modifica_prodotto
+        self.ordine = self.controller.get_ordine(cod_fattura)
+        self.controller = ControllerOrdine(cod_fattura)
+        self.elimina_ordine = elimina_ordine
+        self.modifica_ordine = modifica_ordine
         self.update_ui = update_ui
 
         v_layout = QVBoxLayout()
 
-        label_nome = QLabel(str(self.controller.get_cod_prodotto()) + " " + str(self.controller.get_taglia()))
+        label_nome = QLabel(str(self.controller.get_cod_fattura()) + " " + str(self.controller.get_data_ordine()))
         font_nome = label_nome.font()
         font_nome.setPointSize(30)
         label_nome.setFont(font_nome)
@@ -52,7 +52,7 @@ class VistaOrdine(QWidget):
         v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
         btn_elimina = QPushButton("Elimina")
-        btn_elimina.clicked.connect(self.elimina_prodotto_click)
+        btn_elimina.clicked.connect(self.elimina_ordine_click)
         v_layout.addWidget(btn_elimina)
 
         btn_modifica = QPushButton("Modifica")
@@ -63,8 +63,9 @@ class VistaOrdine(QWidget):
         btn_back.clicked.connect(self.show_back_click)
         v_layout.addWidget(btn_back)
 
+
         self.setLayout(v_layout)
-        self.setWindowTitle(self.controller.get_cod_prodotto())
+        self.setWindowTitle(self.controller.get_cod_fornitore())
 
     def get_info(self, text):
         label = QLabel(text)
@@ -77,12 +78,12 @@ class VistaOrdine(QWidget):
         Eventi trigger click dei bottoni
     """
     def elimina_ordine_click(self):
-        self.elimina_prodotto_by_codice(self.controller.get_cod_prodotto())
+        self.elimina_ordine_by_codice(self.controller.get_cod_fattura())
         self.update_ui()
         self.close()
 
     def modifica_ordine_click(self):
-        self.showMaximized(Ordine.view.VistaModificaOrdine.VistaModificaOrdine(self.controller.get_cod_prodotto()))
+        self.showMaximized(Ordine.view.VistaModificaOrdine.VistaModificaOrdine(self.controller.get_cod_fattura()))
         self.update_ui()
         self.close()
 

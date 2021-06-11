@@ -48,7 +48,6 @@ class VistaInserisciOrdine(QWidget):
         self.v_layout.addWidget(current_text_edit)
 
     def inserisci_ordine(self):
-
         cod_fattura = self.info["cod_fattura"].text()
         cod_fornitore = self.info["cod_fornitore"].text()
         stagione = self.info["stagione"].text()
@@ -56,7 +55,7 @@ class VistaInserisciOrdine(QWidget):
         data_ordine = self.info["data_ordine"].text()
         data_arrivo_prevista= self.info["data_arrivo_prevista"].text()
         data_arrivo_effettiva= self.info["data_arrivo_effettiva"].text()
-        importo_totale = self.info["importo_totale"]
+        importo_totale = self.info["importo_totale"].text()
         calzature_totali = self.info["calzature_totali"].text()
 
 
@@ -83,8 +82,7 @@ class VistaInserisciOrdine(QWidget):
             #    return
 
         self.controller.inserisci_ordine(Ordine(cod_fattura, cod_fornitore, stagione,
-                                                stato, data_ordine, data_arrivo_prevista, data_arrivo_effettiva, importo_totale, calzature_totali
-                                                ))
+                                                stato, data_ordine, data_arrivo_prevista, data_arrivo_effettiva, importo_totale, calzature_totali))
         # self.callback()
         self.update_ui()
         self.close()

@@ -89,6 +89,11 @@ class ListaProdotti:
             if prodotto.cod_prodotto == codice:
                 return prodotto.marca
 
+    def get_quantita_prodotto_by_code(self, codice):
+        for prodotto in self.lista_prodotti:
+            if prodotto.cod_prodotto == codice:
+                return prodotto.quantita
+
     def elimina_prodotto(self, codice_prodotto):
         def is_selected_prodotto(utente):
             if utente.cod_prodotto == codice_prodotto:
