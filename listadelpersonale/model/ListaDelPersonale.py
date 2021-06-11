@@ -10,6 +10,7 @@ class ListaDelPersonale:
     def __init__(self):
         super(ListaDelPersonale, self).__init__()
         self.lista_del_personale = []
+        self.lista_dinamica=[]
 
         if os.path.isfile('listadelpersonale/data/DatabaseDelPersonale.pickle') and os.stat('listadelpersonale/data/DatabaseDelPersonale.pickle').st_size != 0:
             with open('listadelpersonale/data/DatabaseDelPersonale.pickle', 'rb') as f:
@@ -35,21 +36,32 @@ class ListaDelPersonale:
                                                            utente_da_caricare["stipendio"],
                                                            utente_da_caricare["username"],
                                                            utente_da_caricare["password"]))
+        self.lista_dinamica= self.lista_dinamica[:]
+
     def filtra_utenti(self):
         pass
 
     def inserisci_utente(self, utente):
         self.lista_del_personale.append(utente)
+        #self.lista_dinamica.append(utente)
 
     def get_lista_del_personale(self):
         return self.lista_del_personale
 
-    def elimina_utente_by_codice(self, codice_utente):
-        def is_selected_utente(utente):
-            if utente.cod_utente == codice_utente:
-                return True
-            return False
-        self.lista_del_personale.remove(list(filter(is_selected_utente, self.lista_del_personale))[0])
+    def get_lista_dinamica(self):
+        return self.lista_dinamica
+
+    def elimina_utente_by_codice(self, codice_utente, lista_dinamica):
+        # def is_selected_utente(utente):
+        #     if utente.cod_utente == codice_utente:
+        #         return True
+        #     return False
+        # self.lista_del_personale.remove(list(filter(is_selected_utente, self.lista_del_personale))[0])
+        for utente in self.lista_del_personale:
+            if utente.cod_utente== codice_utente:
+                self.lista_del_personale.remove(utente)
+                lista_dinamica.remove(utente)
+        #self.lista_dinamica.remove(list(filter(is_selected_utente, self.lista_dinamica))[0])
 
     def get_utente_by_index(self, index):
         return self.lista_del_personale[index]

@@ -7,13 +7,14 @@ from utente.view.VistaModificaUtente import VistaModificaUtente
 
 
 class VistaUtente(QWidget):
-    def __init__(self, utente, elimina_utente_by_codice, update_ui, controller, parent=None):
+    def __init__(self, utente, elimina_utente_by_codice, update_ui, controller, lista_dinamica, parent=None):
         super(VistaUtente, self).__init__(parent)
         self.utente_selezionato= utente
         self.controller= ControllerUtente(utente)
         self.controller_lista= controller
         self.elimina_utente_by_codice= elimina_utente_by_codice
         self.update_ui= update_ui
+        self.lista_dinamica= lista_dinamica
 
         self.end1 = False
         # istanzio un vertical layout
@@ -140,7 +141,7 @@ class VistaUtente(QWidget):
             if reply == QMessageBox.Yes:
                 if not type(event) == bool:   #SI
                     event.accept()
-                    self.elimina_utente_by_codice(self.controller.get_cod_utente())
+                    self.elimina_utente_by_codice(self.controller.get_cod_utente(), self.lista_dinamica)
                     self.update_ui()
                 else:
                     sys.exit()

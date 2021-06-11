@@ -7,10 +7,11 @@ from utente.model.Utente import Utente
 
 
 class VistaInserisciUtente(QWidget):
-    def __init__(self, controller, update_ui):
+    def __init__(self, controller, update_ui, lista_dinamica):
         super(VistaInserisciUtente, self).__init__()
         self.controller = controller
         self.update_ui = update_ui
+        self.lista_dinamica= lista_dinamica
 
         self.end1=False
         #self.setMinimumHeight(700)
@@ -138,7 +139,7 @@ class VistaInserisciUtente(QWidget):
             self.codice= self.qlines["codice_utente"].text()
             self.cf= self.qlines["cf"].text()
 
-        self.controller.inserisci_utente(Utente(
+        utente= Utente(
              self.codice,
              self.qlines["nome"].text(),
              self.qlines["cognome"].text(),
@@ -152,7 +153,11 @@ class VistaInserisciUtente(QWidget):
              self.qlines["telefono"].text(),
              self.qlines["stipendio"].text(),
              username,
-             password))
+             password)
+
+        self.controller.inserisci_utente(utente)
+        self.lista_dinamica.append(utente)
+
 
         self.update_ui()
         self.close()
