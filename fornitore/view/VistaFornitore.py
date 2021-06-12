@@ -5,15 +5,16 @@ from fornitore.controller.ControllerFornitore import ControllerFornitore
 from fornitore.view.VistaModificaFornitore import VistaModificaFornitore
 
 class VistaFornitore(QWidget):
-    def __init__(self, fornitore, elimina_fornitore_by_codice, update_ui, controller,parent=None):
+    def __init__(self, fornitore, elimina_fornitore_by_codice, update_ui, controller, lista_dinamica, parent=None):
         super(VistaFornitore, self).__init__(parent)
         self.controller= ControllerFornitore(fornitore)
         self.controller_lista= controller
         self.elimina_fornitore_by_codice= elimina_fornitore_by_codice
         self.update_ui= update_ui
         self.fornitore_selezionato= fornitore
-        self.end1 = False
+        self.lista_dinamica = lista_dinamica
 
+        self.end1 = False
         #istanzio un vertical layout
         self.v_layout = QVBoxLayout()
         #istanzio due Label, una per il nome e una per il body (gli altri campi)
@@ -123,7 +124,7 @@ class VistaFornitore(QWidget):
             if reply == QMessageBox.Yes:
                 if not type(event) == bool:   #SI
                     event.accept()
-                    self.elimina_fornitore_by_codice(self.controller.get_cod_fornitore())
+                    self.elimina_fornitore_by_codice(self.controller.get_cod_fornitore(), self.lista_dinamica)
                     self.update_ui()
                 else:
                     sys.exit()

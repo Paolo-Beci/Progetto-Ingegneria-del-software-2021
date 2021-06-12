@@ -37,33 +37,38 @@ class ControllerOrdine:
 
     def get_stato(self):
         return self.model.stato
+
     def get_importo_totale(self):
         return self.model.importo_totale
+
     def get_calzature_totali(self):
         return self.model.calzature_totali
 
-
-
     # ----------------SET------------------
 
-    def set_cod_fattura(self, cod_prodotto, new_cod_fattura):
-        self.modifica_prodotto_by_codice(cod_prodotto, new_cod_fattura)
+    def set_cod_fattura(self, cod_fattura):
+        self.model.cod_fattura= cod_fattura
 
-    def set_cod_fornitore(self, cod_prodotto, new_cod_fornitore):
-        self.modifica_prodotto_by_codice(cod_prodotto, new_cod_fornitore)
+    def set_cod_fornitore(self, cod_fornitore):
+        self.model.cod_fornitore= cod_fornitore
 
-    def set_data_ordine(self, cod_prodotto, new_data_ordine):
-        self.modifica_prodotto_by_codice(cod_prodotto, new_data_ordine)
+    def set_data_ordine(self, data_ordine):
+        self.model.data_ordine= data_ordine
 
-    def set_calzature_totali(self):
-        return self.model.calzature_totali
+    def set_data_arrivo_prevista(self, data_arrio_prevista):
+        self.model.data_arrivo_prevista= data_arrio_prevista
 
-    def set_stagione(self):
-        return self.model.stagione
+    def set_data_arrivo_effettiva(self, data_arrio_effettiva):
+        self.model.data_arrivo_effettiva = data_arrio_effettiva
 
-    def set_stato(self):
-        return self.model.stato
+    def set_stagione(self, stagione):
+        self.model.stagione= stagione
 
-    def set_data_vendita(self):
-        return self.model.data_vendita
+    def set_importo_totale(self, importo_totale):
+        self.model.importo_totale= importo_totale
 
+    def set_calzature_totali(self, calzature_totali):
+        self.model.calzature_totali= calzature_totali
+
+    def set_stato(self, stato):
+        self.model.stato= stato

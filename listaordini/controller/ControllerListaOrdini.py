@@ -17,5 +17,6 @@ class ControllerListaOrdini:
 
     def save_data(self):
         self.model.save_data()
+
     def modifica_ordine_by_codice(self):
         pass

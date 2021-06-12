@@ -10,12 +10,12 @@ class ListaFornitori:
     def __init__(self):
         super(ListaFornitori, self).__init__()
         self.lista_fornitori = []
-        if os.path.isfile('listafornitori/data/DatabaseFornitori.pickle'):
+        if os.path.isfile('listafornitori/data/DatabaseFornitori.pickle') and os.stat('listafornitori/data/DatabaseFornitori.pickle').st_size != 0:
             with open('listafornitori/data/DatabaseFornitori.pickle', 'rb') as f:
                 try:
                     self.lista_fornitori = pickle.load(f)
                 except EOFError:
-                    return None
+                    return
         else:
              with open('listafornitori/data/DatabaseFornitori.json') as f:
                  lista_fornitori_json = json.load(f)
@@ -36,12 +36,11 @@ class ListaFornitori:
     def get_lista_fornitori(self):
         return self.lista_fornitori
 
-    def elimina_fornitore_by_codice(self, codice_fornitore):
-        def is_selected_fornitore(fornitore):
+    def elimina_fornitore_by_codice(self, codice_fornitore, lista_dinamica):
+        for fornitore in self.lista_fornitori:
             if fornitore.cod_fornitore == codice_fornitore:
-                return True
-            return False
-        self.lista_fornitori.remove(list(filter(is_selected_fornitore, self.lista_fornitori))[0])
+                self.lista_fornitori.remove(fornitore)
+                lista_dinamica.remove(fornitore)
 
     def get_fornitore_by_index(self, index):
         return self.lista_fornitori[index]

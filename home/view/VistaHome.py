@@ -1,9 +1,10 @@
 import datetime
+import sys
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QTime, QTimer, Qt
 from PyQt5.QtGui import QFont, QPixmap
-from PyQt5.QtWidgets import QWidget, QLabel
+from PyQt5.QtWidgets import QWidget, QLabel, QMessageBox
 import time
 
 from listaordini.view.VistaListaOrdini import VistaListaOrdini
@@ -262,3 +263,17 @@ class VistaHome(QWidget):
 
     def go_login(self):
         pass
+
+    def closeEvent(self, event):
+        reply = QMessageBox.question(self, 'Chiudere?',
+                                     'Sicuro di voler chiudere il programma?',
+                                     QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+
+        if reply == QMessageBox.Yes:
+            if not type(event) == bool:
+                event.accept()
+            else:
+                sys.exit()
+        else:
+            if not type(event) == bool:
+                event.ignore()

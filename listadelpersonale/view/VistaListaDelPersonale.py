@@ -229,7 +229,6 @@ class VistaListaDelPersonale(QWidget):
         codice.capitalize()
         elementi_da_rimuovere = []
         for utente in self.lista_dinamica:
-            print(codice)
             if not (codice in str(utente.cod_utente)):
                 elementi_da_rimuovere.append(utente)
         for utente in elementi_da_rimuovere:

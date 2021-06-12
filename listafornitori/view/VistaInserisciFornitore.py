@@ -7,10 +7,11 @@ from fornitore.model.Fornitore import Fornitore
 
 
 class VistaInserisciFornitore(QWidget):
-    def __init__(self, controller, update_ui):
+    def __init__(self, controller, update_ui, lista_dinamica):
         super(VistaInserisciFornitore, self).__init__()
         self.controller = controller
         self.update_ui = update_ui
+        self.lista_dinamica= lista_dinamica
 
         self.end1 = False
         self.v_layout = QVBoxLayout()
@@ -72,7 +73,7 @@ class VistaInserisciFornitore(QWidget):
         else:
             stato= "P"
 
-        self.controller.inserisci_fornitore(Fornitore(
+        fornitore= Fornitore(
              self.qlines["codice_fornitore"].text(),
              self.qlines["nome"].text(),
              self.qlines["indirizzo"].text(),
@@ -81,7 +82,10 @@ class VistaInserisciFornitore(QWidget):
              self.qlines["sito_web"].text(),
              self.qlines["rappresentante"].text(),
              data_affiliazione,
-             stato))
+             stato)
+
+        self.controller.inserisci_fornitore(fornitore)
+        self.lista_dinamica.append(fornitore)
         self.update_ui()
         self.close()
         self.end1 = False
