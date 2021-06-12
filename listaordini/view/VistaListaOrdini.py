@@ -35,11 +35,11 @@ class VistaListaOrdini(QWidget):
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.pushButton_apri = QtWidgets.QPushButton(self)
         self.pushButton_apri.setObjectName("pushButton_apri")
-        #self.pushButton_apri.clicked.connect(self.show_utente)
+        self.pushButton_apri.clicked.connect(self.show_ordine)
         self.verticalLayout_2.addWidget(self.pushButton_apri)
         self.pushButton_nuovo = QtWidgets.QPushButton(self)
         self.pushButton_nuovo.setObjectName("pushButton_nuovo")
-        #self.pushButton_nuovo.clicked.connect(self.show_inserisci_utente)
+        self.pushButton_nuovo.clicked.connect(self.show_inserici_ordine)
         self.verticalLayout_2.addWidget(self.pushButton_nuovo)
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_2.addItem(spacerItem1)
@@ -58,7 +58,7 @@ class VistaListaOrdini(QWidget):
         self.lineEdit_cerca.setClearButtonEnabled(False)
         self.lineEdit_cerca.setObjectName("lineEdit_cerca")
         self.lineEdit_cerca.setPlaceholderText("Cerca per codice")
-        #self.lineEdit_cerca.returnPressed.connect(self.filter_cerca)
+        self.lineEdit_cerca.returnPressed.connect(self.filter_cerca)
         self.gridLayout.addWidget(self.lineEdit_cerca, 2, 6, 1, 1)
         self.label_logo = QtWidgets.QLabel(self)
         self.label_logo.setMinimumSize(QtCore.QSize(200, 0))
@@ -80,9 +80,8 @@ class VistaListaOrdini(QWidget):
 
         self.tableWidget = QtWidgets.QTableWidget(self)
         self.tableWidget.setObjectName("tableWidget")
-        self.tableWidget.setColumnCount(6)
+        self.tableWidget.setColumnCount(7)
         item = QtWidgets.QTableWidgetItem()
-
         self.tableWidget.setHorizontalHeaderItem(0, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(1, item)
@@ -94,12 +93,16 @@ class VistaListaOrdini(QWidget):
         self.tableWidget.setHorizontalHeaderItem(4, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(5, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(6, item)
+
         self.tableWidget.setColumnWidth(0, 100)
-        self.tableWidget.setColumnWidth(1, 200)
+        self.tableWidget.setColumnWidth(1, 100)
         self.tableWidget.setColumnWidth(2, 200)
         self.tableWidget.setColumnWidth(3, 200)
         self.tableWidget.setColumnWidth(4, 200)
-        self.tableWidget.setColumnWidth(5, 200)
+        self.tableWidget.setColumnWidth(5, 150)
+        self.tableWidget.setColumnWidth(6, 150)
 
         self.gridLayout.addWidget(self.tableWidget, 5, 1, 1, 6)
 
@@ -115,7 +118,7 @@ class VistaListaOrdini(QWidget):
         font.setWeight(50)
         self.pushButton_stato1.setFont(font)
         self.pushButton_stato1.setObjectName("pushButton_stato1")
-        #self.pushButton_stato1.clicked.connect(self.filter_dipendente)
+        self.pushButton_stato1.clicked.connect(self.filter_in_arrivo)
         self.gridLayout_3.addWidget(self.pushButton_stato1, 0, 1, 1, 1)
         spacerItem7 = QtWidgets.QSpacerItem(10, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_3.addItem(spacerItem7, 0, 2, 1, 1)
@@ -125,13 +128,13 @@ class VistaListaOrdini(QWidget):
         font.setKerning(True)
         self.pushButton_stato2.setFont(font)
         self.pushButton_stato2.setObjectName("pushButton_stato2")
-        #self.pushButton_stato2.clicked.connect(self.filter_amministratore)
+        self.pushButton_stato2.clicked.connect(self.filter_in_negozio)
         self.gridLayout_3.addWidget(self.pushButton_stato2, 0, 3, 1, 1)
         spacerItem8 = QtWidgets.QSpacerItem(10, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_3.addItem(spacerItem8, 0, 4, 1, 1)
         self.pushButton_all = QtWidgets.QPushButton(self)
         self.pushButton_all.setObjectName("pushButton_all")
-        #self.pushButton_all.clicked.connect(self.filter_all)
+        self.pushButton_all.clicked.connect(self.filter_all)
         self.gridLayout_3.addWidget(self.pushButton_all, 0, 5, 1, 1)
         self.gridLayout.addLayout(self.gridLayout_3, 3, 1, 1, 2)
         spacerItem9 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
@@ -145,13 +148,11 @@ class VistaListaOrdini(QWidget):
 
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
-        # Form.setWindowTitle(_translate("Form", "Lista utenti"))
         self.pushButton_apri.setText(_translate("Form", "Apri"))
         self.pushButton_nuovo.setText(_translate("Form", "Nuovo"))
-        # self.lineEdit_cerca.setText(_translate("Form", "Cerca per codice"))
         self.pushButton_indietro.setText(_translate("Form", "<-  Indietro"))
-        self.pushButton_stato1.setText(_translate("Form", "Dipendente"))
-        self.pushButton_stato2.setText(_translate("Form", "Amministratore"))
+        self.pushButton_stato1.setText(_translate("Form", "In arrivo"))
+        self.pushButton_stato2.setText(_translate("Form", "In negozio"))
         self.pushButton_all.setText(_translate("Form", "All"))
 
         item = self.tableWidget.horizontalHeaderItem(0)
@@ -166,7 +167,7 @@ class VistaListaOrdini(QWidget):
         item.setText(_translate("Form", "Data arrivo effettiva"))
         item = self.tableWidget.horizontalHeaderItem(5)
         item.setText(_translate("Form", "Calzature totali"))
-        item = self.tableWidget.horizontalHeaderItem(5)
+        item = self.tableWidget.horizontalHeaderItem(6)
         item.setText(_translate("Form", "Importo totale"))
 
         row = 0
@@ -178,66 +179,93 @@ class VistaListaOrdini(QWidget):
             item = QTableWidgetItem(str(ordine.cod_fattura))
             item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
             self.tableWidget.setItem(row, 0, QtWidgets.QTableWidgetItem(item))
-            self.tableWidget.setItem(row, 1, QtWidgets.QTableWidgetItem(str(ordine.cod_fornitore)))
+            item = QTableWidgetItem(str(ordine.cod_fornitore))
+            item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
+            self.tableWidget.setItem(row, 1, QtWidgets.QTableWidgetItem(item))
             self.tableWidget.setItem(row, 2, QtWidgets.QTableWidgetItem(ordine.stato))
             self.tableWidget.setItem(row, 3, QtWidgets.QTableWidgetItem(ordine.data_arrivo_prevista))
             self.tableWidget.setItem(row, 4, QtWidgets.QTableWidgetItem(ordine.data_arrivo_effettiva))
             self.tableWidget.setItem(row, 5, QtWidgets.QTableWidgetItem(str(ordine.calzature_totali)))
-            self.tableWidget.setItem(row, 5, QtWidgets.QTableWidgetItem(str(ordine.importo_totale)))
+            self.tableWidget.setItem(row, 6, QtWidgets.QTableWidgetItem(str(ordine.importo_totale)+" €"))
 
             row = row + 1
         ###############################
 
-    #     h_layout = QHBoxLayout()
-    #     self.list_view = QListView()
-    #     self.update_ui()
-    #     h_layout.addWidget(self.list_view)
-    #
-    #     buttons_layout = QVBoxLayout()
-    #     open_button = QPushButton('Vedi dettagli')
-    #     #ici jai juste appliquer le bouton
-    #     open_button.clicked.connect(self.show_ordine)
-    #     buttons_layout.addWidget(open_button)
-    #     new_button = QPushButton("Inserisci ordine")
-    #     new_button.clicked.connect(self.show_inserici_ordine)
-    #     buttons_layout.addWidget(new_button)
-    #     home_button = QPushButton("Torna alla HOME")
-    #     #home_button.clicked.connect(s
-    #     home_button.clicked.connect(self.close)
-    #     buttons_layout.addWidget(home_button)
-    #     buttons_layout.addStretch()
-    #     h_layout.addLayout(buttons_layout)
-    #
-    #     self.setLayout(h_layout)
-    #     #self.resize(600, 300)
-    #     self.setWindowTitle('Area Ordini')
-    #
-    # def update_ui(self):
-    #     self.listview_model = QStandardItemModel(self.list_view)
-    #     for ordine in self.controller.get_lista_ordini():
-    #         item = QStandardItem()
-    #         print(ordine.calzature_totali)
-    #         item.setText("Codice fattura: "+ str(ordine.cod_fattura)+ " Data arrivo prevista: "+ str(ordine.data_arrivo_prevista)+" Calzature totali: "+str(ordine.calzature_totali))
-    #        # item.setText("Marca: " + self.controller.get_lista_ordini())
-    #         item.setEditable(False)
-    #         font = item.font()
-    #         font.setPointSize(18)
-    #         item.setFont(font)
-    #         self.listview_model.appendRow(item)
-    #     self.list_view.setModel(self.listview_model)
-
     def show_ordine(self):
-        if len(self.list_view.selectedIndexes()) > 0:
-            selected = self.list_view.selectedIndexes()[0].row()
-            ordine_selezionato = self.controller.get_lista_ordini()
-            self.vista_ordine = VistaOrdine(ordine_selezionato, self.controller.get_lista_ordini. self.update_ui)
+        if len(self.tableWidget.selectedIndexes()) > 0:
+            selected = self.tableWidget.selectedIndexes()[0].row()
+            ordine_selezionato = self.lista_dinamica[selected]
+            self.vista_ordine = VistaOrdine(ordine_selezionato, self.controller.elimina_ordine_by_codice, self.retranslateUi, self.controller, self.lista_dinamica)
             self.vista_ordine.showMaximized()
             time.sleep(0.3)
             self.close()
 
     def show_inserici_ordine(self):
-        self.vista_inserisci_ordine = VistaInserisciOrdine(self.controller, self.update_ui)
+        self.vista_inserisci_ordine = VistaInserisciOrdine(self.controller, self.retranslateUi, self.lista_dinamica)
         self.vista_inserisci_ordine.show()
 
     def closeEvent(self, event):
         self.controller.save_data()
+
+    def filter_in_arrivo(self):
+        self.in_arrivo = True
+        self.in_negozio = False
+        self.lista_ordini = self.controller.get_lista_ordini()
+        self.lista_dinamica = self.lista_ordini[:]
+        self.filter()
+        self.retranslateUi()
+
+    def filter_in_negozio(self):
+        self.in_arrivo= False
+        self.in_negozio= True
+        self.lista_ordini = self.controller.get_lista_ordini()
+        self.lista_dinamica = self.lista_ordini[:]
+        self.filter()
+        self.retranslateUi()
+
+    def filter_all(self):
+        self.in_arrivo = False
+        self.in_negozio = False
+        self.lista_ordini = self.controller.get_lista_ordini()
+        self.lista_dinamica = self.lista_ordini[:]
+        self.filter()
+        self.retranslateUi()
+
+    def filter_cerca(self):
+        self.lista_ordini = self.controller.get_lista_ordini()
+        self.lista_dinamica = self.lista_ordini[:]
+        codice= self.lineEdit_cerca.text()
+        codice.capitalize()
+        elementi_da_rimuovere = []
+        for ordine in self.lista_dinamica:
+            if not (codice in str(ordine.cod_fattura)):
+                elementi_da_rimuovere.append(ordine)
+        for ordine in elementi_da_rimuovere:
+            if ordine in self.lista_dinamica:
+                self.lista_dinamica.remove(ordine)
+        self.retranslateUi()
+
+    def filter(self):
+        elementi_da_rimuovere = []
+
+        if self.in_arrivo:
+            for ordine in self.lista_dinamica:
+                if str(ordine.stato) != "In arrivo":
+                    elementi_da_rimuovere.append(ordine)
+            for ordine in elementi_da_rimuovere:
+                if ordine in self.lista_dinamica:
+                    self.lista_dinamica.remove(ordine)
+            return
+
+        if self.in_negozio:
+            for ordine in self.lista_dinamica:
+                if str(ordine.stato)!= "In negozio":
+                    elementi_da_rimuovere.append(ordine)
+            for ordine in elementi_da_rimuovere:
+                if ordine in self.lista_dinamica:
+                    self.lista_dinamica.remove(ordine)
+            return
+        else:
+            self.lista_ordini= self.controller.get_lista_ordini()
+            self.lista_dinamica= self.lista_ordini[:]
+            return

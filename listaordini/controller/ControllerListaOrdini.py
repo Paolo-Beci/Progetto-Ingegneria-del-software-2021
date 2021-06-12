@@ -15,6 +15,9 @@ class ControllerListaOrdini:
     def inserisci_ordine(self, ordine):
         self.model.aggiungi_ordine(ordine)
 
+    def elimina_ordine_by_codice(self, codice_ordine, lista_dinamica):
+        self.model.elimina_ordine_by_codice(codice_ordine, lista_dinamica)
+
     def save_data(self):
         self.model.save_data()
 

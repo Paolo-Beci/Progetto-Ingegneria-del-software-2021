@@ -10,12 +10,11 @@ DA FARE
 
 
 class VistaInserisciOrdine(QWidget):
-    def __init__(self, controller, update_ui):
-        # callback ??
+    def __init__(self, controller, update_ui, lista_dinamica):
         super(VistaInserisciOrdine, self).__init__()
         self.controller = controller
         self.update_ui = update_ui
-        # self.callback = callback
+        self.lista_dinamica= lista_dinamica
         self.info = {}
 
         self.v_layout = QVBoxLayout()
@@ -81,8 +80,11 @@ class VistaInserisciOrdine(QWidget):
             #                         QMessageBox.Ok, QMessageBox.Ok)
             #    return
 
-        self.controller.inserisci_ordine(Ordine(cod_fattura, cod_fornitore, stagione,
-                                                stato, data_ordine, data_arrivo_prevista, data_arrivo_effettiva, importo_totale, calzature_totali))
-        # self.callback()
+        ordine= Ordine(cod_fattura, cod_fornitore, stagione, stato,
+                      data_ordine, data_arrivo_prevista, data_arrivo_effettiva,
+                      importo_totale, calzature_totali)
+
+        self.controller.inserisci_ordine(ordine)
+        self.lista_dinamica.append(ordine)
         self.update_ui()
         self.close()

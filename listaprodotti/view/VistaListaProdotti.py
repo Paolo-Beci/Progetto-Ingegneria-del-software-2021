@@ -16,7 +16,8 @@ class VistaListaProdotti(QWidget):
     def __init__(self, parent=None):
         super(VistaListaProdotti, self).__init__(parent)
         self.controller = ControllerListaProdotti()
-        self.lista_prodotti_filtrata = []
+        self.lista_prodotti= self.controller.get_lista_prodotti()
+        self.lista_prodotti_filtrata = self.lista_prodotti[:]
         self.display_prodotti_array = []
         self.setWindowTitle("Lista Prodotti")
         self.setObjectName("Lista Prodotti")
@@ -218,52 +219,53 @@ class VistaListaProdotti(QWidget):
         c = 0
         i = 1
         # display prodotto
-        if not self.lista_prodotti_filtrata:
-            for prodotto in self.controller.get_lista_prodotti():
-                self.vista_display_prodotto = VistaDisplayProdotto(prodotto, self.retranslateUi, self.widget, r, c,
-                                                                   self.gridLayout_2)
-                self.display_prodotti_array.append(self.vista_display_prodotto)
-                if c == 4:
-                    c = 0
-                else:
-                    c = c + 2
-                if i == 3:
-                    i = 1
-                    r = r + 2
-                else:
-                    i = i + 1
-        else:
-            self.scrollArea.close()
-            self.scrollArea = QtWidgets.QScrollArea(self.centralwidget)
-            self.scrollArea.setWidgetResizable(True)
-            self.scrollArea.setObjectName("scrollArea")
-            self.scrollAreaWidgetContents = QtWidgets.QWidget()
-            self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 1172, 851))
-            self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
-            self.gridLayout = QtWidgets.QGridLayout(self.scrollAreaWidgetContents)
-            self.gridLayout.setObjectName("gridLayout")
-            self.widget = QtWidgets.QWidget(self.scrollAreaWidgetContents)
-            self.widget.setObjectName("widget")
-            self.gridLayout_2 = QtWidgets.QGridLayout(self.widget)
-            self.gridLayout_2.setObjectName("gridLayout_2")
+        #if not self.lista_prodotti_filtrata:
+        self.display_prodotti_array.clear()
+        for prodotto in self.lista_prodotti_filtrata:
+            self.vista_display_prodotto = VistaDisplayProdotto(prodotto, self.retranslateUi, self.widget, r, c,
+                                                               self.gridLayout_2)
+            self.display_prodotti_array.append(self.vista_display_prodotto)
+            if c == 4:
+                c = 0
+            else:
+                c = c + 2
+            if i == 3:
+                i = 1
+                r = r + 2
+            else:
+                i = i + 1
+        #else:
+        # self.scrollArea.close()
+        # self.scrollArea = QtWidgets.QScrollArea(self.centralwidget)
+        # self.scrollArea.setWidgetResizable(True)
+        # self.scrollArea.setObjectName("scrollArea")
+        # self.scrollAreaWidgetContents = QtWidgets.QWidget()
+        # self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 1172, 851))
+        # self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
+        # self.gridLayout = QtWidgets.QGridLayout(self.scrollAreaWidgetContents)
+        # self.gridLayout.setObjectName("gridLayout")
+        # self.widget = QtWidgets.QWidget(self.scrollAreaWidgetContents)
+        # self.widget.setObjectName("widget")
+        # self.gridLayout_2 = QtWidgets.QGridLayout(self.widget)
+        # self.gridLayout_2.setObjectName("gridLayout_2")
 
-            # CREAZIONE DEI WIDGET
-            self.gridLayout.addWidget(self.widget, 0, 0, 1, 1)
-            self.scrollArea.setWidget(self.scrollAreaWidgetContents)
-            self.verticalLayout.addWidget(self.scrollArea)
-            for prodotto in self.lista_prodotti_filtrata:
-                self.vista_display_prodotto = VistaDisplayProdotto(prodotto, self.retranslateUi, self.widget, r, c,
-                                                                   self.gridLayout_2)
-                self.display_prodotti_array.append(self.vista_display_prodotto)
-                if c == 4:
-                    c = 0
-                else:
-                    c = c + 2
-                if i == 3:
-                    i = 1
-                    r = r + 2
-                else:
-                    i = i + 1
+        # # CREAZIONE DEI WIDGET
+        # self.gridLayout.addWidget(self.widget, 0, 0, 1, 1)
+        # self.scrollArea.setWidget(self.scrollAreaWidgetContents)
+        # self.verticalLayout.addWidget(self.scrollArea)
+        # for prodotto in self.lista_prodotti_filtrata:
+        #     self.vista_display_prodotto = VistaDisplayProdotto(prodotto, self.retranslateUi, self.widget, r, c,
+        #                                                        self.gridLayout_2)
+        #     self.display_prodotti_array.append(self.vista_display_prodotto)
+        #     if c == 4:
+        #         c = 0
+        #     else:
+        #         c = c + 2
+        #     if i == 3:
+        #         i = 1
+        #         r = r + 2
+        #     else:
+        #         i = i + 1
 
     """
          Eventi trigger click dei bottoni
@@ -282,16 +284,16 @@ class VistaListaProdotti(QWidget):
         #     self.popup_errore()
 
         self.lista_prodotti = self.controller.get_lista_prodotti()
-        self.lista_dinamica = self.lista_prodotti[:]
+        self.lista_prodotti_filtrata = self.lista_prodotti[:]
         codice = self.cerca.text()
         codice.capitalize()
         elementi_da_rimuovere = []
-        for prodotto in self.lista_dinamica:
+        for prodotto in self.lista_prodotti_filtrata:
             if not (codice in str(prodotto.cod_prodotto)):
                 elementi_da_rimuovere.append(prodotto)
         for prodotto in elementi_da_rimuovere:
-            if prodotto in self.lista_dinamica:
-                self.lista_dinamica.remove(prodotto)
+            if prodotto in self.lista_prodotti_filtrata:
+                self.lista_prodotti_filtrata.remove(prodotto)
         self.retranslateUi()
 
     # crea l'elenco dei codici dei prodotti da visualizzare basati sui filtri

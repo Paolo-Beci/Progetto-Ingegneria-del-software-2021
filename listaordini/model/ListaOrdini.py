@@ -41,3 +41,9 @@ class ListaOrdini:
     def save_data(self):
         with open('listaordini/data/DatabaseOrdini.pickle', 'wb') as handle:
             pickle.dump(self.lista_ordini, handle, pickle.HIGHEST_PROTOCOL)
+
+    def elimina_ordine_by_codice(self, codice_ordine, lista_dinamica):
+        for ordine in self.lista_ordini:
+            if ordine.cod_fattura == codice_ordine:
+                self.lista_ordini.remove(ordine)
+                lista_dinamica.remove(ordine)
