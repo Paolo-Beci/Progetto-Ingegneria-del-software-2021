@@ -156,8 +156,6 @@ class VistaVendita(QWidget):
                 self.prodotto_trovato.append(prodotto)
         if len(self.prodotto_trovato) == 0:
             self.popup_errore()
-        #else:
-        #    self.popup_errore()
 
     def vendi_prodotto(self):
         VistaVendiProdotto(self.controller.get_prodotto_by_code(str(self.cerca.text())))
@@ -171,3 +169,6 @@ class VistaVendita(QWidget):
         msg.setStandardButtons(QMessageBox.Yes)
         msg.setDefaultButton(QMessageBox.Yes)
         msg.exec_()
+
+    def closeEvent(self, event):
+        self.controller.save_data()

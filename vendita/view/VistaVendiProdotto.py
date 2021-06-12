@@ -10,3 +10,4 @@ class VistaVendiProdotto(QWidget):
 
         self.controller.set_venduto()
 
+

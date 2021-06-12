@@ -3,7 +3,6 @@ from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QWidget, QLabel, QMessageBox, QApplication
 import time
 
-import home.view.VistaHome
 from listaprodotti.controller.ControllerListaProdotti import ControllerListaProdotti
 from listaprodotti.view.VistaInserisciProdotto import VistaInserisciProdotto
 from listaprodotti.view.VistaDisplayProdotto import VistaDisplayProdotto
@@ -53,7 +52,7 @@ class VistaListaProdotti(QWidget):
         self.logo.setPixmap(pixmap)
         self.logo.resize(100, 100)
         self.gridLayout_3.addWidget(self.logo, 0, 6, 1, 1, QtCore.Qt.AlignHCenter)
-        # barra di ricerca
+        # ricerca
         self.cerca = QtWidgets.QLineEdit(self.topWidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -63,6 +62,7 @@ class VistaListaProdotti(QWidget):
         self.cerca.setMinimumSize(QtCore.QSize(250, 0))
         self.cerca.setObjectName("cerca")
         self.cerca.setPlaceholderText("Cerca per Cod. prodotto")
+        self.cerca.setClearButtonEnabled(False)
         self.gridLayout_3.addWidget(self.cerca, 0, 10, 1, 1)
         self.cerca.returnPressed.connect(self.cerca_prodotto)
         # inserisci prodotto
@@ -274,20 +274,24 @@ class VistaListaProdotti(QWidget):
         self.vista_inserisci_prodotto.show()
 
     def show_home(self):
-        self.vista_home = home.view.VistaHome.VistaHome()
-        self.vista_home.showMaximized()
-        time.sleep(0.3)
         self.close()
 
     def cerca_prodotto(self):
-        cod_prodotto = self.cerca.text()
-        cod_prodotto.capitalize()
-        if cod_prodotto.isalnum() and cod_prodotto.startswith('S'):
-            for prodotto in self.controller.get_lista_prodotti():
-                if prodotto.cod_prodotto == cod_prodotto:
-                    self.lista_prodotti_filtrata.append(prodotto)
-        else:
-            self.popup_errore()
+        # if cod_prodotto.isalnum() and cod_prodotto.startswith('S'):
+        # else:
+        #     self.popup_errore()
+
+        self.lista_prodotti = self.controller.get_lista_prodotti()
+        self.lista_dinamica = self.lista_prodotti[:]
+        codice = self.cerca.text()
+        codice.capitalize()
+        elementi_da_rimuovere = []
+        for prodotto in self.lista_dinamica:
+            if not (codice in str(prodotto.cod_prodotto)):
+                elementi_da_rimuovere.append(prodotto)
+        for prodotto in elementi_da_rimuovere:
+            if prodotto in self.lista_dinamica:
+                self.lista_dinamica.remove(prodotto)
         self.retranslateUi()
 
     # crea l'elenco dei codici dei prodotti da visualizzare basati sui filtri
@@ -373,6 +377,9 @@ class VistaListaProdotti(QWidget):
         msg.setStandardButtons(QMessageBox.Yes)
         msg.setDefaultButton(QMessageBox.Yes)
         msg.exec_()
+
+    def closeEvent(self, event):
+        self.controller.save_data()
 
 
 

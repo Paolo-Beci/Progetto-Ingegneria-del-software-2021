@@ -1,5 +1,6 @@
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton, QTableWidgetItem
 
 from listadelpersonale.controller.ControllerListaDelPersonale import ControllerListaDelPersonale
@@ -60,6 +61,8 @@ class VistaListaDelPersonale(QWidget):
         self.label_logo.setMinimumSize(QtCore.QSize(200, 0))
         self.label_logo.setAlignment(QtCore.Qt.AlignCenter)
         self.label_logo.setObjectName("label_logo")
+        pixmap = QPixmap('listaprodotti/data/images/logo_mini2.png')
+        self.label_logo.setPixmap(pixmap)
         self.gridLayout.addWidget(self.label_logo, 1, 4, 3, 1)
         spacerItem2 = QtWidgets.QSpacerItem(10, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
         self.gridLayout.addItem(spacerItem2, 8, 1, 1, 7)
@@ -146,7 +149,6 @@ class VistaListaDelPersonale(QWidget):
         self.pushButton_indietro.setText(_translate("Form", "<-  Indietro"))
         self.pushButton_stato1.setText(_translate("Form", "Dipendente"))
         self.pushButton_stato2.setText(_translate("Form", "Amministratore"))
-        self.label_logo.setText(_translate("Form", "TextLabel"))
         self.pushButton_all.setText(_translate("Form", "All"))
 
         item = self.tableWidget.horizontalHeaderItem(0)
