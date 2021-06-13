@@ -7,6 +7,7 @@ from PyQt5.QtGui import QFont, QPixmap
 from PyQt5.QtWidgets import QWidget, QLabel, QMessageBox
 import time
 
+from home.view.VistaLogin import VistaLogin
 from listaordini.view.VistaListaOrdini import VistaListaOrdini
 from listadelpersonale.view.VistaListaDelPersonale import VistaListaDelPersonale
 from listaprodotti.view.VistaListaProdotti import VistaListaProdotti
@@ -21,6 +22,7 @@ from vendita.view.VistaVendita import VistaVendita
 class VistaHome(QWidget):
     def __init__(self, parent=None):
         super(VistaHome, self).__init__(parent)
+        self.login = VistaLogin()
         ###########
         self.setObjectName("Home")
         self.resize(965, 530)
@@ -44,18 +46,21 @@ class VistaHome(QWidget):
         self.pushButton_vendita.setFont(font)
         self.pushButton_vendita.setObjectName("pushButton_vendita")
         self.gridLayout_2.addWidget(self.pushButton_vendita, 5, 1, 1, 1)
-        self.pushButton_personale = QtWidgets.QPushButton(self)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pushButton_personale.sizePolicy().hasHeightForWidth())
-        self.pushButton_personale.setSizePolicy(sizePolicy)
-        self.pushButton_personale.setMinimumSize(QtCore.QSize(130, 60))
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        self.pushButton_personale.setFont(font)
-        self.pushButton_personale.setObjectName("pushButton_personale")
-        self.gridLayout_2.addWidget(self.pushButton_personale, 7, 5, 1, 1)
+
+        # if self.login.get_status():
+        #     self.pushButton_personale = QtWidgets.QPushButton(self)
+        #     sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        #     sizePolicy.setHorizontalStretch(0)
+        #     sizePolicy.setVerticalStretch(0)
+        #     sizePolicy.setHeightForWidth(self.pushButton_personale.sizePolicy().hasHeightForWidth())
+        #     self.pushButton_personale.setSizePolicy(sizePolicy)
+        #     self.pushButton_personale.setMinimumSize(QtCore.QSize(130, 60))
+        #     font = QtGui.QFont()
+        #     font.setPointSize(12)
+        #     self.pushButton_personale.setFont(font)
+        #     self.pushButton_personale.setObjectName("pushButton_personale")
+        #     self.gridLayout_2.addWidget(self.pushButton_personale, 7, 5, 1, 1)
+
         self.label = QtWidgets.QLabel(self)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
@@ -104,32 +109,37 @@ class VistaHome(QWidget):
         spacerItem4 = QtWidgets.QSpacerItem(20, 100, QtWidgets.QSizePolicy.Minimum,
                                             QtWidgets.QSizePolicy.MinimumExpanding)
         self.gridLayout_2.addItem(spacerItem4, 6, 3, 1, 1)
-        self.pushButton_fornitori = QtWidgets.QPushButton(self)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pushButton_fornitori.sizePolicy().hasHeightForWidth())
-        self.pushButton_fornitori.setSizePolicy(sizePolicy)
-        self.pushButton_fornitori.setMinimumSize(QtCore.QSize(130, 60))
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        self.pushButton_fornitori.setFont(font)
-        self.pushButton_fornitori.setObjectName("pushButton_fornitori")
-        self.gridLayout_2.addWidget(self.pushButton_fornitori, 7, 1, 1, 1)
+
+        # if self.login.get_status():
+        #     self.pushButton_fornitori = QtWidgets.QPushButton(self)
+        #     sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        #     sizePolicy.setHorizontalStretch(0)
+        #     sizePolicy.setVerticalStretch(0)
+        #     sizePolicy.setHeightForWidth(self.pushButton_fornitori.sizePolicy().hasHeightForWidth())
+        #     self.pushButton_fornitori.setSizePolicy(sizePolicy)
+        #     self.pushButton_fornitori.setMinimumSize(QtCore.QSize(130, 60))
+        #     font = QtGui.QFont()
+        #     font.setPointSize(12)
+        #     self.pushButton_fornitori.setFont(font)
+        #     self.pushButton_fornitori.setObjectName("pushButton_fornitori")
+        #     self.gridLayout_2.addWidget(self.pushButton_fornitori, 7, 1, 1, 1)
+
         spacerItem5 = QtWidgets.QSpacerItem(90, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_2.addItem(spacerItem5, 5, 0, 3, 1)
-        self.pushButton_statistiche = QtWidgets.QPushButton(self)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pushButton_statistiche.sizePolicy().hasHeightForWidth())
-        self.pushButton_statistiche.setSizePolicy(sizePolicy)
-        self.pushButton_statistiche.setMinimumSize(QtCore.QSize(130, 60))
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        self.pushButton_statistiche.setFont(font)
-        self.pushButton_statistiche.setObjectName("pushButton_statistiche")
-        self.gridLayout_2.addWidget(self.pushButton_statistiche, 7, 3, 1, 1)
+        # if self.login.get_status():
+        #     self.pushButton_statistiche = QtWidgets.QPushButton(self)
+        #     sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        #     sizePolicy.setHorizontalStretch(0)
+        #     sizePolicy.setVerticalStretch(0)
+        #     sizePolicy.setHeightForWidth(self.pushButton_statistiche.sizePolicy().hasHeightForWidth())
+        #     self.pushButton_statistiche.setSizePolicy(sizePolicy)
+        #     self.pushButton_statistiche.setMinimumSize(QtCore.QSize(130, 60))
+        #     font = QtGui.QFont()
+        #     font.setPointSize(12)
+        #     self.pushButton_statistiche.setFont(font)
+        #     self.pushButton_statistiche.setObjectName("pushButton_statistiche")
+        #     self.gridLayout_2.addWidget(self.pushButton_statistiche, 7, 3, 1, 1)
+
         self.gridLayout_4 = QtWidgets.QGridLayout()
         self.gridLayout_4.setObjectName("gridLayout_4")
         spacerItem6 = QtWidgets.QSpacerItem(85, 20, QtWidgets.QSizePolicy.MinimumExpanding,
@@ -208,20 +218,69 @@ class VistaHome(QWidget):
         Home.setWindowTitle(_translate("Home", "Home"))
         self.pushButton_vendita.setText(_translate("Home", "Area vendita"))
         self.pushButton_vendita.clicked.connect(self.go_vista_vendita)
-        self.pushButton_personale.setText(_translate("Home", "Area del personale"))
-        self.pushButton_personale.clicked.connect(self.go_lista_del_personale)
 
-        #---------------------------------
+        # --------------------------------------------------------------------
+        # parte di codice per aggiornare l'interfaccia con il login effettuato
+        print(self.login.get_status())   # la variabile bool di get status non cambia mai da false a true
+        if self.login.get_status():
+            self.pushButton_personale = QtWidgets.QPushButton(self)
+            sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+            sizePolicy.setHorizontalStretch(0)
+            sizePolicy.setVerticalStretch(0)
+            sizePolicy.setHeightForWidth(self.pushButton_personale.sizePolicy().hasHeightForWidth())
+            self.pushButton_personale.setSizePolicy(sizePolicy)
+            self.pushButton_personale.setMinimumSize(QtCore.QSize(130, 60))
+            font = QtGui.QFont()
+            font.setPointSize(12)
+            self.pushButton_personale.setFont(font)
+            self.pushButton_personale.setObjectName("pushButton_personale")
+            self.gridLayout_2.addWidget(self.pushButton_personale, 7, 5, 1, 1)
+
+        if self.login.get_status():
+            self.pushButton_fornitori = QtWidgets.QPushButton(self)
+            sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+            sizePolicy.setHorizontalStretch(0)
+            sizePolicy.setVerticalStretch(0)
+            sizePolicy.setHeightForWidth(self.pushButton_fornitori.sizePolicy().hasHeightForWidth())
+            self.pushButton_fornitori.setSizePolicy(sizePolicy)
+            self.pushButton_fornitori.setMinimumSize(QtCore.QSize(130, 60))
+            font = QtGui.QFont()
+            font.setPointSize(12)
+            self.pushButton_fornitori.setFont(font)
+            self.pushButton_fornitori.setObjectName("pushButton_fornitori")
+            self.gridLayout_2.addWidget(self.pushButton_fornitori, 7, 1, 1, 1)
+
+        if self.login.get_status():
+            self.pushButton_statistiche = QtWidgets.QPushButton(self)
+            sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+            sizePolicy.setHorizontalStretch(0)
+            sizePolicy.setVerticalStretch(0)
+            sizePolicy.setHeightForWidth(self.pushButton_statistiche.sizePolicy().hasHeightForWidth())
+            self.pushButton_statistiche.setSizePolicy(sizePolicy)
+            self.pushButton_statistiche.setMinimumSize(QtCore.QSize(130, 60))
+            font = QtGui.QFont()
+            font.setPointSize(12)
+            self.pushButton_statistiche.setFont(font)
+            self.pushButton_statistiche.setObjectName("pushButton_statistiche")
+            self.gridLayout_2.addWidget(self.pushButton_statistiche, 7, 3, 1, 1)
+
+        # --------------------------------------------------------------------
+
+        if self.login.get_status():
+            self.pushButton_personale.setText(_translate("Home", "Area del personale"))
+            self.pushButton_personale.clicked.connect(self.go_lista_del_personale)
+            self.pushButton_fornitori.setText(_translate("Home", "Area fornitori"))
+            self.pushButton_fornitori.clicked.connect(self.go_lista_fornitori)
+            self.pushButton_statistiche.setText(_translate("Home", "Area statistiche"))
+            self.pushButton_statistiche.clicked.connect(self.go_lista_statistiche)
+
+        # ---------------------------------------------------------------------
 
         i=datetime.datetime.now()
         self.label_data.setText("%s/%s/%s" % (i.day, i.month, i.year))
         self.pushButton_prodotti.setText(_translate("Home", "Area prodotti"))
         self.pushButton_prodotti.clicked.connect(self.go_lista_prodotti)
-        self.push_button_login.setText(_translate("Home", "Logout"))
-        self.pushButton_fornitori.setText(_translate("Home", "Area fornitori"))
-        self.pushButton_fornitori.clicked.connect(self.go_lista_fornitori)
-        self.pushButton_statistiche.setText(_translate("Home", "Area statistiche"))
-        self.pushButton_statistiche.clicked.connect(self.go_lista_statistiche)
+        self.push_button_login.setText(_translate("Home", "Login"))
         self.pushButton_ordini.setText(_translate("Home", "Area ordini"))
         self.pushButton_ordini.clicked.connect(self.go_lista_ordini)  
         ###########
@@ -260,7 +319,9 @@ class VistaHome(QWidget):
         time.sleep(0.3)
 
     def go_login(self):
-        pass
+        self.vista_login = VistaLogin()
+        self.vista_login.show()
+        self.retranslateUi(self)
 
     def closeEvent(self, event):
         reply = QMessageBox.question(self, 'Chiudere?',
