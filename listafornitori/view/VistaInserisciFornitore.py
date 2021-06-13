@@ -41,7 +41,7 @@ class VistaInserisciFornitore(QWidget):
         self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
         btn_ok = QPushButton("OK")
-        btn_ok.clicked.connect(self.inserisci_utente)
+        btn_ok.clicked.connect(self.inserisci_fornitore)
         self.v_layout.addWidget(btn_ok)
 
         self.setLayout(self.v_layout)
@@ -53,7 +53,7 @@ class VistaInserisciFornitore(QWidget):
         self.qlines[nome] = current_text
         self.v_layout.addWidget(current_text)
 
-    def inserisci_utente(self):
+    def inserisci_fornitore(self):
         self.end1 = True
         for value in self.qlines.values():
             if value.text() == "":

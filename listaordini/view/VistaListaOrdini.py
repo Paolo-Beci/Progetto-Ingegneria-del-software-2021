@@ -6,6 +6,7 @@ import time
 import home.view.VistaHome
 from listaordini.controller.ControllerListaOrdini import ControllerListaOrdini
 from listaordini.view.VistaInserisciOrdine import VistaInserisciOrdine
+from listaprodotti.controller.ControllerListaProdotti import ControllerListaProdotti
 from ordine.controller.ControllerOrdine import ControllerOrdine
 from ordine.view.VistaOrdine import VistaOrdine
 from listaordini.view.VistaInserisciOrdine import VistaInserisciOrdine
@@ -13,8 +14,10 @@ from listaordini.view.VistaInserisciOrdine import VistaInserisciOrdine
 class VistaListaOrdini(QWidget):
     def __init__(self, parent=None):
         super(VistaListaOrdini, self).__init__(parent)
-
+        #self.controller_prodotti = ControllerListaProdotti()
+        #self.lista_prodotti= self.controller_prodotti.get_lista_prodotti()
         self.controller= ControllerListaOrdini()
+
         ###############################
         self.in_arrivo = False
         self.in_negozio = False
@@ -202,7 +205,7 @@ class VistaListaOrdini(QWidget):
 
     def show_inserici_ordine(self):
         self.vista_inserisci_ordine = VistaInserisciOrdine(self.controller, self.retranslateUi, self.lista_dinamica)
-        self.vista_inserisci_ordine.show()
+        self.vista_inserisci_ordine.showMaximized()
 
     def closeEvent(self, event):
         self.controller.save_data()

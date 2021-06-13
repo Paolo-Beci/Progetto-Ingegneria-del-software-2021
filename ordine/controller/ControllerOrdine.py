@@ -1,4 +1,3 @@
-from listaordini.model.ListaOrdini import ListaOrdini
 
 
 class ControllerOrdine:

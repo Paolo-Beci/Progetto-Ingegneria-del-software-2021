@@ -11,6 +11,10 @@ class VistaUtente(QWidget):
         super(VistaUtente, self).__init__(parent)
         self.utente_selezionato= utente
         self.controller= ControllerUtente(utente)
+
+
+
+
         self.controller_lista= controller
         self.elimina_utente_by_codice= elimina_utente_by_codice
         self.update_ui= update_ui

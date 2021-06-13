@@ -2,6 +2,7 @@ import json
 import os.path
 import pickle
 
+from ordine.controller.ControllerOrdine import ControllerOrdine
 from prodotto.model.Prodotto import Prodotto
 
 """
