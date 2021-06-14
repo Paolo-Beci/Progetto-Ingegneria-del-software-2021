@@ -1,8 +1,9 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import QDate
-from PyQt5.QtWidgets import QWidget, QApplication, QMessageBox
+from PyQt5.QtWidgets import QWidget, QApplication
 
+from ordine.model.Ordine import Ordine
 from prodotto.model.Prodotto import Prodotto
+from listaordini.controller.ControllerListaOrdini import ControllerListaOrdini
 
 """
     INSERISCI NUOVO PRODOTTO
@@ -14,6 +15,7 @@ class VistaInserisciProdotto(QWidget):
     def __init__(self, controller, update_ui):
         super(VistaInserisciProdotto, self).__init__()
         self.controller = controller
+        self.controller_lista_ordini = ControllerListaOrdini()
         self.update_ui = update_ui
         self.setObjectName("MainWindow")
         self.resize(1071, 715)
@@ -323,27 +325,18 @@ class VistaInserisciProdotto(QWidget):
         sconto_consigliato = self.lineEdit_sconto_consigliato.text()
         sconto = self.lineEdit_sconto.text()
 
-        # for value in self.info.values():
-        #     if value.text() == "":
-        #         QMessageBox.critical(self, 'Errore', 'Per favore, inserisci tutte le informazioni richieste',
-        #                              QMessageBox.Ok, QMessageBox.Ok)
-        #         return
-        # I CONTROLLI DANNO PROBLEMI DI CRASH
-        # if taglia > 50:
-        #    QMessageBox.critical(self, 'Errore', 'Per favore, inserisci una taglia valida',
-        #                          QMessageBox.Ok, QMessageBox.Ok)
-        #    return
-        # if sconto > 100 or sconto_consigliato > 100:
-        #    QMessageBox.critical(self, 'Errore', 'Per favore, inserisci uno sconto valido',
-        #                         QMessageBox.Ok, QMessageBox.Ok)
-        #    return
-        # if sconto.isnumeric() or sconto_consigliato.isnumeric():
-        #    return
-        # else:
-        #    QMessageBox.critical(self, 'Errore', 'Per favore, inserisci uno sconto numerico',
-        #                         QMessageBox.Ok, QMessageBox.Ok)
-        #    return
+        # creazione nuovo ordine in quanto non ne esiste uno presente con questo codice
+        for ordine in self.controller_lista_ordini.get_lista_ordini():
+            if ordine.cod_fattura == cod_fattura:
+                break
+            else:
+                ordine = Ordine(cod_fattura, cod_fornitore, stagione, None,
+                                data_ordine, None, None,
+                                None, None)
 
+                self.controller_lista_ordini.inserisci_ordine(ordine)
+
+        # aggiunta prodotto ad un ordine esistente
         self.controller.inserisci_prodotto(Prodotto(cod_fattura, cod_fornitore, data_ordine, cod_prodotto,
                                                     marca, nome, tipo, genere, materiale, colore, taglia, quantita,
                                                     prezzo_acquisto, prezzo_vendita, stagione, stato,

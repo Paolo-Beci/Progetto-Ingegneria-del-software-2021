@@ -8,7 +8,7 @@ class VistaLogin(QWidget):
     def __init__(self):
         super(VistaLogin, self).__init__()
         self.controller = ControllerListaDelPersonale()
-        self.corretto = False
+        self.corretto = True
         self.setObjectName("MainWindow")
         self.resize(760, 439)
 

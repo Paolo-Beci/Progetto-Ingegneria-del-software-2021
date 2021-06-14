@@ -1,14 +1,14 @@
 import datetime
 
-from listaprodotti.model.ListaProdotti import ListaProdotti
-import time
+"""
+    CONTROLLER DEL PRODOTTO
+    Contiene i get e set essenziali per gestire il flusso di dati relativo ai prodotti
+"""
 
 
 class ControllerProdotto:
     def __init__(self, prodotto) -> object:
         self.model = prodotto
-
-    def somma_prodotti(self): pass
 
     def modifica_prodotto_by_codice(self, cod_prodotto, new_value):
         self.model.ListaProdotti.modifica_prodotto(cod_prodotto, new_value)
@@ -18,6 +18,9 @@ class ControllerProdotto:
 
     def get_dimensione_lista(self):
         return self.model.get_dimensione_lista()
+
+    def elimina_prodotto_by_codice(self):
+        self.model.ListaProdotti.elimina_prodotto(self.get_cod_prodotto())
 
     # ----------------GET------------------
 

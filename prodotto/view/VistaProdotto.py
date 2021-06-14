@@ -8,6 +8,7 @@ from prodotto.controller.ControllerProdotto import ControllerProdotto
 
 """
     VISUALIZZAZIONE DEI PARAMETRI DEL PRODOTTO
+    DA FARE: Sistemare elimina prodotto che non funzia
 """
 
 
@@ -81,13 +82,13 @@ class VistaProdotto(QWidget):
         self.pushButton_elimina = QtWidgets.QPushButton(self.widget_2)
         self.pushButton_elimina.setObjectName("pushButton_elimina")
         self.gridLayout.addWidget(self.pushButton_elimina, 5, 1, 1, 1)
-        self.pushButton_elimina.clicked.connect(self.elimina_prodotto_click)
+        self.pushButton_elimina.clicked.connect(self.popup_elimina)
         # indetro button
         self.pushButton_indietro = QtWidgets.QPushButton(self.widget_2)
         self.pushButton_indietro.setObjectName("pushButton_indietro")
         self.gridLayout.addWidget(self.pushButton_indietro, 0, 0, 1, 1)
         self.pushButton_indietro.clicked.connect(self.show_back_click)
-
+        # groupbox prezzi e sconti
         self.groupBox_prezzi_sconti = QtWidgets.QGroupBox(self.widget_2)
         self.groupBox_prezzi_sconti.setObjectName("groupBox_prezzi_sconti")
         self.gridLayout_4 = QtWidgets.QGridLayout(self.groupBox_prezzi_sconti)
@@ -113,7 +114,7 @@ class VistaProdotto(QWidget):
         self.label_stato.setObjectName("label_stato")
         self.gridLayout_4.addWidget(self.label_stato, 2, 0, 1, 1)
         self.gridLayout.addWidget(self.groupBox_prezzi_sconti, 4, 1, 1, 2)
-
+        # groupbox codici prodotto
         self.groupBox_codici_prodotto = QtWidgets.QGroupBox(self.widget_2)
         self.groupBox_codici_prodotto.setObjectName("groupBox_codici_prodotto")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.groupBox_codici_prodotto)
@@ -133,15 +134,16 @@ class VistaProdotto(QWidget):
         self.gridLayout.addWidget(self.groupBox_codici_prodotto, 1, 1, 1, 2)
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem1, 6, 1, 1, 1)
-
+        # immagine prodotto
         self.immagine = QtWidgets.QWidget(self.widget_2)
         self.immagine.setObjectName("immagine")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.immagine)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.label = QtWidgets.QLabel(self.immagine)
         self.label.setObjectName("label")
-        pixmap = QPixmap('listaprodotti/data/images/' + str(self.controller.get_cod_prodotto) + '.jpg')
-        self.label.setPixmap(pixmap)
+        pixmap = QPixmap('listaprodotti/data/images/' + str(self.controller.get_cod_prodotto()) + '.jpg')
+        pixmap_scaled = pixmap.scaled(1100, 850, QtCore.Qt.KeepAspectRatio)
+        self.label.setPixmap(pixmap_scaled)
         self.verticalLayout_2.addWidget(self.label)
         self.gridLayout.addWidget(self.immagine, 1, 0, 4, 1)
         self.verticalLayout.addWidget(self.widget_2)
@@ -199,7 +201,7 @@ class VistaProdotto(QWidget):
         msg.buttonClicked.connect(self.elimina_prodotto_click)
 
     def elimina_prodotto_click(self):
-        self.elimina_prodotto_by_codice(self.controller.get_cod_prodotto())
+        self.controller.elimina_prodotto_by_codice()
         self.update_ui()
         self.close()
 

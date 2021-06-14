@@ -35,9 +35,6 @@ class ListaProdotti:
                                  prodotto_da_caricare["sconto_consigliato"],
                                  prodotto_da_caricare["sconto"], prodotto_da_caricare["data_vendita"]))
 
-    def filtra_prodotti(self):
-        pass
-
     def aggiungi_prodotto(self, prodotto):
         self.lista_prodotti.append(prodotto)
         self.save_data()
@@ -99,6 +96,7 @@ class ListaProdotti:
         def is_selected_prodotto(utente):
             if utente.cod_prodotto == codice_prodotto:
                 return True
+            print(utente.cod_prodotto)
             return False
 
         self.lista_prodotti.remove(list(filter(is_selected_prodotto, self.lista_prodotti))[0])
