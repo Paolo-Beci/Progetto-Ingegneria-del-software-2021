@@ -1,5 +1,5 @@
 import time
-from PyQt5 import QtWidgets, QtCore
+from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import QWidget, QMessageBox, QApplication
 from PyQt5.QtGui import QPixmap
 
@@ -20,6 +20,12 @@ class VistaProdotto(QWidget):
         self.setObjectName("MainWindow")
         self.resize(1173, 700)
 
+        # FONT
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setPixelSize(22)
+        font.setWeight(75)
+
         self.centralwidget = QtWidgets.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
@@ -30,6 +36,7 @@ class VistaProdotto(QWidget):
         self.gridLayout.setObjectName("gridLayout")
         self.groupBox_dettagli_prodotto = QtWidgets.QGroupBox(self.widget_2)
         self.groupBox_dettagli_prodotto.setObjectName("groupBox_dettagli_prodotto")
+        self.groupBox_dettagli_prodotto.setFont(font)
         self.gridLayout_3 = QtWidgets.QGridLayout(self.groupBox_dettagli_prodotto)
         self.gridLayout_3.setObjectName("gridLayout_3")
         self.label_data_ordine = QtWidgets.QLabel(self.groupBox_dettagli_prodotto)
@@ -91,6 +98,7 @@ class VistaProdotto(QWidget):
         # groupbox prezzi e sconti
         self.groupBox_prezzi_sconti = QtWidgets.QGroupBox(self.widget_2)
         self.groupBox_prezzi_sconti.setObjectName("groupBox_prezzi_sconti")
+        self.groupBox_prezzi_sconti.setFont(font)
         self.gridLayout_4 = QtWidgets.QGridLayout(self.groupBox_prezzi_sconti)
         self.gridLayout_4.setObjectName("gridLayout_4")
         self.label_prezzo_acquisto = QtWidgets.QLabel(self.groupBox_prezzi_sconti)
@@ -117,6 +125,7 @@ class VistaProdotto(QWidget):
         # groupbox codici prodotto
         self.groupBox_codici_prodotto = QtWidgets.QGroupBox(self.widget_2)
         self.groupBox_codici_prodotto.setObjectName("groupBox_codici_prodotto")
+        self.groupBox_codici_prodotto.setFont(font)
         self.gridLayout_2 = QtWidgets.QGridLayout(self.groupBox_codici_prodotto)
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.label_cod_fattura = QtWidgets.QLabel(self.groupBox_codici_prodotto)
@@ -130,7 +139,7 @@ class VistaProdotto(QWidget):
         self.label_cod_prodotto = QtWidgets.QLabel(self.groupBox_codici_prodotto)
         self.label_cod_prodotto.setAlignment(QtCore.Qt.AlignCenter)
         self.label_cod_prodotto.setObjectName("label_cod_prodotto")
-        self.gridLayout_2.addWidget(self.label_cod_prodotto, 1, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.label_cod_prodotto, 1, 0, 1, 1)
         self.gridLayout.addWidget(self.groupBox_codici_prodotto, 1, 1, 1, 2)
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem1, 6, 1, 1, 1)
