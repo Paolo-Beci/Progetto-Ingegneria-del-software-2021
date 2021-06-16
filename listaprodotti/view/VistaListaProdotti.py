@@ -217,25 +217,23 @@ class VistaListaProdotti(QWidget):
         self.reso.setText(_translate("MainWindow", "RESO"))
         self.inserisci_button.setText(_translate("MainWindow", "Inserisci prodotto"))
 
-        r = 0
-        c = 0
-        i = 1
-        # display prodotto
-        #if not self.lista_prodotti_filtrata:
-        self.display_prodotti_array.clear()
+        row = 0
+        column = 0
+
         for prodotto in self.lista_prodotti_filtrata:
-            self.vista_display_prodotto = VistaDisplayProdotto(prodotto, self.retranslateUi, self.widget, r, c,
-                                                               self.gridLayout_2)
-            self.display_prodotti_array.append(self.vista_display_prodotto)
-            if c == 4:
-                c = 0
+            self.widget_generico = QtWidgets.QWidget(self.scrollAreaWidgetContents)
+            self.displayprodotto1 = VistaDisplayProdotto(prodotto)
+            self.widget_generico = self.displayprodotto1
+            self.widget_generico.setMinimumSize(QtCore.QSize(0, 200))
+
+            self.gridLayout_2.addWidget(self.widget_generico, row, column, 1, 1)
+
+            if column == 2:
+                row = row + 1
+                column = 0
             else:
-                c = c + 2
-            if i == 3:
-                i = 1
-                r = r + 2
-            else:
-                i = i + 1
+                column = column + 1
+
         #else:
         # self.scrollArea.close()
         # self.scrollArea = QtWidgets.QScrollArea(self.centralwidget)
