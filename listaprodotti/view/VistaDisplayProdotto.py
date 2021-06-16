@@ -1,4 +1,6 @@
-from PyQt5 import QtWidgets, QtCore
+import os
+
+from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QWidget
 
@@ -16,6 +18,12 @@ class VistaDisplayProdotto(QWidget):
 
         self.prodotto= prodotto
 
+        # FONT
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setPixelSize(20)
+        font.setWeight(75)
+
         self.setObjectName("Form")
         self.resize(400, 500)
         self.gridLayout_2 = QtWidgets.QGridLayout(self)
@@ -26,7 +34,10 @@ class VistaDisplayProdotto(QWidget):
         self.label_foto.setScaledContents(False)
         self.label_foto.setAlignment(QtCore.Qt.AlignCenter)
         self.label_foto.setObjectName("label_foto")
-        pixmap = QPixmap('listaprodotti/data/images/' + str(self.prodotto.cod_prodotto) +'.jpg')
+        if os.path.isfile('listaprodotti/data/images/' + str(prodotto.cod_prodotto) + '.jpg'):
+            pixmap = QPixmap('listaprodotti/data/images/' + str(prodotto.cod_prodotto) + '.jpg')
+        else:
+            pixmap = QPixmap('listaprodotti/data/images/noimage.jpg')
         self.label_foto.setPixmap(pixmap)
         self.gridLayout.addWidget(self.label_foto, 0, 0, 1, 2)
         self.label_marca = QtWidgets.QLabel(self)
@@ -37,6 +48,7 @@ class VistaDisplayProdotto(QWidget):
         self.label_marca.setSizePolicy(sizePolicy)
         self.label_marca.setMinimumSize(QtCore.QSize(0, 30))
         self.label_marca.setObjectName("label_marca")
+        self.label_marca.setFont(font)
         self.gridLayout.addWidget(self.label_marca, 1, 1, 1, 1)
         self.pushButton_dettagli = QtWidgets.QPushButton(self)
         self.pushButton_dettagli.setObjectName("pushButton_dettagli")
@@ -50,6 +62,7 @@ class VistaDisplayProdotto(QWidget):
         self.label_nome.setSizePolicy(sizePolicy)
         self.label_nome.setMinimumSize(QtCore.QSize(0, 30))
         self.label_nome.setObjectName("label_nome")
+        self.label_nome.setFont(font)
         self.gridLayout.addWidget(self.label_nome, 1, 0, 1, 1)
         self.label_prezzo_vendita = QtWidgets.QLabel(self)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
@@ -59,7 +72,10 @@ class VistaDisplayProdotto(QWidget):
         self.label_prezzo_vendita.setSizePolicy(sizePolicy)
         self.label_prezzo_vendita.setMinimumSize(QtCore.QSize(0, 30))
         self.label_prezzo_vendita.setObjectName("label_prezzo_vendita")
-        self.gridLayout.addWidget(self.label_prezzo_vendita, 2, 0, 1, 2)
+        font.setPixelSize(30)
+        self.label_prezzo_vendita.setFont(font)
+        font.setPixelSize(20)
+        self.gridLayout.addWidget(self.label_prezzo_vendita, 3, 0, 1, 2)
         self.label_taglia = QtWidgets.QLabel(self)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -68,7 +84,8 @@ class VistaDisplayProdotto(QWidget):
         self.label_taglia.setSizePolicy(sizePolicy)
         self.label_taglia.setMinimumSize(QtCore.QSize(0, 30))
         self.label_taglia.setObjectName("label_taglia")
-        self.gridLayout.addWidget(self.label_taglia, 3, 0, 1, 1)
+        self.label_taglia.setFont(font)
+        self.gridLayout.addWidget(self.label_taglia, 2, 0, 1, 1)
         self.label_quantita = QtWidgets.QLabel(self)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -77,7 +94,8 @@ class VistaDisplayProdotto(QWidget):
         self.label_quantita.setSizePolicy(sizePolicy)
         self.label_quantita.setMinimumSize(QtCore.QSize(0, 30))
         self.label_quantita.setObjectName("label_quantita")
-        self.gridLayout.addWidget(self.label_quantita, 3, 1, 1, 1)
+        self.label_quantita.setFont(font)
+        self.gridLayout.addWidget(self.label_quantita, 2, 1, 1, 1)
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
 
         self.retranslateUi()
@@ -86,12 +104,12 @@ class VistaDisplayProdotto(QWidget):
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
 
-        self.label_marca.setText(_translate("Form", self.prodotto.marca))
+        self.label_marca.setText(_translate("Form", "Nome: " + str(self.prodotto.marca)))
         self.pushButton_dettagli.setText(_translate("Form", "Dettagli"))
-        self.label_nome.setText(_translate("Form", self.prodotto.nome))
-        self.label_prezzo_vendita.setText(_translate("Form", "Prezzo vendita"))
-        self.label_taglia.setText(_translate("Form", "Taglia"))
-        self.label_quantita.setText(_translate("Form", "Quantita"))
+        self.label_nome.setText(_translate("Form", "Nome: " + str(self.prodotto.nome)))
+        self.label_prezzo_vendita.setText(_translate("Form", "Prezzo: " + str(self.prodotto.prezzo_vendita)))
+        self.label_taglia.setText(_translate("Form", "Taglia: " + str(self.prodotto.taglia)))
+        self.label_quantita.setText(_translate("Form", "Quantità: " + str(self.prodotto.quantita)))
 
     def dettagli_click(self):
         self.vista_prodotto= VistaProdotto(self.prodotto, None)

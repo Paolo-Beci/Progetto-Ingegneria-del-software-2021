@@ -101,7 +101,8 @@ class VistaLogin(QWidget):
             if str(utente.username) == str(self.username_inserito):
                 if str(utente.password) == str(self.password_inserito):
                     self.corretto = True
-                    print("PORCO CORRADINI")
+                    # setattr(VistaLogin, 'corretto', True)
+                    print("CICLO interno eseguito")
                     break
         print("Dentro"+str(self.corretto))
         if self.corretto:
