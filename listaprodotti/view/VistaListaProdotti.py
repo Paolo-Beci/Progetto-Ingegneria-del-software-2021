@@ -3,6 +3,7 @@ from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QWidget, QLabel, QMessageBox, QApplication
 import time
 
+from listaordini.controller.ControllerListaOrdini import ControllerListaOrdini
 from listaprodotti.controller.ControllerListaProdotti import ControllerListaProdotti
 from listaprodotti.view.VistaInserisciProdotto import VistaInserisciProdotto
 from listaprodotti.view.VistaDisplayProdotto import VistaDisplayProdotto
@@ -15,8 +16,9 @@ from listaprodotti.view.VistaDisplayProdotto import VistaDisplayProdotto
 class VistaListaProdotti(QWidget):
     def __init__(self, parent=None):
         super(VistaListaProdotti, self).__init__(parent)
-        self.controller = ControllerListaProdotti()
-        self.lista_prodotti= self.controller.get_lista_prodotti()
+        self.controller_lista_ordini= ControllerListaOrdini()
+        self.controller_lista_prodotti = ControllerListaProdotti()
+        self.lista_prodotti= self.controller_lista_prodotti.get_lista_prodotti()
         self.lista_prodotti_filtrata = self.lista_prodotti[:]
         self.display_prodotti_array = []
         self.setWindowTitle("Lista Prodotti")
@@ -75,7 +77,7 @@ class VistaListaProdotti(QWidget):
         self.inserisci_button.setSizePolicy(sizePolicy)
         self.inserisci_button.setObjectName("inserisci_button")
         self.gridLayout_3.addWidget(self.inserisci_button, 0, 9, 1, 1)
-        self.inserisci_button.clicked.connect(self.inserisci_prodotto)
+        self.inserisci_button.clicked.connect(self.show_inserisci_prodotto)
         # ----------FILTRI COMBOBOX--------------
         # taglia
         self.taglia = QtWidgets.QComboBox(self.topWidget)
@@ -116,7 +118,7 @@ class VistaListaProdotti(QWidget):
         self.marca = QtWidgets.QComboBox(self.topWidget)
         self.marca.setObjectName("marca")
         self.marca.addItem("Marca")
-        for item in self.controller.get_lista_marche():
+        for item in self.controller_lista_prodotti.get_lista_marche():
             self.marca.addItem(str(item))
         self.gridLayout_3.addWidget(self.marca, 3, 4, 1, 1)
         self.marca.currentIndexChanged.connect(self.filtro_lista)
@@ -167,7 +169,7 @@ class VistaListaProdotti(QWidget):
         self.indietro.setSizePolicy(sizePolicy)
         self.indietro.setObjectName("indietro")
         self.gridLayout_3.addWidget(self.indietro, 0, 0, 1, 1)
-        self.indietro.clicked.connect(self.show_home)
+        self.indietro.clicked.connect(self.close)
 
         self.verticalLayout.addWidget(self.topWidget)
 
@@ -271,19 +273,16 @@ class VistaListaProdotti(QWidget):
          Eventi trigger click dei bottoni
     """
 
-    def show_inserici_prodotto(self):
-        self.vista_inserisci_prodotto = VistaInserisciProdotto(self.controller, self.retranslateUi)
+    def show_inserisci_prodotto(self):
+        self.vista_inserisci_prodotto = VistaInserisciProdotto(self.controller_lista_prodotti, self.retranslateUi, False, None)
         self.vista_inserisci_prodotto.show()
-
-    def show_home(self):
-        self.close()
 
     def cerca_prodotto(self):
         # if cod_prodotto.isalnum() and cod_prodotto.startswith('S'):
         # else:
         #     self.popup_errore()
 
-        self.lista_prodotti = self.controller.get_lista_prodotti()
+        self.lista_prodotti = self.controller_lista_prodotti.get_lista_prodotti()
         self.lista_prodotti_filtrata = self.lista_prodotti[:]
         codice = self.cerca.text()
         codice.capitalize()
@@ -308,7 +307,7 @@ class VistaListaProdotti(QWidget):
         print(filtro_genere)
         print(filtro_collezione)
         print(filtro_tipo)
-        lista = self.controller.get_lista_prodotti()
+        lista = self.controller_lista_prodotti.get_lista_prodotti()
         self.lista_prodotti_filtrata = lista[:]
 
         if filtro_taglia != "Taglia":
@@ -338,21 +337,21 @@ class VistaListaProdotti(QWidget):
 
     def show_in_arrivo(self):
         self.lista_prodotti_filtrata.clear()
-        for prodotto in self.controller.get_lista_prodotti():
+        for prodotto in self.controller_lista_prodotti.get_lista_prodotti():
             if prodotto.stato == "In arrivo":
                 self.lista_prodotti_filtrata.append(prodotto)
         self.retranslateUi()
 
     def show_in_negozio(self):
         self.lista_prodotti_filtrata.clear()
-        for prodotto in self.controller.get_lista_prodotti():
+        for prodotto in self.controller_lista_prodotti.get_lista_prodotti():
             if prodotto.stato == "In negozio":
                 self.lista_prodotti_filtrata.append(prodotto)
         self.retranslateUi()
 
     def show_venduto(self):
         self.lista_prodotti_filtrata.clear()
-        for prodotto in self.controller.get_lista_prodotti():
+        for prodotto in self.controller_lista_prodotti.get_lista_prodotti():
             if prodotto.stato == "Venduto":
                 self.lista_prodotti_filtrata.append(prodotto)
 
@@ -360,16 +359,12 @@ class VistaListaProdotti(QWidget):
 
     def show_reso(self):
         self.lista_prodotti_filtrata.clear()
-        for prodotto in self.controller.get_lista_prodotti():
+        for prodotto in self.controller_lista_prodotti.get_lista_prodotti():
             if prodotto.stato == "Reso":
                 self.lista_prodotti_filtrata.append(prodotto)
 
         self.display_prodotti_array.clear()
         self.retranslateUi()
-
-    def inserisci_prodotto(self):
-        self.inserisci_prodotto = VistaInserisciProdotto(self.controller, self.retranslateUi)
-        self.inserisci_prodotto.showMaximized()
 
     def popup_errore(self):
         msg = QMessageBox()
@@ -381,7 +376,8 @@ class VistaListaProdotti(QWidget):
         msg.exec_()
 
     def closeEvent(self, event):
-        self.controller.save_data()
+        self.controller_lista_ordini.save_data()
+        self.controller_lista_prodotti.save_data()
 
 
 

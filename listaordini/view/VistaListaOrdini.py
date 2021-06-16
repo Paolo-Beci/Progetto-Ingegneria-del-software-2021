@@ -8,23 +8,35 @@ from listaordini.controller.ControllerListaOrdini import ControllerListaOrdini
 from listaordini.view.VistaInserisciOrdine import VistaInserisciOrdine
 from listaprodotti.controller.ControllerListaProdotti import ControllerListaProdotti
 from ordine.controller.ControllerOrdine import ControllerOrdine
+from ordine.model.Ordine import Ordine
 from ordine.view.VistaOrdine import VistaOrdine
 from listaordini.view.VistaInserisciOrdine import VistaInserisciOrdine
+
 
 class VistaListaOrdini(QWidget):
     def __init__(self, parent=None):
         super(VistaListaOrdini, self).__init__(parent)
-        #self.controller_prodotti = ControllerListaProdotti()
+        self.controller_lista_prodotti = ControllerListaProdotti()
         #self.lista_prodotti= self.controller_prodotti.get_lista_prodotti()
-        self.controller= ControllerListaOrdini()
+        self.controller_lista_ordini= ControllerListaOrdini()
 
         ###############################
         self.in_arrivo = False
         self.in_negozio = False
-        self.lista_ordini = self.controller.get_lista_ordini()
+        self.lista_ordini = self.controller_lista_ordini.get_lista_ordini()
         #self.lista_dinamica = self.controller.get_lista_dinamica()
-        self.lista_dinamica = self.lista_ordini[:]
+        self.lista_dinamica_ordini = self.lista_ordini[:] #serve per i filtri
         #############################
+        # creazione nuovo ordine in quanto non ne esiste uno presente con questo codice
+        ordine_esistente= False
+        for prodotto in self.controller_lista_prodotti.get_lista_prodotti():
+            for ordine in self.lista_ordini:
+                if str(ordine.cod_fattura) == str(prodotto.cod_fattura):
+                    ordine_esistente= True
+
+            if not ordine_esistente:
+                ordine = Ordine(prodotto.cod_fattura, prodotto.cod_fornitore, prodotto.stagione, None, prodotto.data_ordine, None, None, None, None)
+                self.lista_dinamica_ordini.append(ordine)
 
         self.setObjectName("Form")
         self.resize(1121, 576)
@@ -177,8 +189,8 @@ class VistaListaOrdini(QWidget):
         self.tableWidget.setColumnCount(7)
         if self.in_arrivo or self.in_negozio:
             self.filter()
-        self.tableWidget.setRowCount(len(self.lista_dinamica))
-        for ordine in self.lista_dinamica:
+        self.tableWidget.setRowCount(len(self.lista_dinamica_ordini))
+        for ordine in self.lista_dinamica_ordini:
             item = QTableWidgetItem(str(ordine.cod_fattura))
             item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
             self.tableWidget.setItem(row, 0, QtWidgets.QTableWidgetItem(item))
@@ -197,78 +209,81 @@ class VistaListaOrdini(QWidget):
     def show_ordine(self):
         if len(self.tableWidget.selectedIndexes()) > 0:
             selected = self.tableWidget.selectedIndexes()[0].row()
-            ordine_selezionato = self.lista_dinamica[selected]
-            self.vista_ordine = VistaOrdine(ordine_selezionato, self.controller.elimina_ordine_by_codice, self.retranslateUi, self.controller, self.lista_dinamica)
+            ordine_selezionato = self.lista_dinamica_ordini[selected]
+            self.vista_ordine = VistaOrdine(ordine_selezionato, self.controller_lista_ordini.elimina_ordine_by_codice, self.retranslateUi, self.controller_lista_ordini, self.controller_lista_prodotti)
             self.vista_ordine.showMaximized()
             time.sleep(0.3)
-            self.close()
 
     def show_inserici_ordine(self):
-        self.vista_inserisci_ordine = VistaInserisciOrdine(self.controller, self.retranslateUi, self.lista_dinamica)
+        self.vista_inserisci_ordine = VistaInserisciOrdine(self.controller_lista_ordini, self.controller_lista_prodotti, self.retranslateUi, self.lista_dinamica_ordini)
         self.vista_inserisci_ordine.showMaximized()
 
     def closeEvent(self, event):
-        self.controller.save_data()
+        self.controller_lista_ordini.save_data()
 
     def filter_in_arrivo(self):
         self.in_arrivo = True
         self.in_negozio = False
-        self.lista_ordini = self.controller.get_lista_ordini()
-        self.lista_dinamica = self.lista_ordini[:]
+        self.lista_ordini = self.controller_lista_ordini.get_lista_ordini()
+        self.lista_dinamica_ordini = self.lista_ordini[:]
         self.filter()
         self.retranslateUi()
 
     def filter_in_negozio(self):
         self.in_arrivo= False
         self.in_negozio= True
-        self.lista_ordini = self.controller.get_lista_ordini()
-        self.lista_dinamica = self.lista_ordini[:]
+        self.lista_ordini = self.controller_lista_ordini.get_lista_ordini()
+        self.lista_dinamica_ordini = self.lista_ordini[:]
         self.filter()
         self.retranslateUi()
 
     def filter_all(self):
         self.in_arrivo = False
         self.in_negozio = False
-        self.lista_ordini = self.controller.get_lista_ordini()
-        self.lista_dinamica = self.lista_ordini[:]
+        self.lista_ordini = self.controller_lista_ordini.get_lista_ordini()
+        self.lista_dinamica_ordini = self.lista_ordini[:]
         self.filter()
         self.retranslateUi()
 
     def filter_cerca(self):
-        self.lista_ordini = self.controller.get_lista_ordini()
-        self.lista_dinamica = self.lista_ordini[:]
+        self.lista_ordini = self.controller_lista_ordini.get_lista_ordini()
+        self.lista_dinamica_ordini = self.lista_ordini[:]
         codice= self.lineEdit_cerca.text()
         codice.capitalize()
         elementi_da_rimuovere = []
-        for ordine in self.lista_dinamica:
+        for ordine in self.lista_dinamica_ordini:
             if not (codice in str(ordine.cod_fattura)):
                 elementi_da_rimuovere.append(ordine)
         for ordine in elementi_da_rimuovere:
-            if ordine in self.lista_dinamica:
-                self.lista_dinamica.remove(ordine)
+            if ordine in self.lista_dinamica_ordini:
+                self.lista_dinamica_ordini.remove(ordine)
         self.retranslateUi()
 
     def filter(self):
         elementi_da_rimuovere = []
 
         if self.in_arrivo:
-            for ordine in self.lista_dinamica:
+            for ordine in self.lista_dinamica_ordini:
                 if str(ordine.stato) != "In arrivo":
                     elementi_da_rimuovere.append(ordine)
             for ordine in elementi_da_rimuovere:
-                if ordine in self.lista_dinamica:
-                    self.lista_dinamica.remove(ordine)
+                if ordine in self.lista_dinamica_ordini:
+                    self.lista_dinamica_ordini.remove(ordine)
             return
 
         if self.in_negozio:
-            for ordine in self.lista_dinamica:
+            for ordine in self.lista_dinamica_ordini:
                 if str(ordine.stato)!= "In negozio":
                     elementi_da_rimuovere.append(ordine)
             for ordine in elementi_da_rimuovere:
-                if ordine in self.lista_dinamica:
-                    self.lista_dinamica.remove(ordine)
+                if ordine in self.lista_dinamica_ordini:
+                    self.lista_dinamica_ordini.remove(ordine)
             return
         else:
-            self.lista_ordini= self.controller.get_lista_ordini()
-            self.lista_dinamica= self.lista_ordini[:]
+            self.lista_ordini= self.controller_lista_ordini.get_lista_ordini()
+            self.lista_dinamica_ordini= self.lista_ordini[:]
             return
+
+    def closeEvent(self, event):
+        self.controller_lista_prodotti.save_data()
+        self.controller_lista_ordini.save_data()

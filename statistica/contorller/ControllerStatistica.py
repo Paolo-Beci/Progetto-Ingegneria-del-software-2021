@@ -48,7 +48,7 @@ class ControllerStatistica():
 
     # Metodo per costruire un dizionario contentente il codice del prodotto associato al numero di prodotti venduti
     def costruzione_dizionario(self, anno, stagione):
-        with open('listaprodotti/data/database_prodotti.json') as f:
+        with open('listaprodotti/data/DatabaseProdotti.json') as f:
             lista_prodotti = json.load(f)
             dizionario = {}
 
@@ -90,7 +90,7 @@ class ControllerStatistica():
 
     # Metodo per calcolare i prodotti più redditizi
     def prod_piu_redditizi(self, anno, stagione):
-        with open('listaprodotti/data/database_prodotti.json') as f:
+        with open('listaprodotti/data/DatabaseProdotti.json') as f:
             lista_prodotti = json.load(f)
             dizionario = {}
 

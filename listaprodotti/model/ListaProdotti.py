@@ -16,11 +16,14 @@ class ListaProdotti:
         super(ListaProdotti, self).__init__()
         self.lista_prodotti = []
         self.lista_marche = []
-        if os.path.isfile('listaprodotti/data/lista_prodotti_salvata.pickle'):
-            with open('listaprodotti/data/lista_prodotti_salvata.pickle', 'rb') as f:
-                self.lista_prodotti = pickle.load(f)
+        if os.path.isfile('listaprodotti/data/DatabaseProdotti.pickle') and os.stat('listaprodotti/data/DatabaseProdotti.pickle').st_size!=0:
+            with open('listaprodotti/data/DatabaseProdotti.pickle', 'rb') as f:
+                try:
+                    self.lista_prodotti = pickle.load(f)
+                except EOFError:
+                    return
         else:
-            with open('listaprodotti/data/database_prodotti.json') as f:
+            with open('listaprodotti/data/DatabaseProdotti.json') as f:
                 lista_prodotti_json = json.load(f)
                 for prodotto_da_caricare in lista_prodotti_json:
                     self.aggiungi_prodotto_da_database(
@@ -105,5 +108,5 @@ class ListaProdotti:
         self.lista_prodotti.append(prodotto)
 
     def save_data(self):
-        with open('listaprodotti/data/lista_prodotti_salvata.pickle', 'wb') as handle:
+        with open('listaprodotti/data/DatabaseProdotti.pickle', 'wb') as handle:
             pickle.dump(self.lista_prodotti, handle, pickle.HIGHEST_PROTOCOL)

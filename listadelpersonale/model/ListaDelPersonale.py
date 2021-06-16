@@ -52,16 +52,10 @@ class ListaDelPersonale:
         return self.lista_dinamica
 
     def elimina_utente_by_codice(self, codice_utente, lista_dinamica):
-        # def is_selected_utente(utente):
-        #     if utente.cod_utente == codice_utente:
-        #         return True
-        #     return False
-        # self.lista_del_personale.remove(list(filter(is_selected_utente, self.lista_del_personale))[0])
         for utente in self.lista_del_personale:
             if utente.cod_utente== codice_utente:
                 self.lista_del_personale.remove(utente)
                 lista_dinamica.remove(utente)
-        #self.lista_dinamica.remove(list(filter(is_selected_utente, self.lista_dinamica))[0])
 
     def get_utente_by_index(self, index):
         return self.lista_del_personale[index]
@@ -70,5 +64,3 @@ class ListaDelPersonale:
         with open('listadelpersonale/data/DatabaseDelPersonale.pickle', 'wb') as handle:
             pickle.dump(self.lista_del_personale, handle, pickle.HIGHEST_PROTOCOL)
 
-    # def aggiungi_utente_da_database(self, utente):
-    #   self.lista_del_personale.append(utente)

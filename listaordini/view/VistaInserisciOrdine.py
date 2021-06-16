@@ -1,6 +1,5 @@
 from PyQt5 import QtWidgets, QtCore, QtGui
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QSpacerItem, QSizePolicy, QPushButton, QMessageBox, \
-    QTableWidgetItem
+from PyQt5.QtWidgets import QWidget, QTableWidgetItem
 
 from listaprodotti.view.VistaInserisciProdotto import VistaInserisciProdotto
 from ordine.model.Ordine import Ordine
@@ -13,11 +12,16 @@ DA FARE
 
 
 class VistaInserisciOrdine(QWidget):
-    def __init__(self, controller, update_ui, lista_dinamica):
+    def __init__(self, controller_lista_ordini, controller_lista_prodotti, update_ui, lista_dinamica):
         super(VistaInserisciOrdine, self).__init__()
-        self.controller = controller
+
+        self.controller_lista_ordini = controller_lista_ordini
+        self.controller_lista_prodotti= controller_lista_prodotti
+
         self.update_ui = update_ui
-        self.lista_dinamica= lista_dinamica
+        self.lista_dinamica= lista_dinamica # Lista contenente gli ordini
+
+        self.lista_prodotti_ordine= [] #lista di appoggio
 
         #######################################
         self.setObjectName("Form")
@@ -41,12 +45,12 @@ class VistaInserisciOrdine(QWidget):
         self.gridLayout.addWidget(self.label_10, 1, 2, 1, 1)
         spacerItem1 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.gridLayout.addItem(spacerItem1, 28, 0, 1, 7)
-        self.pushButton_apri = QtWidgets.QPushButton(self)
-        self.pushButton_apri.setMinimumSize(QtCore.QSize(130, 0))
-        self.pushButton_apri.setMaximumSize(QtCore.QSize(130, 16777215))
-        self.pushButton_apri.setObjectName("pushButton_apri")
-        #self.pushButton_apri.clicked.connect()
-        self.gridLayout.addWidget(self.pushButton_apri, 1, 4, 1, 1)
+        self.pushButton_rimuovi = QtWidgets.QPushButton(self)
+        self.pushButton_rimuovi.setMinimumSize(QtCore.QSize(130, 0))
+        self.pushButton_rimuovi.setMaximumSize(QtCore.QSize(130, 16777215))
+        self.pushButton_rimuovi.setObjectName("pushButton_rimuovi")
+        self.pushButton_rimuovi.clicked.connect(self.rimuovi_prodotto)
+        self.gridLayout.addWidget(self.pushButton_rimuovi, 1, 4, 1, 1)
         spacerItem2 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.gridLayout.addItem(spacerItem2, 0, 0, 1, 7)
         spacerItem3 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
@@ -84,17 +88,17 @@ class VistaInserisciOrdine(QWidget):
         self.gridLayout.addItem(spacerItem7, 1, 3, 1, 1)
         spacerItem8 = QtWidgets.QSpacerItem(15, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem8, 1, 5, 1, 1)
-        self.pushButton_nuovo = QtWidgets.QPushButton(self)
-        self.pushButton_nuovo.setMinimumSize(QtCore.QSize(130, 0))
-        self.pushButton_nuovo.setMaximumSize(QtCore.QSize(130, 16777215))
-        self.pushButton_nuovo.setObjectName("pushButton_nuovo")
-        self.pushButton_nuovo.clicked.connect(self.inserisci_prodotto)
-        self.gridLayout.addWidget(self.pushButton_nuovo, 1, 6, 1, 1)
+        self.pushButton_inserisci = QtWidgets.QPushButton(self)
+        self.pushButton_inserisci.setMinimumSize(QtCore.QSize(130, 0))
+        self.pushButton_inserisci.setMaximumSize(QtCore.QSize(130, 16777215))
+        self.pushButton_inserisci.setObjectName("pushButton_inserisci")
+        self.pushButton_inserisci.clicked.connect(self.show_inserisci_prodotto)
+        self.gridLayout.addWidget(self.pushButton_inserisci, 1, 6, 1, 1)
         self.tableWidget = QtWidgets.QTableWidget(self)
         self.tableWidget.setMinimumSize(QtCore.QSize(710, 0))
         self.tableWidget.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.tableWidget.setObjectName("tableWidget")
-        self.tableWidget.setColumnCount(7)
+        self.tableWidget.setColumnCount(6)
         self.tableWidget.setRowCount(0)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(0, item)
@@ -108,8 +112,13 @@ class VistaInserisciOrdine(QWidget):
         self.tableWidget.setHorizontalHeaderItem(4, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(5, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidget.setHorizontalHeaderItem(6, item)
+
+        self.tableWidget.setColumnWidth(0, 150)
+        self.tableWidget.setColumnWidth(1, 200)
+        self.tableWidget.setColumnWidth(2, 200)
+        self.tableWidget.setColumnWidth(3, 150)
+        self.tableWidget.setColumnWidth(4, 180)
+        self.tableWidget.setColumnWidth(5, 180)
         self.gridLayout.addWidget(self.tableWidget, 2, 2, 26, 5)
         self.label_cod_fattura = QtWidgets.QLabel(self)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
@@ -156,6 +165,7 @@ class VistaInserisciOrdine(QWidget):
         self.comboBox_stagione = QtWidgets.QComboBox(self)
         self.comboBox_stagione.setMaximumSize(QtCore.QSize(250, 16777215))
         self.comboBox_stagione.setObjectName("comboBox_stagione")
+        self.comboBox_stagione.addItem("")
         self.comboBox_stagione.addItem("")
         self.gridLayout.addWidget(self.comboBox_stagione, 8, 0, 1, 1)
         spacerItem11 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
@@ -236,26 +246,26 @@ class VistaInserisciOrdine(QWidget):
         self.label_importo_totale.setMaximumSize(QtCore.QSize(16777215, 30))
         self.label_importo_totale.setObjectName("label_importo_totale")
         self.gridLayout.addWidget(self.label_importo_totale, 22, 0, 1, 1)
-        self.lineEdit_importo_totale = QtWidgets.QLineEdit(self)
-        self.lineEdit_importo_totale.setMaximumSize(QtCore.QSize(250, 16777215))
-        self.lineEdit_importo_totale.setObjectName("lineEdit_importo_totale")
-        self.gridLayout.addWidget(self.lineEdit_importo_totale, 23, 0, 1, 1)
+        # self.lineEdit_importo_totale = QtWidgets.QLineEdit(self)
+        # self.lineEdit_importo_totale.setMaximumSize(QtCore.QSize(250, 16777215))
+        # self.lineEdit_importo_totale.setObjectName("lineEdit_importo_totale")
+        # self.gridLayout.addWidget(self.lineEdit_importo_totale, 23, 0, 1, 1)
         spacerItem16 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.gridLayout.addItem(spacerItem16, 24, 0, 1, 1)
-        self.label_calzature_totalli = QtWidgets.QLabel(self)
+        self.label_calzature_totali = QtWidgets.QLabel(self)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.label_calzature_totalli.sizePolicy().hasHeightForWidth())
-        self.label_calzature_totalli.setSizePolicy(sizePolicy)
-        self.label_calzature_totalli.setMinimumSize(QtCore.QSize(0, 20))
-        self.label_calzature_totalli.setMaximumSize(QtCore.QSize(16777215, 30))
-        self.label_calzature_totalli.setObjectName("label_calzature_totalli")
-        self.gridLayout.addWidget(self.label_calzature_totalli, 25, 0, 1, 1)
-        self.lineEdit_calzature_totali = QtWidgets.QLineEdit(self)
-        self.lineEdit_calzature_totali.setMaximumSize(QtCore.QSize(250, 16777215))
-        self.lineEdit_calzature_totali.setObjectName("lineEdit_calzature_totali")
-        self.gridLayout.addWidget(self.lineEdit_calzature_totali, 26, 0, 1, 1)
+        sizePolicy.setHeightForWidth(self.label_calzature_totali.sizePolicy().hasHeightForWidth())
+        self.label_calzature_totali.setSizePolicy(sizePolicy)
+        self.label_calzature_totali.setMinimumSize(QtCore.QSize(0, 20))
+        self.label_calzature_totali.setMaximumSize(QtCore.QSize(16777215, 30))
+        self.label_calzature_totali.setObjectName("label_calzature_totali")
+        self.gridLayout.addWidget(self.label_calzature_totali, 25, 0, 1, 1)
+        # self.lineEdit_calzature_totali = QtWidgets.QLineEdit(self)
+        # self.lineEdit_calzature_totali.setMaximumSize(QtCore.QSize(250, 16777215))
+        # self.lineEdit_calzature_totali.setObjectName("lineEdit_calzature_totali")
+        # self.gridLayout.addWidget(self.lineEdit_calzature_totali, 26, 0, 1, 1)
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
 
         self.retranslateUi()
@@ -266,97 +276,79 @@ class VistaInserisciOrdine(QWidget):
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
         self.label_10.setText(_translate("Form", "Lista prodotti ordine:"))
-        self.pushButton_apri.setText(_translate("Form", "Apri"))
+        self.pushButton_rimuovi.setText(_translate("Form", "Rimuovi prodotto"))
         self.pushButton_salva.setText(_translate("Form", "Salva"))
         self.pushButton_annulla.setText(_translate("Form", "Annulla"))
-        self.pushButton_nuovo.setText(_translate("Form", "Inserisci prodotto"))
+        self.pushButton_inserisci.setText(_translate("Form", "Inserisci prodotto"))
         item = self.tableWidget.horizontalHeaderItem(0)
         item.setText(_translate("Form", "Codice prodotto"))
         item = self.tableWidget.horizontalHeaderItem(1)
         item.setText(_translate("Form", "Marca"))
         item = self.tableWidget.horizontalHeaderItem(2)
-        item.setText(_translate("Form", "Nome"))
-        item = self.tableWidget.horizontalHeaderItem(3)
         item.setText(_translate("Form", "Tipo"))
+        item = self.tableWidget.horizontalHeaderItem(3)
+        item.setText(_translate("Form", "Quantità"))
         item = self.tableWidget.horizontalHeaderItem(4)
-        item.setText(_translate("Form", "Genere"))
-        item = self.tableWidget.horizontalHeaderItem(5)
         item.setText(_translate("Form", "Taglia"))
-        item = self.tableWidget.horizontalHeaderItem(6)
+        item = self.tableWidget.horizontalHeaderItem(5)
         item.setText(_translate("Form", "Prezzo d\'acquisto"))
 
         row = 0
-        self.tableWidget.setColumnCount(7)
-        self.tableWidget.setRowCount(len(self.lista_dinamica))
-        for prodotto in self.lista_dinamica:
-            item = QTableWidgetItem(str(utente.cod_utente))
+        self.tableWidget.setColumnCount(6)
+        self.tableWidget.setRowCount(len(self.lista_prodotti_ordine))
+
+        for prodotto in self.lista_prodotti_ordine:
+            item = QTableWidgetItem(str(prodotto.cod_prodotto))
             item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
             self.tableWidget.setItem(row, 0, QtWidgets.QTableWidgetItem(item))
-            self.tableWidget.setItem(row, 1, QtWidgets.QTableWidgetItem(utente.nome))
-            self.tableWidget.setItem(row, 2, QtWidgets.QTableWidgetItem(utente.cognome))
-            if utente.ruolo == "A":
-                ruolo = "Amministratore"
-            else:
-                ruolo = "Dipendente"
-
-            self.tableWidget.setItem(row, 3, QtWidgets.QTableWidgetItem(ruolo))
-            self.tableWidget.setItem(row, 4, QtWidgets.QTableWidgetItem(str(utente.telefono)))
-            self.tableWidget.setItem(row, 5, QtWidgets.QTableWidgetItem(utente.data_scadenza_contratto))
+            self.tableWidget.setItem(row, 1, QtWidgets.QTableWidgetItem(prodotto.marca))
+            self.tableWidget.setItem(row, 2, QtWidgets.QTableWidgetItem(prodotto.tipo))
+            self.tableWidget.setItem(row, 3, QtWidgets.QTableWidgetItem(str(prodotto.quantita)))
+            self.tableWidget.setItem(row, 4, QtWidgets.QTableWidgetItem(str(prodotto.taglia)))
+            self.tableWidget.setItem(row, 5, QtWidgets.QTableWidgetItem(str(prodotto.prezzo_acquisto) + " €"))
 
             row = row + 1
 
+        importo_totale = 0
+        calzature_totali = 0
+
+        for prodotto in self.lista_prodotti_ordine:
+            importo_totale = importo_totale + int(prodotto.prezzo_acquisto)
+            calzature_totali = calzature_totali + int(prodotto.quantita)
+
         self.label_cod_fattura.setText(_translate("Form", "Codice fattura"))
-        #self.lineEdit_cod_fattura.setText(_translate("Form", self.controller.get_cod_fattura()))
         self.label_cod_fornitore.setText(_translate("Form", "Codice fornitore"))
-        #self.lineEdit_cod_fornitore.setText(_translate("Form", self.controller.get_cod_fornitore()))
         self.label_stagione.setText(_translate("Form", "Stagione"))
-        self.comboBox_stagione.setItemText(0, _translate("Form", "Primaverile/Estiva"))
+        self.comboBox_stagione.setItemText(0, _translate("Form", "Primavera / Estate"))
+        self.comboBox_stagione.setItemText(1, _translate("Form", "Autunno / Inverno"))
         self.label_stato.setText(_translate("Form", "Stato"))
         self.comboBox_stato.setItemText(0, _translate("Form", "In arrivo"))
         self.comboBox_stato.setItemText(1, _translate("Form", "In negozio"))
         self.label_data_ordine.setText(_translate("Form", "Data ordine"))
         self.label_data_arrivo_prevista.setText(_translate("Form", "Data arrivo prevista"))
         self.label_data_arrivo_effettiva.setText(_translate("Form", "Data arrivo effettiva"))
-        self.label_importo_totale.setText(_translate("Form", "Importo totale"))
-        #self.lineEdit_importo_totale.setText(_translate("Form", "c"))
-        self.label_calzature_totalli.setText(_translate("Form", "Calzature totali"))
-        #self.lineEdit_calzature_totali.setText(_translate("Form", "d"))
+        self.label_importo_totale.setText(_translate("Form", "Importo totale: {}".format(str(importo_totale))))
+        self.label_calzature_totali.setText(_translate("Form", "Calzature totali: {}".format(str(calzature_totali))))
         #######################################
-    #     self.info = {}
-    #
-    #     self.v_layout = QVBoxLayout()
-    #
-    #     self.get_form_entry("cod_fattura", "Codice fattura")
-    #     self.get_form_entry("cod_fornitore", "Codice fornitore")
-    #     self.get_form_entry("stagione", "Stagione")
-    #     self.get_form_entry("stato", "Stato")
-    #     self.get_form_entry("data_ordine", "Data dell'ordine (dd/mm/AAAA)")
-    #     self.get_form_entry("data_arrivo_prevista", "data arrivo prevista")
-    #     self.get_form_entry("data_arrivo_effettiva", "data arrivo effettiva")
-    #     self.get_form_entry("importo_totale", "importo totale")
-    #     self.get_form_entry("calzature_totali", "calzature totali")
-    #
-    #
-    #
-    #     self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
-    #
-    #     btn_ok = QPushButton("OK")
-    #     btn_ok.clicked.connect(self.inserisci_ordine)
-    #     self.v_layout.addWidget(btn_ok)
-    #
-    #     self.setLayout(self.v_layout)
-    #     self.setWindowTitle("Inserisci ordine")
-    #
-    # def get_form_entry(self, nome, tipo):
-    #     self.v_layout.addWidget(QLabel(tipo))
-    #     current_text_edit = QLineEdit(self)
-    #     self.info[nome] = current_text_edit
-    #     self.v_layout.addWidget(current_text_edit)
+
+    def show_inserisci_prodotto(self):
+        inserimento_da_ordine= True
+        self.vista_inserisci_prodotto= VistaInserisciProdotto(self.controller_lista_prodotti, self.retranslateUi, inserimento_da_ordine, self.lista_prodotti_ordine)
+        self.vista_inserisci_prodotto.show()
+        inserimento_da_ordine = False
+
+    def rimuovi_prodotto(self):
+        if len(self.tableWidget.selectedIndexes()) > 0:
+            selected = self.tableWidget.selectedIndexes()[0].row()
+            prodotto_selezionato = self.lista_prodotti_ordine[selected]
+            self.lista_prodotti_ordine.remove(prodotto_selezionato)
+            self.retranslateUi()
 
     def inserisci_ordine(self):
+
         cod_fattura = self.lineEdit_cod_fattura.text()
         cod_fornitore = self.lineEdit_cod_fornitore.text()
-        if str(self.comboBox_stagione.currentText()) == "Primaverile/Estiva":
+        if str(self.comboBox_stagione.currentText()) == "Primavera / Estate":
             stagione= "P/E"
         else:
             stagione= "A/I"
@@ -366,52 +358,53 @@ class VistaInserisciOrdine(QWidget):
         gg = str(self.dateEdit_ordine.date().day())
         mm = str(self.dateEdit_ordine.date().month())
         aaaa = str(self.dateEdit_ordine.date().year())
-        data_ordine = gg + "/" + mm + "/" + aaaa
+        data_ordine1 = aaaa + "-" + mm + "-" + gg
+        data_ordine2= gg + "/" + mm + "/" + aaaa
 
         gg_p = str(self.dateEdit_arrivo_prevista.date().day())
         mm_p = str(self.dateEdit_arrivo_prevista.date().month())
         aaaa_p = str(self.dateEdit_arrivo_prevista.date().year())
-        data_arrivo_prevista = gg_p + "/" + mm_p + "/" + aaaa_p
+        data_arrivo_prevista = aaaa_p + "-" + mm_p + "-" + gg_p
 
         gg_e = str(self.dateEdit_arrivo_effettiva.date().day())
         mm_e = str(self.dateEdit_arrivo_effettiva.date().month())
         aaaa_e = str(self.dateEdit_arrivo_effettiva.date().year())
-        data_arrivo_effettiva = gg_e + "/" + mm_e + "/" + aaaa_e
+        data_arrivo_effettiva = aaaa_e + "-" + mm_e + "-" + gg_e
 
-        importo_totale = self.lineEdit_importo_totale.text()
-        calzature_totali = self.lineEdit_calzature_totali.text()
+        importo_totale = 0
+        calzature_totali = 0
 
-        # for value in self.info.values():
-        #     if value.text() == "":
-        #         QMessageBox.critical(self, 'Errore', 'Per favore, inserisci tutte le informazioni richieste',
-        #                              QMessageBox.Ok, QMessageBox.Ok)
-        #         return
-            # I CONTROLLI DANNO PROBLEMI DI CRASH
-            # if taglia > 50:
-            #    QMessageBox.critical(self, 'Errore', 'Per favore, inserisci una taglia valida',
-            #                          QMessageBox.Ok, QMessageBox.Ok)
-            #    return
-            # if sconto > 100 or sconto_consigliato > 100:
-            #    QMessageBox.critical(self, 'Errore', 'Per favore, inserisci uno sconto valido',
-            #                         QMessageBox.Ok, QMessageBox.Ok)
-            #    return
-            # if sconto.isnumeric() or sconto_consigliato.isnumeric():
-            #    return
-            # else:
-            #    QMessageBox.critical(self, 'Errore', 'Per favore, inserisci uno sconto numerico',
-            #                         QMessageBox.Ok, QMessageBox.Ok)
-            #    return
+        for prodotto in self.lista_prodotti_ordine:
+            importo_totale= importo_totale + int(prodotto.prezzo_acquisto)
+            calzature_totali= calzature_totali + int(prodotto.quantita)
+
 
         ordine= Ordine(cod_fattura, cod_fornitore, stagione, stato,
-                      data_ordine, data_arrivo_prevista, data_arrivo_effettiva,
+                      data_ordine1, data_arrivo_prevista, data_arrivo_effettiva,
                       importo_totale, calzature_totali)
 
-        self.controller.inserisci_ordine(ordine)
+        self.controller_lista_ordini.inserisci_ordine(ordine)
         self.lista_dinamica.append(ordine)
+
+        for prodotto in self.lista_prodotti_ordine:
+            prodotto.cod_fattura= cod_fattura
+            prodotto.cod_fornitore= cod_fornitore
+            prodotto.stagione= stagione
+            prodotto.stato= stato
+            prodotto.data_ordine= data_ordine2
+
+        lista_prodotti= self.controller_lista_prodotti.get_lista_prodotti()
+
+        prodotti_da_eliminare=[]
+        for prodotto in lista_prodotti:
+            if prodotto.cod_fattura == cod_fattura:
+                prodotti_da_eliminare.append(prodotto)
+        for prodotto in prodotti_da_eliminare:
+            lista_prodotti.remove(prodotto)
+
+        for prodotto in self.lista_prodotti_ordine:
+            lista_prodotti.append(prodotto)
+
+
         self.update_ui()
         self.close()
-
-    def inserisci_prodotto(self):
-        var= True
-        vista_inserisci_prodotto= VistaInserisciProdotto()
-        vista_inserisci_prodotto.showMaximized()

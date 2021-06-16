@@ -43,6 +43,9 @@ class ControllerOrdine:
     def get_calzature_totali(self):
         return self.model.calzature_totali
 
+    # def get_lista_prodotti_ordine(self):
+    #     return self.model.lista_prodotti_ordine()
+
     # ----------------SET------------------
 
     def set_cod_fattura(self, cod_fattura):
@@ -71,3 +74,11 @@ class ControllerOrdine:
 
     def set_stato(self, stato):
         self.model.stato= stato
+
+    # def set_lista_prodotti_ordine(self):
+    #     for prodotto in self.controller_lista_prodotti.get_lista_prodotti():
+    #         if prodotto.cod_fattura == self.get_cod_fattura():
+    #             self.model.lista_prodotti_ordine.append(prodotto)
+
+
+

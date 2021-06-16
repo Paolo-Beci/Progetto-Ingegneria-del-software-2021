@@ -1,23 +1,26 @@
 import time
-from PyQt5.QtWidgets import QWidget, QLabel, QTableWidgetItem
+from PyQt5.QtWidgets import QWidget, QTableWidgetItem
 from PyQt5 import QtCore, QtWidgets, QtGui
 
-from listaprodotti.controller.ControllerListaProdotti import ControllerListaProdotti
 from ordine.controller.ControllerOrdine import ControllerOrdine
-from ordine.model import Ordine
+from ordine.view.VistaModificaOrdine import VistaModificaOrdine
 from prodotto.view.VistaProdotto import VistaProdotto
 
 
 class VistaOrdine(QWidget):
-    def __init__(self, ordine, elimina_ordine_by_codice, update_ui, controller, lista_dinamica, parent=None):
+    def __init__(self, ordine, elimina_ordine_by_codice, update_ui, controller_lista_ordini, controller_lista_prodotti, parent=None):
         super(VistaOrdine, self).__init__(parent)
         self.ordine_selezionato = ordine
-        self.controller = ControllerOrdine(ordine)
-        self.controller_prodotti = ControllerListaProdotti()
+
+        self.controller_ordine = ControllerOrdine(ordine)
+        self.controller_lista_ordini= controller_lista_ordini
+        self.controller_lista_prodotti= controller_lista_prodotti
+
         self.elimina_ordine_by_codice = elimina_ordine_by_codice
         self.update_ui = update_ui
-        self.lista_dinamica= lista_dinamica
-        self.lista_prodotti_ordine=[]
+
+        self.lista_prodotti= self.controller_lista_prodotti.get_lista_prodotti()
+        self.lista_prodotti_ordine= []
 
         #######################################
 
@@ -35,16 +38,18 @@ class VistaOrdine(QWidget):
         self.gridLayout.addWidget(self.label_3, 4, 0, 1, 1)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem, 1, 3, 1, 1)
-        self.pushButton_3 = QtWidgets.QPushButton(self)
-        self.pushButton_3.setMinimumSize(QtCore.QSize(130, 0))
-        self.pushButton_3.setMaximumSize(QtCore.QSize(130, 16777215))
-        self.pushButton_3.setObjectName("pushButton_3")
-        self.gridLayout.addWidget(self.pushButton_3, 1, 4, 1, 1)
-        self.pushButton_4 = QtWidgets.QPushButton(self)
-        self.pushButton_4.setMinimumSize(QtCore.QSize(130, 0))
-        self.pushButton_4.setMaximumSize(QtCore.QSize(130, 16777215))
-        self.pushButton_4.setObjectName("pushButton_4")
-        self.gridLayout.addWidget(self.pushButton_4, 1, 6, 1, 1)
+        self.pushButton_indietro = QtWidgets.QPushButton(self)
+        self.pushButton_indietro.setMinimumSize(QtCore.QSize(130, 0))
+        self.pushButton_indietro.setMaximumSize(QtCore.QSize(130, 16777215))
+        self.pushButton_indietro.setObjectName("pushButton_indietro")
+        self.pushButton_indietro.clicked.connect(self.close)
+        self.gridLayout.addWidget(self.pushButton_indietro, 1, 4, 1, 1)
+        self.pushButton_apri = QtWidgets.QPushButton(self)
+        self.pushButton_apri.setMinimumSize(QtCore.QSize(130, 0))
+        self.pushButton_apri.setMaximumSize(QtCore.QSize(130, 16777215))
+        self.pushButton_apri.setObjectName("pushButton_apri")
+        self.pushButton_apri.clicked.connect(self.show_prodotto)
+        self.gridLayout.addWidget(self.pushButton_apri, 1, 6, 1, 1)
         self.label_6 = QtWidgets.QLabel(self)
         font = QtGui.QFont()
         font.setPointSize(11)
@@ -53,14 +58,15 @@ class VistaOrdine(QWidget):
         self.gridLayout.addWidget(self.label_6, 7, 0, 1, 1)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.pushButton = QtWidgets.QPushButton(self)
-        self.pushButton.setObjectName("pushButton")
-        self.horizontalLayout.addWidget(self.pushButton)
+        self.pushButton_modifica = QtWidgets.QPushButton(self)
+        self.pushButton_modifica.setObjectName("pushButton_modifica")
+        self.pushButton_modifica.clicked.connect(self.show_modifica_ordine)
+        self.horizontalLayout.addWidget(self.pushButton_modifica)
         spacerItem1 = QtWidgets.QSpacerItem(15, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem1)
-        self.pushButton_2 = QtWidgets.QPushButton(self)
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.horizontalLayout.addWidget(self.pushButton_2)
+        self.pushButton_elimina = QtWidgets.QPushButton(self)
+        self.pushButton_elimina.setObjectName("pushButton_elimina")
+        self.horizontalLayout.addWidget(self.pushButton_elimina)
         self.gridLayout.addLayout(self.horizontalLayout, 11, 0, 1, 1)
         self.label_10 = QtWidgets.QLabel(self)
         font = QtGui.QFont()
@@ -177,16 +183,15 @@ class VistaOrdine(QWidget):
         item = self.tableWidget.horizontalHeaderItem(5)
         item.setText(_translate("Form", "Prezzo d\'acquisto"))
 
+        # riempie la lista_prodotti_ordine
         self.filter()
 
         row = 0
         self.tableWidget.setColumnCount(6)
         self.tableWidget.setRowCount(len(self.lista_prodotti_ordine))
-        calzature_totali=0
-        importo_totale=0
+
         for prodotto in self.lista_prodotti_ordine:
-            calzature_totali= calzature_totali + prodotto.quantita
-            importo_totale= importo_totale + prodotto.prezzo_acquisto
+
             item = QTableWidgetItem(str(prodotto.cod_prodotto))
             item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
             self.tableWidget.setItem(row, 0, QtWidgets.QTableWidgetItem(item))
@@ -198,27 +203,28 @@ class VistaOrdine(QWidget):
 
             row = row + 1
 
-        self.label_5.setText(_translate("Form", "Data ordine: {}".format(self.controller.get_data_ordine())))
-        self.label_8.setText(_translate("Form", "Importo totale: {}".format(str(importo_totale) + " €")))
-        self.pushButton_3.setText(_translate("Form", "<- Indietro"))
-        self.pushButton_4.setText(_translate("Form", "Apri"))
-        self.label_2.setText(_translate("Form", "Stato: {}".format(self.controller.get_stato())))
+        self.label_5.setText(_translate("Form", "Data ordine: {}".format(self.controller_ordine.get_data_ordine())))
+        self.label_8.setText(_translate("Form", "Importo totale: {}".format(str(self.controller_ordine.get_importo_totale()) + " €")))
+        self.pushButton_indietro.setText(_translate("Form", "<- Indietro"))
+        self.pushButton_apri.setText(_translate("Form", "Apri"))
+        self.label_2.setText(_translate("Form", "Stato: {}".format(self.controller_ordine.get_stato())))
         self.label_10.setText(_translate("Form", "Lista prodotti ordine:"))
-        self.label.setText(_translate("Form", "Codice fattura: {}".format(self.controller.get_cod_fattura())))
-        self.pushButton.setText(_translate("Form", "Modifica"))
-        self.pushButton_2.setText(_translate("Form", "Elimina"))
-        self.label_6.setText(_translate("Form", "Data arrivo prevista: {}".format(self.controller.get_data_arrivo_prevista())))
-        self.label_9.setText(_translate("Form", "Calzature totali: {}".format(str(calzature_totali))))
-        self.label_3.setText(_translate("Form", "Stagione: {}".format(self.controller.get_stagione())))
-        self.label_7.setText(_translate("Form", "Data arrivo effettiva: {}".format(self.controller.get_data_arrivo_effettiva())))
-        self.label_4.setText(_translate("Form", "Codice fornitore: {}".format(self.controller.get_cod_fornitore())))
+        self.label.setText(_translate("Form", "Codice fattura: {}".format(self.controller_ordine.get_cod_fattura())))
+        self.pushButton_modifica.setText(_translate("Form", "Modifica"))
+        self.pushButton_elimina.setText(_translate("Form", "Elimina"))
+        self.label_6.setText(_translate("Form", "Data arrivo prevista: {}".format(self.controller_ordine.get_data_arrivo_prevista())))
+        self.label_9.setText(_translate("Form", "Calzature totali: {}".format(str(self.controller_ordine.get_calzature_totali()))))
+        self.label_3.setText(_translate("Form", "Stagione: {}".format(self.controller_ordine.get_stagione())))
+        self.label_7.setText(_translate("Form", "Data arrivo effettiva: {}".format(self.controller_ordine.get_data_arrivo_effettiva())))
+        self.label_4.setText(_translate("Form", "Codice fornitore: {}".format(self.controller_ordine.get_cod_fornitore())))
         self.label_11.setText(_translate("Form", "Dati ordine:"))
 
         #######################################
 
+    # prendo da lista_prodotti solo quei prodotti relativi a ordine_selezionato
     def filter(self):
-        for prodotto in self.controller_prodotti.get_lista_prodotti():
-            if prodotto.cod_fattura == self.controller.get_cod_fattura():
+        for prodotto in self.lista_prodotti:
+            if prodotto.cod_fattura == self.controller_ordine.get_cod_fattura():
                 self.lista_prodotti_ordine.append(prodotto)
 
     def show_prodotto(self):
@@ -229,16 +235,15 @@ class VistaOrdine(QWidget):
             self.vista_prodotto.showMaximized()
             time.sleep(0.3)
 
-    """
-        Eventi trigger click dei bottoni
-    """
     def elimina_ordine_click(self):
-        self.elimina_ordine_by_codice(self.controller.get_cod_fattura())
+        self.controller_lista_ordini.elimina_ordine_by_codice(self.controller_ordine.get_cod_fattura())
+        #self.elimina_ordine_by_codice(self.controller_ordine.get_cod_fattura())
         self.update_ui()
         self.close()
 
-    def modifica_ordine_click(self):
-        self.showMaximized(Ordine.view.VistaModificaOrdine.VistaModificaOrdine(self.controller.get_cod_fattura()))
-        self.update_ui()
-        self.close()
+    def show_modifica_ordine(self):
+        self.vista_modifica_ordine= VistaModificaOrdine(self.ordine_selezionato, self.controller_ordine, self.retranslateUi, self.lista_prodotti_ordine)
+        self.vista_modifica_ordine.showMaximized()
+        #self.update_ui()
+        #self.close()
 
