@@ -29,6 +29,8 @@ class VistaDisplayProdotto(QWidget):
         self.label_foto.setScaledContents(False)
         self.label_foto.setAlignment(QtCore.Qt.AlignCenter)
         self.label_foto.setObjectName("label_foto")
+        pixmap = QPixmap('listaprodotti/data/images/' + str(self.prodotto.cod_prodotto) +'.jpg')
+        self.label_foto.setPixmap(pixmap)
         self.gridLayout.addWidget(self.label_foto, 0, 0, 1, 2)
         self.label_marca = QtWidgets.QLabel(self)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
@@ -87,7 +89,6 @@ class VistaDisplayProdotto(QWidget):
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
 
-        self.label_foto.setText(_translate("Form", "Foto"))
         self.label_marca.setText(_translate("Form", self.prodotto.marca))
         self.pushButton_dettagli.setText(_translate("Form", "Dettagli"))
         self.label_nome.setText(_translate("Form", self.prodotto.nome))

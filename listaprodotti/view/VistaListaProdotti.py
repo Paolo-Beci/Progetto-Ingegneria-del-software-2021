@@ -20,9 +20,9 @@ class VistaListaProdotti(QWidget):
         self.controller_lista_prodotti = ControllerListaProdotti()
         self.lista_prodotti= self.controller_lista_prodotti.get_lista_prodotti()
         self.lista_prodotti_filtrata = self.lista_prodotti[:]
-        self.display_prodotti_array = []
+        self.lista_prodotti_cercati = []
+        self.cerca_flag = False
         self.setWindowTitle("Lista Prodotti")
-        self.setObjectName("Lista Prodotti")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_mini.png'), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.setWindowIcon(icon)
@@ -219,35 +219,46 @@ class VistaListaProdotti(QWidget):
 
         row = 0
         column = 0
+        if self.cerca_flag:
+            for prodotto in self.lista_prodotti_cercati:
+                self.widget_generico = QtWidgets.QWidget(self.scrollAreaWidgetContents)
+                self.widget_generico.setParent(None)
+                self.displayprodotto1 = VistaDisplayProdotto(prodotto)
+                self.widget_generico = self.displayprodotto1
+                self.widget_generico.setMinimumSize(QtCore.QSize(0, 200))
 
-        for prodotto in self.lista_prodotti_filtrata:
-            self.widget_generico = QtWidgets.QWidget(self.scrollAreaWidgetContents)
-            self.displayprodotto1 = VistaDisplayProdotto(prodotto)
-            self.widget_generico = self.displayprodotto1
-            self.widget_generico.setMinimumSize(QtCore.QSize(0, 200))
+                self.gridLayout_2.addWidget(self.widget_generico, row, column, 1, 1)
 
-            self.gridLayout_2.addWidget(self.widget_generico, row, column, 1, 1)
+                if column == 2:
+                    row = row + 1
+                    column = 0
+                else:
+                    column = column + 1
+        else:
+            for prodotto in self.lista_prodotti_filtrata:
+                self.widget_generico = QtWidgets.QWidget(self.scrollAreaWidgetContents)
+                self.widget_generico.setParent(None)
+                self.displayprodotto1 = VistaDisplayProdotto(prodotto)
+                self.widget_generico = self.displayprodotto1
+                self.widget_generico.setMinimumSize(QtCore.QSize(0, 200))
 
-            if column == 2:
-                row = row + 1
-                column = 0
+                self.gridLayout_2.addWidget(self.widget_generico, row, column, 1, 1)
+
+                if column == 2:
+                    row = row + 1
+                    column = 0
+                else:
+                    column = column + 1
+
+        # DA FARE
+        if column < 2:
+            if column < 1:
+                self.widget_generico = QtWidgets.QWidget()
+                self.gridLayout_2.addWidget(self.widget_generico, 0, 1, 1, 1)
+                self.gridLayout_2.addWidget(self.widget_generico, 0, 2, 1, 1)
             else:
-                column = column + 1
-
-        #else:
-        # self.scrollArea.close()
-        # self.scrollArea = QtWidgets.QScrollArea(self.centralwidget)
-        # self.scrollArea.setWidgetResizable(True)
-        # self.scrollArea.setObjectName("scrollArea")
-        # self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        # self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 1172, 851))
-        # self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
-        # self.gridLayout = QtWidgets.QGridLayout(self.scrollAreaWidgetContents)
-        # self.gridLayout.setObjectName("gridLayout")
-        # self.widget = QtWidgets.QWidget(self.scrollAreaWidgetContents)
-        # self.widget.setObjectName("widget")
-        # self.gridLayout_2 = QtWidgets.QGridLayout(self.widget)
-        # self.gridLayout_2.setObjectName("gridLayout_2")
+                self.widget_generico = QtWidgets.QWidget()
+                self.gridLayout_2.addWidget(self.widget_generico, 0, 2, 1, 1)
 
         # # CREAZIONE DEI WIDGET
         # self.gridLayout.addWidget(self.widget, 0, 0, 1, 1)
@@ -276,22 +287,24 @@ class VistaListaProdotti(QWidget):
         self.vista_inserisci_prodotto.show()
 
     def cerca_prodotto(self):
+        # controlli:
         # if cod_prodotto.isalnum() and cod_prodotto.startswith('S'):
-        # else:
-        #     self.popup_errore()
+        self.lista_prodotti_cercati = self.lista_prodotti_filtrata[:]
 
-        self.lista_prodotti = self.controller_lista_prodotti.get_lista_prodotti()
-        self.lista_prodotti_filtrata = self.lista_prodotti[:]
+        self.cerca_flag = True
         codice = self.cerca.text()
         codice.capitalize()
         elementi_da_rimuovere = []
-        for prodotto in self.lista_prodotti_filtrata:
+        for prodotto in self.lista_prodotti_cercati:
             if not (codice in str(prodotto.cod_prodotto)):
                 elementi_da_rimuovere.append(prodotto)
         for prodotto in elementi_da_rimuovere:
-            if prodotto in self.lista_prodotti_filtrata:
-                self.lista_prodotti_filtrata.remove(prodotto)
+            if prodotto in self.lista_prodotti_cercati:
+                self.lista_prodotti_cercati.remove(prodotto)
+        for i in reversed(range(self.gridLayout_2.count())):
+            self.gridLayout_2.itemAt(i).widget().setParent(None)
         self.retranslateUi()
+        self.cerca_flag = False
 
     # crea l'elenco dei codici dei prodotti da visualizzare basati sui filtri
     def filtro_lista(self):
@@ -338,6 +351,8 @@ class VistaListaProdotti(QWidget):
         for prodotto in self.controller_lista_prodotti.get_lista_prodotti():
             if prodotto.stato == "In arrivo":
                 self.lista_prodotti_filtrata.append(prodotto)
+        for i in reversed(range(self.gridLayout_2.count())):
+            self.gridLayout_2.itemAt(i).widget().setParent(None)
         self.retranslateUi()
 
     def show_in_negozio(self):
@@ -345,6 +360,8 @@ class VistaListaProdotti(QWidget):
         for prodotto in self.controller_lista_prodotti.get_lista_prodotti():
             if prodotto.stato == "In negozio":
                 self.lista_prodotti_filtrata.append(prodotto)
+        for i in reversed(range(self.gridLayout_2.count())):
+            self.gridLayout_2.itemAt(i).widget().setParent(None)
         self.retranslateUi()
 
     def show_venduto(self):
@@ -352,7 +369,8 @@ class VistaListaProdotti(QWidget):
         for prodotto in self.controller_lista_prodotti.get_lista_prodotti():
             if prodotto.stato == "Venduto":
                 self.lista_prodotti_filtrata.append(prodotto)
-
+        for i in reversed(range(self.gridLayout_2.count())):
+            self.gridLayout_2.itemAt(i).widget().setParent(None)
         self.retranslateUi()
 
     def show_reso(self):
@@ -360,8 +378,8 @@ class VistaListaProdotti(QWidget):
         for prodotto in self.controller_lista_prodotti.get_lista_prodotti():
             if prodotto.stato == "Reso":
                 self.lista_prodotti_filtrata.append(prodotto)
-
-        self.display_prodotti_array.clear()
+        for i in reversed(range(self.gridLayout_2.count())):
+            self.gridLayout_2.itemAt(i).widget().setParent(None)
         self.retranslateUi()
 
     def popup_errore(self):
