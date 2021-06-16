@@ -222,10 +222,9 @@ class VistaListaProdotti(QWidget):
         if self.cerca_flag:
             for prodotto in self.lista_prodotti_cercati:
                 self.widget_generico = QtWidgets.QWidget(self.scrollAreaWidgetContents)
-                self.widget_generico.setParent(None)
                 self.displayprodotto1 = VistaDisplayProdotto(prodotto)
                 self.widget_generico = self.displayprodotto1
-                self.widget_generico.setMinimumSize(QtCore.QSize(0, 200))
+                self.widget_generico.setMinimumSize(QtCore.QSize(0, 450))
 
                 self.gridLayout_2.addWidget(self.widget_generico, row, column, 1, 1)
 
@@ -237,10 +236,9 @@ class VistaListaProdotti(QWidget):
         else:
             for prodotto in self.lista_prodotti_filtrata:
                 self.widget_generico = QtWidgets.QWidget(self.scrollAreaWidgetContents)
-                self.widget_generico.setParent(None)
                 self.displayprodotto1 = VistaDisplayProdotto(prodotto)
                 self.widget_generico = self.displayprodotto1
-                self.widget_generico.setMinimumSize(QtCore.QSize(0, 200))
+                self.widget_generico.setMinimumSize(QtCore.QSize(0, 450))
 
                 self.gridLayout_2.addWidget(self.widget_generico, row, column, 1, 1)
 
@@ -283,8 +281,9 @@ class VistaListaProdotti(QWidget):
     """
 
     def show_inserisci_prodotto(self):
-        self.vista_inserisci_prodotto = VistaInserisciProdotto(self.controller_lista_prodotti, self.retranslateUi, False, None)
+        self.vista_inserisci_prodotto = VistaInserisciProdotto(self.controller_lista_prodotti, self.retranslateUi, False, None, self.lista_prodotti_filtrata)
         self.vista_inserisci_prodotto.show()
+        self.retranslateUi()
 
     def cerca_prodotto(self):
         # controlli:

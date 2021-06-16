@@ -12,13 +12,14 @@ from listaordini.controller.ControllerListaOrdini import ControllerListaOrdini
 
 
 class VistaInserisciProdotto(QWidget):      # sistema anche le altre chiamate da vistaProdotto
-    def __init__(self, controller_lista_prodotti, update_ui, inserimento_da_ordine, lista_prodotti_ordine):
+    def __init__(self, controller_lista_prodotti, update_ui, inserimento_da_ordine, lista_prodotti_ordine, lista_prodotti_filtrata):
         super(VistaInserisciProdotto, self).__init__()
         self.controller_lista_prodotti = controller_lista_prodotti
         self.controller_lista_ordini = ControllerListaOrdini()
 
         self.inserimento_da_ordine= inserimento_da_ordine
         self.lista_prodotti_ordine= lista_prodotti_ordine
+        self.lista_prodotti_filtrata= lista_prodotti_filtrata
         self.update_ui = update_ui
 
         #######################################################################
@@ -420,10 +421,13 @@ class VistaInserisciProdotto(QWidget):      # sistema anche le altre chiamate da
             #     self.controller_lista_ordini.inserisci_ordine(ordine)
 
             # aggiunta prodotto ad un ordine esistente
-            self.controller_lista_prodotti.inserisci_prodotto(Prodotto(cod_fattura, cod_fornitore, data_ordine, cod_prodotto,
-                                                                            marca, nome, tipo, genere, materiale, colore, taglia, quantita,
+            prodotto= Prodotto(cod_fattura, cod_fornitore, data_ordine, cod_prodotto, marca, nome, tipo, genere, materiale, colore, taglia, quantita,
                                                                             prezzo_acquisto, prezzo_vendita, stagione, stato,
-                                                                            sconto_consigliato, sconto, "", ))
+                                                                            sconto_consigliato, sconto, "", )
+
+
+            self.controller_lista_prodotti.inserisci_prodotto(prodotto)
+            self.lista_prodotti_filtrata.append(prodotto)
         else:
             cod_prodotto = self.lineEdit_codice_prodotto.text()
             marca = self.lineEdit_marca.text()

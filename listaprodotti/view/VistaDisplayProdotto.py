@@ -1,7 +1,4 @@
-import os
-import time
-
-from PyQt5 import QtWidgets, QtCore, QtGui
+from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QWidget
 
@@ -20,7 +17,7 @@ class VistaDisplayProdotto(QWidget):
         self.prodotto= prodotto
 
         self.setObjectName("Form")
-        self.resize(400, 300)
+        self.resize(400, 500)
         self.gridLayout_2 = QtWidgets.QGridLayout(self)
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.gridLayout = QtWidgets.QGridLayout()
