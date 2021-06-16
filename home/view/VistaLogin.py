@@ -5,10 +5,12 @@ from listadelpersonale.controller.ControllerListaDelPersonale import ControllerL
 
 
 class VistaLogin(QWidget):
-    def __init__(self):
+    def __init__(self, corretto, update_ui):
         super(VistaLogin, self).__init__()
         self.controller = ControllerListaDelPersonale()
-        self.corretto = True
+        self.corretto = corretto
+        self.update_ui= update_ui
+
         self.setObjectName("MainWindow")
         self.resize(760, 439)
 
@@ -59,7 +61,7 @@ class VistaLogin(QWidget):
         self.pushButton_annulla = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_annulla.setObjectName("pushButton_annulla")
         self.gridLayout.addWidget(self.pushButton_annulla, 7, 1, 1, 1)
-        self.pushButton_annulla.clicked.connect(self.show_back)
+        self.pushButton_annulla.clicked.connect(self.close)
 
         self.label = QtWidgets.QLabel(self.centralwidget)
         font = QtGui.QFont()
@@ -91,6 +93,7 @@ class VistaLogin(QWidget):
         self.label.setText(_translate("MainWindow", "Login amministratore"))
 
     def login(self):
+        #corretto=False
         self.username_inserito = self.lineEdit_username.text()
         self.password_inserito = self.lineEdit_password.text()
 
@@ -98,12 +101,14 @@ class VistaLogin(QWidget):
             if str(utente.username) == str(self.username_inserito):
                 if str(utente.password) == str(self.password_inserito):
                     self.corretto = True
-                    self.close()
+                    print("PORCO CORRADINI")
                     break
-            else:
-                self.popup_errore()
-                self.corretto = True
-                break
+        print("Dentro"+str(self.corretto))
+        if self.corretto:
+            self.close()
+        else:
+            self.popup_errore()
+
 
     def get_status(self):
         return self.corretto
@@ -118,5 +123,5 @@ class VistaLogin(QWidget):
         msg.setDefaultButton(QMessageBox.Yes)
         msg.exec_()
 
-    def show_back(self):
-        self.close()
+    def closeEvent(self, event):
+        self.update_ui()
