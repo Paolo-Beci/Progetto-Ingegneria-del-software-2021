@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QWidget, QApplication
 
 """
     MODIFICA DEI PARAMETRI DEL PRODOTTO
-    prende in input un prodotto e ne permette di modificare i campi visualizzandone quelli già presenti
+    Prende in input un prodotto e ne permette di modificare i campi visualizzandone quelli già presenti
 """
 
 
