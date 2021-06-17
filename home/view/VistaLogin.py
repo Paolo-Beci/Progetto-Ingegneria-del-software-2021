@@ -1,14 +1,11 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QWidget, QMessageBox
 
-from listadelpersonale.controller.ControllerListaDelPersonale import ControllerListaDelPersonale
-
 
 class VistaLogin(QWidget):
     def __init__(self, controller, update_ui):
         super(VistaLogin, self).__init__()
         self.controller = controller
-        self.corretto = False
         self.update_ui= update_ui
 
         self.setObjectName("MainWindow")
@@ -31,6 +28,7 @@ class VistaLogin(QWidget):
         self.gridLayout.addWidget(self.lineEdit_username, 3, 2, 1, 1)
 
         self.lineEdit_password = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit_password.setEchoMode(QtWidgets.QLineEdit.Password)
         self.lineEdit_password.setObjectName("lineEdit_password")
         self.gridLayout.addWidget(self.lineEdit_password, 5, 2, 1, 1)
 
@@ -110,12 +108,6 @@ class VistaLogin(QWidget):
         else:
             self.popup_errore()
 
-
-    # def get_status(self):
-    #     if self.corretto:
-    #         return True
-    #     else:
-    #         return False
 
     def popup_errore(self):
         msg = QMessageBox()

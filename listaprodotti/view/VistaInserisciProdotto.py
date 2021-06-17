@@ -12,7 +12,7 @@ from listaordini.controller.ControllerListaOrdini import ControllerListaOrdini
 
 
 class VistaInserisciProdotto(QWidget):      # sistema anche le altre chiamate da vistaProdotto
-    def __init__(self, controller_lista_prodotti, update_ui, inserimento_da_ordine, lista_prodotti_ordine, lista_prodotti_filtrata):
+    def __init__(self, controller_lista_prodotti, update_ui, inserimento_da_ordine, lista_prodotti_ordine, lista_prodotti_filtrata, ordine):
         super(VistaInserisciProdotto, self).__init__()
         self.controller_lista_prodotti = controller_lista_prodotti
         self.controller_lista_ordini = ControllerListaOrdini()
@@ -21,6 +21,7 @@ class VistaInserisciProdotto(QWidget):      # sistema anche le altre chiamate da
         self.lista_prodotti_ordine= lista_prodotti_ordine
         self.lista_prodotti_filtrata= lista_prodotti_filtrata
         self.update_ui = update_ui
+        self.ordine= ordine
 
         #######################################################################
 
@@ -433,7 +434,7 @@ class VistaInserisciProdotto(QWidget):      # sistema anche le altre chiamate da
             sconto_consigliato = self.lineEdit_sconto_consigliato.text()
             sconto = self.lineEdit_sconto.text()
 
-            prodotto= Prodotto(None, None, None, cod_prodotto, marca, nome, tipo, genere, materiale, colore, taglia, quantita,prezzo_acquisto, prezzo_vendita, None, None, sconto_consigliato, sconto, "")
+            prodotto= Prodotto(self.ordine.cod_fattura, self.ordine.cod_fornitore, None, cod_prodotto, marca, nome, tipo, genere, materiale, colore, taglia, quantita,prezzo_acquisto, prezzo_vendita, None, None, sconto_consigliato, sconto, "")
             self.lista_prodotti_ordine.append(prodotto)
 
 
