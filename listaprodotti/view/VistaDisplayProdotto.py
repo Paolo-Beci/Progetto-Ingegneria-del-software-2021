@@ -25,7 +25,7 @@ class VistaDisplayProdotto(QWidget):
         font.setWeight(75)
 
         self.setObjectName("Form")
-        self.resize(400, 500)
+        #self.resize(400, 500)
         self.gridLayout_2 = QtWidgets.QGridLayout(self)
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.gridLayout = QtWidgets.QGridLayout()
@@ -72,9 +72,7 @@ class VistaDisplayProdotto(QWidget):
         self.label_prezzo_vendita.setSizePolicy(sizePolicy)
         self.label_prezzo_vendita.setMinimumSize(QtCore.QSize(0, 30))
         self.label_prezzo_vendita.setObjectName("label_prezzo_vendita")
-        font.setPixelSize(30)
         self.label_prezzo_vendita.setFont(font)
-        font.setPixelSize(20)
         self.gridLayout.addWidget(self.label_prezzo_vendita, 3, 0, 1, 2)
         self.label_taglia = QtWidgets.QLabel(self)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
@@ -107,7 +105,7 @@ class VistaDisplayProdotto(QWidget):
         self.label_marca.setText(_translate("Form", "Nome: " + str(self.prodotto.marca)))
         self.pushButton_dettagli.setText(_translate("Form", "Dettagli"))
         self.label_nome.setText(_translate("Form", "Nome: " + str(self.prodotto.nome)))
-        self.label_prezzo_vendita.setText(_translate("Form", "Prezzo: " + str(self.prodotto.prezzo_vendita)))
+        self.label_prezzo_vendita.setText(_translate("Form", "Prezzo: " + str(self.prodotto.prezzo_vendita) + " €"))
         self.label_taglia.setText(_translate("Form", "Taglia: " + str(self.prodotto.taglia)))
         self.label_quantita.setText(_translate("Form", "Quantità: " + str(self.prodotto.quantita)))
 

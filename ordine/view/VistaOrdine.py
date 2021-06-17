@@ -265,7 +265,7 @@ class VistaOrdine(QWidget):
 
     def show_modifica_ordine(self):
         self.vista_modifica_ordine= VistaModificaOrdine(self.ordine_selezionato, self.controller_ordine, self.retranslateUi, self.lista_prodotti_ordine)
-        self.vista_modifica_ordine.showMaximized()
+        self.vista_modifica_ordine.show()
         #self.update_ui()
         #self.close()
 
