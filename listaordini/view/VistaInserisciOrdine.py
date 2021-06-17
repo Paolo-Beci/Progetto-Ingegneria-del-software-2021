@@ -333,7 +333,7 @@ class VistaInserisciOrdine(QWidget):
 
     def show_inserisci_prodotto(self):
         inserimento_da_ordine= True
-        self.vista_inserisci_prodotto= VistaInserisciProdotto(self.controller_lista_prodotti, self.retranslateUi, inserimento_da_ordine, self.lista_prodotti_ordine)
+        self.vista_inserisci_prodotto= VistaInserisciProdotto(self.controller_lista_prodotti, self.retranslateUi, inserimento_da_ordine, self.lista_prodotti_ordine, None)
         self.vista_inserisci_prodotto.show()
         inserimento_da_ordine = False
 

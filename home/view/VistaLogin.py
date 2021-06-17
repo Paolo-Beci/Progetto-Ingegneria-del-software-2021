@@ -5,10 +5,10 @@ from listadelpersonale.controller.ControllerListaDelPersonale import ControllerL
 
 
 class VistaLogin(QWidget):
-    def __init__(self, corretto, update_ui):
+    def __init__(self, controller, update_ui):
         super(VistaLogin, self).__init__()
-        self.controller = ControllerListaDelPersonale()
-        self.corretto = corretto
+        self.controller = controller
+        self.corretto = False
         self.update_ui= update_ui
 
         self.setObjectName("MainWindow")
@@ -97,22 +97,25 @@ class VistaLogin(QWidget):
         self.username_inserito = self.lineEdit_username.text()
         self.password_inserito = self.lineEdit_password.text()
 
+        self.controller.refresh_data()
+
         for utente in self.controller.get_lista_del_personale():
             if str(utente.username) == str(self.username_inserito):
                 if str(utente.password) == str(self.password_inserito):
-                    self.corretto = True
-                    # setattr(VistaLogin, 'corretto', True)
-                    print("CICLO interno eseguito")
+                    self.controller.set_status(True)
                     break
-        print("Dentro"+str(self.corretto))
-        if self.corretto:
+
+        if self.controller.get_status():
             self.close()
         else:
             self.popup_errore()
 
 
-    def get_status(self):
-        return self.corretto
+    # def get_status(self):
+    #     if self.corretto:
+    #         return True
+    #     else:
+    #         return False
 
     def popup_errore(self):
         msg = QMessageBox()
