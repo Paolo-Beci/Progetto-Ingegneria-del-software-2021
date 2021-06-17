@@ -71,6 +71,7 @@ class VistaHome(QWidget):
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.gridLayout_3 = QtWidgets.QGridLayout()
         self.gridLayout_3.setObjectName("gridLayout_3")
+        self.pushButton_prodotti.clicked.connect(self.go_lista_prodotti)
 
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout_3.addItem(spacerItem, 2, 1, 1, 1)
@@ -152,6 +153,7 @@ class VistaHome(QWidget):
         spacerItem13 = QtWidgets.QSpacerItem(100, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_2.addItem(spacerItem13, 5, 4, 3, 1)
         self.gridLayout.addLayout(self.gridLayout_2, 2, 0, 1, 2)
+        self.pushButton_ordini.clicked.connect(self.go_lista_ordini)
 
 
         self.pushButton_vendita.clicked.connect(self.go_vista_vendita)

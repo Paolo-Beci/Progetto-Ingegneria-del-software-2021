@@ -24,7 +24,6 @@ class VistaListaOrdini(QWidget):
         self.in_arrivo = False
         self.in_negozio = False
         self.lista_ordini = self.controller_lista_ordini.get_lista_ordini()
-        #self.lista_dinamica = self.controller.get_lista_dinamica()
         self.lista_dinamica_ordini = self.lista_ordini[:] #serve per i filtri
         #############################
         # creazione nuovo ordine in quanto non ne esiste uno presente con questo codice

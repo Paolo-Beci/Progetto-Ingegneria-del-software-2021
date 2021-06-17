@@ -410,20 +410,10 @@ class VistaInserisciProdotto(QWidget):      # sistema anche le altre chiamate da
             sconto_consigliato = self.lineEdit_sconto_consigliato.text()
             sconto = self.lineEdit_sconto.text()
 
-            # creazione nuovo ordine in quanto non ne esiste uno presente con questo codice
-            ordine_esistente= False
-            for ordine in self.controller_lista_ordini.get_lista_ordini():
-                if str(ordine.cod_fattura) == str(cod_fattura):
-                    ordine_esistente= True
-
-            if not ordine_esistente:
-                ordine = Ordine(cod_fattura, cod_fornitore, stagione, None, data_ordine, None, None, None, None)
-                self.controller_lista_ordini.inserisci_ordine(ordine)
-
             # aggiunta prodotto ad un ordine esistente
             prodotto= Prodotto(cod_fattura, cod_fornitore, data_ordine, cod_prodotto, marca, nome, tipo, genere, materiale, colore, taglia, quantita,
                                                                             prezzo_acquisto, prezzo_vendita, stagione, stato,
-                                                                            sconto_consigliato, sconto, "", )
+                                                                            sconto_consigliato, sconto, "")
 
 
             self.controller_lista_prodotti.inserisci_prodotto(prodotto)
@@ -443,7 +433,7 @@ class VistaInserisciProdotto(QWidget):      # sistema anche le altre chiamate da
             sconto_consigliato = self.lineEdit_sconto_consigliato.text()
             sconto = self.lineEdit_sconto.text()
 
-            prodotto= Prodotto(None, None, None, cod_prodotto, marca, nome, tipo, genere, materiale, colore, taglia, quantita,prezzo_acquisto, prezzo_vendita, None, None,sconto_consigliato, sconto, "")
+            prodotto= Prodotto(None, None, None, cod_prodotto, marca, nome, tipo, genere, materiale, colore, taglia, quantita,prezzo_acquisto, prezzo_vendita, None, None, sconto_consigliato, sconto, "")
             self.lista_prodotti_ordine.append(prodotto)
 
 

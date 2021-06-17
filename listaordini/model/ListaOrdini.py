@@ -10,6 +10,21 @@ class ListaOrdini:
     def __init__(self):
         super(ListaOrdini, self).__init__()
         self.lista_ordini = []
+        self.refresh_data()
+
+    def filtra_ordine(self, cod_fattura):
+        return self.lista_ordini[cod_fattura]
+
+    def aggiungi_ordine(self, ordine):
+        self.lista_ordini.append(ordine)
+
+    def get_lista_ordini(self):
+        return self.lista_ordini
+
+    def get_ordine_by_index(self, index):
+        return self.lista_ordini[index]
+
+    def refresh_data(self):
         if os.path.isfile('listaordini/data/DatabaseOrdini.pickle') and os.stat('listaordini/data/DatabaseOrdini.pickle').st_size!=0:
             with open('listaordini/data/DatabaseOrdini.pickle', 'rb') as f:
                 try:
@@ -25,18 +40,6 @@ class ListaOrdini:
                                  ordine_da_caricare["data_ordine"], ordine_da_caricare["data_arrivo_prevista"],
                                  ordine_da_caricare["data_arrivo_effettiva"], ordine_da_caricare["importo_totale"],
                                  ordine_da_caricare["calzature_totali"]))
-
-    def filtra_ordine(self, cod_fattura):
-        return self.lista_ordini[cod_fattura]
-
-    def aggiungi_ordine(self, ordine):
-        self.lista_ordini.append(ordine)
-
-    def get_lista_ordini(self):
-        return self.lista_ordini
-
-    def get_ordine_by_index(self, index):
-        return self.lista_ordini[index]
 
     def save_data(self):
         with open('listaordini/data/DatabaseOrdini.pickle', 'wb') as handle:

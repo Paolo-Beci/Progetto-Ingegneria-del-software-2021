@@ -16,27 +16,7 @@ class ListaProdotti:
         super(ListaProdotti, self).__init__()
         self.lista_prodotti = []
         self.lista_marche = []
-        if os.path.isfile('listaprodotti/data/DatabaseProdotti.pickle') and os.stat('listaprodotti/data/DatabaseProdotti.pickle').st_size!=0:
-            with open('listaprodotti/data/DatabaseProdotti.pickle', 'rb') as f:
-                try:
-                    self.lista_prodotti = pickle.load(f)
-                except EOFError:
-                    return
-        else:
-            with open('listaprodotti/data/DatabaseProdotti.json') as f:
-                lista_prodotti_json = json.load(f)
-                for prodotto_da_caricare in lista_prodotti_json:
-                    self.aggiungi_prodotto_da_database(
-                        Prodotto(prodotto_da_caricare["cod_fattura"], prodotto_da_caricare["cod_fornitore"],
-                                 prodotto_da_caricare["data_ordine"], prodotto_da_caricare["cod_prodotto"],
-                                 prodotto_da_caricare["marca"], prodotto_da_caricare["nome"],
-                                 prodotto_da_caricare["tipo"], prodotto_da_caricare["genere"],
-                                 prodotto_da_caricare["materiale"], prodotto_da_caricare["colore"],
-                                 prodotto_da_caricare["taglia"], prodotto_da_caricare["quantita"],
-                                 prodotto_da_caricare["prezzo_acquisto"], prodotto_da_caricare["prezzo_vendita"],
-                                 prodotto_da_caricare["stagione"], prodotto_da_caricare["stato"],
-                                 prodotto_da_caricare["sconto_consigliato"],
-                                 prodotto_da_caricare["sconto"], prodotto_da_caricare["data_vendita"]))
+        self.refresh_data()
 
     def aggiungi_prodotto(self, prodotto):
         self.lista_prodotti.append(prodotto)
@@ -106,6 +86,30 @@ class ListaProdotti:
 
     def aggiungi_prodotto_da_database(self, prodotto):
         self.lista_prodotti.append(prodotto)
+
+    def refresh_data(self):
+        if os.path.isfile('listaprodotti/data/DatabaseProdotti.pickle') and os.stat('listaprodotti/data/DatabaseProdotti.pickle').st_size!=0:
+            with open('listaprodotti/data/DatabaseProdotti.pickle', 'rb') as f:
+                try:
+                    self.lista_prodotti = pickle.load(f)
+                except EOFError:
+                    return
+        else:
+            with open('listaprodotti/data/DatabaseProdotti.json') as f:
+                lista_prodotti_json = json.load(f)
+                for prodotto_da_caricare in lista_prodotti_json:
+                    self.aggiungi_prodotto_da_database(
+                        Prodotto(prodotto_da_caricare["cod_fattura"], prodotto_da_caricare["cod_fornitore"],
+                                 prodotto_da_caricare["data_ordine"], prodotto_da_caricare["cod_prodotto"],
+                                 prodotto_da_caricare["marca"], prodotto_da_caricare["nome"],
+                                 prodotto_da_caricare["tipo"], prodotto_da_caricare["genere"],
+                                 prodotto_da_caricare["materiale"], prodotto_da_caricare["colore"],
+                                 prodotto_da_caricare["taglia"], prodotto_da_caricare["quantita"],
+                                 prodotto_da_caricare["prezzo_acquisto"], prodotto_da_caricare["prezzo_vendita"],
+                                 prodotto_da_caricare["stagione"], prodotto_da_caricare["stato"],
+                                 prodotto_da_caricare["sconto_consigliato"],
+                                 prodotto_da_caricare["sconto"], prodotto_da_caricare["data_vendita"]))
+
 
     def save_data(self):
         with open('listaprodotti/data/DatabaseProdotti.pickle', 'wb') as handle:

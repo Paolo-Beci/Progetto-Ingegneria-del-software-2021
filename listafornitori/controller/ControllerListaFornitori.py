@@ -29,5 +29,8 @@ class ControllerListaFornitori():
     def elimina_fornitore_by_codice(self, codice_fornitore, lista_dinamica):
         self.model.elimina_fornitore_by_codice(codice_fornitore, lista_dinamica)
 
+    def refresh_data(self):
+        self.model.refresh_data()
+
     def save_data(self):
         self.model.save_data()

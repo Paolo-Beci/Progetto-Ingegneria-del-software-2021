@@ -33,5 +33,8 @@ class ControllerListaProdotti:
     def elimina_prodotto_by_codice(self, codice_prodotto):
         self.model.elimina_prodotto(codice_prodotto)
 
+    def refresh_data(self):
+        self.model.refresh_data()
+
     def save_data(self):
         self.model.save_data()
