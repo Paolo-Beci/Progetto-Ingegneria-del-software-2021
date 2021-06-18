@@ -294,6 +294,7 @@ class VistaListaProdotti(QWidget):
             self.widget_generico = QtWidgets.QWidget(self.scrollAreaWidgetContents)
             self.displayprodotto1 = VistaDisplayProdotto(prodotto)
             self.widget_generico = self.displayprodotto1
+            self.widget_generico.setFixedWidth(300)
             self.widget_generico.setMinimumSize(QtCore.QSize(0, 450))
 
             self.gridLayout_2.addWidget(self.widget_generico, row, column, 1, 1)
