@@ -127,7 +127,7 @@ class VistaHome(QWidget):
         #self.label_clock.setAutoFillBackground(True) #150,0
         self.label_clock.setMinimumSize(QtCore.QSize(240, 50))
         self.label_clock.setMaximumSize(QtCore.QSize(16777215, 60))
-        self.label_clock.setObjectName("label_clock")
+        self.label_clock.setObjectName("label_clock")        
         self.gridLayout_4.addWidget(self.label_clock, 1, 1, 1, 1)
 
         self.gridLayout_2.addLayout(self.gridLayout_4, 0, 2, 1, 3)
@@ -170,6 +170,9 @@ class VistaHome(QWidget):
 
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
+        
+        data_odierna= datetime.datetime.now()
+        self.label_data.setText("%s/%s/%s"%((data_odierna.day,data_odierna.month,data_odierna.year)))
 
         self.pushButton_vendita.setText(_translate("Home", "Area vendita"))
         self.pushButton_prodotti.setText(_translate("Home", "Area prodotti"))

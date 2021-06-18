@@ -1,5 +1,5 @@
 from PyQt5 import QtWidgets, QtCore, QtGui
-from PyQt5.QtWidgets import QWidget, QTableWidgetItem
+from PyQt5.QtWidgets import QWidget, QTableWidgetItem, QMessageBox
 
 from listaprodotti.view.VistaInserisciProdotto import VistaInserisciProdotto
 from ordine.model.Ordine import Ordine
@@ -348,6 +348,16 @@ class VistaInserisciOrdine(QWidget):
             self.retranslateUi()
 
     def inserisci_ordine(self):
+
+        if self.lineEdit_cod_fornitore.text() == "" or self.lineEdit_cod_fattura.text() == "":
+            QMessageBox.critical(self, 'Errore', 'Per favore, inserisci tutte le informazioni richieste.',
+                                 QMessageBox.Ok, QMessageBox.Ok)
+            return
+
+        if len(self.lista_prodotti_ordine)==0:
+            QMessageBox.critical(self, 'Errore', "L'ordine non contiene alcun prodotto.",
+                                 QMessageBox.Ok, QMessageBox.Ok)
+            return
 
         cod_fattura = self.lineEdit_cod_fattura.text()
         cod_fornitore = self.lineEdit_cod_fornitore.text()

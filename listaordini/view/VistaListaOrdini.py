@@ -71,7 +71,7 @@ class VistaListaOrdini(QWidget):
         self.lineEdit_cerca.setFont(font)
         self.lineEdit_cerca.setClearButtonEnabled(False)
         self.lineEdit_cerca.setObjectName("lineEdit_cerca")
-        self.lineEdit_cerca.setPlaceholderText("Cerca per codice")
+        self.lineEdit_cerca.setPlaceholderText("Cerca per codice fattura")
         self.lineEdit_cerca.returnPressed.connect(self.filter_cerca)
         self.gridLayout.addWidget(self.lineEdit_cerca, 2, 6, 1, 1)
         self.label_logo = QtWidgets.QLabel(self)
