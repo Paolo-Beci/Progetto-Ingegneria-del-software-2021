@@ -202,6 +202,8 @@ class VistaListaProdotti(QWidget):
         QtCore.QMetaObject.connectSlotsByName(self)
 
     def retranslateUi(self):
+        for i in reversed(range(self.gridLayout_2.count())):
+            self.gridLayout_2.itemAt(i).widget().setParent(None)
 
         _translate = QtCore.QCoreApplication.translate
         self.setWindowTitle(_translate("MainWindow", "MainWindow"))
@@ -227,8 +229,11 @@ class VistaListaProdotti(QWidget):
     """
 
     def show_inserisci_prodotto(self):
-        self.vista_inserisci_prodotto = VistaInserisciProdotto(self.controller_lista_prodotti, self.retranslateUi, False, None, self.lista_prodotti_filtrata)
+        self.vista_inserisci_prodotto = VistaInserisciProdotto(self.controller_lista_prodotti, self.retranslateUi, False,
+                                                               None, self.lista_prodotti_filtrata, None)
         self.vista_inserisci_prodotto.show()
+        for i in reversed(range(self.gridLayout_2.count())):
+            self.gridLayout_2.itemAt(i).widget().setParent(None)
         self.retranslateUi()
 
     def cerca_prodotto(self):
@@ -292,9 +297,8 @@ class VistaListaProdotti(QWidget):
         column = 0
         for prodotto in lista_da_caricare:
             self.widget_generico = QtWidgets.QWidget(self.scrollAreaWidgetContents)
-            self.displayprodotto1 = VistaDisplayProdotto(prodotto)
+            self.displayprodotto1 = VistaDisplayProdotto(prodotto, self.retranslateUi, self.controller_lista_prodotti)
             self.widget_generico = self.displayprodotto1
-            self.widget_generico.setFixedWidth(300)
             self.widget_generico.setMinimumSize(QtCore.QSize(0, 450))
 
             self.gridLayout_2.addWidget(self.widget_generico, row, column, 1, 1)
@@ -305,16 +309,17 @@ class VistaListaProdotti(QWidget):
             else:
                 column = column + 1
 
-        if column < 2:
-            if column < 1:
-                self.widget_generico = QtWidgets.QWidget()
-                self.gridLayout_2.addWidget(self.widget_generico, 0, 1, 1, 1)
-                self.gridLayout_2.addWidget(self.widget_generico, 0, 2, 1, 1)
-                if column == 0:
-                    self.popup_no_prodotti()
-            else:
-                self.widget_generico = QtWidgets.QWidget()
-                self.gridLayout_2.addWidget(self.widget_generico, 0, 2, 1, 1)
+
+        # if column < 2:
+        #     if column < 1:
+        #         self.widget_generico = QtWidgets.QWidget()
+        #         self.gridLayout_2.addWidget(self.widget_generico, 0, 1, 1, 1)
+        #         self.gridLayout_2.addWidget(self.widget_generico, 0, 2, 1, 1)
+        #         if column == 0:
+        #             self.popup_no_prodotti()
+        #     else:
+        #         self.widget_generico = QtWidgets.QWidget()
+        #         self.gridLayout_2.addWidget(self.widget_generico, 0, 2, 1, 1)
 
     def get_lista_filtrata(self):
         return self.lista_prodotti_filtrata

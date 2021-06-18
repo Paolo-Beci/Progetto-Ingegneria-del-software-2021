@@ -80,6 +80,7 @@ class VistaInserisciOrdine(QWidget):
         self.pushButton_annulla.setSizePolicy(sizePolicy)
         self.pushButton_annulla.setMaximumSize(QtCore.QSize(180, 16777215))
         self.pushButton_annulla.setObjectName("pushButton_annulla")
+        self.pushButton_annulla.clicked.connect(self.close)
         self.horizontalLayout.addWidget(self.pushButton_annulla)
         spacerItem6 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem6)
@@ -411,3 +412,4 @@ class VistaInserisciOrdine(QWidget):
 
         self.update_ui()
         self.close()
+

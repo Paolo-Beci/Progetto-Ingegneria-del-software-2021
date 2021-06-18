@@ -9,10 +9,11 @@ from PyQt5.QtWidgets import QWidget, QApplication
 
 
 class VistaModificaProdotto(QWidget):
-    def __init__(self, controller, update_ui, parent=None):
+    def __init__(self, controller, update_ui, prodotto, parent=None):
         super(VistaModificaProdotto, self).__init__(parent)
         self.controller = controller
         self.update_ui = update_ui
+        self.prodotto = prodotto
         self.setObjectName("MainWindow")
         self.resize(1071, 715)
         # FONT
@@ -272,70 +273,70 @@ class VistaModificaProdotto(QWidget):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Modifica prodotto"))
         self.label_marca.setText(_translate("MainWindow", "Marca"))
-        self.lineEdit_marca.setText(_translate("Form", str(self.controller.get_marca())))
+        self.lineEdit_marca.setText(_translate("Form", str(self.prodotto.marca)))
         self.label_sconto.setText(_translate("MainWindow", "Sconto  (%)"))
-        self.lineEdit_sconto.setText(_translate("Form", str(self.controller.get_sconto())))
+        self.lineEdit_sconto.setText(_translate("Form", str(self.prodotto.sconto)))
         self.label_taglia.setText(_translate("MainWindow", "Taglia"))
-        numero = self.controller.get_taglia() - 16
+        numero = int(self.prodotto.taglia) - 16
         self.comboBox_taglia.setCurrentIndex(numero)
         self.label_genere.setText(_translate("MainWindow", "Genere"))
-        if self.controller.get_genere() == "U":
+        if self.prodotto.genere == "U":
             index = self.comboBox_genere.findText("Uomo", QtCore.Qt.MatchFixedString)
-        elif self.controller.get_genere() == "D":
+        elif self.prodotto.genere == "D":
             index = self.comboBox_genere.findText("Donna", QtCore.Qt.MatchFixedString)
-        elif self.controller.get_genere() == "BO":
+        elif self.prodotto.genere == "BO":
             index = self.comboBox_genere.findText("Bambino", QtCore.Qt.MatchFixedString)
-        elif self.controller.get_genere() == "BA":
+        elif self.prodotto.genere == "BA":
             index = self.comboBox_genere.findText("Bambina", QtCore.Qt.MatchFixedString)
         self.comboBox_genere.setCurrentIndex(index)
         self.label_data_ordine.setText(_translate("MainWindow", "Data ordine"))
-        data = self.controller.get_data_ordine()
+        data = self.prodotto.data_ordine
         data_split = data.split("/")
         self.dateEdit_data_ordine.setDate(QDate(int(data_split[2]), int(data_split[1]), int(data_split[0])))
         self.label_cod_fornitore.setText(_translate("MainWindow", "Codice fornitore"))
-        self.lineEdit_cod_fornitore.setText(_translate("Form", str(self.controller.get_cod_fornitore())))
+        self.lineEdit_cod_fornitore.setText(_translate("Form", str(self.prodotto.cod_fornitore)))
         self.label_cod_prodotto.setText(_translate("MainWindow", "Codice prodotto"))
-        self.lineEdit_cod_prodotto.setText(_translate("Form", str(self.controller.get_cod_prodotto())))
+        self.lineEdit_cod_prodotto.setText(_translate("Form", str(self.prodotto.cod_prodotto)))
         self.label_colore.setText(_translate("MainWindow", "Colore"))
-        self.lineEdit_colore.setText(_translate("Form", str(self.controller.get_colore())))
+        self.lineEdit_colore.setText(_translate("Form", str(self.prodotto.colore)))
         self.label_materiale.setText(_translate("MainWindow", "Materiale"))
-        self.lineEdit_materiale.setText(_translate("Form", str(self.controller.get_materiale())))
+        self.lineEdit_materiale.setText(_translate("Form", str(self.prodotto.materiale)))
         self.label_tipo.setText(_translate("MainWindow", "Tipo"))
-        if self.controller.get_tipo() == "Eleganti":
+        if self.prodotto.tipo == "Eleganti":
             index = self.comboBox_tipo.findText("Eleganti", QtCore.Qt.MatchFixedString)
-        elif self.controller.get_tipo() == "Trekking":
+        elif self.prodotto.tipo == "Trekking":
             index = self.comboBox_tipo.findText("Trekking", QtCore.Qt.MatchFixedString)
-        elif self.controller.get_tipo() == "Sneakers":
+        elif self.prodotto.tipo == "Sneakers":
             index = self.comboBox_tipo.findText("Sneakers", QtCore.Qt.MatchFixedString)
-        elif self.controller.get_tipo() == "Sportive":
+        elif self.prodotto.tipo == "Sportive":
             index = self.comboBox_tipo.findText("Sportive", QtCore.Qt.MatchFixedString)
         self.comboBox_tipo.setCurrentIndex(index)
         self.label_prezzo_acquisto.setText(_translate("MainWindow", "Prezzo di acquisto  (€)"))
-        self.lineEdit_prezzo_acquisto.setText(_translate("Form", str(self.controller.get_prezzo_acquisto())))
+        self.lineEdit_prezzo_acquisto.setText(_translate("Form", str(self.prodotto.prezzo_acquisto)))
         self.label_nome.setText(_translate("MainWindow", "Nome"))
-        self.lineEdit_nome.setText(_translate("Form",str(self.controller.get_nome())))
+        self.lineEdit_nome.setText(_translate("Form",str(self.prodotto.nome)))
         self.label_sconto_consigliato.setText(_translate("MainWindow", "Sconto consigliato  (%)"))
-        self.lineEdit_sconto_consigliato.setText(_translate("Form", str(self.controller.get_sconto_consigliato())))
+        self.lineEdit_sconto_consigliato.setText(_translate("Form", str(self.prodotto.sconto_consigliato)))
         self.label_cod_fattura.setText(_translate("MainWindow", "Codice fattura"))
-        self.lineEdit_cod_fattura.setText(_translate("Form", str(self.controller.get_cod_fattura())))
+        self.lineEdit_cod_fattura.setText(_translate("Form", str(self.prodotto.cod_fattura)))
         self.label_prezzo_vendita.setText(_translate("MainWindow", "Prezzo di vendita  (€)"))
-        self.lineEdit_prezzo_vendita.setText(_translate("Form", str(self.controller.get_prezzo_vendita())))
+        self.lineEdit_prezzo_vendita.setText(_translate("Form", str(self.prodotto.prezzo_vendita)))
         self.label_stagione.setText(_translate("MainWindow", "Stagione"))
-        if self.controller.get_stagione() == "P/E":
+        if self.prodotto.stagione == "P/E":
             index = self.comboBox_stagione.findText("Primavera / Estate", QtCore.Qt.MatchFixedString)
-        elif self.controller.get_stagione() == "A/I":
+        elif self.prodotto.stagione == "A/I":
             index = self.comboBox_stagione.findText("Autunno / Inverno", QtCore.Qt.MatchFixedString)
         self.comboBox_stagione.setCurrentIndex(index)
         self.label_quantita.setText(_translate("MainWindow", "Quantità"))
-        self.lineEdit_quantita.setText(_translate("Form", str(self.controller.get_quantita())))
+        self.lineEdit_quantita.setText(_translate("Form", str(self.prodotto.quantita)))
         self.label_stato.setText(_translate("MainWindow", "Stato"))
-        if self.controller.get_stato() == "In arrivo":
+        if self.prodotto.stato == "In arrivo":
             index = self.comboBox_stato.findText("In arrivo", QtCore.Qt.MatchFixedString)
-        elif self.controller.get_stato() == "In negozio":
+        elif self.prodotto.stato == "In negozio":
             index = self.comboBox_stato.findText("In negozio", QtCore.Qt.MatchFixedString)
-        elif self.controller.get_stato() == "Venduto":
+        elif self.prodotto.stato == "Venduto":
             index = self.comboBox_stato.findText("Venduto", QtCore.Qt.MatchFixedString)
-        elif self.controller.get_stato() == "Reso":
+        elif self.prodotto.stato == "Reso":
             index = self.comboBox_stato.findText("Reso", QtCore.Qt.MatchFixedString)
         self.comboBox_stato.setCurrentIndex(index)
         self.pushButton_annulla.setText(_translate("MainWindow", "Annulla"))

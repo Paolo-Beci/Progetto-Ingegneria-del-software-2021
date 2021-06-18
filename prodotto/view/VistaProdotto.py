@@ -1,10 +1,10 @@
+import os
 import time
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import QWidget, QMessageBox, QApplication
 from PyQt5.QtGui import QPixmap
 
 from prodotto.view.VistaModificaProdotto import VistaModificaProdotto
-from prodotto.controller.ControllerProdotto import ControllerProdotto
 
 """
     VISUALIZZAZIONE DEI PARAMETRI DEL PRODOTTO
@@ -13,10 +13,11 @@ from prodotto.controller.ControllerProdotto import ControllerProdotto
 
 
 class VistaProdotto(QWidget):
-    def __init__(self, prodotto, update_ui, parent=None):
+    def __init__(self, prodotto, update_ui, controller, parent=None):
         super(VistaProdotto, self).__init__(parent)
-        self.controller = ControllerProdotto(prodotto)
+        self.controller = controller
         self.update_ui = update_ui
+        self.prodotto = prodotto
         self.setObjectName("MainWindow")
         self.resize(1173, 700)
 
@@ -89,7 +90,7 @@ class VistaProdotto(QWidget):
         self.pushButton_elimina = QtWidgets.QPushButton(self.widget_2)
         self.pushButton_elimina.setObjectName("pushButton_elimina")
         self.gridLayout.addWidget(self.pushButton_elimina, 5, 1, 1, 1)
-        self.pushButton_elimina.clicked.connect(self.popup_elimina)
+        self.pushButton_elimina.clicked.connect(self.elimina_prodotto_click)
         # indetro button
         self.pushButton_indietro = QtWidgets.QPushButton(self.widget_2)
         self.pushButton_indietro.setObjectName("pushButton_indietro")
@@ -150,7 +151,10 @@ class VistaProdotto(QWidget):
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.label = QtWidgets.QLabel(self.immagine)
         self.label.setObjectName("label")
-        pixmap = QPixmap('listaprodotti/data/images/' + str(self.controller.get_cod_prodotto()) + '.jpg')
+        if os.path.isfile('listaprodotti/data/images/' + str(self.prodotto.cod_prodotto) + '.jpg'):
+            pixmap = QPixmap('listaprodotti/data/images/' + str(self.prodotto.cod_prodotto) + '.jpg')
+        else:
+            pixmap = QPixmap('listaprodotti/data/images/noimage.jpg')
         pixmap_scaled = pixmap.scaled(1100, 850, QtCore.Qt.KeepAspectRatio)
         self.label.setPixmap(pixmap_scaled)
         self.verticalLayout_2.addWidget(self.label)
@@ -170,57 +174,44 @@ class VistaProdotto(QWidget):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.groupBox_dettagli_prodotto.setTitle(_translate("MainWindow", "Dettagli prodotto"))
-        self.label_data_ordine.setText(_translate("MainWindow", "Data dell\'ordine: " + str(self.controller.get_data_ordine())))
-        self.label_marca.setText(_translate("MainWindow", "Marca: " + str(self.controller.get_marca())))
-        self.label_nome.setText(_translate("MainWindow", "Nome: " + str(self.controller.get_nome())))
-        self.label_tipo.setText(_translate("MainWindow", "Tipo: " + str(self.controller.get_tipo())))
-        self.label_genere.setText(_translate("MainWindow", "Genere: " + str(self.controller.get_genere())))
-        self.label_materiale.setText(_translate("MainWindow", "Materiale: " + str(self.controller.get_materiale())))
-        self.label_colore.setText(_translate("MainWindow", "Colore: " + str(self.controller.get_colore())))
-        self.label_taglia.setText(_translate("MainWindow", "Taglia/e: " + str(self.controller.get_taglia())))
-        self.label_quantita.setText(_translate("MainWindow", "Quantità: " + str(self.controller.get_quantita())))
-        self.label_stagione.setText(_translate("MainWindow", "Stagione: " + str(self.controller.get_stagione())))
+        self.label_data_ordine.setText(_translate("MainWindow", "Data dell\'ordine: " + str(self.prodotto.data_ordine)))
+        self.label_marca.setText(_translate("MainWindow", "Marca: " + str(self.prodotto.marca)))
+        self.label_nome.setText(_translate("MainWindow", "Nome: " + str(self.prodotto.nome)))
+        self.label_tipo.setText(_translate("MainWindow", "Tipo: " + str(self.prodotto.tipo)))
+        self.label_genere.setText(_translate("MainWindow", "Genere: " + str(self.prodotto.genere)))
+        self.label_materiale.setText(_translate("MainWindow", "Materiale: " + str(self.prodotto.materiale)))
+        self.label_colore.setText(_translate("MainWindow", "Colore: " + str(self.prodotto.colore)))
+        self.label_taglia.setText(_translate("MainWindow", "Taglia/e: " + str(self.prodotto.taglia)))
+        self.label_quantita.setText(_translate("MainWindow", "Quantità: " + str(self.prodotto.quantita)))
+        self.label_stagione.setText(_translate("MainWindow", "Stagione: " + str(self.prodotto.stagione)))
         self.pushButton_modifica.setText(_translate("MainWindow", "Modifica"))
         self.pushButton_indietro.setText(_translate("MainWindow", "< Indietro"))
         self.groupBox_prezzi_sconti.setTitle(_translate("MainWindow", "Prezzi e sconti"))
-        self.label_prezzo_acquisto.setText(_translate("MainWindow", "Prezzo di acquisto: " + str(self.controller.get_prezzo_acquisto())))
-        self.label_prezzo_vendita.setText(_translate("MainWindow", "Prezzo di vendita: " + str(self.controller.get_prezzo_vendita())))
-        self.label_sconto.setText(_translate("MainWindow", "Sconto: " + str(self.controller.get_sconto())))
-        self.label_sconto_consigliato.setText(_translate("MainWindow", "Sconto cosigliato: " + str(self.controller.get_sconto_consigliato())))
-        self.label_stato.setText(_translate("MainWindow", "Stato: " + str(self.controller.get_stato())))
+        self.label_prezzo_acquisto.setText(_translate("MainWindow", "Prezzo di acquisto: " + str(self.prodotto.prezzo_acquisto)))
+        self.label_prezzo_vendita.setText(_translate("MainWindow", "Prezzo di vendita: " + str(self.prodotto.prezzo_vendita)))
+        self.label_sconto.setText(_translate("MainWindow", "Sconto: " + str(self.prodotto.sconto)))
+        self.label_sconto_consigliato.setText(_translate("MainWindow", "Sconto cosigliato: " + str(self.prodotto.sconto_consigliato)))
+        self.label_stato.setText(_translate("MainWindow", "Stato: " + str(self.prodotto.stato)))
         self.pushButton_elimina.setText(_translate("MainWindow", "Elimina"))
         self.groupBox_codici_prodotto.setTitle(_translate("MainWindow", "Codici prodotto"))
-        self.label_cod_fattura.setText(_translate("MainWindow", "Codice fattura: " + str(self.controller.get_cod_fattura())))
-        self.label_cod_fornitore.setText(_translate("MainWindow", "Codice fornitore: " + str(self.controller.get_cod_fornitore())))
-        self.label_cod_prodotto.setText(_translate("MainWindow", "Codice prodotto: " + str(self.controller.get_cod_prodotto())))
+        self.label_cod_fattura.setText(_translate("MainWindow", "Codice fattura: " + str(self.prodotto.cod_fattura)))
+        self.label_cod_fornitore.setText(_translate("MainWindow", "Codice fornitore: " + str(self.prodotto.cod_fornitore)))
+        self.label_cod_prodotto.setText(_translate("MainWindow", "Codice prodotto: " + str(self.prodotto.cod_prodotto)))
 
     """
         Eventi trigger click dei bottoni
     """
 
-    def popup_elimina(self):
-        msg = QMessageBox()
-        msg.setWindowTitle("ATTENZIONE")
-        msg.setText(
-            "Sei sicuro di voler eliminare il prodotto selezionato? \n\nil prodotto eliminato non sarà ripristinabile")
-        msg.setIcon(QMessageBox.Warning)
-        msg.setStandardButtons(QMessageBox.Yes)
-        msg.setDefaultButton(QMessageBox.Yes)
-        msg.exec_()
-        msg.buttonClicked.connect(self.elimina_prodotto_click)
-
     def elimina_prodotto_click(self):
-        self.controller.elimina_prodotto_by_codice()
+        self.controller.elimina_prodotto_by_codice(self.prodotto.cod_prodotto)
         self.update_ui()
         self.close()
 
     def modifica_prodotto_click(self):
-        self.vista_modifica_prodotto = VistaModificaProdotto(self.controller, self.update_ui)
+        self.vista_modifica_prodotto = VistaModificaProdotto(self.controller, self.update_ui, self.prodotto)
         self.vista_modifica_prodotto.showMaximized()
         time.sleep(0.3)
-        #self.update_ui()
         self.close()
-
 
     def show_back_click(self):
         self.close()
