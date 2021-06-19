@@ -6,100 +6,87 @@ class VistaLogin(QWidget):
     def __init__(self, controller, update_ui):
         super(VistaLogin, self).__init__()
         self.controller = controller
-        self.update_ui= update_ui
+        self.update_ui = update_ui
 
-        self.setObjectName("MainWindow")
-        self.resize(760, 439)
-
-        self.centralwidget = QtWidgets.QWidget(self)
-        self.centralwidget.setObjectName("centralwidget")
-        self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
+        self.setObjectName("Form")
+        self.resize(900, 450)
+        self.gridLayout_2 = QtWidgets.QGridLayout(self)
+        self.gridLayout_2.setObjectName("gridLayout_2")
+        self.gridLayout = QtWidgets.QGridLayout()
         self.gridLayout.setObjectName("gridLayout")
-        self.label_3 = QtWidgets.QLabel(self.centralwidget)
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.label_3.setFont(font)
-        self.label_3.setAlignment(QtCore.Qt.AlignBottom|QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft)
-        self.label_3.setObjectName("label_3")
-        self.gridLayout.addWidget(self.label_3, 4, 2, 1, 1)
-
-        self.lineEdit_username = QtWidgets.QLineEdit(self.centralwidget)
-        self.lineEdit_username.setObjectName("lineEdit_username")
-        self.gridLayout.addWidget(self.lineEdit_username, 3, 2, 1, 1)
-
-        self.lineEdit_password = QtWidgets.QLineEdit(self.centralwidget)
-        self.lineEdit_password.setEchoMode(QtWidgets.QLineEdit.Password)
-        self.lineEdit_password.setObjectName("lineEdit_password")
-        self.gridLayout.addWidget(self.lineEdit_password, 5, 2, 1, 1)
-
-        self.pushButton_login = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_login = QtWidgets.QPushButton(self)
         self.pushButton_login.setObjectName("pushButton_login")
-        self.gridLayout.addWidget(self.pushButton_login, 7, 3, 1, 1)
+        self.gridLayout.addWidget(self.pushButton_login, 8, 2, 1, 1)
         self.pushButton_login.clicked.connect(self.login)
-
-        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout.addItem(spacerItem, 7, 0, 1, 1)
-        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout.addItem(spacerItem1, 6, 2, 1, 1)
-        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout.addItem(spacerItem2, 7, 4, 1, 1)
-        spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout.addItem(spacerItem3, 8, 1, 1, 1)
-        spacerItem4 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout.addItem(spacerItem4, 0, 2, 1, 1)
-
-        self.label_2 = QtWidgets.QLabel(self.centralwidget)
+        self.lineEdit_password = QtWidgets.QLineEdit(self)
+        self.lineEdit_password.setObjectName("lineEdit_password")
+        self.lineEdit_password.setEchoMode(QtWidgets.QLineEdit.Password)
+        self.gridLayout.addWidget(self.lineEdit_password, 5, 1, 1, 1)
+        self.lineEdit_password.returnPressed.connect(self.login)
+        self.label_2 = QtWidgets.QLabel(self)
         font = QtGui.QFont()
         font.setPointSize(10)
         self.label_2.setFont(font)
-        self.label_2.setAlignment(QtCore.Qt.AlignBottom|QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft)
+        self.label_2.setAlignment(QtCore.Qt.AlignBottom | QtCore.Qt.AlignLeading | QtCore.Qt.AlignLeft)
         self.label_2.setObjectName("label_2")
-        self.gridLayout.addWidget(self.label_2, 2, 2, 1, 1)
-
-        self.pushButton_annulla = QtWidgets.QPushButton(self.centralwidget)
+        self.gridLayout.addWidget(self.label_2, 2, 1, 1, 1)
+        self.pushButton_annulla = QtWidgets.QPushButton(self)
         self.pushButton_annulla.setObjectName("pushButton_annulla")
-        self.gridLayout.addWidget(self.pushButton_annulla, 7, 1, 1, 1)
+        self.gridLayout.addWidget(self.pushButton_annulla, 8, 0, 1, 1)
         self.pushButton_annulla.clicked.connect(self.close)
-
-        self.label = QtWidgets.QLabel(self.centralwidget)
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem, 5, 2, 1, 1)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem1, 0, 1, 1, 1)
+        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem2, 6, 1, 1, 1)
+        self.label_3 = QtWidgets.QLabel(self)
         font = QtGui.QFont()
-        font.setPointSize(15)
+        font.setPointSize(10)
+        self.label_3.setFont(font)
+        self.label_3.setAlignment(QtCore.Qt.AlignBottom | QtCore.Qt.AlignLeading | QtCore.Qt.AlignLeft)
+        self.label_3.setObjectName("label_3")
+        self.gridLayout.addWidget(self.label_3, 4, 1, 1, 1)
+        self.lineEdit_username = QtWidgets.QLineEdit(self)
+        self.lineEdit_username.setObjectName("lineEdit_username")
+        self.gridLayout.addWidget(self.lineEdit_username, 3, 1, 1, 1)
+        self.label = QtWidgets.QLabel(self)
+        font = QtGui.QFont()
+        font.setPointSize(25)
         font.setBold(True)
         font.setWeight(75)
         self.label.setFont(font)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
-        self.gridLayout.addWidget(self.label, 1, 2, 1, 1)
+        self.gridLayout.addWidget(self.label, 1, 1, 1, 1)
+        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.MinimumExpanding,
+                                            QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem3, 5, 0, 1, 1)
+        spacerItem4 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem4, 9, 1, 1, 1)
+        self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
 
-        # dimensionamento interaccia
-        self.desktop = QApplication.desktop()
-        self.screenRect = self.desktop.screenGeometry()
-        height = (self.screenRect.height()) / 2.5
-        width = (self.screenRect.width()) / 2.5
-        self.centralwidget.setGeometry(QtCore.QRect(0, 0, width, height))
-
-        self.retranslateUi(self)
+        self.retranslateUi()
         QtCore.QMetaObject.connectSlotsByName(self)
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Login amministratore"))
-        self.label_3.setText(_translate("MainWindow", "Password"))
-        self.pushButton_login.setText(_translate("MainWindow", "Login"))
-        self.label_2.setText(_translate("MainWindow", "Username"))
-        self.pushButton_annulla.setText(_translate("MainWindow", "Annulla"))
-        self.label.setText(_translate("MainWindow", "Login amministratore"))
+        self.setWindowTitle(_translate("Form", "Login"))
+        self.pushButton_login.setText(_translate("Form", "Login"))
+        self.label_2.setText(_translate("Form", "Username"))
+        self.pushButton_annulla.setText(_translate("Form", "Annulla"))
+        self.label_3.setText(_translate("Form", "Password"))
+        self.label.setText(_translate("Form", "Login amministratore"))
 
     def login(self):
-        #corretto=False
-        self.username_inserito = self.lineEdit_username.text()
-        self.password_inserito = self.lineEdit_password.text()
+        username_inserito = self.lineEdit_username.text()
+        password_inserito = self.lineEdit_password.text()
 
         self.controller.refresh_data()
 
         for utente in self.controller.get_lista_del_personale():
-            if str(utente.username) == str(self.username_inserito):
-                if str(utente.password) == str(self.password_inserito):
+            if str(utente.username) == str(username_inserito):
+                if str(utente.password) == str(password_inserito):
                     self.controller.set_status(True)
                     break
 
