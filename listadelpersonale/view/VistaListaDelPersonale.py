@@ -227,8 +227,8 @@ class VistaListaDelPersonale(QWidget):
     def filter_cerca(self):
         self.lista_del_personale = self.controller.get_lista_del_personale()
         self.lista_dinamica = self.lista_del_personale[:]
-        codice= self.lineEdit_cerca.text()
-        codice.capitalize()
+        codice_cerca= self.lineEdit_cerca.text()
+        codice= codice_cerca.capitalize()
         elementi_da_rimuovere = []
         for utente in self.lista_dinamica:
             if not (codice in str(utente.cod_utente)):

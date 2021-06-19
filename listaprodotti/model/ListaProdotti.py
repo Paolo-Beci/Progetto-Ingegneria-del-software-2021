@@ -114,3 +114,7 @@ class ListaProdotti:
     def save_data(self):
         with open('listaprodotti/data/DatabaseProdotti.pickle', 'wb') as handle:
             pickle.dump(self.lista_prodotti, handle, pickle.HIGHEST_PROTOCOL)
+
+    def save_data_specialized(self, lista_prodotti):
+        with open('listaprodotti/data/DatabaseProdotti.pickle', 'wb') as handle:
+            pickle.dump(lista_prodotti, handle, pickle.HIGHEST_PROTOCOL)

@@ -209,7 +209,7 @@ class VistaListaOrdini(QWidget):
         if len(self.tableWidget.selectedIndexes()) > 0:
             selected = self.tableWidget.selectedIndexes()[0].row()
             ordine_selezionato = self.lista_dinamica_ordini[selected]
-            self.vista_ordine = VistaOrdine(ordine_selezionato, self.controller_lista_ordini.elimina_ordine_by_codice, self.retranslateUi, self.controller_lista_ordini, self.controller_lista_prodotti)
+            self.vista_ordine = VistaOrdine(ordine_selezionato, self.controller_lista_ordini.elimina_ordine_by_codice, self.retranslateUi, self.controller_lista_ordini, self.controller_lista_prodotti, self.lista_dinamica_ordini)
             self.vista_ordine.showMaximized()
             time.sleep(0.3)
 
@@ -247,8 +247,8 @@ class VistaListaOrdini(QWidget):
     def filter_cerca(self):
         self.lista_ordini = self.controller_lista_ordini.get_lista_ordini()
         self.lista_dinamica_ordini = self.lista_ordini[:]
-        codice= self.lineEdit_cerca.text()
-        codice.capitalize()
+        codice_cerca = self.lineEdit_cerca.text()
+        codice = codice_cerca.capitalize()
         elementi_da_rimuovere = []
         for ordine in self.lista_dinamica_ordini:
             if not (codice in str(ordine.cod_fattura)):

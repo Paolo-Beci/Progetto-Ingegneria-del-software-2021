@@ -1,7 +1,5 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QWidget, QApplication
-
-from ordine.model.Ordine import Ordine
+from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtWidgets import QWidget
 from prodotto.model.Prodotto import Prodotto
 from listaordini.controller.ControllerListaOrdini import ControllerListaOrdini
 
@@ -346,8 +344,6 @@ class VistaInserisciProdotto(QWidget):      # sistema anche le altre chiamate da
 
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
-
-
         self.label_codice_prodotto.setText(_translate("Form", "Codice prodotto"))
         self.label_marca.setText(_translate("Form", "Marca"))
         self.label_nome.setText(_translate("Form", "Nome"))

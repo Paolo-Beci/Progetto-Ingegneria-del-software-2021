@@ -237,8 +237,8 @@ class VistaListaProdotti(QWidget):
         self.lista_prodotti_cercati = self.lista_prodotti_filtrata[:]
 
         self.cerca_flag = True
-        codice = self.cerca.text()
-        codice.capitalize()
+        codice_cerca = self.cerca.text()
+        codice = codice_cerca.capitalize()
         elementi_da_rimuovere = []
         for prodotto in self.lista_prodotti_cercati:
             if not (codice in str(prodotto.cod_prodotto)):

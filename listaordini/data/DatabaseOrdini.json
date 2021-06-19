@@ -42,27 +42,5 @@
    "data_arrivo_effettiva": null,
    "importo_totale": 2800,
    "calzature_totali": 65
- },
-  {
-   "cod_fattura": 104,
-   "cod_fornitore": "AD004",
-   "stagione": "P/E",
-   "stato": "In negozio",
-   "data_ordine": "2020-07-28",
-   "data_arrivo_prevista": "2021-02-15",
-   "data_arrivo_effettiva": "2021-02-28",
-   "importo_totale": 2950,
-   "calzature_totali": 70
- },
-    {
-   "cod_fattura": 105,
-   "cod_fornitore": "AD005",
-   "stagione": "P/E",
-   "stato": "In negozio",
-   "data_ordine": "2020-07-14",
-   "data_arrivo_prevista": "2021-02-08",
-   "data_arrivo_effettiva": "2021-03-23",
-   "importo_totale": 2700,
-   "calzature_totali": 55
  }
 ]
