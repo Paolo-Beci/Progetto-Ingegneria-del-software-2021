@@ -335,6 +335,8 @@ class VistaInserisciOrdine(QWidget):
     def show_inserisci_prodotto(self):
         inserimento_da_ordine= True
 
+        # in VistaInserisciProdotto alcuni dati per istanziare il prodotto vengono presi dall'ordine in questione (perchè se chiamiamo vistaInserisciprodotto da VistaOrdine ci serve che sia così)
+        # Per questo motivo gli passo un ordine fittizio, tanto i suoi attributi verranno sovrascritti successivamente!
         ordine_fittizio= Ordine(0000, 0000, None, None, None, None, None, None, None)
 
         self.vista_inserisci_prodotto= VistaInserisciProdotto(self.controller_lista_prodotti, self.retranslateUi, inserimento_da_ordine, self.lista_prodotti_ordine, None, ordine_fittizio)
@@ -348,8 +350,7 @@ class VistaInserisciOrdine(QWidget):
             self.lista_prodotti_ordine.remove(prodotto_selezionato)
             self.retranslateUi()
 
-    def inserisci_ordine(self):
-
+    def inserisci_ordine(self, qm=None):
         if self.lineEdit_cod_fornitore.text() == "" or self.lineEdit_cod_fattura.text() == "":
             QMessageBox.critical(self, 'Errore', 'Per favore, inserisci tutte le informazioni richieste.',
                                  QMessageBox.Ok, QMessageBox.Ok)
@@ -359,6 +360,26 @@ class VistaInserisciOrdine(QWidget):
             QMessageBox.critical(self, 'Errore', "L'ordine non contiene alcun prodotto.",
                                  QMessageBox.Ok, QMessageBox.Ok)
             return
+
+        # Controllo: Se l'ordine che si vuole inserire è già presente in lista. Da copiare anche in modificaOrdine
+        for ordine in self.lista_dinamica:
+            if str(ordine.cod_fattura) == self.lineEdit_cod_fattura.text():
+                reply = QMessageBox.question(self, 'Attenzione', "L'ordine è già presente in lista, sovrasciverlo?",
+                                             QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+                if reply == QMessageBox.Yes:
+                    lista_prodotti= self.controller_lista_prodotti.get_lista_prodotti()
+                    for prodotto in self.lista_prodotti_ordine:
+                        if prodotto in lista_prodotti:
+                            lista_prodotti.remove(prodotto)
+
+                    self.controller_lista_prodotti.save_data_specialized(lista_prodotti)
+                    self.controller_lista_prodotti.refresh_data()
+                    self.controller_lista_ordini.elimina_ordine_by_codice(ordine.cod_fattura, self.lista_dinamica)
+                    self.update_ui()
+                    self.close()
+
+                else:
+                    return
 
         cod_fattura = self.lineEdit_cod_fattura.text()
         cod_fornitore = self.lineEdit_cod_fornitore.text()
@@ -400,6 +421,7 @@ class VistaInserisciOrdine(QWidget):
         self.controller_lista_ordini.inserisci_ordine(ordine)
         self.lista_dinamica.append(ordine)
 
+        # sovrascrivo i campi dei prodotti con quelli dell'ordine (parametri globali)
         for prodotto in self.lista_prodotti_ordine:
             prodotto.cod_fattura= cod_fattura
             prodotto.cod_fornitore= cod_fornitore

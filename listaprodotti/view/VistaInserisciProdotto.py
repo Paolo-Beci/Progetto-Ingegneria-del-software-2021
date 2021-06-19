@@ -1,7 +1,5 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QWidget, QApplication, QMessageBox
-
-from ordine.model.Ordine import Ordine
+from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtWidgets import QWidget
 from prodotto.model.Prodotto import Prodotto
 from listaordini.controller.ControllerListaOrdini import ControllerListaOrdini
 
@@ -11,7 +9,7 @@ from listaordini.controller.ControllerListaOrdini import ControllerListaOrdini
 """
 
 
-class VistaInserisciProdotto(QWidget):
+class VistaInserisciProdotto(QWidget):      # sistema anche le altre chiamate da vistaProdotto
     def __init__(self, controller_lista_prodotti, update_ui, inserimento_da_ordine, lista_prodotti_ordine, lista_prodotti_filtrata, ordine):
         super(VistaInserisciProdotto, self).__init__()
         self.controller_lista_prodotti = controller_lista_prodotti
@@ -346,8 +344,6 @@ class VistaInserisciProdotto(QWidget):
 
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
-
-
         self.label_codice_prodotto.setText(_translate("Form", "Codice prodotto"))
         self.label_marca.setText(_translate("Form", "Marca"))
         self.label_nome.setText(_translate("Form", "Nome"))
@@ -387,43 +383,38 @@ class VistaInserisciProdotto(QWidget):
         #######################################################################
 
     def salva_modifiche_click(self):
+        # prendo il testo che l'utente inserisce in ciascuna lineEdit
         if not self.inserimento_da_ordine:
-            if self.controllo_prodotto_duplicato():
-                self.popup_prodotto_sommato()
-            else:
-                cod_fattura = self.lineEdit_codice_fattura.text()
-                cod_fornitore = self.lineEdit_codice_fornitore.text()
-                aaaa = self.dateEdit_ordine.date().year()
-                mm = self.dateEdit_ordine.date().month()
-                gg = self.dateEdit_ordine.date().day()
-                data_ordine = str(gg) + "/" + str(mm) + "/" + str(aaaa)
-                cod_prodotto = self.lineEdit_codice_prodotto.text()
-                marca = self.lineEdit_marca.text()
-                nome = self.lineEdit_nome.text()
-                tipo = str(self.comboBox_tipo.currentText())
-                genere = str(self.comboBox_genere.currentText())
-                materiale = self.lineEdit_materiale.text()
-                colore = self.lineEdit_colore.text()
-                taglia = str(self.comboBox_taglia.currentText())
-                quantita = self.lineEdit_quantita.text()
-                prezzo_acquisto = self.lineEdit_prezzo_acquisto.text()
-                prezzo_vendita = self.lineEdit_prezzo_vendita.text()
-                if str(self.comboBox_stagione.currentText()) == "Primavera / Estate":
-                    stagione = "P/E"
-                else:
-                    stagione = "A/I"
-                stato = str(self.comboBox_stato.currentText())
-                sconto_consigliato = self.lineEdit_sconto_consigliato.text()
-                sconto = self.lineEdit_sconto.text()
+            cod_fattura = self.lineEdit_codice_fattura.text()
+            cod_fornitore = self.lineEdit_codice_fornitore.text()
+            aaaa = self.dateEdit_ordine.date().year()
+            mm = self.dateEdit_ordine.date().month()
+            gg = self.dateEdit_ordine.date().day()
+            data_ordine = str(gg) + "/" + str(mm) + "/" + str(aaaa)
+            cod_prodotto = self.lineEdit_codice_prodotto.text()
+            marca = self.lineEdit_marca.text()
+            nome = self.lineEdit_nome.text()
+            tipo = str(self.comboBox_tipo.currentText())
+            genere = str(self.comboBox_genere.currentText())
+            materiale = self.lineEdit_materiale.text()
+            colore = self.lineEdit_colore.text()
+            taglia = str(self.comboBox_taglia.currentText())
+            quantita = self.lineEdit_quantita.text()
+            prezzo_acquisto = self.lineEdit_prezzo_acquisto.text()
+            prezzo_vendita = self.lineEdit_prezzo_vendita.text()
+            stagione = str(self.comboBox_stagione.currentText())
+            stato = str(self.comboBox_stato.currentText())
+            sconto_consigliato = self.lineEdit_sconto_consigliato.text()
+            sconto = self.lineEdit_sconto.text()
 
-                # aggiunta prodotto ad un ordine esistente
-                prodotto= Prodotto(cod_fattura, cod_fornitore, data_ordine, cod_prodotto, marca, nome, tipo, genere, materiale, colore, taglia, quantita,
-                                                                                prezzo_acquisto, prezzo_vendita, stagione, stato,
-                                                                                sconto_consigliato, sconto, "")
+            # aggiunta prodotto ad un ordine esistente
+            prodotto= Prodotto(cod_fattura, cod_fornitore, data_ordine, cod_prodotto, marca, nome, tipo, genere, materiale, colore, taglia, quantita,
+                                                                            prezzo_acquisto, prezzo_vendita, stagione, stato,
+                                                                            sconto_consigliato, sconto, "")
 
 
-                self.controller_lista_prodotti.inserisci_prodotto(prodotto)
-                self.lista_prodotti_filtrata.append(prodotto)
+            self.controller_lista_prodotti.inserisci_prodotto(prodotto)
+            self.lista_prodotti_filtrata.append(prodotto)
         else:
             cod_prodotto = self.lineEdit_codice_prodotto.text()
             marca = self.lineEdit_marca.text()
@@ -442,20 +433,6 @@ class VistaInserisciProdotto(QWidget):
             prodotto= Prodotto(self.ordine.cod_fattura, self.ordine.cod_fornitore, None, cod_prodotto, marca, nome, tipo, genere, materiale, colore, taglia, quantita,prezzo_acquisto, prezzo_vendita, None, None, sconto_consigliato, sconto, "")
             self.lista_prodotti_ordine.append(prodotto)
 
+
         self.update_ui()
         self.close()
-
-    def controllo_prodotto_duplicato(self):
-        for prodotto in self.controller_lista_prodotti.get_lista_prodotti():
-            if str(prodotto.cod_prodotto) == str(self.lineEdit_codice_prodotto.text()) and str(prodotto.taglia) == str(self.comboBox_taglia.currentText()):
-                prodotto.quantita = prodotto.quantita + int(self.lineEdit_quantita.text())
-                return True
-
-    def popup_prodotto_sommato(self):
-        msg = QMessageBox()
-        msg.setWindowTitle("ATTENZIONE")
-        msg.setText("Il prodotto è già esistente nel sistema. \n\nLa sua quantità è stata incrementata")
-        msg.setIcon(QMessageBox.Warning)
-        msg.setStandardButtons(QMessageBox.Yes)
-        msg.setDefaultButton(QMessageBox.Yes)
-        msg.exec_()

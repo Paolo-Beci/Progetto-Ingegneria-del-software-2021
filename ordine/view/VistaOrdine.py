@@ -1,5 +1,5 @@
 import time
-from PyQt5.QtWidgets import QWidget, QTableWidgetItem
+from PyQt5.QtWidgets import QWidget, QTableWidgetItem, QMessageBox
 from PyQt5 import QtCore, QtWidgets, QtGui
 
 from listaprodotti.view.VistaInserisciProdotto import VistaInserisciProdotto
@@ -9,7 +9,7 @@ from prodotto.view.VistaProdotto import VistaProdotto
 
 
 class VistaOrdine(QWidget):
-    def __init__(self, ordine, elimina_ordine_by_codice, update_ui, controller_lista_ordini, controller_lista_prodotti, parent=None):
+    def __init__(self, ordine, elimina_ordine_by_codice, update_ui, controller_lista_ordini, controller_lista_prodotti, lista_dinamica_ordini, parent=None):
         super(VistaOrdine, self).__init__(parent)
         self.ordine_selezionato = ordine
 
@@ -19,6 +19,7 @@ class VistaOrdine(QWidget):
 
         self.elimina_ordine_by_codice = elimina_ordine_by_codice
         self.update_ui = update_ui
+        self.lista_dinamica= lista_dinamica_ordini
 
         self.lista_prodotti= self.controller_lista_prodotti.get_lista_prodotti()
         self.lista_prodotti_ordine= []
@@ -163,15 +164,14 @@ class VistaOrdine(QWidget):
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.pushButton = QtWidgets.QPushButton(self)
-        self.pushButton.setObjectName("pushButton_modifica")
-        self.pushButton.clicked.connect(self.show_modifica_ordine)
+        self.pushButton.setObjectName("pushButton")
         self.horizontalLayout.addWidget(self.pushButton)
         spacerItem7 = QtWidgets.QSpacerItem(10, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem7)
-        self.pushButton_2 = QtWidgets.QPushButton(self)
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.pushButton_2.clicked.connect(self.elimina_ordine_click)
-        self.horizontalLayout.addWidget(self.pushButton_2)
+        self.pushButton_elimina = QtWidgets.QPushButton(self)
+        self.pushButton_elimina.setObjectName("pushButton_elimina")
+        self.pushButton_elimina.clicked.connect(self.elimina_ordine_click)
+        self.horizontalLayout.addWidget(self.pushButton_elimina)
         self.gridLayout.addLayout(self.horizontalLayout, 12, 0, 1, 2)
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
 
@@ -238,13 +238,13 @@ class VistaOrdine(QWidget):
         self.label_8.setText(_translate("Form", "Importo totale: {}".format(str(importo_totale))))
         self.label_2.setText(_translate("Form", "Stato: {}".format(self.controller_ordine.get_stato())))
         self.pushButton.setText(_translate("Form", "Modifica"))
-        self.pushButton_2.setText(_translate("Form", "Elimina"))
+        self.pushButton_elimina.setText(_translate("Form", "Elimina"))
 
         #######################################
 
     # prendo da lista_prodotti solo quei prodotti relativi a ordine_selezionato
     def filter(self):
-        self.controller_lista_prodotti.save_data()
+        self.controller_lista_prodotti.save_data_specialized(self.lista_prodotti)
         self.controller_lista_prodotti.refresh_data()
         self.lista_prodotti_ordine.clear()
         for prodotto in self.lista_prodotti:
@@ -260,10 +260,21 @@ class VistaOrdine(QWidget):
             time.sleep(0.3)
 
     def elimina_ordine_click(self):
-        self.controller_lista_ordini.elimina_ordine_by_codice(self.controller_ordine.get_cod_fattura())
-        #self.elimina_ordine_by_codice(self.controller_ordine.get_cod_fattura())
-        self.update_ui()
-        self.close()
+        reply = QMessageBox.question(self, 'Attenzione', "Eliminando questo ordine eliminerai anche tutti i prodotti in esso contenuti. Proseguire?",
+                                     QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if reply == QMessageBox.Yes:
+            for prodotto in self.lista_prodotti_ordine:
+                if prodotto in self.lista_prodotti:
+                    self.lista_prodotti.remove(prodotto)
+
+            self.controller_lista_prodotti.save_data_specialized(self.lista_prodotti)
+            self.controller_lista_prodotti.refresh_data()
+            self.controller_lista_ordini.elimina_ordine_by_codice(self.ordine_selezionato.cod_fattura, self.lista_dinamica)
+
+            self.update_ui()
+            self.close()
+        else:
+            return
 
     def show_modifica_ordine(self):
         self.vista_modifica_ordine= VistaModificaOrdine(self.ordine_selezionato, self.controller_ordine, self.retranslateUi, self.lista_prodotti_ordine)
