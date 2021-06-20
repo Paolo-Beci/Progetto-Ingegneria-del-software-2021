@@ -1,7 +1,7 @@
 import os
 import time
 from PyQt5 import QtWidgets, QtCore, QtGui
-from PyQt5.QtWidgets import QWidget, QMessageBox, QApplication
+from PyQt5.QtWidgets import QWidget, QApplication
 from PyQt5.QtGui import QPixmap
 
 from prodotto.view.VistaModificaProdotto import VistaModificaProdotto

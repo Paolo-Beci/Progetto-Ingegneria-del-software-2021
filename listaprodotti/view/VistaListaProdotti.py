@@ -293,13 +293,17 @@ class VistaListaProdotti(QWidget):
         self.retranslateUi()
 
     def display_build(self, lista_da_caricare):
+        self.desktop = QApplication.desktop()
+        self.screenRect = self.desktop.screenGeometry()
+        width = self.screenRect.width()
+
         row = 0
         column = 0
         for prodotto in lista_da_caricare:
             self.widget_generico = QtWidgets.QWidget(self.scrollAreaWidgetContents)
             self.displayprodotto1 = VistaDisplayProdotto(prodotto, self.retranslateUi, self.controller_lista_prodotti)
             self.widget_generico = self.displayprodotto1
-            self.widget_generico.setMinimumSize(QtCore.QSize(0, 450))
+            self.widget_generico.setMinimumSize(QtCore.QSize((width/3.2), 450))
 
             self.gridLayout_2.addWidget(self.widget_generico, row, column, 1, 1)
 
@@ -309,7 +313,7 @@ class VistaListaProdotti(QWidget):
             else:
                 column = column + 1
 
-
+        # controllo nessun prodotto presente nella ricerca
         # if column < 2:
         #     if column < 1:
         #         self.widget_generico = QtWidgets.QWidget()
