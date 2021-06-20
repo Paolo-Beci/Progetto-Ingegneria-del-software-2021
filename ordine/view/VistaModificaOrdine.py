@@ -1,10 +1,8 @@
 from PyQt5 import QtCore, QtWidgets, QtGui
 from PyQt5.QtCore import QDate
-from PyQt5.QtWidgets import QComboBox, QLabel, QStyleFactory, QApplication, QCheckBox, QHBoxLayout, QGridLayout, \
-    QGroupBox, QWidget, QHBoxLayout, QTableWidgetItem
+from PyQt5.QtWidgets import QWidget, QMessageBox
 
 
-# prende in input un prodotto e ne permette di modificare i campi visualizzando i vecchi
 class VistaModificaOrdine(QWidget):
     def __init__(self, ordine, controller, update_ui, lista_prodotti_ordine, parent=None):
         super(VistaModificaOrdine, self).__init__(parent)
@@ -186,13 +184,17 @@ class VistaModificaOrdine(QWidget):
         # prendo il testo che l'utente inserisce in ciascuna lineEdit
         cod_fattura = self.lineEdit.text()
         cod_fornitore = self.lineEdit_2.text()
-        stagione = str(self.comboBox.currentText())
+        if str(self.comboBox.currentText()) == "Primavera / Estate":
+            stagione = "P/E"
+        else:
+            stagione = "A/I"
         stato = str(self.comboBox_2.currentText())
 
         aaaa = self.dateEdit.date().year()
         mm = self.dateEdit.date().month()
         gg = self.dateEdit.date().day()
         data_ordine = str(aaaa) + "-" + str(mm) + "-" + str(gg)
+        data_ordine_2 = str(gg) + "/" + str(mm) + "/" + str(aaaa)
 
         aaaa = self.dateEdit_2.date().year()
         mm = self.dateEdit_2.date().month()
@@ -204,14 +206,23 @@ class VistaModificaOrdine(QWidget):
         gg = self.dateEdit_3.date().day()
         data_arrivo_effettiva = str(aaaa) + "-" + str(mm) + "-" + str(gg)
 
-        # modifico gli attributi del fornitore in base al testo inserito
+
         self.controller.set_cod_fornitore(cod_fornitore)
         self.controller.set_cod_fattura(cod_fattura)
         self.controller.set_stagione(stagione)
         self.controller.set_stato(stato)
         self.controller.set_data_ordine(data_ordine)
         self.controller.set_data_arrivo_prevista(data_arrivo_prevista)
-        self.controller.set_data_arrvo_effettiva(data_arrivo_effettiva)
+        self.controller.set_data_arrivo_effettiva(data_arrivo_effettiva)
+
+        if len(self.lista_prodotti_ordine) != 0:
+            for prodotto in self.lista_prodotti_ordine:
+                prodotto.cod_fattura = cod_fattura
+                prodotto.cod_fornitore = cod_fornitore
+                prodotto.stato = stato
+                prodotto.stagione = stagione
+                prodotto.data_ordine = data_ordine_2
 
         self.update_ui()
         self.close()
+

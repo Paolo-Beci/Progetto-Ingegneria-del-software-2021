@@ -76,13 +76,9 @@ class ListaProdotti:
                 return prodotto.quantita
 
     def elimina_prodotto(self, codice_prodotto):
-        def is_selected_prodotto(utente):
-            if utente.cod_prodotto == codice_prodotto:
-                return True
-            print(utente.cod_prodotto)
-            return False
-
-        self.lista_prodotti.remove(list(filter(is_selected_prodotto, self.lista_prodotti))[0])
+        for prodotto in self.lista_prodotti:
+            if prodotto.cod_prodotto == codice_prodotto:
+                self.lista_prodotti.remove(prodotto)
 
     def aggiungi_prodotto_da_database(self, prodotto):
         self.lista_prodotti.append(prodotto)

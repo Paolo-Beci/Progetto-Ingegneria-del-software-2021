@@ -444,3 +444,4 @@ class VistaInserisciOrdine(QWidget):
 
         self.update_ui()
         self.close()
+

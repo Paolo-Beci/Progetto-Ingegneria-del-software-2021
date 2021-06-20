@@ -13,10 +13,11 @@ from listaprodotti.controller.ControllerListaProdotti import ControllerListaProd
 
 
 class VistaDisplayProdotto(QWidget):
-    def __init__(self, prodotto):
+    def __init__(self, prodotto, update_ui, controller):
         super(VistaDisplayProdotto, self).__init__()
-
-        self.prodotto= prodotto
+        self.update_ui = update_ui
+        self.prodotto = prodotto
+        self.controller = controller
 
         # FONT
         font = QtGui.QFont()
@@ -25,7 +26,7 @@ class VistaDisplayProdotto(QWidget):
         font.setWeight(75)
 
         self.setObjectName("Form")
-        #self.resize(400, 500)
+        # self.resize(400, 500)
         self.gridLayout_2 = QtWidgets.QGridLayout(self)
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.gridLayout = QtWidgets.QGridLayout()
@@ -110,5 +111,5 @@ class VistaDisplayProdotto(QWidget):
         self.label_quantita.setText(_translate("Form", "Quantità: " + str(self.prodotto.quantita)))
 
     def dettagli_click(self):
-        self.vista_prodotto= VistaProdotto(self.prodotto, None)
+        self.vista_prodotto = VistaProdotto(self.prodotto, self.update_ui, self.controller)
         self.vista_prodotto.showMaximized()
