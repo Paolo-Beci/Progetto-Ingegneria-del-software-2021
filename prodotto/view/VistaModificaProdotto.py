@@ -372,24 +372,24 @@ class VistaModificaProdotto(QWidget):
         sconto = self.lineEdit_sconto.text()
 
         # modifico gli attributi del fornitore in base al testo inserito
-        self.controller.set_cod_fornitore(cod_fornitore)
-        self.controller.set_cod_fattura(cod_fattura)
-        self.controller.set_data_ordine(data_ordine)
-        self.controller.set_cod_prodotto(cod_prodotto)
-        self.controller.set_marca(marca)
-        self.controller.set_nome(nome)
-        self.controller.set_tipo(tipo)
-        self.controller.set_genere(genere)
-        self.controller.set_materiale(materiale)
-        self.controller.set_colore(colore)
-        self.controller.set_taglia(taglia)
-        self.controller.set_quantita(quantita)
-        self.controller.set_prezzo_acquisto(prezzo_acquisto)
-        self.controller.set_prezzo_vendita(prezzo_vendita)
-        self.controller.set_stagione(stagione)
-        self.controller.set_stato(stato)
-        self.controller.set_sconto_consigliato(sconto_consigliato)
-        self.controller.set_sconto(sconto)
+        self.prodotto.cod_fornitore = cod_fornitore
+        self.prodotto.cod_fattura = cod_fattura
+        self.prodotto.data_ordine = data_ordine
+        self.prodotto.cod_prodotto = cod_prodotto
+        self.prodotto.marca = marca
+        self.prodotto.nome = nome
+        self.prodotto.tipo = tipo
+        self.prodotto.genere = genere
+        self.prodotto.materiale = materiale
+        self.prodotto.colore = colore
+        self.prodotto.taglia = taglia
+        self.prodotto.quantita = quantita
+        self.prodotto.prezzo_acquisto = prezzo_acquisto
+        self.prodotto.prezzo_vendita = prezzo_vendita
+        self.prodotto.stagione = stagione
+        self.prodotto.stato = stato
+        self.prodotto.sconto_consigliato = sconto_consigliato
+        self.prodotto.sconto = sconto
 
         self.update_ui()
         self.close()
