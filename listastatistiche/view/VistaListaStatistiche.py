@@ -1,6 +1,5 @@
 import time
 
-import home.view.VistaHome
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton, QLineEdit, QFormLayout, \
     QComboBox, QMessageBox

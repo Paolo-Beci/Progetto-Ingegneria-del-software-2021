@@ -14,7 +14,6 @@ class VistaModificaFornitore(QWidget):
 
         lista= self.controller_lista.get_lista_fornitori()
         self.new_lista_fornitori= lista[:]
-
         # affinche non ci siano problemi con il controllo in save_data() (controllo sull'inserimento di un fornitore con stesso codice)
         # ho bisogno di una lista che non contenga il fornitore che sto modificando
         self.new_lista_fornitori.remove(self.fornitore_selezionato)

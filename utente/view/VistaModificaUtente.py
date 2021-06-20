@@ -2,7 +2,7 @@ import sys
 
 from PyQt5 import QtCore, QtWidgets, QtGui
 from PyQt5.QtCore import QDate
-from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QMessageBox
+from PyQt5.QtWidgets import QWidget, QMessageBox
 
 
 class VistaModificaUtente(QWidget):
@@ -12,11 +12,19 @@ class VistaModificaUtente(QWidget):
         self.controller= controller
         self.controller_lista= controller_lista
         self.update_ui_utente= update_ui_utente
+
+        # boolean che permette di eseguire due eventi diversi in casi di chiusura
         self.end1= False
 
         lista = self.controller_lista.get_lista_del_personale()
         self.new_lista_del_personale = lista[:]
+        # affinche non ci siano problemi con il controllo in save_data() (controllo sull'inserimento di un fornitore con stesso codice)
+        # ho bisogno di una lista che non contenga il fornitore che sto modificando
         self.new_lista_del_personale.remove(self.utente_selezionato)
+
+        ###################################
+
+        ''' Costruzione dell'interfaccia'''
         self.setObjectName("Form")
         self.resize(626, 464)
         icon = QtGui.QIcon()
@@ -258,7 +266,6 @@ class VistaModificaUtente(QWidget):
         self.dateEdit_scadenza_contratto.setObjectName("dateEdit_scadenza_contratto")
         self.gridLayout_2.addWidget(self.dateEdit_scadenza_contratto, 9, 3, 1, 1)
 
-
         self.comboBox_ruolo = QtWidgets.QComboBox(self)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.MinimumExpanding)
         sizePolicy.setHorizontalStretch(0)
@@ -343,6 +350,7 @@ class VistaModificaUtente(QWidget):
 
         QtCore.QMetaObject.connectSlotsByName(self)
 
+    '''Metodo: contiene alcuni elementi dinamici (che variano) dell'interfaccia'''
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
         self.pushButton_salva.setText(_translate("Form", "Salva"))
@@ -389,7 +397,9 @@ class VistaModificaUtente(QWidget):
 
         self.retranslateUi_2()
 
+    '''Metodo: crea e aggiunge le componenti dinamiche label e lineEdit di username e password'''
     def retranslateUi_2(self):
+        # indica se sto chiamando per la prima volta il metodo retranslate
         self.contatore= self.contatore+1
 
         _translate = QtCore.QCoreApplication.translate
