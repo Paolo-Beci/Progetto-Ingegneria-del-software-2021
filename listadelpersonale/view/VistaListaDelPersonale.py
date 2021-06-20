@@ -21,8 +21,9 @@ class VistaListaDelPersonale(QWidget):
 
         ###################################
 
-        ''' Costruzione dell'interfaccia'''
-
+        ''' 
+            Costruzione parte statica dell'interfaccia
+        '''
         self.setObjectName("Form")
         self.resize(1121, 576)
         self.gridLayout_2 = QtWidgets.QGridLayout(self)
@@ -141,7 +142,9 @@ class VistaListaDelPersonale(QWidget):
         self.retranslateUi()
         self.setWindowTitle("Area del personale")
 
-    '''Metodo: contiene gli elementi dinamici (che variano) dell'interfaccia'''
+    '''
+        Costruzione parte dinamica dell'interfaccia  
+    '''
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
         self.pushButton_apri.setText(_translate("Form", "Apri"))

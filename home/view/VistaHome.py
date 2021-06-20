@@ -23,9 +23,13 @@ from vendita.view.VistaVendita import VistaVendita
 class VistaHome(QWidget):
     def __init__(self, parent=None):
         super(VistaHome, self).__init__(parent)
-        ###########
         self.controller_lista_del_personale= ControllerListaDelPersonale()
 
+        ############################
+
+        ''' 
+            Costruzione parte statica dell'interfaccia
+        '''
         self.setObjectName("Home")
         self.resize(965, 530)
         icon = QtGui.QIcon()
@@ -72,7 +76,6 @@ class VistaHome(QWidget):
         self.gridLayout_3 = QtWidgets.QGridLayout()
         self.gridLayout_3.setObjectName("gridLayout_3")
         self.pushButton_prodotti.clicked.connect(self.go_lista_prodotti)
-
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout_3.addItem(spacerItem, 2, 1, 1, 1)
         spacerItem1 = QtWidgets.QSpacerItem(20, 30, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
@@ -86,12 +89,8 @@ class VistaHome(QWidget):
         spacerItem4 = QtWidgets.QSpacerItem(20, 100, QtWidgets.QSizePolicy.Minimum,
                                             QtWidgets.QSizePolicy.MinimumExpanding)
         self.gridLayout_2.addItem(spacerItem4, 6, 3, 1, 1)
-
-
         spacerItem5 = QtWidgets.QSpacerItem(90, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_2.addItem(spacerItem5, 5, 0, 3, 1)
-
-
         self.gridLayout_4 = QtWidgets.QGridLayout()
         self.gridLayout_4.setObjectName("gridLayout_4")
         spacerItem6 = QtWidgets.QSpacerItem(85, 20, QtWidgets.QSizePolicy.MinimumExpanding,
@@ -105,7 +104,6 @@ class VistaHome(QWidget):
         self.gridLayout_4.addItem(spacerItem8, 1, 2, 2, 1)
 
         # DATA
-        #self.textBrowser_data = QtWidgets.QTextBrowser(self)
         font_data = QFont('Open Sans', 20)
         self.label_data = QLabel()
         self.label_data.setAlignment(Qt.AlignCenter)
@@ -119,12 +117,10 @@ class VistaHome(QWidget):
         self.gridLayout_4.addItem(spacerItem9, 3, 1, 1, 1)
 
         # ORARIO
-        #self.textBrowser_clock = QtWidgets.QTextBrowser(self)
         font_clock= QFont('Open Sans', 40, QFont.Bold)
         self.label_clock= QLabel()
         self.label_clock.setAlignment(Qt.AlignCenter)
         self.label_clock.setFont(font_clock)
-        #self.label_clock.setAutoFillBackground(True) #150,0
         self.label_clock.setMinimumSize(QtCore.QSize(240, 50))
         self.label_clock.setMaximumSize(QtCore.QSize(16777215, 60))
         self.label_clock.setObjectName("label_clock")        
@@ -154,8 +150,6 @@ class VistaHome(QWidget):
         self.gridLayout_2.addItem(spacerItem13, 5, 4, 3, 1)
         self.gridLayout.addLayout(self.gridLayout_2, 2, 0, 1, 2)
         self.pushButton_ordini.clicked.connect(self.go_lista_ordini)
-
-
         self.pushButton_vendita.clicked.connect(self.go_vista_vendita)
 
         timer= QTimer(self)
@@ -167,10 +161,13 @@ class VistaHome(QWidget):
 
         QtCore.QMetaObject.connectSlotsByName(self)
 
-
+    '''
+        Costruzione parte dinamica dell'interfaccia  
+    '''
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
-        
+
+        # passo la data odierna alla label_data
         data_odierna= datetime.datetime.now()
         self.label_data.setText("%s/%s/%s"%((data_odierna.day,data_odierna.month,data_odierna.year)))
 
@@ -178,6 +175,7 @@ class VistaHome(QWidget):
         self.pushButton_prodotti.setText(_translate("Home", "Area prodotti"))
         self.pushButton_ordini.setText(_translate("Home", "Area ordini"))
 
+        # Parti visibili solo dopo aver effettuato il login (get_status==True)
         if self.controller_lista_del_personale.get_status():
             self.push_button_login = QtWidgets.QPushButton(self)
             sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.Fixed)
@@ -254,34 +252,55 @@ class VistaHome(QWidget):
         display_text= currentTime.toString("hh:mm:ss")
         self.label_clock.setText(display_text)
 
+    '''
+        Area Statistiche
+    '''
     def go_lista_statistiche(self):
         self.vista_lista_statistiche = VistaListaStatistiche()
         self.vista_lista_statistiche.showMaximized()
         time.sleep(0.3)
 
+    '''
+         Area Prodotti
+    '''
     def go_lista_prodotti(self):
         self.vista_lista_prodotti = VistaListaProdotti()
         self.vista_lista_prodotti.showMaximized()
 
+    '''
+         Area Fornitori
+    '''
     def go_lista_fornitori(self):
         self.vista_lista_fornitori = VistaListaFornitori()
         self.vista_lista_fornitori.showMaximized()
         time.sleep(0.3)
 
+    '''
+         Area Ordini
+    '''
     def go_lista_ordini(self):
         self.vista_lista_ordini = VistaListaOrdini()
         self.vista_lista_ordini.showMaximized()
         time.sleep(0.3)
 
+    '''
+         Area Vendita
+    '''
     def go_vista_vendita(self):
         self.vista_vendita = VistaVendita()
         self.vista_vendita.show()
 
+    '''
+         Area Del Personale
+    '''
     def go_lista_del_personale(self):
         self.vista_lista_del_personale = VistaListaDelPersonale()
         self.vista_lista_del_personale.showMaximized()
         time.sleep(0.3)
 
+    '''
+         Login
+    '''
     def go_login(self):
         if not self.controller_lista_del_personale.get_status():
             self.vista_login = VistaLogin(self.controller_lista_del_personale, self.retranslateUi)
@@ -295,7 +314,6 @@ class VistaHome(QWidget):
             self.gridLayout_2.removeWidget(self.pushButton_statistiche)
             self.pushButton_statistiche.deleteLater()
             self.retranslateUi()
-
 
     def closeEvent(self, event):
         reply = QMessageBox.question(self, 'Chiudere?',

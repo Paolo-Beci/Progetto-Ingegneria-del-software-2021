@@ -9,23 +9,24 @@ from prodotto.view.VistaProdotto import VistaProdotto
 
 
 class VistaOrdine(QWidget):
-    def __init__(self, ordine, elimina_ordine_by_codice, update_ui, controller_lista_ordini, controller_lista_prodotti, lista_dinamica_ordini, parent=None):
+    def __init__(self, ordine, update_ui, controller_lista_ordini, controller_lista_prodotti, lista_dinamica_ordini, parent=None):
         super(VistaOrdine, self).__init__(parent)
         self.ordine_selezionato = ordine
 
         self.controller_ordine = ControllerOrdine(ordine)
         self.controller_lista_ordini= controller_lista_ordini
         self.controller_lista_prodotti= controller_lista_prodotti
-
-        self.elimina_ordine_by_codice = elimina_ordine_by_codice
         self.update_ui = update_ui
-        self.lista_dinamica= lista_dinamica_ordini
+        self.lista_dinamica_ordini= lista_dinamica_ordini
 
         self.lista_prodotti= self.controller_lista_prodotti.get_lista_prodotti()
         self.lista_prodotti_ordine= []
 
-        #######################################
+        ############################
 
+        ''' 
+            Costruzione parte statica dell'interfaccia
+        '''
         self.setObjectName("self")
         self.resize(882, 600)
         self.gridLayout_2 = QtWidgets.QGridLayout(self)
@@ -181,9 +182,12 @@ class VistaOrdine(QWidget):
 
         self.setWindowTitle("Ordine")
 
+    '''
+        Costruzione parte dinamica dell'interfaccia  
+    '''
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
-
+        # imposto le colonne della tabella
         item = self.tableWidget.horizontalHeaderItem(0)
         item.setText(_translate("self", "Codice prodotto"))
         item = self.tableWidget.horizontalHeaderItem(1)
@@ -197,15 +201,13 @@ class VistaOrdine(QWidget):
         item = self.tableWidget.horizontalHeaderItem(5)
         item.setText(_translate("self", "Prezzo d\'acquisto"))
 
-        # riempie la lista_prodotti_ordine
+        # Costruisco l'ordine riempiendo la lista_prodotti_ordine
         self.filter()
-
+        # inserisco gli elementi in tabella
         row = 0
         self.tableWidget.setColumnCount(6)
         self.tableWidget.setRowCount(len(self.lista_prodotti_ordine))
-
         for prodotto in self.lista_prodotti_ordine:
-
             item = QTableWidgetItem(str(prodotto.cod_prodotto))
             item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
             self.tableWidget.setItem(row, 0, QtWidgets.QTableWidgetItem(item))
@@ -217,9 +219,10 @@ class VistaOrdine(QWidget):
 
             row = row + 1
 
+        # I campi importo_totale e calzature_totali dipendono dai campi quantita e prezzo di acquisto in lista_prodotti_ordine
+
         importo_totale = 0
         calzature_totali = 0
-
         for prodotto in self.lista_prodotti_ordine:
             importo_totale = importo_totale + int(prodotto.prezzo_acquisto)
             calzature_totali = calzature_totali + int(prodotto.quantita)
@@ -264,13 +267,14 @@ class VistaOrdine(QWidget):
         reply = QMessageBox.question(self, 'Attenzione', "Eliminando questo ordine eliminerai anche tutti i prodotti in esso contenuti. Proseguire?",
                                      QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         if reply == QMessageBox.Yes:
+            # eliminando l'ordine l'utente sceglie di eliminare anche tutti i prodotti in lista_prodotti_ordine
             for prodotto in self.lista_prodotti_ordine:
                 if prodotto in self.lista_prodotti:
                     self.lista_prodotti.remove(prodotto)
 
             self.controller_lista_prodotti.save_data_specialized(self.lista_prodotti)
             self.controller_lista_prodotti.refresh_data()
-            self.controller_lista_ordini.elimina_ordine_by_codice(self.ordine_selezionato.cod_fattura, self.lista_dinamica)
+            self.controller_lista_ordini.elimina_ordine_by_codice(self.ordine_selezionato.cod_fattura, self.lista_dinamica_ordini)
 
             self.update_ui()
             self.close()
@@ -278,15 +282,13 @@ class VistaOrdine(QWidget):
             return
 
     def show_modifica_ordine(self):
-        self.vista_modifica_ordine= VistaModificaOrdine(self.ordine_selezionato, self.controller_ordine, self.retranslateUi, self.lista_prodotti_ordine)
+        self.vista_modifica_ordine= VistaModificaOrdine(self.ordine_selezionato, self.controller_ordine, self.retranslateUi, self.lista_prodotti_ordine, self.lista_dinamica_ordini)
         self.vista_modifica_ordine.show()
-        #self.update_ui()
-        #self.close()
 
     def show_inserisci_prodotto(self):
         inserimento_da_ordine = True
         self.vista_inserisci_prodotto = VistaInserisciProdotto(self.controller_lista_prodotti, self.retranslateUi,
                                                                inserimento_da_ordine, self.lista_prodotti, None, self.ordine_selezionato)
         self.vista_inserisci_prodotto.show()
-        inserimento_da_ordine = False
+
 

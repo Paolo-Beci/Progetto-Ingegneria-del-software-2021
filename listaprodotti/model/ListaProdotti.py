@@ -2,7 +2,6 @@ import json
 import os.path
 import pickle
 
-from ordine.controller.ControllerOrdine import ControllerOrdine
 from prodotto.model.Prodotto import Prodotto
 
 """
@@ -80,9 +79,6 @@ class ListaProdotti:
             if prodotto.cod_prodotto == codice_prodotto:
                 self.lista_prodotti.remove(prodotto)
 
-    def aggiungi_prodotto_da_database(self, prodotto):
-        self.lista_prodotti.append(prodotto)
-
     def refresh_data(self):
         if os.path.isfile('listaprodotti/data/DatabaseProdotti.pickle') and os.stat('listaprodotti/data/DatabaseProdotti.pickle').st_size!=0:
             with open('listaprodotti/data/DatabaseProdotti.pickle', 'rb') as f:
@@ -94,7 +90,7 @@ class ListaProdotti:
             with open('listaprodotti/data/DatabaseProdotti.json') as f:
                 lista_prodotti_json = json.load(f)
                 for prodotto_da_caricare in lista_prodotti_json:
-                    self.aggiungi_prodotto_da_database(
+                    self.lista_prodotti.append(
                         Prodotto(prodotto_da_caricare["cod_fattura"], prodotto_da_caricare["cod_fornitore"],
                                  prodotto_da_caricare["data_ordine"], prodotto_da_caricare["cod_prodotto"],
                                  prodotto_da_caricare["marca"], prodotto_da_caricare["nome"],
@@ -106,11 +102,12 @@ class ListaProdotti:
                                  prodotto_da_caricare["sconto_consigliato"],
                                  prodotto_da_caricare["sconto"], prodotto_da_caricare["data_vendita"]))
 
-
+    # Metodo: salva il contenuto della lista su file pickle
     def save_data(self):
         with open('listaprodotti/data/DatabaseProdotti.pickle', 'wb') as handle:
             pickle.dump(self.lista_prodotti, handle, pickle.HIGHEST_PROTOCOL)
 
+    # Metodo: salvo il contenuto di una lista in particolare su file pickle
     def save_data_specialized(self, lista_prodotti):
         with open('listaprodotti/data/DatabaseProdotti.pickle', 'wb') as handle:
             pickle.dump(lista_prodotti, handle, pickle.HIGHEST_PROTOCOL)

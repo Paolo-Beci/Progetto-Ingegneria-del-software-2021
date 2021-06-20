@@ -20,7 +20,9 @@ class VistaUtente(QWidget):
 
         ###################################
 
-        ''' Costruzione dell'interfaccia'''
+        ''' 
+            Costruzione parte statica dell'interfaccia
+        '''
         # istanzio un vertical layout
         self.v_layout = QVBoxLayout()
         # istanzio due Label, una per il nome e una per il body (gli altri campi)
@@ -109,7 +111,9 @@ class VistaUtente(QWidget):
         self.setLayout(self.v_layout)
         self.setWindowTitle("Utente")
 
-    '''Metodo: contiene gli elementi dinamici (che variano) dell'interfaccia'''
+    '''
+        Costruzione parte dinamica dell'interfaccia  
+    '''
     def update_ui_utente(self):
         self.label_nome_cognome.setText(self.controller_utente.get_nome() + " " + self.controller_utente.get_cognome())
         self.label_data_nascita.setText("Data nascita: {}".format(self.controller_utente.get_data_nascita()))

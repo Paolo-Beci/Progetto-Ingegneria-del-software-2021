@@ -23,7 +23,9 @@ class VistaModificaFornitore(QWidget):
 
         ###################################
 
-        ''' Costruzione dell'interfaccia'''
+        ''' 
+            Costruzione parte statica dell'interfaccia
+        '''
         self.setWindowTitle("Modifica fornitore")
         self.setObjectName("Form")
         self.resize(579, 427)
@@ -154,7 +156,9 @@ class VistaModificaFornitore(QWidget):
         self.retranslateUi(self)
         QtCore.QMetaObject.connectSlotsByName(self)
 
-    '''Metodo: contiene gli elementi dinamici (che variano) dell'interfaccia'''
+    '''
+        Costruzione parte dinamica dell'interfaccia  
+    '''
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Modifica fornitore"))
@@ -195,13 +199,12 @@ class VistaModificaFornitore(QWidget):
 
     def save_data(self):
         self.end1 = True
-        #prendo il testo che l'utente inserisce in ciascuna lineEdit
-
+        # Controllo fornitore già esistente
         for fornitore in self.new_lista_fornitori:
             if str(fornitore.cod_fornitore) == self.lineEdit_16.text() or fornitore.partita_iva == self.lineEdit_9.text():
-                QMessageBox.critical(self, 'Errore', 'Utente già presente in lista!', QMessageBox.Ok, QMessageBox.Ok)
+                QMessageBox.critical(self, 'Errore', 'Fornitore già presente in lista!', QMessageBox.Ok, QMessageBox.Ok)
                 return
-
+        # prendo il testo che l'utente inserisce in ciascuna lineEdit
         partita_iva = self.lineEdit_9.text()
         codice = self.lineEdit_16.text()
         indirizzo = self.lineEdit_10.text()

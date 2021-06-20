@@ -19,7 +19,9 @@ class VistaInserisciFornitore(QWidget):
 
         ############################
 
-        ''' Costruzione dell'interfaccia'''
+        ''' 
+            Costruzione parte statica dell'interfaccia
+        '''
         self.v_layout = QVBoxLayout()
         self.formLayout= QFormLayout()
         self.groupBox= QGroupBox()
@@ -67,10 +69,12 @@ class VistaInserisciFornitore(QWidget):
 
     def inserisci_fornitore(self):
         self.end1 = True
+        # Controllo inserimento di tutti i campi
         for value in self.qlines.values():
             if value.text() == "":
                 QMessageBox.critical(self, 'Errore', 'Per favore, inserisci tutte le informazioni richieste.', QMessageBox.Ok, QMessageBox.Ok)
                 return
+        # Controllo fornitore già esistente
         for fornitore in self.controller.get_lista_fornitori():
             if fornitore.partita_iva == self.qlines["partita_iva"].text() or fornitore.cod_fornitore==self.qlines["codice_fornitore"].text():
                 QMessageBox.critical(self, 'Errore', 'Fornitore già presente in lista!', QMessageBox.Ok, QMessageBox.Ok)
@@ -116,4 +120,3 @@ class VistaInserisciFornitore(QWidget):
             else:
                 if not type(event) == bool:
                     event.ignore()
-

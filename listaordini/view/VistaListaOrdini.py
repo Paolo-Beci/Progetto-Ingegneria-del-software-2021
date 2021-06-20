@@ -14,9 +14,9 @@ from listaordini.view.VistaInserisciOrdine import VistaInserisciOrdine
 class VistaListaOrdini(QWidget):
     def __init__(self, parent=None):
         super(VistaListaOrdini, self).__init__(parent)
+
         self.controller_lista_prodotti = ControllerListaProdotti()
         self.controller_lista_ordini= ControllerListaOrdini()
-
         # boolean: mi permettono di verificare se sto visualizzando in lista ordini In arrivo o In negozio
         self.in_arrivo = False
         self.in_negozio = False
@@ -25,22 +25,11 @@ class VistaListaOrdini(QWidget):
         # Lista: E' una copia della lista reale. Mi permette di manipolare i suoi elementi senza modificare la lista originale (lista di riferimento)
         self.lista_dinamica_ordini = self.lista_ordini[:]
 
-        #############################
-
-        # creazione nuovo ordine in quanto non ne esiste uno presente con questo codice
-        ordine_esistente= False
-        for prodotto in self.controller_lista_prodotti.get_lista_prodotti():
-            for ordine in self.lista_ordini:
-                if str(ordine.cod_fattura) == str(prodotto.cod_fattura):
-                    ordine_esistente= True
-
-            if not ordine_esistente:
-                ordine = Ordine(prodotto.cod_fattura, prodotto.cod_fornitore, prodotto.stagione, None, prodotto.data_ordine, None, None, None, None)
-                self.lista_dinamica_ordini.append(ordine)
-
         ############################
 
-        ''' Costruzione dell'interfaccia'''
+        ''' 
+            Costruzione parte statica dell'interfaccia
+        '''
         self.setObjectName("Form")
         self.resize(1121, 576)
         self.gridLayout_2 = QtWidgets.QGridLayout(self)
@@ -164,15 +153,19 @@ class VistaListaOrdini(QWidget):
         self.retranslateUi()
         self.setWindowTitle("Area del personale")
 
+    '''
+        Costruzione parte dinamica dell'interfaccia  
+    '''
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
+        # imposto il testo degli oggetti dell'interfaccia
         self.pushButton_apri.setText(_translate("Form", "Apri"))
         self.pushButton_nuovo.setText(_translate("Form", "Nuovo"))
         self.pushButton_indietro.setText(_translate("Form", "<-  Indietro"))
         self.pushButton_stato1.setText(_translate("Form", "In arrivo"))
         self.pushButton_stato2.setText(_translate("Form", "In negozio"))
         self.pushButton_all.setText(_translate("Form", "All"))
-
+        # imposto le colonne della tabella
         item = self.tableWidget.horizontalHeaderItem(0)
         item.setText(_translate("Form", "Codice fattura"))
         item = self.tableWidget.horizontalHeaderItem(1)
@@ -187,9 +180,10 @@ class VistaListaOrdini(QWidget):
         item.setText(_translate("Form", "Calzature totali"))
         item = self.tableWidget.horizontalHeaderItem(6)
         item.setText(_translate("Form", "Importo totale"))
-
+        # inserisco gli elementi in tabella
         row = 0
         self.tableWidget.setColumnCount(7)
+        # chiamo il filtro generale prima di visualizzare gli elementi in tabella
         if self.in_arrivo or self.in_negozio:
             self.filter()
         self.tableWidget.setRowCount(len(self.lista_dinamica_ordini))
@@ -213,7 +207,7 @@ class VistaListaOrdini(QWidget):
         if len(self.tableWidget.selectedIndexes()) > 0:
             selected = self.tableWidget.selectedIndexes()[0].row()
             ordine_selezionato = self.lista_dinamica_ordini[selected]
-            self.vista_ordine = VistaOrdine(ordine_selezionato, self.controller_lista_ordini.elimina_ordine_by_codice, self.retranslateUi, self.controller_lista_ordini, self.controller_lista_prodotti, self.lista_dinamica_ordini)
+            self.vista_ordine = VistaOrdine(ordine_selezionato, self.retranslateUi, self.controller_lista_ordini, self.controller_lista_prodotti, self.lista_dinamica_ordini)
             self.vista_ordine.showMaximized()
             time.sleep(0.3)
 
@@ -221,6 +215,7 @@ class VistaListaOrdini(QWidget):
         self.vista_inserisci_ordine = VistaInserisciOrdine(self.controller_lista_ordini, self.controller_lista_prodotti, self.retranslateUi, self.lista_dinamica_ordini)
         self.vista_inserisci_ordine.showMaximized()
 
+    # Metodo: indica al filtro generale filter() che vogliamo filtrare ordini in arrivo
     def filter_in_arrivo(self):
         self.in_arrivo = True
         self.in_negozio = False
@@ -229,6 +224,7 @@ class VistaListaOrdini(QWidget):
         self.filter()
         self.retranslateUi()
 
+    # Metodo: indica al filtro generale filter() che vogliamo filtrare ordini in negozio
     def filter_in_negozio(self):
         self.in_arrivo= False
         self.in_negozio= True
@@ -237,6 +233,7 @@ class VistaListaOrdini(QWidget):
         self.filter()
         self.retranslateUi()
 
+    # Metodo: indica al filtro generale filter() che vogliamo visualizzare tutti gli ordini
     def filter_all(self):
         self.in_arrivo = False
         self.in_negozio = False
@@ -245,6 +242,7 @@ class VistaListaOrdini(QWidget):
         self.filter()
         self.retranslateUi()
 
+    # Metodo: filtra gli ordini con cod_fattura contenente il testo immesso
     def filter_cerca(self):
         self.lista_ordini = self.controller_lista_ordini.get_lista_ordini()
         self.lista_dinamica_ordini = self.lista_ordini[:]
@@ -259,6 +257,7 @@ class VistaListaOrdini(QWidget):
                 self.lista_dinamica_ordini.remove(ordine)
         self.retranslateUi()
 
+    # Metodo: filtro generale, svolge più filtraggi
     def filter(self):
         elementi_da_rimuovere = []
 
