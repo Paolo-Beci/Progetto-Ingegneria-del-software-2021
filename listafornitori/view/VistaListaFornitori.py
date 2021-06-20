@@ -1,6 +1,6 @@
 from PyQt5 import QtWidgets, QtGui, QtCore
-from PyQt5.QtGui import QStandardItemModel, QStandardItem, QPixmap
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton, QTableWidgetItem
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtWidgets import QWidget, QTableWidgetItem
 
 from fornitore.view.VistaFornitore import VistaFornitore
 from listafornitori.controller.ControllerListaFornitori import ControllerListaFornitori
