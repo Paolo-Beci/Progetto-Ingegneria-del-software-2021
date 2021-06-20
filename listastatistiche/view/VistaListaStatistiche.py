@@ -1,3 +1,4 @@
+from datetime import datetime
 import time
 
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
@@ -44,12 +45,14 @@ class VistaListaStatistiche(QWidget):
         buttons_layout.addWidget(forn_button)
 
         self.combo = QComboBox(self)
+        self.combo.setObjectName("Stagione")
         self.combo.addItems(["Primavera/Estate", "Autunno/Inverno"])
         buttons_layout.addWidget(self.combo)
 
         self.anno_button = QLineEdit()
         self.anno_button.setObjectName("Bottone")
         self.anno_button.setPlaceholderText("Inserisci l'anno da filtrare")
+        self.anno_button.returnPressed.connect(self.filter_button_click)
         buttons_layout.addWidget(self.anno_button)
 
         buttons_layout.addStretch()
@@ -107,17 +110,19 @@ class VistaListaStatistiche(QWidget):
 
     # Metodo per avviare il filtraggio, dopo aver cliccato il bottone "Filtra"
     def filter_button_click(self):
-        try:
-            if self.anno_button.text() == "" or (int(self.anno_button.text()) and 2050 > int(self.anno_button.text()) > 1950):
-                anno = str(self.anno_button.text())
-                if self.combo.currentIndex() == 0:
-                    self.show_statistica(anno, "P/E")
-                elif self.combo.currentIndex() == 1:
-                    self.show_statistica(anno, "A/I")
-            else:
-                self.popup_error_data()
-        except:
-            self.popup_error_formato_data()
+        anno = self.anno_button.text()
+        #try:
+        if anno == "":
+            anno = datetime.today().year
+        if int(anno) and 2050 > int(anno) > 1950:
+            if self.combo.currentIndex() == 0:
+                self.show_statistica(str(anno), "P/E")
+            elif self.combo.currentIndex() == 1:
+                self.show_statistica(str(anno), "A/I")
+        else:
+            self.popup_error_data()
+        #except:
+            #self.popup_error_formato_data()
 
     # Metodo che informa l'utente dell'errato inserimento dell'anno. Viene lanciato quando l'utente inseisce una stringa.
     def popup_error_formato_data(self):

@@ -1,9 +1,18 @@
 import json
 from datetime import datetime
 
+from listadelpersonale.controller.ControllerListaDelPersonale import ControllerListaDelPersonale
+from listafornitori.controller.ControllerListaFornitori import ControllerListaFornitori
+from listaordini.controller.ControllerListaOrdini import ControllerListaOrdini
+from listaprodotti.controller.ControllerListaProdotti import ControllerListaProdotti
+
 
 class ControllerStatistica():
     def __init__(self, statistica):
+        self.controller_listaprodotti = ControllerListaProdotti()
+        self.controller_listaordini = ControllerListaOrdini()
+        #self.controller_listafornitori = ControllerListaFornitori()
+        self.controller_listadelpersonale = ControllerListaDelPersonale()
         self.model = statistica
 
     def get_statistica(self, index):
@@ -44,33 +53,32 @@ class ControllerStatistica():
         elif smistatore == 5:
             return self.ordinamento_crescente_forn(self.forn_piu_rapidi_nella_consegna(anno, stagione))
         elif smistatore == 6:
-            pass
+            return self.andamento_finanziario(anno, stagione)
 
     # Metodo per costruire un dizionario contentente il codice del prodotto associato al numero di prodotti venduti
     def costruzione_dizionario(self, anno, stagione):
-        with open('listaprodotti/data/DatabaseProdotti.json') as f:
-            lista_prodotti = json.load(f)
-            dizionario = {}
+        lista_prodotti = self.controller_listaprodotti.get_lista_prodotti()
+        dizionario = {}
+
+        for prodotto in lista_prodotti:
+            if prodotto.cod_prodotto not in dizionario.keys() and prodotto.stato == "Venduto" \
+                    and prodotto.stagione == stagione:
+                if anno is None:
+                    dizionario[prodotto.cod_prodotto] = 0
+                elif anno in prodotto.data_vendita:
+                    dizionario[prodotto.cod_prodotto] = 0
 
             for prodotto in lista_prodotti:
-                if prodotto["cod_prodotto"] not in dizionario.keys() and prodotto["stato"] != "In arrivo" \
-                        and prodotto["stagione"] == stagione:
-                    if anno is None:
-                        dizionario[prodotto["cod_prodotto"]] = 0
-                    elif anno in prodotto["data_ordine"]:
-                        dizionario[prodotto["cod_prodotto"]] = 0
-
-            for prodotto in lista_prodotti:
-                if prodotto["stagione"] == stagione and anno is None:
-                    if prodotto["data_vendita"] is not None and "," in prodotto["data_vendita"]:
-                        dizionario[prodotto["cod_prodotto"]] += 2
-                    elif prodotto["data_vendita"] is not None and "," not in prodotto["data_vendita"]:
-                        dizionario[prodotto["cod_prodotto"]] += 1
-                elif prodotto["stagione"] == stagione and anno in prodotto["data_ordine"]:
-                    if prodotto["data_vendita"] is not None and "," in prodotto["data_vendita"]:
-                        dizionario[prodotto["cod_prodotto"]] += 2
-                    elif prodotto["data_vendita"] is not None and "," not in prodotto["data_vendita"]:
-                        dizionario[prodotto["cod_prodotto"]] += 1
+                if prodotto.stagione == stagione and anno is None:
+                    if prodotto.data_vendita is not None and "," in prodotto.data_vendita:
+                        dizionario[prodotto.cod_prodotto] += 2
+                    elif prodotto.data_vendita is not None and "," not in prodotto["data_vendita"]:
+                        dizionario[prodotto.cod_prodotto] += 1
+                elif prodotto.stagione == stagione and prodotto.stato == "Venduto" and anno in prodotto.data_vendita:
+                    if prodotto.data_vendita is not None and "," in prodotto.data_vendita:
+                        dizionario[prodotto.cod_prodotto] += 2
+                    elif prodotto.data_vendita is not None and "," not in prodotto.data_vendita:
+                        dizionario[prodotto.cod_prodotto] += 1
 
         return dizionario
 
@@ -90,17 +98,16 @@ class ControllerStatistica():
 
     # Metodo per calcolare i prodotti più redditizi
     def prod_piu_redditizi(self, anno, stagione):
-        with open('listaprodotti/data/DatabaseProdotti.json') as f:
-            lista_prodotti = json.load(f)
-            dizionario = {}
+        lista_prodotti = self.controller_listaprodotti.get_lista_prodotti()
+        dizionario = {}
 
         for prodotto in lista_prodotti:
-            if prodotto["cod_prodotto"] not in dizionario.keys() and prodotto["stato"] != "In arrivo" \
-                    and prodotto["stagione"] == stagione:
+            if prodotto.cod_prodotto not in dizionario.keys() and prodotto.stato == "Venduto" \
+                    and prodotto.stagione == stagione:
                 if anno is None:
-                    dizionario[prodotto["cod_prodotto"]] = prodotto["prezzo_vendita"] - prodotto["prezzo_acquisto"]
-                elif anno in prodotto["data_ordine"]:
-                    dizionario[prodotto["cod_prodotto"]] = prodotto["prezzo_vendita"] - prodotto["prezzo_acquisto"]
+                    dizionario[prodotto.cod_prodotto] = prodotto.prezzo_vendita - prodotto.prezzo_acquisto
+                elif anno in prodotto.data_vendita:
+                    dizionario[prodotto.cod_prodotto] = prodotto.prezzo_vendita - prodotto.prezzo_acquisto
 
         return dizionario
 
@@ -120,71 +127,102 @@ class ControllerStatistica():
 
     # Metodo per calcolare i fornitori più pagati
     def forn_piu_pagati(self, anno, stagione):
-        with open('listaordini/data/DatabaseOrdini.json') as f:
-            lista_ordini = json.load(f)
-            dizionario = {}
+        lista_ordini = self.controller_listaordini.get_lista_ordini()
+        dizionario = {}
 
         for ordine in lista_ordini:
-            if ordine["cod_fornitore"] not in dizionario.keys() and ordine["stagione"] == stagione:
+            if ordine.cod_fornitore not in dizionario.keys() and ordine.stagione == stagione:
                 if anno is None:
-                    dizionario[ordine["cod_fornitore"]] = 0
-                elif anno in ordine["data_ordine"]:
-                    dizionario[ordine["cod_fornitore"]] = 0
+                    dizionario[ordine.cod_fornitore] = 0
+                elif anno in ordine.data_arrivo_effettiva:
+                    dizionario[ordine.cod_fornitore] = 0
 
         for ordine in lista_ordini:
-            if ordine["stagione"] == stagione:
+            if ordine.stagione == stagione:
                 if anno is None:
-                    dizionario[ordine["cod_fornitore"]] += ordine["importo_totale"]
-                elif anno in ordine["data_ordine"]:
-                    dizionario[ordine["cod_fornitore"]] += ordine["importo_totale"]
+                    dizionario[ordine.cod_fornitore] += ordine.importo_totale
+                elif anno in ordine.data_arrivo_effettiva:
+                    dizionario[ordine.cod_fornitore] += ordine.importo_totale
 
         return dizionario
 
     # Metodo per calcolare i fornitori da cui acquistiamo di più
     def forn_da_cui_acquistiamo_di_piu(self, anno, stagione):
-        with open('listaordini/data/DatabaseOrdini.json') as f:
-            lista_ordini = json.load(f)
-            dizionario = {}
+        lista_ordini = self.controller_listaordini.get_lista_ordini()
+        dizionario = {}
 
         for ordine in lista_ordini:
-            if ordine["cod_fornitore"] not in dizionario.keys() and ordine["stagione"] == stagione:
+            if ordine.cod_fornitore not in dizionario.keys() and ordine.stagione == stagione:
                 if anno == "":
-                    dizionario[ordine["cod_fornitore"]] = 0
-                elif anno in ordine["data_ordine"]:
-                    dizionario[ordine["cod_fornitore"]] = 0
+                    dizionario[ordine.cod_fornitore] = 0
+                elif anno in ordine.data_arrivo_effettiva:
+                    dizionario[ordine.cod_fornitore] = 0
 
         for ordine in lista_ordini:
-            if ordine["stagione"] == stagione:
+            if ordine.stagione == stagione:
                 if anno == "":
-                    dizionario[ordine["cod_fornitore"]] += ordine["calzature_totali"]
-                elif anno in ordine["data_ordine"]:
-                    dizionario[ordine["cod_fornitore"]] += ordine["calzature_totali"]
+                    dizionario[ordine.cod_fornitore] += ordine.calzature_totali
+                elif anno in ordine.data_arrivo_effettiva:
+                    dizionario[ordine.cod_fornitore] += ordine.calzature_totali
 
         return dizionario
 
     # Metodo per calcolare i fornitori più rapidi nella consegna
     def forn_piu_rapidi_nella_consegna(self, anno, stagione):
-        with open('listaordini/data/DatabaseOrdini.json') as f:
-            lista_ordini = json.load(f)
-            dizionario = {}
+        lista_ordini = self.controller_listaordini
+        dizionario = {}
 
         for ordine in lista_ordini:
-            if ordine["cod_fornitore"] not in dizionario.keys() and ordine["data_arrivo_effettiva"] is not None \
-                    and ordine["stagione"] == stagione:
+            if ordine.cod_fornitore not in dizionario.keys() and ordine.data_arrivo_effettiva is not None \
+                    and ordine.stagione == stagione:
                 if anno is None:
-                    dizionario[ordine["cod_fornitore"]] = 0
-                elif anno in ordine["data_ordine"]:
-                    dizionario[ordine["cod_fornitore"]] = 0
+                    dizionario[ordine.cod_fornitore] = 0
+                elif anno in ordine.data_arrivo_effettiva:
+                    dizionario[ordine.cod_fornitore] = 0
 
         for ordine in lista_ordini:
-            if ordine["data_arrivo_effettiva"] is not None and ordine["stagione"] == stagione:
+            if ordine.data_arrivo_effettiva is not None and ordine.stagione == stagione:
                 if anno is None:
-                    d1 = datetime.strptime(ordine["data_arrivo_prevista"], "%Y-%m-%d")
-                    d2 = datetime.strptime(ordine["data_arrivo_effettiva"], "%Y-%m-%d")
-                    dizionario[ordine["cod_fornitore"]] = abs((d2 - d1).days)
-                elif anno in ordine["data_ordine"]:
-                    d1 = datetime.strptime(ordine["data_arrivo_prevista"], "%Y-%m-%d")
-                    d2 = datetime.strptime(ordine["data_arrivo_effettiva"], "%Y-%m-%d")
-                    dizionario[ordine["cod_fornitore"]] = abs((d2 - d1).days)
+                    d1 = datetime.strptime(ordine.data_arrivo_prevista, "%Y-%m-%d")
+                    d2 = datetime.strptime(ordine.data_arrivo_effettiva, "%Y-%m-%d")
+                    dizionario[ordine.cod_fornitore] = abs((d2 - d1).days)
+                elif anno in ordine.data_arrivo_effettiva:
+                    d1 = datetime.strptime(ordine.data_arrivo_prevista, "%Y-%m-%d")
+                    d2 = datetime.strptime(ordine.data_arrivo_effettiva, "%Y-%m-%d")
+                    dizionario[ordine.cod_fornitore] = abs((d2 - d1).days)
 
         return dizionario
+
+    # Metodo per calcolare l'andamento finanziario
+    def andamento_finanziario(self, anno, stagione):
+        diz_prod_vend = self.costruzione_dizionario(anno, stagione)
+        dizionario_af = {"spesa_tot": 0, "incasso": 0, "spesa_prodotti": 0, "guadagno": 0}
+        lista_chiavi_usate = []
+
+        lista_prodotti = self.controller_listaprodotti.get_lista_prodotti()
+        for prodotto in lista_prodotti:
+            if prodotto.cod_prodotto in diz_prod_vend.keys() \
+                    and prodotto.cod_prodotto not in lista_chiavi_usate \
+                    and prodotto.stato == "Venduto" and anno in prodotto.data_vendita:
+                lista_chiavi_usate.append(prodotto.cod_prodotto)
+                dizionario_af["incasso"] += prodotto.prezzo_vendita * diz_prod_vend[prodotto.cod_prodotto]
+                dizionario_af["guadagno"] += (prodotto.prezzo_vendita - prodotto.prezzo_acquisto) * \
+                                             diz_prod_vend[prodotto.cod_prodotto]
+
+        lista_ordini = self.controller_listaordini
+        for ordine in lista_ordini:
+            if ordine.stagione == stagione and ordine.stato == "In negozio" \
+                    and anno in ordine.data_arrivo_effettiva:
+                dizionario_af["spesa_prodotti"] += ordine.importo_totale
+        dizionario_af["spesa_tot"] = dizionario_af["spesa_prodotti"]
+
+        lista_del_personale = self.controller_listadelpersonale.get_lista_del_personale()
+        for utente in lista_del_personale:
+            if utente.ruolo == "D":
+                d1 = datetime.strptime(utente.data_inizio_contratto, "%Y-%m-%d")
+                d2 = datetime.strptime(utente.data_scadenza_contratto, "%Y-%m-%d")
+                if d1.year <= int(anno) <= d2.year:
+                    dizionario_af["spesa_tot"] += utente.stipendio * 12
+
+        print(dizionario_af)
+        return dizionario_af
