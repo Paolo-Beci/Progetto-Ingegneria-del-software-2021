@@ -58,7 +58,10 @@ class ControllerFornitore:
         self.model.rappresentante= rappresentante
 
     def set_data_affiliazione(self, data_affiliazione):
-        self.model.data_affiliazione= data_affiliazione
+        if self.model.data_affiliazione is None:
+            return "00/00/0000"
+        else:
+            return self.model.data_affiliazione
 
     def set_stato(self, stato):
         if stato=="Standard":

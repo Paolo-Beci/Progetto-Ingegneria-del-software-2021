@@ -256,7 +256,7 @@ class VistaOrdine(QWidget):
         if len(self.tableWidget.selectedIndexes()) > 0:
             selected = self.tableWidget.selectedIndexes()[0].row()
             prodotto_selezionato = self.lista_prodotti_ordine[selected]
-            self.vista_prodotto = VistaProdotto(prodotto_selezionato, self.retranslateUi)
+            self.vista_prodotto = VistaProdotto(prodotto_selezionato, self.retranslateUi, self.controller_lista_prodotti)
             self.vista_prodotto.showMaximized()
             time.sleep(0.3)
 

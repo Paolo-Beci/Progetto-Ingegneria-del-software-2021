@@ -1,13 +1,11 @@
 from PyQt5 import QtWidgets, QtGui, QtCore
-from PyQt5.QtGui import QStandardItemModel, QStandardItem, QPixmap
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton, QTableWidgetItem
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtWidgets import QWidget, QTableWidgetItem
 import time
 
-import home.view.VistaHome
+
 from listaordini.controller.ControllerListaOrdini import ControllerListaOrdini
-from listaordini.view.VistaInserisciOrdine import VistaInserisciOrdine
 from listaprodotti.controller.ControllerListaProdotti import ControllerListaProdotti
-from ordine.controller.ControllerOrdine import ControllerOrdine
 from ordine.model.Ordine import Ordine
 from ordine.view.VistaOrdine import VistaOrdine
 from listaordini.view.VistaInserisciOrdine import VistaInserisciOrdine
@@ -17,15 +15,18 @@ class VistaListaOrdini(QWidget):
     def __init__(self, parent=None):
         super(VistaListaOrdini, self).__init__(parent)
         self.controller_lista_prodotti = ControllerListaProdotti()
-        #self.lista_prodotti= self.controller_prodotti.get_lista_prodotti()
         self.controller_lista_ordini= ControllerListaOrdini()
 
-        ###############################
+        # boolean: mi permettono di verificare se sto visualizzando in lista ordini In arrivo o In negozio
         self.in_arrivo = False
         self.in_negozio = False
         self.lista_ordini = self.controller_lista_ordini.get_lista_ordini()
-        self.lista_dinamica_ordini = self.lista_ordini[:] #serve per i filtri
+
+        # Lista: E' una copia della lista reale. Mi permette di manipolare i suoi elementi senza modificare la lista originale (lista di riferimento)
+        self.lista_dinamica_ordini = self.lista_ordini[:]
+
         #############################
+
         # creazione nuovo ordine in quanto non ne esiste uno presente con questo codice
         ordine_esistente= False
         for prodotto in self.controller_lista_prodotti.get_lista_prodotti():
@@ -37,6 +38,9 @@ class VistaListaOrdini(QWidget):
                 ordine = Ordine(prodotto.cod_fattura, prodotto.cod_fornitore, prodotto.stagione, None, prodotto.data_ordine, None, None, None, None)
                 self.lista_dinamica_ordini.append(ordine)
 
+        ############################
+
+        ''' Costruzione dell'interfaccia'''
         self.setObjectName("Form")
         self.resize(1121, 576)
         self.gridLayout_2 = QtWidgets.QGridLayout(self)
@@ -216,9 +220,6 @@ class VistaListaOrdini(QWidget):
     def show_inserici_ordine(self):
         self.vista_inserisci_ordine = VistaInserisciOrdine(self.controller_lista_ordini, self.controller_lista_prodotti, self.retranslateUi, self.lista_dinamica_ordini)
         self.vista_inserisci_ordine.showMaximized()
-
-    def closeEvent(self, event):
-        self.controller_lista_ordini.save_data()
 
     def filter_in_arrivo(self):
         self.in_arrivo = True

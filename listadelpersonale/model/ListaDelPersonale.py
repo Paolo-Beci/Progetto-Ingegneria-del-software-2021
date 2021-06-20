@@ -10,24 +10,15 @@ class ListaDelPersonale:
     def __init__(self):
         super(ListaDelPersonale, self).__init__()
         self.lista_del_personale = []
-        self.lista_dinamica=[]
-        self.login = False
-
         self.refresh_data()
-        self.lista_dinamica= self.lista_dinamica[:]
-
-    def filtra_utenti(self):
-        pass
+        #boolean: abilita o disabilita il login amministratore
+        self.login = False
 
     def inserisci_utente(self, utente):
         self.lista_del_personale.append(utente)
-        #self.lista_dinamica.append(utente)
 
     def get_lista_del_personale(self):
         return self.lista_del_personale
-
-    def get_lista_dinamica(self):
-        return self.lista_dinamica
 
     def elimina_utente_by_codice(self, codice_utente, lista_dinamica):
         for utente in self.lista_del_personale:
@@ -35,9 +26,7 @@ class ListaDelPersonale:
                 self.lista_del_personale.remove(utente)
                 lista_dinamica.remove(utente)
 
-    def get_utente_by_index(self, index):
-        return self.lista_del_personale[index]
-
+    # Metodo: ricarica in lista i dati da file pickle, se esistente e non vuoto, o dal file json
     def refresh_data(self):
         if os.path.isfile('listadelpersonale/data/DatabaseDelPersonale.pickle') and os.stat(
                 'listadelpersonale/data/DatabaseDelPersonale.pickle').st_size != 0:
@@ -65,6 +54,7 @@ class ListaDelPersonale:
                                                            utente_da_caricare["username"],
                                                            utente_da_caricare["password"]))
 
+    # Metodo: salva il contenuto della lista su file pickle
     def save_data(self):
         with open('listadelpersonale/data/DatabaseDelPersonale.pickle', 'wb') as handle:
             pickle.dump(self.lista_del_personale, handle, pickle.HIGHEST_PROTOCOL)

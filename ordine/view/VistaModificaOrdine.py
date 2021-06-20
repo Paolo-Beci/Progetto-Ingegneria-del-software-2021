@@ -17,7 +17,7 @@ class VistaModificaOrdine(QWidget):
         icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_mini.png'), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.setWindowIcon(icon)
 
-        self.resize(1123, 590)
+        self.resize(600, 400)
         self.gridLayout_2 = QtWidgets.QGridLayout(self)
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.gridLayout = QtWidgets.QGridLayout()

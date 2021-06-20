@@ -150,7 +150,6 @@ class VistaVendita(QWidget):
         cod_prodotto = str(self.cerca.text())
         cod_prodotto.capitalize()
         print(str(self.cerca.text()))
-        #if cod_prodotto.isalnum() and cod_prodotto.startswith('S'):
         for prodotto in self.controller.get_lista_prodotti():
             if prodotto.cod_prodotto == cod_prodotto and prodotto.taglia == int(self.taglia.currentText()):
                 self.prodotto_trovato.append(prodotto)
