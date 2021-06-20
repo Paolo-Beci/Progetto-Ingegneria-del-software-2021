@@ -66,8 +66,5 @@ class ControllerFornitore:
         else:
             self.model.stato= "P"
 
-    # def elimina_fornitore(self):
-    #     return None
-
 
 

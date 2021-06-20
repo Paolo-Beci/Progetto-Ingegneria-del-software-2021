@@ -178,7 +178,7 @@ class VistaOrdine(QWidget):
         self.retranslateUi()
         QtCore.QMetaObject.connectSlotsByName(self)
 
-        self.setWindowTitle("Visualizza ordine")
+        self.setWindowTitle("Ordine")
 
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate

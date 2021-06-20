@@ -1,6 +1,6 @@
 import sys
 
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QSpacerItem, QSizePolicy, QPushButton, QLabel, QLineEdit, QMessageBox
 
 from utente.model.Utente import Utente
@@ -14,10 +14,10 @@ class VistaInserisciUtente(QWidget):
         self.lista_dinamica= lista_dinamica
 
         self.end1=False
-        #self.setMinimumHeight(700)
+
+        ########################################
+
         self.setMinimumSize(250, 700)
-        #self.setFixedHeight(700)
-        #self.setFixedWidth(250)
 
         self.v_layout = QVBoxLayout()
 
@@ -68,7 +68,7 @@ class VistaInserisciUtente(QWidget):
         self.v_layout.addWidget(self.btn_ok)
 
         self.setLayout(self.v_layout)
-        self.setWindowTitle("Nuovo Utente")
+        self.setWindowTitle("Inserisci utente")
 
     def retranslate_ui(self):
         if self.combo_box_ruolo.currentText()=="Amministratore":

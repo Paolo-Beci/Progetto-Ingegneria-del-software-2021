@@ -168,7 +168,7 @@ class VistaProdotto(QWidget):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Prodotto"))
         self.groupBox_dettagli_prodotto.setTitle(_translate("MainWindow", "Dettagli prodotto"))
         self.label_data_ordine.setText(_translate("MainWindow", "Data dell\'ordine: " + str(self.controller.get_data_ordine())))
         self.label_marca.setText(_translate("MainWindow", "Marca: " + str(self.controller.get_marca())))

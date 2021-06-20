@@ -11,14 +11,17 @@ class VistaListaFornitori(QWidget):
         super(VistaListaFornitori, self).__init__()
 
         self.controller = ControllerListaFornitori()
+        # boolean: mi permettono di verificare se sto visualizzando in lista fornitori standard o premium
         self.standard= False
         self.premium= False
         self.lista_fornitori = self.controller.get_lista_fornitori()
-        #self.lista_dinamica= self.controller.get_lista_dinamica()
+
+        # Lista: E' una copia della lista reale. Mi permette di manipolare i suoi elementi senza modificare la lista originale (lista di riferimento)
         self.lista_dinamica = self.lista_fornitori[:]
 
         ############################
 
+        ''' Costruzione dell'interfaccia'''
         self.setObjectName("Form")
         self.resize(1121, 576)
         self.gridLayout_2 = QtWidgets.QGridLayout(self)
@@ -73,12 +76,10 @@ class VistaListaFornitori(QWidget):
         self.gridLayout.addWidget(self.pushButton_indietro, 1, 1, 1, 1)
         spacerItem4 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem4, 2, 7, 1, 1)
-
         self.tableWidget = QtWidgets.QTableWidget(self)
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setColumnCount(6)
         item = QtWidgets.QTableWidgetItem()
-
         self.tableWidget.setHorizontalHeaderItem(0, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(1, item)
@@ -96,9 +97,7 @@ class VistaListaFornitori(QWidget):
         self.tableWidget.setColumnWidth(3, 200)
         self.tableWidget.setColumnWidth(4, 200)
         self.tableWidget.setColumnWidth(5, 200)
-
         self.gridLayout.addWidget(self.tableWidget, 5, 1, 1, 6)
-
         spacerItem5 = QtWidgets.QSpacerItem(10, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
         self.gridLayout.addItem(spacerItem5, 4, 1, 1, 7)
         self.gridLayout_3 = QtWidgets.QGridLayout()
@@ -136,20 +135,22 @@ class VistaListaFornitori(QWidget):
         self.gridLayout.addItem(spacerItem10, 1, 5, 3, 1)
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
 
+        # chiamo la parte dinamica dell'interfaccia
         self.retranslateUi()
         self.setWindowTitle("Area fornitori")
 
+    '''Metodo: contiene gli elementi dinamici (che variano) dell'interfaccia'''
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
-        # Form.setWindowTitle(_translate("Form", "Lista utenti"))
+        #imposto il testo degli oggetti dell'interfaccia
         self.pushButton_apri.setText(_translate("Form", "Apri"))
         self.pushButton_nuovo.setText(_translate("Form", "Nuovo"))
-        # self.lineEdit_cerca.setText(_translate("Form", "Cerca per codice"))
         self.pushButton_indietro.setText(_translate("Form", "<-  Indietro"))
         self.pushButton_stato1.setText(_translate("Form", "Standard"))
         self.pushButton_stato2.setText(_translate("Form", "Premium"))
         self.pushButton_all.setText(_translate("Form", "All"))
 
+        #imposto le colonne della tabella
         item = self.tableWidget.horizontalHeaderItem(0)
         item.setText(_translate("Form", "Codice"))
         item = self.tableWidget.horizontalHeaderItem(1)
@@ -163,8 +164,10 @@ class VistaListaFornitori(QWidget):
         item = self.tableWidget.horizontalHeaderItem(5)
         item.setText(_translate("Form", "Indirizzo"))
 
+        # inserisco gli elementi in tabella
         row = 0
         self.tableWidget.setColumnCount(6)
+        # chiamo il filtro generale prima di visualizzare gli elementi in tabella
         if self.standard or self.premium:
             self.filter()
         self.tableWidget.setRowCount(len(self.lista_dinamica))
@@ -184,45 +187,6 @@ class VistaListaFornitori(QWidget):
 
             row = row + 1
 
-        ############################
-        # h_layout = QHBoxLayout()
-        # self.list_view = QListView()
-        # self.update_ui()
-        # h_layout.addWidget(self.list_view)
-        #
-        # buttons_layout = QVBoxLayout()
-        # open_button = QPushButton('Apri')
-        # open_button.clicked.connect(self.show_fornitore)
-        # buttons_layout.addWidget(open_button)
-        # new_button = QPushButton("Nuovo")
-        # new_button.clicked.connect(self.show_inserisci_fornitore)
-        # buttons_layout.addWidget(new_button)
-        # #filter_button= QPushButton
-        # home_button = QPushButton('Torna alla HOME')
-        # home_button.clicked.connect(self.close)
-        # buttons_layout.addWidget(home_button)
-        # buttons_layout.addStretch()
-        # h_layout.addLayout(buttons_layout)
-        #
-        # self.setLayout(h_layout)
-        # self.resize(600, 300)
-        # self.setWindowTitle('Area Fornitori')
-
-    # def update_ui(self):
-    #      self.listview_model = QStandardItemModel(self.list_view)
-    #      for fornitore in self.controller.get_lista_fornitori():
-    #          item = QStandardItem()
-    #          item.setText(fornitore.nome)
-    #          item.setEditable(False)
-    #          font = item.font()
-    #          font.setPointSize(18)
-    #          item.setFont(font)
-    #          self.listview_model.appendRow(item)
-    #      self.list_view.setModel(self.listview_model)
-
-    def closeEvent(self, event):
-        self.controller.save_data()
-
     def show_inserisci_fornitore(self):
         self.vista_inserisci_fornitore= VistaInserisciFornitore(self.controller, self.retranslateUi, self.lista_dinamica)
         self.vista_inserisci_fornitore.show()
@@ -232,9 +196,10 @@ class VistaListaFornitori(QWidget):
         if(len(self.tableWidget.selectedIndexes()) > 0):
             selected = self.tableWidget.selectedIndexes()[0].row()
             fornitore_selezionato = self.lista_dinamica[selected]
-            self.vista_fornitore = VistaFornitore(fornitore_selezionato, self.controller.elimina_fornitore_by_codice, self.retranslateUi, self.controller, self.lista_dinamica)
+            self.vista_fornitore = VistaFornitore(fornitore_selezionato, self.retranslateUi, self.controller, self.lista_dinamica)
             self.vista_fornitore.show()
 
+    # Metodo: indica al filtro generale filter() che vogliamo filtrare fornitori premium
     def filter_premium(self):
         self.premium = True
         self.standard = False
@@ -243,6 +208,7 @@ class VistaListaFornitori(QWidget):
         self.filter()
         self.retranslateUi()
 
+    # Metodo: indica al filtro generale filter() che vogliamo filtrare fornitori standard
     def filter_standard(self):
         self.premium= False
         self.standard= True
@@ -251,6 +217,7 @@ class VistaListaFornitori(QWidget):
         self.filter()
         self.retranslateUi()
 
+    # Metodo: indica al filtro generale filter() che vogliamo visualizzare tutti i fornitori
     def filter_all(self):
         self.standard= False
         self.premium= False
@@ -259,6 +226,7 @@ class VistaListaFornitori(QWidget):
         self.filter()
         self.retranslateUi()
 
+    # Metodo: filtra i fornitori con cod_fornitore contenente il testo immesso
     def filter_cerca(self):
         self.lista_fornitori = self.controller.get_lista_fornitori()
         self.lista_dinamica = self.lista_fornitori[:]
@@ -273,6 +241,7 @@ class VistaListaFornitori(QWidget):
                 self.lista_dinamica.remove(fornitore)
         self.retranslateUi()
 
+    # Metodo: filtro generale, svolge più filtraggi
     def filter(self):
         elementi_da_rimuovere = []
 
@@ -297,3 +266,6 @@ class VistaListaFornitori(QWidget):
             self.lista_fornitori= self.controller.get_lista_fornitori()
             self.lista_dinamica= self.lista_fornitori[:]
             return
+
+    def closeEvent(self, event):
+        self.controller.save_data()

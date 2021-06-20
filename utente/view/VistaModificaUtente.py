@@ -99,18 +99,6 @@ class VistaModificaUtente(QWidget):
         spacerItem6 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_2.addItem(spacerItem6, 2, 0, 1, 1)
 
-        ######### LINE EDIT PASSWORD
-        # self.lineEdit_password = QtWidgets.QLineEdit(self)
-        # sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.MinimumExpanding)
-        # sizePolicy.setHorizontalStretch(0)
-        # sizePolicy.setVerticalStretch(0)
-        # sizePolicy.setHeightForWidth(self.lineEdit_password.sizePolicy().hasHeightForWidth())
-        # self.lineEdit_password.setSizePolicy(sizePolicy)
-        # self.lineEdit_password.setMinimumSize(QtCore.QSize(150, 0))
-        # self.lineEdit_password.setMaximumSize(QtCore.QSize(16777215, 30))
-        # self.lineEdit_password.setObjectName("lineEdit_password")
-        #self.gridLayout_2.addWidget(self.lineEdit_password, 15, 3, 1, 1)
-
         self.dateEdit_nascita = QtWidgets.QDateEdit(self)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.MinimumExpanding)
         sizePolicy.setHorizontalStretch(0)
@@ -136,18 +124,6 @@ class VistaModificaUtente(QWidget):
         spacerItem8 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum,
                                             QtWidgets.QSizePolicy.MinimumExpanding)
         self.gridLayout_2.addItem(spacerItem8, 13, 3, 1, 1)
-
-        ######### LABEL PASSWORD
-        # self.label_password = QtWidgets.QLabel(self)
-        # sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.MinimumExpanding)
-        # sizePolicy.setHorizontalStretch(0)
-        # sizePolicy.setVerticalStretch(0)
-        # sizePolicy.setHeightForWidth(self.label_password.sizePolicy().hasHeightForWidth())
-        # self.label_password.setSizePolicy(sizePolicy)
-        # self.label_password.setMinimumSize(QtCore.QSize(0, 20))
-        # self.label_password.setMaximumSize(QtCore.QSize(16777215, 30))
-        # self.label_password.setObjectName("label_password")
-        #self.gridLayout_2.addWidget(self.label_password, 14, 3, 1, 1)
 
         self.label_indirizzo = QtWidgets.QLabel(self)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.MinimumExpanding)
@@ -249,18 +225,6 @@ class VistaModificaUtente(QWidget):
         self.lineEdit_cognome.setObjectName("lineEdit_cognome")
         self.gridLayout_2.addWidget(self.lineEdit_cognome, 2, 5, 1, 1)
 
-        ########## LINE EDIT USERNAME
-        # self.lineEdit_username = QtWidgets.QLineEdit(self)
-        # sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.MinimumExpanding)
-        # sizePolicy.setHorizontalStretch(0)
-        # sizePolicy.setVerticalStretch(0)
-        # sizePolicy.setHeightForWidth(self.lineEdit_username.sizePolicy().hasHeightForWidth())
-        # self.lineEdit_username.setSizePolicy(sizePolicy)
-        # self.lineEdit_username.setMinimumSize(QtCore.QSize(150, 0))
-        # self.lineEdit_username.setMaximumSize(QtCore.QSize(16777215, 30))
-        # self.lineEdit_username.setObjectName("lineEdit_username")
-        #self.gridLayout_2.addWidget(self.lineEdit_username, 15, 1, 1, 1)
-
         spacerItem12 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_2.addItem(spacerItem12, 2, 6, 1, 1)
         self.label_data_inizio_contratto = QtWidgets.QLabel(self)
@@ -294,17 +258,6 @@ class VistaModificaUtente(QWidget):
         self.dateEdit_scadenza_contratto.setObjectName("dateEdit_scadenza_contratto")
         self.gridLayout_2.addWidget(self.dateEdit_scadenza_contratto, 9, 3, 1, 1)
 
-        ######## LABEL USERNAME
-        # self.label_username = QtWidgets.QLabel(self)
-        # sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.MinimumExpanding)
-        # sizePolicy.setHorizontalStretch(0)
-        # sizePolicy.setVerticalStretch(0)
-        # sizePolicy.setHeightForWidth(self.label_username.sizePolicy().hasHeightForWidth())
-        # self.label_username.setSizePolicy(sizePolicy)
-        # self.label_username.setMinimumSize(QtCore.QSize(0, 20))
-        # self.label_username.setMaximumSize(QtCore.QSize(16777215, 30))
-        # self.label_username.setObjectName("label_username")
-        #self.gridLayout_2.addWidget(self.label_username, 14, 1, 1, 1)
 
         self.comboBox_ruolo = QtWidgets.QComboBox(self)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.MinimumExpanding)
@@ -384,7 +337,7 @@ class VistaModificaUtente(QWidget):
         self.gridLayout_3.addLayout(self.gridLayout_2, 0, 0, 1, 1)
 
         self.contatore=0
-
+        self.setWindowTitle("Modifica utente")
         self.retranslateUi()
         self.comboBox_ruolo.currentIndexChanged.connect(self.retranslateUi_2)
 
@@ -392,7 +345,6 @@ class VistaModificaUtente(QWidget):
 
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
-        #Form.setWindowTitle(_translate("Form", "Modifica utente"))
         self.pushButton_salva.setText(_translate("Form", "Salva"))
         self.pushButton_annulla.setText(_translate("Form", "Annulla"))
 

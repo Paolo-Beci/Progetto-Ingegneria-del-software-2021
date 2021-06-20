@@ -204,7 +204,7 @@ class VistaListaProdotti(QWidget):
     def retranslateUi(self):
 
         _translate = QtCore.QCoreApplication.translate
-        self.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.setWindowTitle(_translate("MainWindow", "Area prodotti"))
         self.taglia.setItemText(0, _translate("MainWindow", "Taglia"))
         self.genere.setItemText(0, _translate("MainWindow", "Genere"))
         self.in_arrivo.setText(_translate("MainWindow", "IN ARRIVO"))

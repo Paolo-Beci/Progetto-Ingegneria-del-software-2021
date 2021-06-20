@@ -1,2 +1,0 @@
-class VistaFiltraProdotti():
-    pass

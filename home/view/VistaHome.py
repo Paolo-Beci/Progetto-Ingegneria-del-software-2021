@@ -162,7 +162,7 @@ class VistaHome(QWidget):
         timer.timeout.connect(self.show_time)
         timer.start(1000)
         self.show_time()
-
+        self.setWindowTitle("Home")
         self.retranslateUi()
 
         QtCore.QMetaObject.connectSlotsByName(self)

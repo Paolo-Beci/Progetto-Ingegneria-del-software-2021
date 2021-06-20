@@ -14,9 +14,13 @@ class VistaInserisciFornitore(QWidget):
         self.update_ui = update_ui
         self.lista_dinamica= lista_dinamica
 
+        # boolean che permette di eseguire due eventi diversi in caso di chiusura della finestra
         self.end1 = False
-        self.v_layout = QVBoxLayout()
 
+        ############################
+
+        ''' Costruzione dell'interfaccia'''
+        self.v_layout = QVBoxLayout()
         self.formLayout= QFormLayout()
         self.groupBox= QGroupBox()
 
@@ -40,15 +44,12 @@ class VistaInserisciFornitore(QWidget):
         self.combo_box_stato.addItem("Premium")
         self.combo_box_stato.setCurrentIndex(0)
         self.formLayout.addWidget(self.combo_box_stato)
-
         self.groupBox.setLayout(self.formLayout)
         scroll= QScrollArea()
         scroll.setWidgetResizable(True)
         scroll.setMinimumSize(250, 600)
         scroll.setWidget(self.groupBox)
-
         self.v_layout.addWidget(scroll)
-
         self.v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
         btn_ok = QPushButton("OK")
@@ -56,14 +57,12 @@ class VistaInserisciFornitore(QWidget):
         self.v_layout.addWidget(btn_ok)
 
         self.setLayout(self.v_layout)
-        self.setWindowTitle("Nuovo Fornitore")
+        self.setWindowTitle("Inserisci fornitore")
 
     def add_info_text(self, nome, label):
-        #self.v_layout.addWidget(QLabel(label))
         self.formLayout.addRow(QLabel(label))
         current_text = QLineEdit(self)
         self.qlines[nome] = current_text
-        #self.v_layout.addWidget(current_text)
         self.formLayout.addRow(current_text)
 
     def inserisci_fornitore(self):

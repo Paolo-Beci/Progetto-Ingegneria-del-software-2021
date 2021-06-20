@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QWidget, QMessageBox
 from prodotto.model.Prodotto import Prodotto
 from listaordini.controller.ControllerListaOrdini import ControllerListaOrdini
 
@@ -339,7 +339,7 @@ class VistaInserisciProdotto(QWidget):      # sistema anche le altre chiamate da
         self.verticalLayout_2.addLayout(self.verticalLayout)
 
         self.retranslateUi()
-        self.setWindowTitle("Inserisci Prodotto")
+        self.setWindowTitle("Inserisci prodotto")
         QtCore.QMetaObject.connectSlotsByName(self)
 
     def retranslateUi(self):
@@ -383,6 +383,10 @@ class VistaInserisciProdotto(QWidget):      # sistema anche le altre chiamate da
         #######################################################################
 
     def salva_modifiche_click(self):
+        if int(self.lineEdit_quantita.text()) == 0:
+            QMessageBox.critical(self, 'Errore', 'Il campo quantità non può essere nullo.',
+                                 QMessageBox.Ok, QMessageBox.Ok)
+            return
         # prendo il testo che l'utente inserisce in ciascuna lineEdit
         if not self.inserimento_da_ordine:
             cod_fattura = self.lineEdit_codice_fattura.text()

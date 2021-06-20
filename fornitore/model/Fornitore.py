@@ -10,4 +10,4 @@ class Fornitore:
         self.sito_web= sito_web
         self.rappresentante= rappresentante#
         self.data_affiliazione= data_affiliazione
-        self.stato= stato#
+        self.stato= stato

@@ -12,12 +12,6 @@ class ControllerListaFornitori():
     def inserisci_fornitore(self, fornitore):
         self.model.inserisci_fornitore(fornitore)
 
-    def filtra_fornitori(self):
-        return None
-
-    def get_fornitore_by_index(self, index):
-        return self.model.get_fornitore_by_index(index)
-
     # Giuseppe
     def get_foritore_by_code(self, codice):
         return self.model.get_fornitore_by_code(codice)

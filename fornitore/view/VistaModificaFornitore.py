@@ -1,13 +1,9 @@
 import sys
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import QDate
-from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QMessageBox
+from PyQt5.QtWidgets import QWidget, QMessageBox
 
-
-#manca da aggiustare il sizepolicy
-
-#BISOGNA CAMBIARE IL FORM CON SELF!!!!!
 class VistaModificaFornitore(QWidget):
     def __init__(self, fornitore, controller, controller_lista, update_ui_fornitore, parent=None):
         super(VistaModificaFornitore, self).__init__(parent)
@@ -18,26 +14,25 @@ class VistaModificaFornitore(QWidget):
 
         lista= self.controller_lista.get_lista_fornitori()
         self.new_lista_fornitori= lista[:]
+
+        # affinche non ci siano problemi con il controllo in save_data() (controllo sull'inserimento di un fornitore con stesso codice)
+        # ho bisogno di una lista che non contenga il fornitore che sto modificando
         self.new_lista_fornitori.remove(self.fornitore_selezionato)
 
+        # boolean che permette di eseguire due eventi diversi in casi di chiusura
         self.end1 = False
+
+        ###################################
+
+        ''' Costruzione dell'interfaccia'''
         self.setWindowTitle("Modifica fornitore")
         self.setObjectName("Form")
         self.resize(579, 427)
         self.horizontalLayoutWidget = QtWidgets.QWidget(self)
 
-        # sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
-        # sizePolicy.setHorizontalStretch(0)
-        # sizePolicy.setVerticalStretch(0)
-        # sizePolicy.setHeightForWidth(self.horizontalLayoutWidget.sizePolicy().hasHeightForWidth())
-        # self.horizontalLayoutWidget.setSizePolicy(sizePolicy)
-        # self.horizontalLayoutWidget.setMinimumSize(0, 80)
-
-        #self.horizontalLayoutWidget.setGeometry(QtCore.QRect(400, 360, 160, 51))
         self.horizontalLayoutWidget.setGeometry(QtCore.QRect(205, 360, 160, 51))
         self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
-        #self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
 
@@ -63,8 +58,6 @@ class VistaModificaFornitore(QWidget):
         self.gridLayout_2.setObjectName("gridLayout_2")
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_2.addItem(spacerItem, 8, 0, 1, 1)
-
-        #Telefono
         self.lineEdit_11 = QtWidgets.QLineEdit(self.gridLayoutWidget)
         self.lineEdit_11.setObjectName("lineEdit_11")
         self.gridLayout_2.addWidget(self.lineEdit_11, 7, 0, 1, 1)
@@ -127,13 +120,10 @@ class VistaModificaFornitore(QWidget):
         self.lineEdit_12 = QtWidgets.QLineEdit(self.gridLayoutWidget)
         self.lineEdit_12.setObjectName("lineEdit_12")
         self.gridLayout_2.addWidget(self.lineEdit_12, 7, 3, 1, 1)
-        #self.lineEdit_13 = QtWidgets.QLineEdit(self.gridLayoutWidget)
 
         self.dateEdit_1= QtWidgets.QDateEdit(self.gridLayoutWidget)
         self.dateEdit_1.setObjectName("dateEdit_1")
         self.gridLayout_2.addWidget(self.dateEdit_1, 12, 0, 1, 1)
-        #self.lineEdit_13.setObjectName("lineEdit_13")
-        #self.gridLayout_2.addWidget(self.lineEdit_13, 12, 0, 1, 1)
         spacerItem12 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_2.addItem(spacerItem12, 3, 0, 1, 1)
         spacerItem13 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -165,6 +155,7 @@ class VistaModificaFornitore(QWidget):
         self.retranslateUi(self)
         QtCore.QMetaObject.connectSlotsByName(self)
 
+    '''Metodo: contiene gli elementi dinamici (che variano) dell'interfaccia'''
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Modifica fornitore"))

@@ -5,16 +5,20 @@ from fornitore.controller.ControllerFornitore import ControllerFornitore
 from fornitore.view.VistaModificaFornitore import VistaModificaFornitore
 
 class VistaFornitore(QWidget):
-    def __init__(self, fornitore, elimina_fornitore_by_codice, update_ui, controller, lista_dinamica, parent=None):
+    def __init__(self, fornitore, update_ui, controller, lista_dinamica, parent=None):
         super(VistaFornitore, self).__init__(parent)
-        self.controller= ControllerFornitore(fornitore)
-        self.controller_lista= controller
-        self.elimina_fornitore_by_codice= elimina_fornitore_by_codice
+        self.controller_fornitore= ControllerFornitore(fornitore)
+        self.controller_lista_fornitori= controller
         self.update_ui= update_ui
         self.fornitore_selezionato= fornitore
         self.lista_dinamica = lista_dinamica
 
+        # boolean che permette di eseguire due eventi diversi in caso di chiusura della finestra
         self.end1 = False
+
+        ###################################
+
+        ''' Costruzione dell'interfaccia'''
         #istanzio un vertical layout
         self.v_layout = QVBoxLayout()
         #istanzio due Label, una per il nome e una per il body (gli altri campi)
@@ -84,34 +88,34 @@ class VistaFornitore(QWidget):
         btn_elimina = QPushButton("Elimina")
         btn_elimina.clicked.connect(self.elimina_fornitore_click)
         btn_modifica = QPushButton("Modifica")
-        btn_modifica.clicked.connect(self.modifica_fornitore_click)
+        btn_modifica.clicked.connect(self.show_modifica_fornitore)
         #li aggiungo al widget
         self.v_layout.addWidget(btn_elimina)
         self.v_layout.addWidget(btn_modifica)
         self.setLayout(self.v_layout)
         self.setWindowTitle("Fornitore")
 
+    '''Metodo: contiene gli elementi dinamici (che variano) dell'interfaccia'''
     def update_ui_fornitore(self):
-        self.label_nome.setText(self.controller.get_nome())
-        self.label_indirizzo.setText("Indirizzo: {}".format(self.controller.get_indirizzo()))
-        self.label_partita_iva.setText("Partita iva: {}".format(self.controller.get_partita_iva()))
-        self.label_telefono.setText("Telefono: {}".format(self.controller.get_telefono()))
-        self.label_sito_web.setText("Sito Web: {}".format(self.controller.get_sito_web()))
-        self.label_rappresentante.setText("Rappresentante: {}".format(self.controller.get_rappresentante()))
-        self.label_data_affiliazione.setText("Data affiliazione: {}".format(self.controller.get_data_affiliazione()))
-        self.label_codice.setText("Codice fornitore: {}".format(self.controller.get_cod_fornitore()))
-        self.label_stato.setText("Stato: {}".format(self.controller.get_stato()))
+        self.label_nome.setText(self.controller_fornitore.get_nome())
+        self.label_indirizzo.setText("Indirizzo: {}".format(self.controller_fornitore.get_indirizzo()))
+        self.label_partita_iva.setText("Partita iva: {}".format(self.controller_fornitore.get_partita_iva()))
+        self.label_telefono.setText("Telefono: {}".format(self.controller_fornitore.get_telefono()))
+        self.label_sito_web.setText("Sito Web: {}".format(self.controller_fornitore.get_sito_web()))
+        self.label_rappresentante.setText("Rappresentante: {}".format(self.controller_fornitore.get_rappresentante()))
+        self.label_data_affiliazione.setText("Data affiliazione: {}".format(self.controller_fornitore.get_data_affiliazione()))
+        self.label_codice.setText("Codice fornitore: {}".format(self.controller_fornitore.get_cod_fornitore()))
+        self.label_stato.setText("Stato: {}".format(self.controller_fornitore.get_stato()))
         self.update_ui()
 
     def elimina_fornitore_click(self):
-
         self.end1 = True
         #chiude la finestra corrente
         self.close()
         self.end1 = False
 
-    def modifica_fornitore_click(self):
-        self.vista_modifica_fornitore= VistaModificaFornitore(self.fornitore_selezionato, self.controller, self.controller_lista, self.update_ui_fornitore)
+    def show_modifica_fornitore(self):
+        self.vista_modifica_fornitore= VistaModificaFornitore(self.fornitore_selezionato, self.controller_fornitore, self.controller_lista_fornitori, self.update_ui_fornitore)
         self.vista_modifica_fornitore.show()
         self.update_ui()
 
@@ -124,7 +128,7 @@ class VistaFornitore(QWidget):
             if reply == QMessageBox.Yes:
                 if not type(event) == bool:   #SI
                     event.accept()
-                    self.elimina_fornitore_by_codice(self.controller.get_cod_fornitore(), self.lista_dinamica)
+                    self.controller_lista_fornitori.elimina_fornitore_by_codice(self.controller_fornitore.get_cod_fornitore(), self.lista_dinamica)
                     self.update_ui()
                 else:
                     sys.exit()

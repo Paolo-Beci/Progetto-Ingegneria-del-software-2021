@@ -126,7 +126,7 @@ class VistaVendita(QWidget):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Vendi prodotto"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Area vendita"))
         self.cerca.setPlaceholderText(_translate("MainWindow", "Cerca per codice prodotto"))
         self.pushButton_indietro.setText(_translate("MainWindow", "< Indietro"))
         self.taglia.setItemText(0, _translate("MainWindow", "Taglia"))
