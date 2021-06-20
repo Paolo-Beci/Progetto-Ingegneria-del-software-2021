@@ -399,14 +399,24 @@ class VistaInserisciProdotto(QWidget):      # sistema anche le altre chiamate da
             marca = self.lineEdit_marca.text()
             nome = self.lineEdit_nome.text()
             tipo = str(self.comboBox_tipo.currentText())
-            genere = str(self.comboBox_genere.currentText())
+            if str(self.comboBox_genere.currentText()) == "Uomo":
+                genere = "U"
+            elif str(self.comboBox_genere.currentText()) == "Donna":
+                genere = "D"
+            elif str(self.comboBox_genere.currentText()) == "Bambino":
+                genere = "BO"
+            elif str(self.comboBox_genere.currentText()) == "Bambina":
+                genere = "BA"
             materiale = self.lineEdit_materiale.text()
             colore = self.lineEdit_colore.text()
             taglia = str(self.comboBox_taglia.currentText())
             quantita = self.lineEdit_quantita.text()
             prezzo_acquisto = self.lineEdit_prezzo_acquisto.text()
             prezzo_vendita = self.lineEdit_prezzo_vendita.text()
-            stagione = str(self.comboBox_stagione.currentText())
+            if str(self.comboBox_stagione.currentText()) == "Primavera / Estate":
+                stagione = "P/E"
+            else:
+                stagione = "A/I"
             stato = str(self.comboBox_stato.currentText())
             sconto_consigliato = self.lineEdit_sconto_consigliato.text()
             sconto = self.lineEdit_sconto.text()
@@ -424,7 +434,14 @@ class VistaInserisciProdotto(QWidget):      # sistema anche le altre chiamate da
             marca = self.lineEdit_marca.text()
             nome = self.lineEdit_nome.text()
             tipo = str(self.comboBox_tipo.currentText())
-            genere = str(self.comboBox_genere.currentText())
+            if str(self.comboBox_genere.currentText()) == "Uomo":
+                genere = "U"
+            elif str(self.comboBox_genere.currentText()) == "Donna":
+                genere = "D"
+            elif str(self.comboBox_genere.currentText()) == "Bambino":
+                genere = "BO"
+            elif str(self.comboBox_genere.currentText()) == "Bambina":
+                genere = "BA"
             materiale = self.lineEdit_materiale.text()
             colore = self.lineEdit_colore.text()
             taglia = str(self.comboBox_taglia.currentText())
@@ -434,7 +451,7 @@ class VistaInserisciProdotto(QWidget):      # sistema anche le altre chiamate da
             sconto_consigliato = self.lineEdit_sconto_consigliato.text()
             sconto = self.lineEdit_sconto.text()
 
-            prodotto= Prodotto(self.ordine.cod_fattura, self.ordine.cod_fornitore, None, cod_prodotto, marca, nome, tipo, genere, materiale, colore, taglia, quantita,prezzo_acquisto, prezzo_vendita, None, None, sconto_consigliato, sconto, "")
+            prodotto= Prodotto(self.ordine.cod_fattura, self.ordine.cod_fornitore, None, cod_prodotto, marca, nome, tipo, genere, materiale, colore, taglia, quantita, prezzo_acquisto, prezzo_vendita, None, None, sconto_consigliato, sconto, "")
             self.lista_prodotti_ordine.append(prodotto)
 
 
