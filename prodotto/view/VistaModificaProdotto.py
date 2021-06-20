@@ -358,15 +358,25 @@ class VistaModificaProdotto(QWidget):
         cod_prodotto = self.lineEdit_cod_prodotto.text()
         marca = self.lineEdit_marca.text()
         nome = self.lineEdit_nome.text()
+        if str(self.comboBox_genere.currentText()) == "Uomo":
+            genere = "U"
+        elif str(self.comboBox_genere.currentText()) == "Donna":
+            genere = "D"
+        elif str(self.comboBox_genere.currentText()) == "Bambino":
+            genere = "BO"
+        elif str(self.comboBox_genere.currentText()) == "Bambina":
+            genere = "BA"
         tipo = str(self.comboBox_tipo.currentText())
-        genere = str(self.comboBox_genere.currentText())
         materiale = self.lineEdit_materiale.text()
         colore = self.lineEdit_colore.text()
         taglia = str(self.comboBox_taglia.currentText())
         quantita = self.lineEdit_quantita.text()
         prezzo_acquisto = self.lineEdit_prezzo_acquisto.text()
         prezzo_vendita = self.lineEdit_prezzo_vendita.text()
-        stagione = str(self.comboBox_stagione.currentText())
+        if str(self.comboBox_stagione.currentText()) == "Primavera / Estate":
+            stagione = "P/E"
+        else:
+            stagione = "A/I"
         stato = str(self.comboBox_stato.currentText())
         sconto_consigliato = self.lineEdit_sconto_consigliato.text()
         sconto = self.lineEdit_sconto.text()

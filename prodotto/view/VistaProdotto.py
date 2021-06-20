@@ -178,7 +178,15 @@ class VistaProdotto(QWidget):
         self.label_marca.setText(_translate("MainWindow", "Marca: " + str(self.prodotto.marca)))
         self.label_nome.setText(_translate("MainWindow", "Nome: " + str(self.prodotto.nome)))
         self.label_tipo.setText(_translate("MainWindow", "Tipo: " + str(self.prodotto.tipo)))
-        self.label_genere.setText(_translate("MainWindow", "Genere: " + str(self.prodotto.genere)))
+        if str(self.prodotto.genere) == "U":
+            genere = "Uomo"
+        elif str(self.prodotto.genere) == "D":
+            genere = "Donna"
+        elif str(self.prodotto.genere) == "BO":
+            genere = "Bambino"
+        elif str(self.prodotto.genere) == "BA":
+            genere = "Bambina"
+        self.label_genere.setText(_translate("MainWindow", "Genere: " + str(genere)))
         self.label_materiale.setText(_translate("MainWindow", "Materiale: " + str(self.prodotto.materiale)))
         self.label_colore.setText(_translate("MainWindow", "Colore: " + str(self.prodotto.colore)))
         self.label_taglia.setText(_translate("MainWindow", "Taglia/e: " + str(self.prodotto.taglia)))
