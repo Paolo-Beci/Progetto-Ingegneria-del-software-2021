@@ -4,7 +4,6 @@ from PyQt5.QtWidgets import QApplication, QWidget, QMessageBox
 
 from listaprodotti.controller.ControllerListaProdotti import ControllerListaProdotti
 from listaprodotti.view.VistaDisplayProdotto import VistaDisplayProdotto
-from vendita.view.VistaVendiProdotto import VistaVendiProdotto
 
 """
     VISTA CHE FACILITA IL PROCESSO DI VENDITA DI UN PRODOTTO (shortcut)
@@ -16,6 +15,7 @@ class VistaVendita(QWidget):
         super(VistaVendita, self).__init__(parent)
         self.controller = ControllerListaProdotti()
         self.prodotto_trovato = None
+        self.flag = False
 
         self.resize(902, 475)
         self.setObjectName("Form")
@@ -48,6 +48,7 @@ class VistaVendita(QWidget):
         self.pushButton_indietro = QtWidgets.QPushButton(self.widget)
         self.pushButton_indietro.setObjectName("pushButton_indietro")
         self.gridLayout_3.addWidget(self.pushButton_indietro, 0, 0, 1, 1)
+        self.pushButton_indietro.clicked.connect(self.close)
         self.logo = QtWidgets.QLabel(self.widget)
         self.logo.setObjectName("logo")
         pixmap = QPixmap('listaprodotti/data/images/logo_mini3.png')
@@ -88,6 +89,8 @@ class VistaVendita(QWidget):
         self.pushButton.clicked.connect(self.vendi)
         spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem4)
+        self.gridLayout_3 = QtWidgets.QGridLayout(self.widget_4)
+        self.gridLayout_3.setObjectName("gridLayout_3")
         self.verticalLayout_2.addWidget(self.widget_3)
         self.gridLayout.addWidget(self.widget_2, 1, 0, 1, 1)
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
@@ -96,23 +99,28 @@ class VistaVendita(QWidget):
         QtCore.QMetaObject.connectSlotsByName(self)
 
     def retranslateUi(self):
+        for i in reversed(range(self.gridLayout_3.count())):
+            self.gridLayout_3.itemAt(i).widget().setParent(None)
+
         _translate = QtCore.QCoreApplication.translate
         self.setWindowTitle(_translate("MainWindow", "Vendi prodotto"))
         self.pushButton.setText(_translate("MainWindow", "VENDI"))
         self.cerca.setPlaceholderText(_translate("MainWindow", "Cerca per codice prodotto"))
         self.pushButton_indietro.setText(_translate("MainWindow", "< Indietro"))
         self.taglia.setItemText(0, _translate("MainWindow", "Taglia"))
-        if self.cerca.text() != "":
+        if self.flag:
             self.vista_prodotto_da_vendere = VistaDisplayProdotto(self.prodotto_trovato, self.retranslateUi, self.controller)
-            self.widget_4 = self.vista_prodotto_da_vendere
+            self.widget_vendita = self.vista_prodotto_da_vendere
+            self.gridLayout_3.addWidget(self.widget_vendita, 0, 0, 1, 1)
 
     def cerca_prodotto(self):
         cod_prodotto_cerca = str(self.cerca.text())
         cod_prodotto = cod_prodotto_cerca.capitalize()
         # if cod_prodotto.isalnum() and cod_prodotto.startswith('S'):
         for prodotto in self.controller.get_lista_prodotti():
-            if str(prodotto.cod_prodotto) == str(cod_prodotto) and int(prodotto.taglia) == int(self.taglia.currentText()):
+            if str(prodotto.cod_prodotto) == str(cod_prodotto) and int(prodotto.taglia) == int(self.taglia.currentText()) and str(prodotto.stato) == "In negozio":
                 self.prodotto_trovato = prodotto
+                self.flag = True
         print(self.prodotto_trovato)
         if self.prodotto_trovato is None:
             self.popup_errore()
@@ -120,14 +128,27 @@ class VistaVendita(QWidget):
         self.retranslateUi()
 
     def vendi(self):
-        # self.controller.set_venduto()
-        pass
+        if self.flag:
+            self.prodotto_trovato.stato = "Venduto"
+            self.popup_venduto()
+
     def popup_errore(self):
         msg = QMessageBox()
         msg.setWindowTitle("ATTENZIONE")
         msg.setText(
             "Hai inserito un codice prodotto non valido oppure presente nel database! \n\n"
             "Prova con un formato codice del tipo: S03 o con una nuova taglia")
+        msg.setIcon(QMessageBox.Warning)
+        msg.setStandardButtons(QMessageBox.Yes)
+        msg.setDefaultButton(QMessageBox.Yes)
+        msg.exec_()
+
+    def popup_venduto(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("VENDUTO")
+        msg.setText(
+            "Hai venduto il prodotto inserito! \n\n"
+            "Puoi verificare il suo stato nella sezione prodotti")
         msg.setIcon(QMessageBox.Warning)
         msg.setStandardButtons(QMessageBox.Yes)
         msg.setDefaultButton(QMessageBox.Yes)
