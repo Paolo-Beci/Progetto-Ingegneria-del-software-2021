@@ -1,6 +1,6 @@
 from PyQt5 import QtCore, QtWidgets, QtGui
 from PyQt5.QtCore import QDate
-from PyQt5.QtWidgets import QWidget, QMessageBox
+from PyQt5.QtWidgets import QWidget
 
 
 class VistaModificaOrdine(QWidget):
@@ -223,6 +223,6 @@ class VistaModificaOrdine(QWidget):
                 prodotto.stagione = stagione
                 prodotto.data_ordine = data_ordine_2
 
-        self.update_ui()
+        self.update_ui_ordine()
         self.close()
 
