@@ -23,13 +23,23 @@ class ControllerOrdine:
         return self.model.cod_fornitore
 
     def get_data_ordine(self):
-        return self.model.data_ordine
+        if self.model.data_ordine is None:
+            return "0000-00-00"
+        else:
+            return self.model.data_ordine
 
     def get_data_arrivo_prevista(self):
-        return self.model.data_arrivo_prevista
+        if self.model.data_arrivo_prevista is None:
+            return "9999-12-31"
+        else:
+            return self.model.data_arrivo_prevista
 
     def get_data_arrivo_effettiva(self):
-        return self.model.data_arrivo_effettiva
+        if self.model.data_arrivo_effettiva is None:
+            return "9999-12-31"
+        else:
+            return self.model.data_arrivo_effettiva
+
 
     def get_stagione(self):
         return self.model.stagione
