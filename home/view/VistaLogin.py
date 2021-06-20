@@ -9,7 +9,7 @@ class VistaLogin(QWidget):
         self.update_ui = update_ui
 
         self.setObjectName("Form")
-        self.resize(900, 450)
+        self.resize(500, 300)
         self.gridLayout_2 = QtWidgets.QGridLayout(self)
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.gridLayout = QtWidgets.QGridLayout()

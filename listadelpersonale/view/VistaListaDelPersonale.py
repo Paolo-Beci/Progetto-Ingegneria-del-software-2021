@@ -1,7 +1,6 @@
 from PyQt5 import QtWidgets, QtCore, QtGui
-from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton, QTableWidgetItem
+from PyQt5.QtWidgets import QWidget, QTableWidgetItem
 
 from listadelpersonale.controller.ControllerListaDelPersonale import ControllerListaDelPersonale
 from listadelpersonale.view.VistaInserisciUtente import VistaInserisciUtente
@@ -11,14 +10,18 @@ from utente.view.VistaUtente import VistaUtente
 class VistaListaDelPersonale(QWidget):
     def __init__(self):
         super(VistaListaDelPersonale, self).__init__()
-
-        self.controller = ControllerListaDelPersonale()
+        self.controller_lista_del_personale = ControllerListaDelPersonale()
+        # boolean: mi permettono di verificare se sto visualizzando in lista utenti amministratori o dipendenti
         self.dipendente = False
         self.amministratore = False
-        self.lista_del_personale = self.controller.get_lista_del_personale()
-        self.lista_dinamica= self.controller.get_lista_dinamica()
+        self.lista_del_personale = self.controller_lista_del_personale.get_lista_del_personale()
+
+        # Lista: E' una copia della lista reale. Mi permette di manipolare i suoi elementi senza modificare la lista originale (lista di riferimento)
         self.lista_dinamica = self.lista_del_personale[:]
-        #############################
+
+        ###################################
+
+        ''' Costruzione dell'interfaccia'''
 
         self.setObjectName("Form")
         self.resize(1121, 576)
@@ -74,7 +77,6 @@ class VistaListaDelPersonale(QWidget):
         self.gridLayout.addWidget(self.pushButton_indietro, 1, 1, 1, 1)
         spacerItem4 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem4, 2, 7, 1, 1)
-
         self.tableWidget = QtWidgets.QTableWidget(self)
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setColumnCount(6)
@@ -99,7 +101,6 @@ class VistaListaDelPersonale(QWidget):
         self.tableWidget.setColumnWidth(5, 200)
 
         self.gridLayout.addWidget(self.tableWidget, 5, 1, 1, 6)
-
         spacerItem5 = QtWidgets.QSpacerItem(10, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
         self.gridLayout.addItem(spacerItem5, 4, 1, 1, 7)
         self.gridLayout_3 = QtWidgets.QGridLayout()
@@ -140,17 +141,17 @@ class VistaListaDelPersonale(QWidget):
         self.retranslateUi()
         self.setWindowTitle("Area del personale")
 
+    '''Metodo: contiene gli elementi dinamici (che variano) dell'interfaccia'''
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
-        #Form.setWindowTitle(_translate("Form", "Lista utenti"))
         self.pushButton_apri.setText(_translate("Form", "Apri"))
         self.pushButton_nuovo.setText(_translate("Form", "Nuovo"))
-        #self.lineEdit_cerca.setText(_translate("Form", "Cerca per codice"))
         self.pushButton_indietro.setText(_translate("Form", "<-  Indietro"))
         self.pushButton_stato1.setText(_translate("Form", "Dipendente"))
         self.pushButton_stato2.setText(_translate("Form", "Amministratore"))
         self.pushButton_all.setText(_translate("Form", "All"))
 
+        # imposto le colonne della tabella
         item = self.tableWidget.horizontalHeaderItem(0)
         item.setText(_translate("Form", "Codice"))
         item = self.tableWidget.horizontalHeaderItem(1)
@@ -164,8 +165,10 @@ class VistaListaDelPersonale(QWidget):
         item = self.tableWidget.horizontalHeaderItem(5)
         item.setText(_translate("Form", "Data scadenza contratto"))
 
+        # inserisco gli elementi in tabella
         row=0
         self.tableWidget.setColumnCount(6)
+        # chiamo il filtro generale prima di visualizzare gli elementi in tabella
         if self.dipendente or self.amministratore:
             self.filter()
         self.tableWidget.setRowCount(len(self.lista_dinamica))
@@ -186,46 +189,47 @@ class VistaListaDelPersonale(QWidget):
 
             row= row+1
 
-    def closeEvent(self, event):
-        self.controller.save_data()
-
     def show_inserisci_utente(self):
-        self.vista_inserisci_utente= VistaInserisciUtente(self.controller, self.retranslateUi, self.lista_dinamica)
+        self.vista_inserisci_utente= VistaInserisciUtente(self.controller_lista_del_personale, self.retranslateUi, self.lista_dinamica)
         self.vista_inserisci_utente.show()
 
     def show_utente(self):
         if (len(self.tableWidget.selectedIndexes()) > 0):
             selected = self.tableWidget.selectedIndexes()[0].row()
             utente_selezionato = self.lista_dinamica[selected]
-            self.vista_utente = VistaUtente(utente_selezionato, self.controller.elimina_utente_by_codice, self.retranslateUi, self.controller, self.lista_dinamica)
+            self.vista_utente = VistaUtente(utente_selezionato, self.retranslateUi, self.controller_lista_del_personale, self.lista_dinamica)
             self.vista_utente.show()
 
+    # Metodo: indica al filtro generale filter() che vogliamo filtrare utenti amministratori
     def filter_amministratore(self):
         self.amministratore = True
         self.dipendente = False
-        self.lista_del_personale= self.controller.get_lista_del_personale()
+        self.lista_del_personale= self.controller_lista_del_personale.get_lista_del_personale()
         self.lista_dinamica= self.lista_del_personale[:]
         self.filter()
         self.retranslateUi()
 
+    # Metodo: indica al filtro generale filter() che vogliamo filtrare utenti dipendenti
     def filter_dipendente(self):
         self.amministratore= False
         self.dipendente= True
-        self.lista_del_personale= self.controller.get_lista_del_personale()
+        self.lista_del_personale= self.controller_lista_del_personale.get_lista_del_personale()
         self.lista_dinamica = self.lista_del_personale[:]
         self.filter()
         self.retranslateUi()
 
+    # Metodo: indica al filtro generale filter() che vogliamo visualizzare tutti gli utenti
     def filter_all(self):
         self.dipendente= False
         self.amministratore= False
-        self.lista_del_personale = self.controller.get_lista_del_personale()
+        self.lista_del_personale = self.controller_lista_del_personale.get_lista_del_personale()
         self.lista_dinamica = self.lista_del_personale[:]
         self.filter()
         self.retranslateUi()
 
+    # Metodo: filtra gli utenti con cod_utente contenente il testo immesso
     def filter_cerca(self):
-        self.lista_del_personale = self.controller.get_lista_del_personale()
+        self.lista_del_personale = self.controller_lista_del_personale.get_lista_del_personale()
         self.lista_dinamica = self.lista_del_personale[:]
         codice_cerca= self.lineEdit_cerca.text()
         codice= codice_cerca.capitalize()
@@ -238,6 +242,7 @@ class VistaListaDelPersonale(QWidget):
                 self.lista_dinamica.remove(utente)
         self.retranslateUi()
 
+    # Metodo: filtro generale, svolge più filtraggi
     def filter(self):
         elementi_da_rimuovere = []
 
@@ -259,9 +264,10 @@ class VistaListaDelPersonale(QWidget):
                     self.lista_dinamica.remove(utente)
             return
         else:
-            self.lista_del_personale= self.controller.get_lista_del_personale()
+            self.lista_del_personale= self.controller_lista_del_personale.get_lista_del_personale()
             self.lista_dinamica= self.lista_del_personale[:]
             return
 
-
+    def closeEvent(self, event):
+        self.controller_lista_del_personale.save_data()
 

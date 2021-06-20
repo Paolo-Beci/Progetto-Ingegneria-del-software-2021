@@ -1,24 +1,26 @@
 import sys
 
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPushButton, QMessageBox
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QPushButton, QMessageBox
 
 from utente.controller.ControllerUtente import ControllerUtente
 from utente.view.VistaModificaUtente import VistaModificaUtente
 
 
 class VistaUtente(QWidget):
-    def __init__(self, utente, elimina_utente_by_codice, update_ui, controller, lista_dinamica, parent=None):
+    def __init__(self, utente, update_ui, controller, lista_dinamica, parent=None):
         super(VistaUtente, self).__init__(parent)
         self.utente_selezionato= utente
-        self.controller= ControllerUtente(utente)
-
-
-        self.controller_lista= controller
-        self.elimina_utente_by_codice= elimina_utente_by_codice
+        self.controller_utente= ControllerUtente(utente)
+        self.controller_lista_del_personale= controller
         self.update_ui= update_ui
         self.lista_dinamica= lista_dinamica
 
+        # boolean che permette di eseguire due eventi diversi in caso di chiusura della finestra
         self.end1 = False
+
+        ###################################
+
+        ''' Costruzione dell'interfaccia'''
         # istanzio un vertical layout
         self.v_layout = QVBoxLayout()
         # istanzio due Label, una per il nome e una per il body (gli altri campi)
@@ -100,37 +102,36 @@ class VistaUtente(QWidget):
         btn_elimina = QPushButton("Elimina")
         btn_elimina.clicked.connect(self.elimina_utente_click)
         btn_modifica = QPushButton("Modifica")
-        btn_modifica.clicked.connect(self.modifica_utente_click)
+        btn_modifica.clicked.connect(self.show_modifica_utente)
         # li aggiungo al widget
         self.v_layout.addWidget(btn_elimina)
         self.v_layout.addWidget(btn_modifica)
         self.setLayout(self.v_layout)
         self.setWindowTitle("Utente")
 
+    '''Metodo: contiene gli elementi dinamici (che variano) dell'interfaccia'''
     def update_ui_utente(self):
-        self.label_nome_cognome.setText(self.controller.get_nome()+" "+self.controller.get_cognome())
-        self.label_data_nascita.setText("Data nascita: {}".format(self.controller.get_data_nascita()))
-        self.label_luogo_nascita.setText("Luogo nascita: {}".format(self.controller.get_luogo_nascita()))
-        self.label_cf.setText("Codice fiscale: {}".format(self.controller.get_cf()))
-        self.label_codice.setText("Codice: {}".format(self.controller.get_cod_utente()))
-        self.label_indirizzo.setText("Indirizzo: {}".format(self.controller.get_indirizzo()))
-        self.label_telefono.setText("Telefono: {}".format(self.controller.get_telefono()))
-        self.label_ruolo.setText("Ruolo: {}".format(self.controller.get_ruolo()))
-        self.label_stipendio.setText("Stipendio: {}".format(self.controller.get_stipendio()))
-        self.label_data_inizio_contratto.setText("Data inizio contratto: {}".format(self.controller.get_data_inizio_contratto()))
-        self.label_data_scadenza_contratto.setText("Data scadenza contratto: {}".format(self.controller.get_data_scadenza_contratto()))
+        self.label_nome_cognome.setText(self.controller_utente.get_nome() + " " + self.controller_utente.get_cognome())
+        self.label_data_nascita.setText("Data nascita: {}".format(self.controller_utente.get_data_nascita()))
+        self.label_luogo_nascita.setText("Luogo nascita: {}".format(self.controller_utente.get_luogo_nascita()))
+        self.label_cf.setText("Codice fiscale: {}".format(self.controller_utente.get_cf()))
+        self.label_codice.setText("Codice: {}".format(self.controller_utente.get_cod_utente()))
+        self.label_indirizzo.setText("Indirizzo: {}".format(self.controller_utente.get_indirizzo()))
+        self.label_telefono.setText("Telefono: {}".format(self.controller_utente.get_telefono()))
+        self.label_ruolo.setText("Ruolo: {}".format(self.controller_utente.get_ruolo()))
+        self.label_stipendio.setText("Stipendio: {}".format(self.controller_utente.get_stipendio()))
+        self.label_data_inizio_contratto.setText("Data inizio contratto: {}".format(self.controller_utente.get_data_inizio_contratto()))
+        self.label_data_scadenza_contratto.setText("Data scadenza contratto: {}".format(self.controller_utente.get_data_scadenza_contratto()))
         self.update_ui()
 
     def elimina_utente_click(self):
         self.end1 = True
-        #self.elimina_utente_by_codice(self.controller.get_cod_utente())
-        #self.update_ui()
         # chiude la finestra corrente
         self.close()
         self.end1 = False
 
-    def modifica_utente_click(self):
-        self.vista_modifica_utente = VistaModificaUtente(self.utente_selezionato,self.controller, self.controller_lista, self.update_ui_utente)
+    def show_modifica_utente(self):
+        self.vista_modifica_utente = VistaModificaUtente(self.utente_selezionato, self.controller_utente, self.controller_lista_del_personale, self.update_ui_utente)
         self.vista_modifica_utente.show()
         self.update_ui()
 
@@ -143,7 +144,7 @@ class VistaUtente(QWidget):
             if reply == QMessageBox.Yes:
                 if not type(event) == bool:   #SI
                     event.accept()
-                    self.elimina_utente_by_codice(self.controller.get_cod_utente(), self.lista_dinamica)
+                    self.controller_lista_del_personale.elimina_utente_by_codice(self.controller_utente.get_cod_utente(), self.lista_dinamica)
                     self.update_ui()
                 else:
                     sys.exit()
