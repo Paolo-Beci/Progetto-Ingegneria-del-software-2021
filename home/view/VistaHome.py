@@ -4,7 +4,7 @@ import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QTime, QTimer, Qt
 from PyQt5.QtGui import QFont, QPixmap
-from PyQt5.QtWidgets import QWidget, QLabel, QMessageBox
+from PyQt5.QtWidgets import QWidget, QLabel, QMessageBox, QSplashScreen
 import time
 
 from home.view.VistaLogin import VistaLogin
@@ -30,6 +30,10 @@ class VistaHome(QWidget):
         ''' 
             Costruzione parte statica dell'interfaccia
         '''
+        #Icona di avvio
+        avvio_icon = QSplashScreen()
+        avvio_icon.setPixmap(QPixmap('listaprodotti/data/images/logo_mini.png'))
+        avvio_icon.show()
         self.setObjectName("Home")
         self.resize(965, 530)
         icon = QtGui.QIcon()
