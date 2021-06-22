@@ -27,6 +27,10 @@ class VistaOrdine(QWidget):
         ''' 
             Costruzione parte statica dell'interfaccia
         '''
+        # Inserimento icona
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_mini.png'), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        self.setWindowIcon(icon)
         self.setObjectName("self")
         self.resize(882, 600)
         self.gridLayout_2 = QtWidgets.QGridLayout(self)

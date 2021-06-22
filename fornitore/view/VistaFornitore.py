@@ -1,5 +1,6 @@
 import sys
 
+from PyQt5 import QtGui
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QPushButton, QMessageBox
 from fornitore.controller.ControllerFornitore import ControllerFornitore
 from fornitore.view.VistaModificaFornitore import VistaModificaFornitore
@@ -21,6 +22,10 @@ class VistaFornitore(QWidget):
         ''' 
             Costruzione parte statica dell'interfaccia
         '''
+        #Inserimento icona
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_mini.png'), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        self.setWindowIcon(icon)
         #istanzio un vertical layout
         self.v_layout = QVBoxLayout()
         #istanzio due Label, una per il nome e una per il body (gli altri campi)

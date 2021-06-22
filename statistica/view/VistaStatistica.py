@@ -55,7 +55,6 @@ class VistaStatistica(QWidget):
         self.setWindowTitle(statistica.nome)
 
 
-
     # Metodo che consente di visualizzare la lista degli elementi passata con ulteriori informazioni
     def update_ui_stat(self, lista_ordinata):
         self._translate = QtCore.QCoreApplication.translate
@@ -142,62 +141,6 @@ class VistaStatistica(QWidget):
                     self.tableWidget.setColumnCount(4)
                     self.riempimento_tabella(fornitore, codice, str(valore), row)
                 row += 1
-
-
-        #     for (index, (codice, valore)) in enumerate(lista_ordinata):
-        #         item = QtWidgets.QTableWidgetItem()
-        #         if self.selected == 0 or self.selected == 1:
-        #
-        #             prodotto = self.controller_prod.get_prodotto_by_code(codice)
-        #             nome = self.controller_prod.get_nome_prodotto_by_code(codice)
-        #             item.setText(
-        #                 str(index + 1) + ") Cod. Prodotto: " + str(prodotto.cod_prodotto)
-        #                                + "      Marca: " + str(prodotto.marca)
-        #                                + "      Nome: " + str(nome)
-        #                                + "      Quantità vendute: " + str(valore))
-        #         elif self.selected == 2:
-        #             prodotto = self.controller_prod.get_prodotto_by_code(codice)
-        #             nome = self.controller_prod.get_nome_prodotto_by_code(codice)
-        #             item.setText(
-        #                 str(index + 1) + ") Cod. Prodotto: " + str(prodotto.cod_prodotto)
-        #                                + "      Marca: " + str(prodotto.marca)
-        #                                + "      Nome: " + str(nome)
-        #                                + "      Guadagno: " + str(valore) + " €")
-        #
-        #         elif self.selected == 3:
-        #             fornitore = self.controller_forn.get_fornitore_by_code(codice)
-        #             stato = self.controller_forn.get_stato_fornitore_by_code(codice)
-        #             item.setText(
-        #                 str(index + 1) + ") Cod. Fornitore: " + str(fornitore.cod_fornitore)
-        #                                + "      Nome: " + str(fornitore.nome)
-        #                                + "      Stato: " + str(stato)
-        #                                + "      Importo totale: " + str(valore) + " €")
-        #
-        #         elif self.selected == 4:
-        #             fornitore = self.controller_forn.get_fornitore_by_code(codice)
-        #             stato = self.controller_forn.get_stato_fornitore_by_code(codice)
-        #             item.setText(
-        #                 str(index + 1) + ") Cod. Fornitore: " + str(fornitore.cod_fornitore)
-        #                                + "      Nome: " + str(fornitore.nome)
-        #                                + "      Stato: " + str(stato)
-        #                                + "      Calzature totali: " + str(valore))
-        #
-        #         elif self.selected == 5:
-        #             fornitore = self.controller_forn.get_fornitore_by_code(codice)
-        #             stato = self.controller_forn.get_stato_fornitore_by_code(codice)
-        #             item.setText(
-        #                 str(index + 1) + ") Cod. Fornitore: " + str(fornitore.cod_fornitore)
-        #                                + "      Nome: " + str(fornitore.nome)
-        #                                + "      Stato: " + str(stato)
-        #                                + "      Giorni di ritardo: " + str(valore))
-        #
-        #         item.setEditable(False)
-        #         font = item.font()
-        #         font.setPointSize(18)
-        #         item.setFont(font)
-        #         self.listview_model.appendRow(item)
-        # self.list_view.setModel(self.listview_model)
-        # self.v_layout.addWidget(self.list_view)
 
     #Metodo dedicato alla creazione delle colonne della tabella
     def creazione_ct(self, nome1, nome2, nome3):

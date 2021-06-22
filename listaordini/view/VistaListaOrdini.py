@@ -32,6 +32,10 @@ class VistaListaOrdini(QWidget):
         '''
         self.setObjectName("Form")
         self.resize(1121, 576)
+        # Inserimento icona
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_mini.png'), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        self.setWindowIcon(icon)
         self.gridLayout_2 = QtWidgets.QGridLayout(self)
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.gridLayout = QtWidgets.QGridLayout()
@@ -151,7 +155,7 @@ class VistaListaOrdini(QWidget):
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
 
         self.retranslateUi()
-        self.setWindowTitle("Area del personale")
+        self.setWindowTitle("Area ordini")
 
     '''
         Costruzione parte dinamica dell'interfaccia  

@@ -27,6 +27,7 @@ class VistaListaStatistiche(QWidget):
         sizePolicy.setHeightForWidth(self.sizePolicy().hasHeightForWidth())
         self.setSizePolicy(sizePolicy)
 
+        # Inserimento icona
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_mini.png'), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.setWindowIcon(icon)
@@ -109,7 +110,7 @@ class VistaListaStatistiche(QWidget):
         self.gridLayout.addLayout(self.gridLayout_3, 3, 0, 1, 5)
         spacerItem9 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem9, 0, 3, 1, 2)
-        spacerItem10 = QtWidgets.QSpacerItem(20, 30, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        spacerItem10 = QtWidgets.QSpacerItem(425, 30, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.gridLayout.addItem(spacerItem10, 0, 1, 1, 1)
 
         self.label_logo = QtWidgets.QLabel(self)
@@ -127,7 +128,7 @@ class VistaListaStatistiche(QWidget):
         self.back_button.clicked.connect(self.close)
         self.gridLayout.addWidget(self.back_button, 0, 0, 1, 1)
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
-
+        self.back_button.setMaximumWidth(100)
         self.retranslateUi()
         QtCore.QMetaObject.connectSlotsByName(self)
 

@@ -1,6 +1,6 @@
 import sys
 
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtGui
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QSpacerItem, QSizePolicy, QPushButton, QLabel, QLineEdit, QMessageBox
 
 from utente.model.Utente import Utente
@@ -23,6 +23,11 @@ class VistaInserisciUtente(QWidget):
         '''
         self.setMinimumSize(250, 700)
         self.v_layout = QVBoxLayout()
+
+        # Inserimento icona
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_mini.png'), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        self.setWindowIcon(icon)
 
         #oggetto: "campo", "valore"
         self.qlines = {}

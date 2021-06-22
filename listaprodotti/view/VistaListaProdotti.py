@@ -99,11 +99,12 @@ class VistaListaProdotti(QWidget):
         # tipo
         self.tipo = QtWidgets.QComboBox(self.topWidget)
         self.tipo.setObjectName("tipo")
-        self.tipo.addItem("Eleganti")  # I don't know why but it's ok :)
-        self.tipo.addItem("Sneakers")
-        self.tipo.addItem("Sportive")
-        self.tipo.addItem("Trekking")
-        self.tipo.addItem("Eleganti")
+        self.tipo.addItems(["Eleganti", "Eleganti", "Sneakers", "Sportive", "Trekking"]) #Molto meglio
+        #self.tipo.addItem("Eleganti")  # I don't know why but it's ok :)
+        #self.tipo.addItem("Sneakers")
+        #self.tipo.addItem("Sportive")
+        #self.tipo.addItem("Trekking")
+        #self.tipo.addItem("Eleganti")
         self.gridLayout_3.addWidget(self.tipo, 3, 5, 1, 1)
         self.tipo.currentIndexChanged.connect(self.filtro_lista)
         # collezione

@@ -1,6 +1,6 @@
 import sys
 
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtGui
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QSpacerItem, QSizePolicy, QPushButton, QLabel, QLineEdit, QMessageBox, \
     QGroupBox, QScrollArea, QFormLayout
 
@@ -22,6 +22,12 @@ class VistaInserisciFornitore(QWidget):
         ''' 
             Costruzione parte statica dell'interfaccia
         '''
+
+        # Inserimento icona
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_mini.png'), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        self.setWindowIcon(icon)
+
         self.v_layout = QVBoxLayout()
         self.formLayout= QFormLayout()
         self.groupBox= QGroupBox()

@@ -1,6 +1,6 @@
 import sys
 
-from PyQt5 import QtCore, QtWidgets
+from PyQt5 import QtCore, QtWidgets, QtGui
 from PyQt5.QtCore import QDate
 from PyQt5.QtWidgets import QWidget, QMessageBox
 
@@ -26,6 +26,11 @@ class VistaModificaFornitore(QWidget):
         ''' 
             Costruzione parte statica dell'interfaccia
         '''
+        # Inserimento icona
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_mini.png'), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        self.setWindowIcon(icon)
+
         self.setWindowTitle("Modifica fornitore")
         self.setObjectName("Form")
         self.resize(579, 427)
