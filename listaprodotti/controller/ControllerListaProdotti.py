@@ -30,8 +30,8 @@ class ControllerListaProdotti:
     def get_quantita_prodotto_by_code(self, codice):
         return self.model.get_quantita_prodotto_by_code(codice)
 
-    def elimina_prodotto_by_codice(self, codice_prodotto):
-        self.model.elimina_prodotto(codice_prodotto)
+    def elimina_prodotto_by_codice(self, codice_prodotto, lista_prodotti):
+        self.model.elimina_prodotto(codice_prodotto, lista_prodotti)
 
     def refresh_data(self):
         self.model.refresh_data()

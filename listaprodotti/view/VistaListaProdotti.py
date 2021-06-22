@@ -236,22 +236,23 @@ class VistaListaProdotti(QWidget):
         self.retranslateUi()
 
     def cerca_prodotto(self):
-        # controlli:
-        # if cod_prodotto.isalnum() and cod_prodotto.startswith('S'):
         self.lista_prodotti_cercati = self.lista_prodotti_filtrata[:]
 
         self.cerca_flag = True
         codice_cerca = self.cerca.text()
         codice = codice_cerca.capitalize()
         elementi_da_rimuovere = []
-        for prodotto in self.lista_prodotti_cercati:
-            if not (codice in str(prodotto.cod_prodotto)):
-                elementi_da_rimuovere.append(prodotto)
-        for prodotto in elementi_da_rimuovere:
-            if prodotto in self.lista_prodotti_cercati:
-                self.lista_prodotti_cercati.remove(prodotto)
-        for i in reversed(range(self.gridLayout_2.count())):
-            self.gridLayout_2.itemAt(i).widget().setParent(None)
+        if codice_cerca.isalnum() and codice_cerca.startswith('S'):
+            for prodotto in self.lista_prodotti_cercati:
+                if not (codice in str(prodotto.cod_prodotto)):
+                    elementi_da_rimuovere.append(prodotto)
+            for prodotto in elementi_da_rimuovere:
+                if prodotto in self.lista_prodotti_cercati:
+                    self.lista_prodotti_cercati.remove(prodotto)
+            for i in reversed(range(self.gridLayout_2.count())):
+                self.gridLayout_2.itemAt(i).widget().setParent(None)
+        else:
+            self.popup_errore()
         self.retranslateUi()
         self.cerca_flag = False
 
@@ -278,7 +279,6 @@ class VistaListaProdotti(QWidget):
             filtro_collezione = "Collezione"
 
         elementi_da_rimuovere = []
-        #if IA is True or IN is True or V is True or R is True:
         lista = self.controller_lista_prodotti.get_lista_prodotti()
         self.lista_prodotti_filtrata = lista[:]
 
@@ -357,7 +357,7 @@ class VistaListaProdotti(QWidget):
         column = 0
         for prodotto in lista_da_caricare:
             self.widget_generico = QtWidgets.QWidget(self.scrollAreaWidgetContents)
-            self.displayprodotto1 = VistaDisplayProdotto(prodotto, self.retranslateUi, self.controller_lista_prodotti)
+            self.displayprodotto1 = VistaDisplayProdotto(prodotto, self.retranslateUi, self.controller_lista_prodotti, self.lista_prodotti_filtrata)
             self.widget_generico = self.displayprodotto1
             self.widget_generico.setMinimumSize(QtCore.QSize((width / 3.2), 450))
 
