@@ -1,14 +1,10 @@
+import sys
+
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import QWidget, QTableWidgetItem, QMessageBox
 
 from listaprodotti.view.VistaInserisciProdotto import VistaInserisciProdotto
 from ordine.model.Ordine import Ordine
-
-"""
-DA FARE
-# implementare i controlli di correttezza dell'inserimento (crasha)
-# fare interfaccia
-"""
 
 
 class VistaInserisciOrdine(QWidget):
@@ -17,13 +13,21 @@ class VistaInserisciOrdine(QWidget):
 
         self.controller_lista_ordini = controller_lista_ordini
         self.controller_lista_prodotti= controller_lista_prodotti
-
         self.update_ui = update_ui
-        self.lista_dinamica= lista_dinamica # Lista contenente gli ordini
+        self.lista_dinamica_ordini= lista_dinamica # Lista contenente gli ordini
 
-        self.lista_prodotti_ordine= [] #lista di appoggio
+        # Lista: E' un sottoinsieme di lista_prodotti, le modifiche fatte su questa lista influenzeranno
+        # lista_prodotti solo dopo aver chiamato inserisci_ordine ed aver quindi salvato.
+        self.lista_prodotti_ordine= []
 
-        #######################################
+        # boolean che permette di eseguire due eventi diversi in caso di chiusura della finestra
+        self.end1 = False
+
+        ############################
+
+        ''' 
+            Costruzione parte statica dell'interfaccia
+        '''
         self.setObjectName("Form")
         self.resize(962, 780)
         self.gridLayout_2 = QtWidgets.QGridLayout(self)
@@ -247,10 +251,6 @@ class VistaInserisciOrdine(QWidget):
         self.label_importo_totale.setMaximumSize(QtCore.QSize(16777215, 30))
         self.label_importo_totale.setObjectName("label_importo_totale")
         self.gridLayout.addWidget(self.label_importo_totale, 22, 0, 1, 1)
-        # self.lineEdit_importo_totale = QtWidgets.QLineEdit(self)
-        # self.lineEdit_importo_totale.setMaximumSize(QtCore.QSize(250, 16777215))
-        # self.lineEdit_importo_totale.setObjectName("lineEdit_importo_totale")
-        # self.gridLayout.addWidget(self.lineEdit_importo_totale, 23, 0, 1, 1)
         spacerItem16 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.gridLayout.addItem(spacerItem16, 24, 0, 1, 1)
         self.label_calzature_totali = QtWidgets.QLabel(self)
@@ -263,10 +263,6 @@ class VistaInserisciOrdine(QWidget):
         self.label_calzature_totali.setMaximumSize(QtCore.QSize(16777215, 30))
         self.label_calzature_totali.setObjectName("label_calzature_totali")
         self.gridLayout.addWidget(self.label_calzature_totali, 25, 0, 1, 1)
-        # self.lineEdit_calzature_totali = QtWidgets.QLineEdit(self)
-        # self.lineEdit_calzature_totali.setMaximumSize(QtCore.QSize(250, 16777215))
-        # self.lineEdit_calzature_totali.setObjectName("lineEdit_calzature_totali")
-        # self.gridLayout.addWidget(self.lineEdit_calzature_totali, 26, 0, 1, 1)
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
 
         self.retranslateUi()
@@ -274,13 +270,19 @@ class VistaInserisciOrdine(QWidget):
 
         self.setWindowTitle("Inserisci ordine")
 
+    '''
+        Costruzione parte dinamica dell'interfaccia  
+    '''
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
+        #imposto il testo degli oggetti dell'interfaccia
         self.label_10.setText(_translate("Form", "Lista prodotti ordine:"))
         self.pushButton_rimuovi.setText(_translate("Form", "Rimuovi prodotto"))
         self.pushButton_salva.setText(_translate("Form", "Salva"))
         self.pushButton_annulla.setText(_translate("Form", "Annulla"))
         self.pushButton_inserisci.setText(_translate("Form", "Inserisci prodotto"))
+
+        #imposto le colonne della tabella
         item = self.tableWidget.horizontalHeaderItem(0)
         item.setText(_translate("Form", "Codice prodotto"))
         item = self.tableWidget.horizontalHeaderItem(1)
@@ -294,10 +296,10 @@ class VistaInserisciOrdine(QWidget):
         item = self.tableWidget.horizontalHeaderItem(5)
         item.setText(_translate("Form", "Prezzo d\'acquisto"))
 
+        # inserisco gli elementi in tabella
         row = 0
         self.tableWidget.setColumnCount(6)
         self.tableWidget.setRowCount(len(self.lista_prodotti_ordine))
-
         for prodotto in self.lista_prodotti_ordine:
             item = QTableWidgetItem(str(prodotto.cod_prodotto))
             item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignHCenter)
@@ -310,9 +312,9 @@ class VistaInserisciOrdine(QWidget):
 
             row = row + 1
 
+        # I campi importo_totale e calzature_totali dipendono dai campi quantita e prezzo di acquisto in lista_prodotti_ordine
         importo_totale = 0
         calzature_totali = 0
-
         for prodotto in self.lista_prodotti_ordine:
             importo_totale = importo_totale + int(prodotto.prezzo_acquisto)
             calzature_totali = calzature_totali + int(prodotto.quantita)
@@ -341,7 +343,6 @@ class VistaInserisciOrdine(QWidget):
 
         self.vista_inserisci_prodotto= VistaInserisciProdotto(self.controller_lista_prodotti, self.retranslateUi, inserimento_da_ordine, self.lista_prodotti_ordine, None, ordine_fittizio)
         self.vista_inserisci_prodotto.show()
-        inserimento_da_ordine = False
 
     def rimuovi_prodotto(self):
         if len(self.tableWidget.selectedIndexes()) > 0:
@@ -350,19 +351,21 @@ class VistaInserisciOrdine(QWidget):
             self.lista_prodotti_ordine.remove(prodotto_selezionato)
             self.retranslateUi()
 
-    def inserisci_ordine(self, qm=None):
+    def inserisci_ordine(self):
+        self.end1= True
+        # Controllo inserimento di tutti i campi
         if self.lineEdit_cod_fornitore.text() == "" or self.lineEdit_cod_fattura.text() == "":
             QMessageBox.critical(self, 'Errore', 'Per favore, inserisci tutte le informazioni richieste.',
                                  QMessageBox.Ok, QMessageBox.Ok)
             return
-
+        # Controllo inserimento di almeno un prodotto
         if len(self.lista_prodotti_ordine)==0:
             QMessageBox.critical(self, 'Errore', "L'ordine non contiene alcun prodotto.",
                                  QMessageBox.Ok, QMessageBox.Ok)
             return
 
-        # Controllo: Se l'ordine che si vuole inserire è già presente in lista. Da copiare anche in modificaOrdine
-        for ordine in self.lista_dinamica:
+        # Controllo se l'ordine che si vuole inserire è già presente in lista.
+        for ordine in self.lista_dinamica_ordini:
             if str(ordine.cod_fattura) == self.lineEdit_cod_fattura.text():
                 reply = QMessageBox.question(self, 'Attenzione', "L'ordine è già presente in lista, sovrasciverlo?",
                                              QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
@@ -374,13 +377,14 @@ class VistaInserisciOrdine(QWidget):
 
                     self.controller_lista_prodotti.save_data_specialized(lista_prodotti)
                     self.controller_lista_prodotti.refresh_data()
-                    self.controller_lista_ordini.elimina_ordine_by_codice(ordine.cod_fattura, self.lista_dinamica)
+                    self.controller_lista_ordini.elimina_ordine_by_codice(ordine.cod_fattura, self.lista_dinamica_ordini)
                     self.update_ui()
                     self.close()
 
                 else:
                     return
 
+        # prendo i dati inseriti nelle lineEdit
         cod_fattura = self.lineEdit_cod_fattura.text()
         cod_fornitore = self.lineEdit_cod_fornitore.text()
         if str(self.comboBox_stagione.currentText()) == "Primavera / Estate":
@@ -393,6 +397,7 @@ class VistaInserisciOrdine(QWidget):
         gg = str(self.dateEdit_ordine.date().day())
         mm = str(self.dateEdit_ordine.date().month())
         aaaa = str(self.dateEdit_ordine.date().year())
+        # ho bisogno di due formattazioni diverse, una per i prodotti e una per gli ordini
         data_ordine1 = aaaa + "-" + mm + "-" + gg
         data_ordine2= gg + "/" + mm + "/" + aaaa
 
@@ -406,6 +411,7 @@ class VistaInserisciOrdine(QWidget):
         aaaa_e = str(self.dateEdit_arrivo_effettiva.date().year())
         data_arrivo_effettiva = aaaa_e + "-" + mm_e + "-" + gg_e
 
+        # I campi importo_totale e calzature_totali dipendono dai campi quantita e prezzo di acquisto in lista_prodotti_ordine
         importo_totale = 0
         calzature_totali = 0
 
@@ -413,13 +419,13 @@ class VistaInserisciOrdine(QWidget):
             importo_totale= importo_totale + int(prodotto.prezzo_acquisto)
             calzature_totali= calzature_totali + int(prodotto.quantita)
 
-
+        # istanzio l'ordine
         ordine= Ordine(cod_fattura, cod_fornitore, stagione, stato,
                       data_ordine1, data_arrivo_prevista, data_arrivo_effettiva,
                       importo_totale, calzature_totali)
 
         self.controller_lista_ordini.inserisci_ordine(ordine)
-        self.lista_dinamica.append(ordine)
+        self.lista_dinamica_ordini.append(ordine)
 
         # sovrascrivo i campi dei prodotti con quelli dell'ordine (parametri globali)
         for prodotto in self.lista_prodotti_ordine:
@@ -431,6 +437,7 @@ class VistaInserisciOrdine(QWidget):
 
         lista_prodotti= self.controller_lista_prodotti.get_lista_prodotti()
 
+        # elimino tutti gli eventuali prodotti con il cod_fattura in questione e inserisco quelli in lista_prodotti_ordine
         prodotti_da_eliminare=[]
         for prodotto in lista_prodotti:
             if prodotto.cod_fattura == cod_fattura:
@@ -441,7 +448,23 @@ class VistaInserisciOrdine(QWidget):
         for prodotto in self.lista_prodotti_ordine:
             lista_prodotti.append(prodotto)
 
-
         self.update_ui()
+
         self.close()
+        self.end1=False
+
+    def closeEvent(self, event):
+        if self.end1==False:
+            reply = QMessageBox.question(self, 'Annullare?',
+                                         'Sicuro di voler annullare? Tutte le modifiche andranno perse.',
+                                         QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+
+            if reply == QMessageBox.Yes:
+                if not type(event) == bool:
+                    event.accept()
+                else:
+                    sys.exit()
+            else:
+                if not type(event) == bool:
+                    event.ignore()
 

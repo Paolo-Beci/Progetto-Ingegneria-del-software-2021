@@ -31,7 +31,14 @@ class ControllerProdotto:
         return self.model.cod_prodotto
 
     def get_genere(self):
-        return self.model.genere
+        if self.model.genere == "U":
+            return "Uomo"
+        elif self.model.genere == "D":
+            return "Donna"
+        elif self.model.genere == "BO":
+            return "Bambino"
+        elif self.model.genere == "BA":
+            return "Bambina"
 
     def get_tipo(self):
         return self.model.tipo
@@ -96,7 +103,14 @@ class ControllerProdotto:
         self.model.cod_prodotto = cod_prodotto
 
     def set_genere(self, genere):
-        self.model.genere = genere
+        if genere == "Uomo":
+            self.model.genere = "U"
+        elif genere == "Donna":
+            self.model.genere = "D"
+        elif genere == "Bambino":
+            self.model.genere = "BO"
+        elif genere == "Bambina":
+            self.model.genere = "BA"
 
     def set_tipo(self, tipo):
         self.model.tipo = tipo

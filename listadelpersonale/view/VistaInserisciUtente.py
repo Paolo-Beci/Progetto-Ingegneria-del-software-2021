@@ -1,6 +1,6 @@
 import sys
 
-from PyQt5 import QtWidgets, QtCore
+from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QSpacerItem, QSizePolicy, QPushButton, QLabel, QLineEdit, QMessageBox
 
 from utente.model.Utente import Utente
@@ -13,12 +13,15 @@ class VistaInserisciUtente(QWidget):
         self.update_ui = update_ui
         self.lista_dinamica= lista_dinamica
 
+        # boolean che permette di eseguire due eventi diversi in caso di chiusura della finestra
         self.end1=False
 
-        ########################################
+        ############################
 
+        ''' 
+            Costruzione parte statica dell'interfaccia
+        '''
         self.setMinimumSize(250, 700)
-
         self.v_layout = QVBoxLayout()
 
         #oggetto: "campo", "valore"
@@ -70,6 +73,9 @@ class VistaInserisciUtente(QWidget):
         self.setLayout(self.v_layout)
         self.setWindowTitle("Inserisci utente")
 
+    '''
+        Costruzione parte dinamica dell'interfaccia  
+    '''
     def retranslate_ui(self):
         if self.combo_box_ruolo.currentText()=="Amministratore":
             self.v_layout.removeItem(self.spacer)
@@ -98,6 +104,8 @@ class VistaInserisciUtente(QWidget):
 
     def inserisci_utente(self):
         self.end1=True
+
+        #Controllo inserimento di tutti i campi
         for value in self.qlines.values():
             if value.text() == "":
                 QMessageBox.critical(self, 'Errore', 'Per favore, inserisci tutte le informazioni richieste.', QMessageBox.Ok, QMessageBox.Ok)
@@ -118,6 +126,7 @@ class VistaInserisciUtente(QWidget):
         aaaa_s = str(self.dateEdit_data_scadenza_contratto.date().year())
         data_scadenza_contratto = gg_s + "/" + mm_s + "/" + aaaa_s
 
+        # imposto dei valori di username e password sono se l'utente è amministratore
         if str(self.combo_box_ruolo.currentText()) == "Dipendente":
             ruolo= "D"
             username= None
@@ -132,6 +141,7 @@ class VistaInserisciUtente(QWidget):
             if str(utente.cod_utente)==self.qlines["codice_utente"].text() or utente.cf== self.qlines["cf"].text():
                 allert= True
 
+        # Controllo utente già presente in lista
         if allert==True:
             QMessageBox.critical(self, 'Errore', 'Utente già presente in lista.', QMessageBox.Ok, QMessageBox.Ok)
             return
@@ -157,8 +167,6 @@ class VistaInserisciUtente(QWidget):
 
         self.controller.inserisci_utente(utente)
         self.lista_dinamica.append(utente)
-
-
         self.update_ui()
         self.close()
         self.end1=False

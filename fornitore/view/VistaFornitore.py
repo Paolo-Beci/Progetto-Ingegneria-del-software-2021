@@ -18,7 +18,9 @@ class VistaFornitore(QWidget):
 
         ###################################
 
-        ''' Costruzione dell'interfaccia'''
+        ''' 
+            Costruzione parte statica dell'interfaccia
+        '''
         #istanzio un vertical layout
         self.v_layout = QVBoxLayout()
         #istanzio due Label, una per il nome e una per il body (gli altri campi)
@@ -95,7 +97,9 @@ class VistaFornitore(QWidget):
         self.setLayout(self.v_layout)
         self.setWindowTitle("Fornitore")
 
-    '''Metodo: contiene gli elementi dinamici (che variano) dell'interfaccia'''
+    '''
+        Costruzione parte dinamica dell'interfaccia  
+    '''
     def update_ui_fornitore(self):
         self.label_nome.setText(self.controller_fornitore.get_nome())
         self.label_indirizzo.setText("Indirizzo: {}".format(self.controller_fornitore.get_indirizzo()))

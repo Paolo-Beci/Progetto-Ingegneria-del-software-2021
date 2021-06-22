@@ -1,20 +1,8 @@
-
-
 class ControllerOrdine:
     def __init__(self, ordine):
         self.model = ordine
 
-    def somma_prodotti(self): pass
-
-    def modifica_prodotto_by_codice(self, cod_prodotto, new_value):
-        self.model.ListaProdotti.modifica_prodotto(cod_prodotto, new_value)
-
-    def elimina_prodotto(self, cod_prodotto): pass
-
-    def get_prodotto(self, index):
-        return self.model.get_prodotto(index)
-
-    # ----------------GET------------------
+    ################# GETTER #################
 
     def get_cod_fattura(self):
         return self.model.cod_fattura
@@ -23,13 +11,22 @@ class ControllerOrdine:
         return self.model.cod_fornitore
 
     def get_data_ordine(self):
-        return self.model.data_ordine
+        if self.model.data_ordine is None:
+            return "0000-00-00"
+        else:
+            return self.model.data_ordine
 
     def get_data_arrivo_prevista(self):
-        return self.model.data_arrivo_prevista
+        if self.model.data_arrivo_prevista is None:
+            return "9999-12-31"
+        else:
+            return self.model.data_arrivo_prevista
 
     def get_data_arrivo_effettiva(self):
-        return self.model.data_arrivo_effettiva
+        if self.model.data_arrivo_effettiva is None:
+            return "9999-12-31"
+        else:
+            return self.model.data_arrivo_effettiva
 
     def get_stagione(self):
         return self.model.stagione
@@ -43,10 +40,7 @@ class ControllerOrdine:
     def get_calzature_totali(self):
         return self.model.calzature_totali
 
-    # def get_lista_prodotti_ordine(self):
-    #     return self.model.lista_prodotti_ordine()
-
-    # ----------------SET------------------
+    ################# SETTER #################
 
     def set_cod_fattura(self, cod_fattura):
         self.model.cod_fattura= cod_fattura
@@ -74,11 +68,5 @@ class ControllerOrdine:
 
     def set_stato(self, stato):
         self.model.stato= stato
-
-    # def set_lista_prodotti_ordine(self):
-    #     for prodotto in self.controller_lista_prodotti.get_lista_prodotti():
-    #         if prodotto.cod_fattura == self.get_cod_fattura():
-    #             self.model.lista_prodotti_ordine.append(prodotto)
-
 
 

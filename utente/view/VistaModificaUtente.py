@@ -24,7 +24,9 @@ class VistaModificaUtente(QWidget):
 
         ###################################
 
-        ''' Costruzione dell'interfaccia'''
+        ''' 
+            Costruzione parte statica dell'interfaccia
+        '''
         self.setObjectName("Form")
         self.resize(626, 464)
         icon = QtGui.QIcon()
@@ -350,7 +352,9 @@ class VistaModificaUtente(QWidget):
 
         QtCore.QMetaObject.connectSlotsByName(self)
 
-    '''Metodo: contiene alcuni elementi dinamici (che variano) dell'interfaccia'''
+    '''
+        Costruzione parte dinamica dell'interfaccia  
+    '''
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
         self.pushButton_salva.setText(_translate("Form", "Salva"))

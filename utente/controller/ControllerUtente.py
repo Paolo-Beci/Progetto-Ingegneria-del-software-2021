@@ -1,9 +1,8 @@
-
 class ControllerUtente:
     def __init__(self, utente):
         self.model= utente
 
-    # GETTER
+    ################# GETTER #################
 
     def get_cod_utente(self):
         return self.model.cod_utente
@@ -62,7 +61,7 @@ class ControllerUtente:
         else:
             return None
 
-    # SETTER
+    ################# SETTER #################
 
     def set_cod_utente(self, codice):
         self.model.cod_utente= codice

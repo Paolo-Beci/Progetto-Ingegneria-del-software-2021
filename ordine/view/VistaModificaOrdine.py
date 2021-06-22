@@ -1,23 +1,38 @@
+import sys
+
 from PyQt5 import QtCore, QtWidgets, QtGui
 from PyQt5.QtCore import QDate
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QWidget, QMessageBox
 
 
 class VistaModificaOrdine(QWidget):
-    def __init__(self, ordine, controller, update_ui, lista_prodotti_ordine, parent=None):
+    def __init__(self, ordine, controller, update_ui, lista_prodotti_ordine, lista_dinamica_ordini, parent=None):
         super(VistaModificaOrdine, self).__init__(parent)
         self.controller = controller
         self.update_ui_ordine = update_ui
         self.ordine_selezionato = ordine
         self.lista_prodotti_ordine = lista_prodotti_ordine
         self.lista_prodotti_ordine_dinamica = self.lista_prodotti_ordine[:]
+        self.lista_dinamica_ordini= lista_dinamica_ordini
 
+        self.new_lista_fornitori = self.lista_dinamica_ordini[:]
+        # affinche non ci siano problemi con il controllo in save_data() (controllo sull'inserimento di un ordine con stesso codice)
+        # ho bisogno di una lista che non contenga il fornitore che sto modificando
+        self.new_lista_fornitori.remove(self.ordine_selezionato)
+
+        # boolean che permette di eseguire due eventi diversi in casi di chiusura
+        self.end1 = False
+
+        ############################
+
+        ''' 
+            Costruzione parte statica dell'interfaccia
+        '''
         # Icon
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_mini.png'), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.setWindowIcon(icon)
-
-        self.resize(1123, 590)
+        self.resize(600, 400)
         self.gridLayout_2 = QtWidgets.QGridLayout(self)
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.gridLayout = QtWidgets.QGridLayout()
@@ -130,10 +145,13 @@ class VistaModificaOrdine(QWidget):
 
         self.setWindowTitle("Modifica ordine")
 
+    '''
+        Costruzione parte dinamica dell'interfaccia  
+    '''
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
         self.pushButton.clicked.connect(self.save_data_click)
-        self.pushButton_2.clicked.connect(self.annulla_click)
+        self.pushButton_2.clicked.connect(self.close)
         self.label.setText(_translate("MainWindow", "Codice fornitore:"))
         self.pushButton.setText(_translate("MainWindow", "Salva modifiche"))
         self.pushButton_2.setText(_translate("MainWindow", "Annulla"))
@@ -177,10 +195,15 @@ class VistaModificaOrdine(QWidget):
         self.lineEdit.setText(_translate("MainWindow", str(self.controller.get_cod_fattura())))
         self.lineEdit_2.setText(_translate("MainWindow", str(self.controller.get_cod_fornitore())))
 
-    def annulla_click(self):
-        self.close()
-
     def save_data_click(self):
+        self.end1= True
+        # Controllo ordine già esistente
+        for ordine in self.new_lista_fornitori:
+            if str(ordine.cod_fattura) == self.lineEdit.text():
+                QMessageBox.critical(self, 'Errore', 'Ordine già esistente.',
+                                     QMessageBox.Ok, QMessageBox.Ok)
+                return
+
         # prendo il testo che l'utente inserisce in ciascuna lineEdit
         cod_fattura = self.lineEdit.text()
         cod_fornitore = self.lineEdit_2.text()
@@ -206,7 +229,7 @@ class VistaModificaOrdine(QWidget):
         gg = self.dateEdit_3.date().day()
         data_arrivo_effettiva = str(aaaa) + "-" + str(mm) + "-" + str(gg)
 
-
+        # imposto i campi dell'ordine
         self.controller.set_cod_fornitore(cod_fornitore)
         self.controller.set_cod_fattura(cod_fattura)
         self.controller.set_stagione(stagione)
@@ -215,6 +238,7 @@ class VistaModificaOrdine(QWidget):
         self.controller.set_data_arrivo_prevista(data_arrivo_prevista)
         self.controller.set_data_arrivo_effettiva(data_arrivo_effettiva)
 
+        # imposto i campi dell'ordine (parametri globali) a tutti i prodotti in lista_prodotti_ordine
         if len(self.lista_prodotti_ordine) != 0:
             for prodotto in self.lista_prodotti_ordine:
                 prodotto.cod_fattura = cod_fattura
@@ -225,4 +249,20 @@ class VistaModificaOrdine(QWidget):
 
         self.update_ui_ordine()
         self.close()
+        self.end1= False
+
+    def closeEvent(self, event):
+        if self.end1==False:
+            reply = QMessageBox.question(self, 'Annullare?',
+                                         'Sicuro di voler annullare? Tutte le modifiche andranno perse.',
+                                         QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+
+            if reply == QMessageBox.Yes:
+                if not type(event) == bool:
+                    event.accept()
+                else:
+                    sys.exit()
+            else:
+                if not type(event) == bool:
+                    event.ignore()
 

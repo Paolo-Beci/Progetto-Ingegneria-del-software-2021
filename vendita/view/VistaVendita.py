@@ -3,7 +3,7 @@ from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QApplication, QWidget, QMessageBox
 
 from listaprodotti.controller.ControllerListaProdotti import ControllerListaProdotti
-from vendita.view.VistaVendiProdotto import VistaVendiProdotto
+from listaprodotti.view.VistaDisplayProdotto import VistaDisplayProdotto
 
 """
     VISTA CHE FACILITA IL PROCESSO DI VENDITA DI UN PRODOTTO (shortcut)
@@ -14,88 +14,65 @@ class VistaVendita(QWidget):
     def __init__(self, parent=None):
         super(VistaVendita, self).__init__(parent)
         self.controller = ControllerListaProdotti()
-        self.prodotto_trovato = []
+        self.prodotto_trovato = None
+        self.flag = False
 
         self.resize(902, 475)
+        self.setObjectName("Form")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_mini.png'), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.setWindowIcon(icon)
 
-        self.centralwidget = QtWidgets.QWidget(self)
-        self.centralwidget.setObjectName("centralwidget")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
-        self.verticalLayout.setObjectName("verticalLayout")
-        self.widget = QtWidgets.QWidget(self.centralwidget)
+        self.gridLayout_2 = QtWidgets.QGridLayout(self)
+        self.gridLayout_2.setObjectName("gridLayout_2")
+        self.gridLayout = QtWidgets.QGridLayout()
+        self.gridLayout.setObjectName("gridLayout")
+        self.widget = QtWidgets.QWidget(self)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.widget.sizePolicy().hasHeightForWidth())
         self.widget.setSizePolicy(sizePolicy)
         self.widget.setObjectName("widget")
-        self.gridLayout = QtWidgets.QGridLayout(self.widget)
-        self.gridLayout.setObjectName("gridLayout")
-        # Cerca prodotto
+        self.gridLayout_3 = QtWidgets.QGridLayout(self.widget)
+        self.gridLayout_3.setObjectName("gridLayout_3")
         self.cerca = QtWidgets.QLineEdit(self.widget)
         self.cerca.setObjectName("cerca")
-        self.gridLayout.addWidget(self.cerca, 0, 2, 1, 1)
+        self.gridLayout_3.addWidget(self.cerca, 1, 2, 1, 1)
         self.cerca.returnPressed.connect(self.cerca_prodotto)
-
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.MinimumExpanding,
                                            QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout.addItem(spacerItem, 0, 1, 1, 1)
+        self.gridLayout_3.addItem(spacerItem, 0, 1, 1, 1)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout.addItem(spacerItem1, 0, 5, 1, 1)
-        # indietro
+        self.gridLayout_3.addItem(spacerItem1, 0, 5, 1, 1)
         self.pushButton_indietro = QtWidgets.QPushButton(self.widget)
         self.pushButton_indietro.setObjectName("pushButton_indietro")
-        self.gridLayout.addWidget(self.pushButton_indietro, 0, 0, 1, 1)
-        self.pushButton_indietro.clicked.connect(self.show_home)
-        # LOGO
+        self.gridLayout_3.addWidget(self.pushButton_indietro, 0, 0, 1, 1)
+        self.pushButton_indietro.clicked.connect(self.close)
         self.logo = QtWidgets.QLabel(self.widget)
         self.logo.setObjectName("logo")
         pixmap = QPixmap('listaprodotti/data/images/logo_mini3.png')
         self.logo.setPixmap(pixmap)
-        self.gridLayout.addWidget(self.logo, 0, 4, 1, 1)
-
+        self.gridLayout_3.addWidget(self.logo, 0, 4, 1, 1)
         spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.MinimumExpanding,
                                             QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout.addItem(spacerItem2, 0, 3, 1, 1)
-        # Taglia
+        self.gridLayout_3.addItem(spacerItem2, 0, 3, 1, 1)
         self.taglia = QtWidgets.QComboBox(self.widget)
         self.taglia.setObjectName("taglia")
         for count in range(16, 49):
             self.taglia.addItem(str(count))
-        self.gridLayout.addWidget(self.taglia, 1, 2, 1, 1)
-
-        self.verticalLayout.addWidget(self.widget)
-        self.widget_2 = QtWidgets.QWidget(self.centralwidget)
+        self.gridLayout_3.addWidget(self.taglia, 0, 2, 1, 1)
+        self.gridLayout.addWidget(self.widget, 0, 0, 1, 1)
+        self.widget_2 = QtWidgets.QWidget(self)
         self.widget_2.setObjectName("widget_2")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.widget_2)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
-        # Immagine
-        self.immagine = QtWidgets.QLabel(self.widget_2)
-        self.immagine.setAlignment(QtCore.Qt.AlignCenter)
-        self.immagine.setObjectName("immagine")
+        # container VistDisplayProdotto
+        self.widget_4 = QtWidgets.QWidget(self.widget_2)
+        self.widget_4.setObjectName("widget_4")
+        self.verticalLayout_2.addWidget(self.widget_4)
 
-        self.verticalLayout_2.addWidget(self.immagine)
-        # label marca e nome
-        self.marca_nome = QtWidgets.QLabel(self.widget_2)
-        self.marca_nome.setAlignment(QtCore.Qt.AlignCenter)
-        self.marca_nome.setObjectName("marca_nome")
-        self.verticalLayout_2.addWidget(self.marca_nome)
-        # label taglia e quantita
-        self.taglia_quantita = QtWidgets.QLabel(self.widget_2)
-        self.taglia_quantita.setAlignment(QtCore.Qt.AlignCenter)
-        self.taglia_quantita.setObjectName("taglia_quantita")
-        self.verticalLayout_2.addWidget(self.taglia_quantita)
-        # label prezzo
-        self.prezzo = QtWidgets.QLabel(self.widget_2)
-        self.prezzo.setAlignment(QtCore.Qt.AlignCenter)
-        self.prezzo.setObjectName("prezzo")
-        self.verticalLayout_2.addWidget(self.prezzo)
-
-        self.verticalLayout.addWidget(self.widget_2)
-        self.widget_3 = QtWidgets.QWidget(self.centralwidget)
+        self.widget_3 = QtWidgets.QWidget(self.widget_2)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -106,65 +83,72 @@ class VistaVendita(QWidget):
         self.horizontalLayout.setObjectName("horizontalLayout")
         spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem3)
-        # pushButton vendita
-        self.pushButton_vendi = QtWidgets.QPushButton(self.widget_3)
-        self.pushButton_vendi.setObjectName("pushButton_vendi")
-        self.horizontalLayout.addWidget(self.pushButton_vendi)
-
+        self.pushButton = QtWidgets.QPushButton(self.widget_3)
+        self.pushButton.setObjectName("pushButton")
+        self.horizontalLayout.addWidget(self.pushButton)
+        self.pushButton.clicked.connect(self.vendi)
         spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem4)
-        self.verticalLayout.addWidget(self.widget_3)
-        # dimensionamento interaccia
-        self.desktop = QApplication.desktop()
-        self.screenRect = self.desktop.screenGeometry()
-        height = (self.screenRect.height()) / 2.25
-        width = (self.screenRect.width()) / 2.15
-        self.centralwidget.setGeometry(QtCore.QRect(0, 0, width, height))
+        self.gridLayout_3 = QtWidgets.QGridLayout(self.widget_4)
+        self.gridLayout_3.setObjectName("gridLayout_3")
+        self.verticalLayout_2.addWidget(self.widget_3)
+        self.gridLayout.addWidget(self.widget_2, 1, 0, 1, 1)
+        self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
 
-        self.retranslateUi(self)
+        self.retranslateUi()
         QtCore.QMetaObject.connectSlotsByName(self)
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self):
+        for i in reversed(range(self.gridLayout_3.count())):
+            self.gridLayout_3.itemAt(i).widget().setParent(None)
+
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Area vendita"))
+        self.setWindowTitle(_translate("MainWindow", "Vendi prodotto"))
+        self.pushButton.setText(_translate("MainWindow", "VENDI"))
         self.cerca.setPlaceholderText(_translate("MainWindow", "Cerca per codice prodotto"))
         self.pushButton_indietro.setText(_translate("MainWindow", "< Indietro"))
         self.taglia.setItemText(0, _translate("MainWindow", "Taglia"))
-        self.marca_nome.setText(_translate("MainWindow", "Nome: " + str(self.controller.get_nome_prodotto_by_code(self.cerca.text()))
-                                           + " - Marca: " + str(self.controller.get_marca_prodotto_by_code(self.cerca.text()))))
-        self.taglia_quantita.setText(_translate("MainWindow", "Taglia: " + str(self.taglia.currentText())
-                                                + " - Quantita: " + str(self.controller.get_quantita_prodotto_by_code(self.cerca.text()))))
-        self.prezzo.setText(_translate("MainWindow", "Prezzo: " + str(self.controller.get_prezzo_prodotto_by_code(self.cerca.text()))) + " €")
-        self.pushButton_vendi.setText(_translate("MainWindow", "VENDI"))
-
-        if len(self.prodotto_trovato) != 0:
-            pixmap = QPixmap('listaprodotti/data/images/' + str(self.cerca.text()) + '.jpg')
-        else:
-            pixmap = QPixmap('listaprodotti/data/images/noimage.jpg')
-        self.immagine.setPixmap(pixmap)
-
-    def show_home(self):
-        self.close()
+        if self.flag:
+            self.vista_prodotto_da_vendere = VistaDisplayProdotto(self.prodotto_trovato, self.retranslateUi, self.controller)
+            self.widget_vendita = self.vista_prodotto_da_vendere
+            self.gridLayout_3.addWidget(self.widget_vendita, 0, 0, 1, 1)
 
     def cerca_prodotto(self):
-        cod_prodotto = str(self.cerca.text())
-        cod_prodotto.capitalize()
-        print(str(self.cerca.text()))
-        #if cod_prodotto.isalnum() and cod_prodotto.startswith('S'):
+        cod_prodotto_cerca = str(self.cerca.text())
+        cod_prodotto = cod_prodotto_cerca.capitalize()
+        # if cod_prodotto.isalnum() and cod_prodotto.startswith('S'):
         for prodotto in self.controller.get_lista_prodotti():
-            if prodotto.cod_prodotto == cod_prodotto and prodotto.taglia == int(self.taglia.currentText()):
-                self.prodotto_trovato.append(prodotto)
-        if len(self.prodotto_trovato) == 0:
+            if str(prodotto.cod_prodotto) == str(cod_prodotto) and int(prodotto.taglia) == int(self.taglia.currentText()) and str(prodotto.stato) == "In negozio":
+                self.prodotto_trovato = prodotto
+                self.flag = True
+        print(self.prodotto_trovato)
+        if self.prodotto_trovato is None:
             self.popup_errore()
 
-    def vendi_prodotto(self):
-        VistaVendiProdotto(self.controller.get_prodotto_by_code(str(self.cerca.text())))
+        self.retranslateUi()
+
+    def vendi(self):
+        if self.flag:
+            self.prodotto_trovato.stato = "Venduto"
+            self.popup_venduto()
 
     def popup_errore(self):
         msg = QMessageBox()
         msg.setWindowTitle("ATTENZIONE")
         msg.setText(
-            "Hai inserito un codice prodotto non valido oppure non hai inserito la taglia! \n\nProva con un formato codice del tipo: S03")
+            "Hai inserito un codice prodotto non valido oppure presente nel database! \n\n"
+            "Prova con un formato codice del tipo: S03 o con una nuova taglia")
+        msg.setIcon(QMessageBox.Warning)
+        msg.setStandardButtons(QMessageBox.Yes)
+        msg.setDefaultButton(QMessageBox.Yes)
+        msg.exec_()
+
+    def popup_venduto(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("VENDUTO")
+        msg.setText(
+            "Hai venduto il prodotto inserito! \n\n"
+            "Puoi verificare il suo stato nella sezione prodotti")
         msg.setIcon(QMessageBox.Warning)
         msg.setStandardButtons(QMessageBox.Yes)
         msg.setDefaultButton(QMessageBox.Yes)

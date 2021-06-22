@@ -15,7 +15,7 @@ from prodotto.view.VistaModificaProdotto import VistaModificaProdotto
 class VistaProdotto(QWidget):
     def __init__(self, prodotto, update_ui, controller, parent=None):
         super(VistaProdotto, self).__init__(parent)
-        self.controller = controller
+        self.controller_lista_prodotti = controller
         self.update_ui = update_ui
         self.prodotto = prodotto
         self.setObjectName("MainWindow")
@@ -178,7 +178,15 @@ class VistaProdotto(QWidget):
         self.label_marca.setText(_translate("MainWindow", "Marca: " + str(self.prodotto.marca)))
         self.label_nome.setText(_translate("MainWindow", "Nome: " + str(self.prodotto.nome)))
         self.label_tipo.setText(_translate("MainWindow", "Tipo: " + str(self.prodotto.tipo)))
-        self.label_genere.setText(_translate("MainWindow", "Genere: " + str(self.prodotto.genere)))
+        if str(self.prodotto.genere) == "U":
+            genere = "Uomo"
+        elif str(self.prodotto.genere) == "D":
+            genere = "Donna"
+        elif str(self.prodotto.genere) == "BO":
+            genere = "Bambino"
+        elif str(self.prodotto.genere) == "BA":
+            genere = "Bambina"
+        self.label_genere.setText(_translate("MainWindow", "Genere: " + str(genere)))
         self.label_materiale.setText(_translate("MainWindow", "Materiale: " + str(self.prodotto.materiale)))
         self.label_colore.setText(_translate("MainWindow", "Colore: " + str(self.prodotto.colore)))
         self.label_taglia.setText(_translate("MainWindow", "Taglia/e: " + str(self.prodotto.taglia)))
@@ -203,12 +211,12 @@ class VistaProdotto(QWidget):
     """
 
     def elimina_prodotto_click(self):
-        self.controller.elimina_prodotto_by_codice(self.prodotto.cod_prodotto)
+        self.controller_lista_prodotti.elimina_prodotto_by_codice(self.prodotto.cod_prodotto)
         self.update_ui()
         self.close()
 
     def modifica_prodotto_click(self):
-        self.vista_modifica_prodotto = VistaModificaProdotto(self.controller, self.update_ui, self.prodotto)
+        self.vista_modifica_prodotto = VistaModificaProdotto(self.controller_lista_prodotti, self.update_ui, self.prodotto)
         self.vista_modifica_prodotto.showMaximized()
         time.sleep(0.3)
         self.close()

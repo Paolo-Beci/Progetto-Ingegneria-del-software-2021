@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QApplication, QWidget, QMessageBox
+from PyQt5.QtWidgets import QWidget, QMessageBox
 
 
 class VistaLogin(QWidget):
@@ -8,6 +8,9 @@ class VistaLogin(QWidget):
         self.controller = controller
         self.update_ui = update_ui
 
+        ''' 
+            Costruzione parte statica dell'interfaccia
+        '''
         self.setObjectName("Form")
         self.resize(500, 300)
         self.gridLayout_2 = QtWidgets.QGridLayout(self)
@@ -69,6 +72,9 @@ class VistaLogin(QWidget):
         self.retranslateUi()
         QtCore.QMetaObject.connectSlotsByName(self)
 
+    '''
+        Costruzione parte dinamica dell'interfaccia  
+    '''
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
         self.setWindowTitle(_translate("Form", "Login"))
@@ -78,6 +84,7 @@ class VistaLogin(QWidget):
         self.label_3.setText(_translate("Form", "Password"))
         self.label.setText(_translate("Form", "Login amministratore"))
 
+    # Metodo: verifica effettivamente se l'username e la password inserite sono valide
     def login(self):
         username_inserito = self.lineEdit_username.text()
         password_inserito = self.lineEdit_password.text()
@@ -94,7 +101,6 @@ class VistaLogin(QWidget):
             self.close()
         else:
             self.popup_errore()
-
 
     def popup_errore(self):
         msg = QMessageBox()

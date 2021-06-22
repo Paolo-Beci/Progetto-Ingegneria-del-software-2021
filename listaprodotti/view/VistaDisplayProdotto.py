@@ -103,7 +103,7 @@ class VistaDisplayProdotto(QWidget):
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
 
-        self.label_marca.setText(_translate("Form", "Nome: " + str(self.prodotto.marca)))
+        self.label_marca.setText(_translate("Form", "Marca: " + str(self.prodotto.marca)))
         self.pushButton_dettagli.setText(_translate("Form", "Dettagli"))
         self.label_nome.setText(_translate("Form", "Nome: " + str(self.prodotto.nome)))
         self.label_prezzo_vendita.setText(_translate("Form", "Prezzo: " + str(self.prodotto.prezzo_vendita) + " €"))
