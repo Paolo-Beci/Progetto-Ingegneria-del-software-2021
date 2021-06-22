@@ -16,9 +16,9 @@ from listaprodotti.view.VistaDisplayProdotto import VistaDisplayProdotto
 class VistaListaProdotti(QWidget):
     def __init__(self, parent=None):
         super(VistaListaProdotti, self).__init__(parent)
-        self.controller_lista_ordini= ControllerListaOrdini()
+        self.controller_lista_ordini = ControllerListaOrdini()
         self.controller_lista_prodotti = ControllerListaProdotti()
-        self.lista_prodotti= self.controller_lista_prodotti.get_lista_prodotti()
+        self.lista_prodotti = self.controller_lista_prodotti.get_lista_prodotti()
         self.lista_prodotti_filtrata = self.lista_prodotti[:]
         self.lista_prodotti_cercati = []
         self.cerca_flag = False
@@ -85,7 +85,7 @@ class VistaListaProdotti(QWidget):
         for count in range(16, 49):
             self.taglia.addItem(str(count))
         self.gridLayout_3.addWidget(self.taglia, 3, 7, 1, 1)
-        self.taglia.currentIndexChanged.connect(self.filtro_lista)
+        self.taglia.currentIndexChanged.connect(self.filtro_combobox)
         # genere
         self.genere = QtWidgets.QComboBox(self.topWidget)
         self.genere.setObjectName("genere")
@@ -95,18 +95,13 @@ class VistaListaProdotti(QWidget):
         self.genere.addItem("Bambino")
         self.genere.addItem("Bambina")
         self.gridLayout_3.addWidget(self.genere, 3, 6, 1, 1)
-        self.genere.currentIndexChanged.connect(self.filtro_lista)
+        self.genere.currentIndexChanged.connect(self.filtro_combobox)
         # tipo
         self.tipo = QtWidgets.QComboBox(self.topWidget)
         self.tipo.setObjectName("tipo")
-        self.tipo.addItems(["Eleganti", "Eleganti", "Sneakers", "Sportive", "Trekking"]) #Molto meglio
-        #self.tipo.addItem("Eleganti")  # I don't know why but it's ok :)
-        #self.tipo.addItem("Sneakers")
-        #self.tipo.addItem("Sportive")
-        #self.tipo.addItem("Trekking")
-        #self.tipo.addItem("Eleganti")
+        self.tipo.addItems(["Eleganti", "Eleganti", "Sneakers", "Sportive", "Trekking"])
         self.gridLayout_3.addWidget(self.tipo, 3, 5, 1, 1)
-        self.tipo.currentIndexChanged.connect(self.filtro_lista)
+        self.tipo.currentIndexChanged.connect(self.filtro_combobox)
         # collezione
         self.collezione = QtWidgets.QComboBox(self.topWidget)
         self.collezione.setObjectName("collezione")
@@ -114,7 +109,7 @@ class VistaListaProdotti(QWidget):
         self.collezione.addItem("Primavera / Estate")
         self.collezione.addItem("Autunno / Inverno")
         self.gridLayout_3.addWidget(self.collezione, 3, 8, 1, 1)
-        self.collezione.currentIndexChanged.connect(self.filtro_lista)
+        self.collezione.currentIndexChanged.connect(self.filtro_combobox)
         # marca
         self.marca = QtWidgets.QComboBox(self.topWidget)
         self.marca.setObjectName("marca")
@@ -122,7 +117,7 @@ class VistaListaProdotti(QWidget):
         for item in self.controller_lista_prodotti.get_lista_marche():
             self.marca.addItem(str(item))
         self.gridLayout_3.addWidget(self.marca, 3, 4, 1, 1)
-        self.marca.currentIndexChanged.connect(self.filtro_lista)
+        self.marca.currentIndexChanged.connect(self.filtro_combobox)
         # spacer
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_3.addItem(spacerItem1, 1, 4, 1, 1)
@@ -144,21 +139,25 @@ class VistaListaProdotti(QWidget):
         self.in_arrivo = QtWidgets.QPushButton(self.topWidget)
         self.in_arrivo.setObjectName("in_arrivo")
         self.gridLayout_3.addWidget(self.in_arrivo, 1, 0, 1, 1)
+        # self.filtro_in_arrivo = self.filtro_lista(True, None, None, None)
         self.in_arrivo.clicked.connect(self.show_in_arrivo)
         # in_negozio button
         self.in_negozio = QtWidgets.QPushButton(self.topWidget)
         self.in_negozio.setObjectName("in_negozio")
         self.gridLayout_3.addWidget(self.in_negozio, 1, 1, 1, 1)
+        # self.filtro_in_negozio = self.filtro_lista(None, True, None, None)
         self.in_negozio.clicked.connect(self.show_in_negozio)
         # venduto button
         self.venduto = QtWidgets.QPushButton(self.topWidget)
         self.venduto.setObjectName("venduto")
         self.gridLayout_3.addWidget(self.venduto, 1, 2, 1, 1)
+        # self.filtro_venduto = self.filtro_lista(None, None, True, None)
         self.venduto.clicked.connect(self.show_venduto)
         # reso button
         self.reso = QtWidgets.QPushButton(self.topWidget)
         self.reso.setObjectName("reso")
         self.gridLayout_3.addWidget(self.reso, 1, 3, 1, 1)
+        # self.filtro_reso = self.filtro_lista(None, None, None, True)
         self.reso.clicked.connect(self.show_reso)
 
         # indietro
@@ -213,7 +212,6 @@ class VistaListaProdotti(QWidget):
         self.in_arrivo.setText(_translate("MainWindow", "IN ARRIVO"))
         self.tipo.setItemText(0, _translate("MainWindow", "Tipo"))
         self.in_negozio.setText(_translate("MainWindow", "IN NEGOZIO"))
-        self.marca.setCurrentText(_translate("MainWindow", "Marca"))
         self.collezione.setItemText(0, _translate("MainWindow", "Collezione"))
         self.venduto.setText(_translate("MainWindow", "VENDUTO"))
         self.indietro.setText(_translate("MainWindow", "< Indietro"))
@@ -230,8 +228,8 @@ class VistaListaProdotti(QWidget):
     """
 
     def show_inserisci_prodotto(self):
-        self.vista_inserisci_prodotto = VistaInserisciProdotto(self.controller_lista_prodotti, self.retranslateUi, False,
-                                                               None, self.lista_prodotti_filtrata, None)
+        self.vista_inserisci_prodotto = VistaInserisciProdotto(self.controller_lista_prodotti, self.retranslateUi,
+                                                               False, None, self.lista_prodotti_filtrata, None)
         self.vista_inserisci_prodotto.show()
         for i in reversed(range(self.gridLayout_2.count())):
             self.gridLayout_2.itemAt(i).widget().setParent(None)
@@ -258,7 +256,7 @@ class VistaListaProdotti(QWidget):
         self.cerca_flag = False
 
     # crea l'elenco dei codici dei prodotti da visualizzare basati sui filtri
-    def filtro_lista(self):
+    def filtro_lista(self, IA, IN, V, R):
         filtro_marca = str(self.marca.currentText())
         filtro_tipo = str(self.tipo.currentText())
         if str(self.genere.currentText()) == "Uomo":
@@ -278,46 +276,75 @@ class VistaListaProdotti(QWidget):
             filtro_collezione = "A/I"
         else:
             filtro_collezione = "Collezione"
-        elementi_da_rimuovere = []
 
+        elementi_da_rimuovere = []
+        #if IA is True or IN is True or V is True or R is True:
         lista = self.controller_lista_prodotti.get_lista_prodotti()
         self.lista_prodotti_filtrata = lista[:]
 
+        if IA:
+            for prodotto in self.lista_prodotti_filtrata:
+                if prodotto.stato != "In arrivo":
+                    elementi_da_rimuovere.append(prodotto)
+            for prodotto in elementi_da_rimuovere:
+                self.lista_prodotti_filtrata.remove(prodotto)
+            elementi_da_rimuovere.clear()
+        if IN:
+            for prodotto in self.lista_prodotti_filtrata:
+                if prodotto.stato != "In negozio":
+                    elementi_da_rimuovere.append(prodotto)
+            for prodotto in elementi_da_rimuovere:
+                self.lista_prodotti_filtrata.remove(prodotto)
+            elementi_da_rimuovere.clear()
+        if V:
+            for prodotto in self.lista_prodotti_filtrata:
+                if prodotto.stato != "Venduto":
+                    elementi_da_rimuovere.append(prodotto)
+            for prodotto in elementi_da_rimuovere:
+                self.lista_prodotti_filtrata.remove(prodotto)
+            elementi_da_rimuovere.clear()
+        if R:
+            for prodotto in self.lista_prodotti_filtrata:
+                if prodotto.stato != "Reso":
+                    elementi_da_rimuovere.append(prodotto)
+            for prodotto in elementi_da_rimuovere:
+                self.lista_prodotti_filtrata.remove(prodotto)
+            elementi_da_rimuovere.clear()
         if filtro_taglia != "Taglia":
             for prodotto in self.lista_prodotti_filtrata:
                 if prodotto.taglia != int(filtro_taglia):
                     elementi_da_rimuovere.append(prodotto)
             for prodotto in elementi_da_rimuovere:
                 self.lista_prodotti_filtrata.remove(prodotto)
-        elementi_da_rimuovere.clear()
+            elementi_da_rimuovere.clear()
         if filtro_marca != "Marca":
             for prodotto in self.lista_prodotti_filtrata:
                 if str(prodotto.marca) != str(filtro_marca):
                     elementi_da_rimuovere.append(prodotto)
             for prodotto in elementi_da_rimuovere:
                 self.lista_prodotti_filtrata.remove(prodotto)
-        elementi_da_rimuovere.clear()
+            elementi_da_rimuovere.clear()
         if filtro_tipo != "Tipo":
             for prodotto in self.lista_prodotti_filtrata:
                 if str(prodotto.tipo) != str(filtro_tipo):
                     elementi_da_rimuovere.append(prodotto)
             for prodotto in elementi_da_rimuovere:
                 self.lista_prodotti_filtrata.remove(prodotto)
-        elementi_da_rimuovere.clear()
+            elementi_da_rimuovere.clear()
         if filtro_genere != "Genere":
             for prodotto in self.lista_prodotti_filtrata:
                 if str(prodotto.genere) != str(filtro_genere):
                     elementi_da_rimuovere.append(prodotto)
             for prodotto in elementi_da_rimuovere:
                 self.lista_prodotti_filtrata.remove(prodotto)
-        elementi_da_rimuovere.clear()
+            elementi_da_rimuovere.clear()
         if filtro_collezione != "Collezione":
             for prodotto in self.lista_prodotti_filtrata:
                 if str(prodotto.stagione) != str(filtro_collezione):
                     elementi_da_rimuovere.append(prodotto)
             for prodotto in elementi_da_rimuovere:
                 self.lista_prodotti_filtrata.remove(prodotto)
-        elementi_da_rimuovere.clear()
+            elementi_da_rimuovere.clear()
 
         self.retranslateUi()
 
@@ -332,7 +359,7 @@ class VistaListaProdotti(QWidget):
             self.widget_generico = QtWidgets.QWidget(self.scrollAreaWidgetContents)
             self.displayprodotto1 = VistaDisplayProdotto(prodotto, self.retranslateUi, self.controller_lista_prodotti)
             self.widget_generico = self.displayprodotto1
-            self.widget_generico.setMinimumSize(QtCore.QSize((width/3.2), 450))
+            self.widget_generico.setMinimumSize(QtCore.QSize((width / 3.2), 450))
 
             self.gridLayout_2.addWidget(self.widget_generico, row, column, 1, 1)
 
@@ -342,49 +369,20 @@ class VistaListaProdotti(QWidget):
             else:
                 column = column + 1
 
-        # controllo nessun prodotto presente nella ricerca
-        # if column < 2:
-        #     if column < 1:
-        #         self.widget_generico = QtWidgets.QWidget()
-        #         self.gridLayout_2.addWidget(self.widget_generico, 0, 1, 1, 1)
-        #         self.gridLayout_2.addWidget(self.widget_generico, 0, 2, 1, 1)
-        #         if column == 0:
-        #             self.popup_no_prodotti()
-        #     else:
-        #         self.widget_generico = QtWidgets.QWidget()
-        #         self.gridLayout_2.addWidget(self.widget_generico, 0, 2, 1, 1)
-
     def show_in_arrivo(self):
-        self.lista_prodotti_filtrata.clear()
-        for prodotto in self.controller_lista_prodotti.get_lista_prodotti():
-            if prodotto.stato == "In arrivo":
-                self.lista_prodotti_filtrata.append(prodotto)
-
-        self.retranslateUi()
+        self.filtro_lista(True, False, False, False)
 
     def show_in_negozio(self):
-        self.lista_prodotti_filtrata.clear()
-        for prodotto in self.controller_lista_prodotti.get_lista_prodotti():
-            if prodotto.stato == "In negozio":
-                self.lista_prodotti_filtrata.append(prodotto)
-
-        self.retranslateUi()
+        self.filtro_lista(False, True, False, False)
 
     def show_venduto(self):
-        self.lista_prodotti_filtrata.clear()
-        for prodotto in self.controller_lista_prodotti.get_lista_prodotti():
-            if prodotto.stato == "Venduto":
-                self.lista_prodotti_filtrata.append(prodotto)
-
-        self.retranslateUi()
+        self.filtro_lista(False, False, True, False)
 
     def show_reso(self):
-        self.lista_prodotti_filtrata.clear()
-        for prodotto in self.controller_lista_prodotti.get_lista_prodotti():
-            if prodotto.stato == "Reso":
-                self.lista_prodotti_filtrata.append(prodotto)
+        self.filtro_lista(False, False, False, True)
 
-        self.retranslateUi()
+    def filtro_combobox(self):
+        self.filtro_lista(False, False, False, False)
 
     def popup_errore(self):
         msg = QMessageBox()
@@ -407,7 +405,3 @@ class VistaListaProdotti(QWidget):
     def closeEvent(self, event):
         self.controller_lista_ordini.save_data()
         self.controller_lista_prodotti.save_data()
-
-
-
-
