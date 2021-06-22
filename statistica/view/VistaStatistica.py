@@ -1,7 +1,7 @@
 import time
-
 import numpy as np
 import matplotlib.pyplot as plt
+
 from PyQt5 import QtWidgets, QtCore, QtGui
 
 from PyQt5.QtGui import QPixmap

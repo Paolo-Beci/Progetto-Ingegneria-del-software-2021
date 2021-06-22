@@ -1,3 +1,4 @@
+import sys
 from datetime import datetime
 import time
 from tkinter.tix import Form
@@ -149,6 +150,7 @@ class VistaListaStatistiche(QWidget):
         if len(self.list_view.selectedIndexes()) > 0:
             selected = self.list_view.selectedIndexes()[0].row()
             statistica_selezionata = self.controller.get_statistica_by_index(selected)
+            print("QUI"+sys.executable)
             self.vista_statistica = VistaStatistica(statistica_selezionata, selected, anno, stagione)
             self.vista_statistica.show()
 
