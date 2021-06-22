@@ -5,13 +5,14 @@ from listadelpersonale.controller.ControllerListaDelPersonale import ControllerL
 from listafornitori.controller.ControllerListaFornitori import ControllerListaFornitori
 from listaordini.controller.ControllerListaOrdini import ControllerListaOrdini
 from listaprodotti.controller.ControllerListaProdotti import ControllerListaProdotti
+from utente.controller.ControllerUtente import ControllerUtente
 
 
 class ControllerStatistica():
     def __init__(self, statistica):
         self.controller_listaprodotti = ControllerListaProdotti()
         self.controller_listaordini = ControllerListaOrdini()
-        # self.controller_listafornitori = ControllerListaFornitori()
+        self.controller_listafornitori = ControllerListaFornitori()
         self.controller_listadelpersonale = ControllerListaDelPersonale()
         self.model = statistica
 
@@ -219,9 +220,36 @@ class ControllerStatistica():
         lista_del_personale = self.controller_listadelpersonale.get_lista_del_personale()
         for utente in lista_del_personale:
             if utente.ruolo == "D":
-                d1 = datetime.strptime(utente.data_inizio_contratto, "%Y-%m-%d")
-                d2 = datetime.strptime(utente.data_scadenza_contratto, "%Y-%m-%d")
+                d1 = datetime.strptime(self.get_data_inizio_contratto(utente), "%Y-%m-%d")
+                d2 = datetime.strptime(self.get_data_scadenza_contratto(utente), "%Y-%m-%d")
                 if d1.year <= int(anno) <= d2.year:
                     dizionario_af["Spesa totale"] += utente.stipendio * 12
 
         return dizionario_af
+
+    #Convertitore della data di inizio contratto
+    def get_data_inizio_contratto(self, utente):
+        if utente.data_inizio_contratto is None:
+            return "00/00/0000"
+        else:
+            data = str(utente.data_inizio_contratto)
+            data_divisa = data.split("/")
+            print(data_divisa)
+            giorno = data_divisa[0]
+            mese = data_divisa[1]
+            anno = data_divisa[2]
+            data_covertita = anno + "-" + mese + "-" + giorno
+            return data_covertita
+
+    # Convertitore della data di scadenza contratto
+    def get_data_scadenza_contratto(self, utente):
+        if utente.data_scadenza_contratto is None:
+            return "31/12/9999"
+        else:
+            data = str(utente.data_scadenza_contratto)
+            data_divisa = data.split("/")
+            giorno = data_divisa[0]
+            mese = data_divisa[1]
+            anno = data_divisa[2]
+            data_covertita = anno + "-" + mese + "-" + giorno
+            return data_covertita
