@@ -1,6 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QDate
-from PyQt5.QtWidgets import QWidget, QApplication
+from PyQt5.QtWidgets import QWidget, QApplication, QMessageBox
 
 """
     MODIFICA DEI PARAMETRI DEL PRODOTTO
@@ -45,7 +45,7 @@ class VistaModificaProdotto(QWidget):
         self.pushButton_annulla = QtWidgets.QPushButton(self.widget)
         self.pushButton_annulla.setObjectName("pushButton_annulla")
         self.horizontalLayout.addWidget(self.pushButton_annulla)
-        self.pushButton_annulla.clicked.connect(self.annulla_click)
+        self.pushButton_annulla.clicked.connect(self.close)
         # SALVA
         spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem2)
@@ -53,7 +53,7 @@ class VistaModificaProdotto(QWidget):
         self.pushButton_salva.setFont(font)
         self.pushButton_salva.setObjectName("pushButton_salva")
         self.horizontalLayout.addWidget(self.pushButton_salva)
-        self.pushButton_salva.clicked.connect(self.salva_modifiche_click)
+        self.pushButton_salva.clicked.connect(self.controllo_click)
         spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem3)
 
@@ -343,9 +343,12 @@ class VistaModificaProdotto(QWidget):
         self.pushButton_salva.setText(_translate("MainWindow", "Salva"))
 
 
-    """
-            Eventi trigger click dei bottoni
-    """
+    def controllo_click(self):
+        if str(self.lineEdit_quantita.text()).isalpha() or str(self.lineEdit_sconto.text()).isalpha() or str(self.lineEdit_sconto_consigliato.text()).isalpha()\
+                or str(self.lineEdit_prezzo_vendita.text()).isalpha() or str(self.lineEdit_prezzo_acquisto.text()).isalpha():
+            self.popup_errore()
+        else:
+            self.salva_modifiche_click()
 
     def salva_modifiche_click(self):
         # prendo il testo che l'utente inserisce in ciascuna lineEdit
@@ -404,5 +407,12 @@ class VistaModificaProdotto(QWidget):
         self.update_ui()
         self.close()
 
-    def annulla_click(self):
-        self.close()
+    def popup_errore(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("ATTENZIONE")
+        msg.setText("Hai inserito dei dati non validi! \n\nRicontrolla la correttezza dei dati")
+        msg.setIcon(QMessageBox.Warning)
+        msg.setStandardButtons(QMessageBox.Yes)
+        msg.setDefaultButton(QMessageBox.Yes)
+        msg.exec_()
+

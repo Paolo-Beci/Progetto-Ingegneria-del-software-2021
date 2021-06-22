@@ -5,21 +5,22 @@ from listaordini.controller.ControllerListaOrdini import ControllerListaOrdini
 
 """
     INSERISCI NUOVO PRODOTTO
-    permette di inserire un nuovo prodotto in database
+    permette di inserire un nuovo prodotto nel database
 """
 
 
-class VistaInserisciProdotto(QWidget):      # sistema anche le altre chiamate da vistaProdotto
-    def __init__(self, controller_lista_prodotti, update_ui, inserimento_da_ordine, lista_prodotti_ordine, lista_prodotti_filtrata, ordine):
+class VistaInserisciProdotto(QWidget):  # sistema anche le altre chiamate da vistaProdotto
+    def __init__(self, controller_lista_prodotti, update_ui, inserimento_da_ordine, lista_prodotti_ordine,
+                 lista_prodotti_filtrata, ordine):
         super(VistaInserisciProdotto, self).__init__()
         self.controller_lista_prodotti = controller_lista_prodotti
         self.controller_lista_ordini = ControllerListaOrdini()
 
-        self.inserimento_da_ordine= inserimento_da_ordine
-        self.lista_prodotti_ordine= lista_prodotti_ordine
-        self.lista_prodotti_filtrata= lista_prodotti_filtrata
+        self.inserimento_da_ordine = inserimento_da_ordine
+        self.lista_prodotti_ordine = lista_prodotti_ordine
+        self.lista_prodotti_filtrata = lista_prodotti_filtrata
         self.update_ui = update_ui
-        self.ordine= ordine
+        self.ordine = ordine
 
         #######################################################################
 
@@ -47,7 +48,6 @@ class VistaInserisciProdotto(QWidget):      # sistema anche le altre chiamate da
         self.verticalLayout_3.setObjectName("verticalLayout_3")
 
         if not self.inserimento_da_ordine:
-
             self.label_codice_fattura = QtWidgets.QLabel(self.widget)
             sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
             sizePolicy.setHorizontalStretch(0)
@@ -258,7 +258,6 @@ class VistaInserisciProdotto(QWidget):      # sistema anche le altre chiamate da
         spacerItem12 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_3.addItem(spacerItem12)
 
-
         if not self.inserimento_da_ordine:
             self.label_stagione = QtWidgets.QLabel(self.widget)
             sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
@@ -334,7 +333,7 @@ class VistaInserisciProdotto(QWidget):      # sistema anche le altre chiamate da
         self.pushButton_salva.setSizePolicy(sizePolicy)
         self.pushButton_salva.setMinimumSize(QtCore.QSize(350, 0))
         self.pushButton_salva.setObjectName("pushButton_salva")
-        self.pushButton_salva.clicked.connect(self.salva_modifiche_click)
+        self.pushButton_salva.clicked.connect(self.controllo_click)
         self.verticalLayout.addWidget(self.pushButton_salva)
         self.verticalLayout_2.addLayout(self.verticalLayout)
 
@@ -382,6 +381,13 @@ class VistaInserisciProdotto(QWidget):      # sistema anche le altre chiamate da
 
         #######################################################################
 
+    def controllo_click(self):
+        if str(self.lineEdit_quantita.text()).isalpha() or str(self.lineEdit_sconto.text()).isalpha() or str(self.lineEdit_sconto_consigliato.text()).isalpha()\
+                or str(self.lineEdit_prezzo_vendita.text()).isalpha() or str(self.lineEdit_prezzo_acquisto.text()).isalpha():
+            self.popup_errore()
+        else:
+            self.salva_modifiche_click()
+
     def salva_modifiche_click(self):
         if int(self.lineEdit_quantita.text()) == 0:
             QMessageBox.critical(self, 'Errore', 'Il campo quantità non può essere nullo.',
@@ -399,7 +405,6 @@ class VistaInserisciProdotto(QWidget):      # sistema anche le altre chiamate da
             marca = self.lineEdit_marca.text()
             nome = self.lineEdit_nome.text()
             tipo = str(self.comboBox_tipo.currentText())
-            genere= None
             if str(self.comboBox_genere.currentText()) == "Uomo":
                 genere = "U"
             elif str(self.comboBox_genere.currentText()) == "Donna":
@@ -423,10 +428,10 @@ class VistaInserisciProdotto(QWidget):      # sistema anche le altre chiamate da
             sconto = self.lineEdit_sconto.text()
 
             # aggiunta prodotto ad un ordine esistente
-            prodotto= Prodotto(cod_fattura, cod_fornitore, data_ordine, cod_prodotto, marca, nome, tipo, genere, materiale, colore, taglia, quantita,
-                                                                            prezzo_acquisto, prezzo_vendita, stagione, stato,
-                                                                            sconto_consigliato, sconto, "")
-
+            prodotto = Prodotto(cod_fattura, cod_fornitore, data_ordine, cod_prodotto, marca, nome, tipo, genere,
+                                materiale, colore, taglia, quantita,
+                                prezzo_acquisto, prezzo_vendita, stagione, stato,
+                                sconto_consigliato, sconto, "")
 
             self.controller_lista_prodotti.inserisci_prodotto(prodotto)
             self.lista_prodotti_filtrata.append(prodotto)
@@ -452,9 +457,19 @@ class VistaInserisciProdotto(QWidget):      # sistema anche le altre chiamate da
             sconto_consigliato = self.lineEdit_sconto_consigliato.text()
             sconto = self.lineEdit_sconto.text()
 
-            prodotto= Prodotto(self.ordine.cod_fattura, self.ordine.cod_fornitore, None, cod_prodotto, marca, nome, tipo, genere, materiale, colore, taglia, quantita, prezzo_acquisto, prezzo_vendita, None, None, sconto_consigliato, sconto, "")
+            prodotto = Prodotto(self.ordine.cod_fattura, self.ordine.cod_fornitore, None, cod_prodotto, marca, nome,
+                                tipo, genere, materiale, colore, taglia, quantita, prezzo_acquisto, prezzo_vendita,
+                                None, None, sconto_consigliato, sconto, "")
             self.lista_prodotti_ordine.append(prodotto)
-
 
         self.update_ui()
         self.close()
+
+    def popup_errore(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("ATTENZIONE")
+        msg.setText("Hai inserito dei dati non validi! \n\nRicontrolla la correttezza dei dati")
+        msg.setIcon(QMessageBox.Warning)
+        msg.setStandardButtons(QMessageBox.Yes)
+        msg.setDefaultButton(QMessageBox.Yes)
+        msg.exec_()
