@@ -5,7 +5,6 @@ from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QWidget
 
 from prodotto.view.VistaProdotto import VistaProdotto
-from listaprodotti.controller.ControllerListaProdotti import ControllerListaProdotti
 
 """
     DISPLAY DEL SINGOLO PRODOTTO IN VistaListaProdotti
@@ -13,11 +12,12 @@ from listaprodotti.controller.ControllerListaProdotti import ControllerListaProd
 
 
 class VistaDisplayProdotto(QWidget):
-    def __init__(self, prodotto, update_ui, controller):
+    def __init__(self, prodotto, update_ui, controller, lista_prodotti):
         super(VistaDisplayProdotto, self).__init__()
         self.update_ui = update_ui
         self.prodotto = prodotto
         self.controller = controller
+        self.lista_prodotti_filtrata = lista_prodotti
 
         # FONT
         font = QtGui.QFont()
@@ -114,5 +114,5 @@ class VistaDisplayProdotto(QWidget):
         self.label_quantita.setText(_translate("Form", "Quantità: " + str(self.prodotto.quantita)))
 
     def dettagli_click(self):
-        self.vista_prodotto = VistaProdotto(self.prodotto, self.update_ui, self.controller)
+        self.vista_prodotto = VistaProdotto(self.prodotto, self.update_ui, self.controller, self.lista_prodotti_filtrata)
         self.vista_prodotto.showMaximized()

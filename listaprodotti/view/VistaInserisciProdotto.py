@@ -399,6 +399,7 @@ class VistaInserisciProdotto(QWidget):      # sistema anche le altre chiamate da
             marca = self.lineEdit_marca.text()
             nome = self.lineEdit_nome.text()
             tipo = str(self.comboBox_tipo.currentText())
+            genere= None
             if str(self.comboBox_genere.currentText()) == "Uomo":
                 genere = "U"
             elif str(self.comboBox_genere.currentText()) == "Donna":

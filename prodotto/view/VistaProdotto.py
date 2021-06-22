@@ -13,11 +13,12 @@ from prodotto.view.VistaModificaProdotto import VistaModificaProdotto
 
 
 class VistaProdotto(QWidget):
-    def __init__(self, prodotto, update_ui, controller, parent=None):
+    def __init__(self, prodotto, update_ui, controller, lista_prodotti, parent=None):
         super(VistaProdotto, self).__init__(parent)
         self.controller_lista_prodotti = controller
         self.update_ui = update_ui
         self.prodotto = prodotto
+        self.lista_prodotti_filtrata = lista_prodotti
         self.setObjectName("MainWindow")
         self.resize(1173, 700)
 
@@ -211,7 +212,7 @@ class VistaProdotto(QWidget):
     """
 
     def elimina_prodotto_click(self):
-        self.controller_lista_prodotti.elimina_prodotto_by_codice(self.prodotto.cod_prodotto)
+        self.controller_lista_prodotti.elimina_prodotto_by_codice(self.prodotto.cod_prodotto, self.lista_prodotti_filtrata)
         self.update_ui()
         self.close()
 

@@ -74,10 +74,11 @@ class ListaProdotti:
             if prodotto.cod_prodotto == codice:
                 return prodotto.quantita
 
-    def elimina_prodotto(self, codice_prodotto):
+    def elimina_prodotto(self, codice_prodotto, lista_prodotti_filtrata):
         for prodotto in self.lista_prodotti:
             if prodotto.cod_prodotto == codice_prodotto:
                 self.lista_prodotti.remove(prodotto)
+                lista_prodotti_filtrata.remove(prodotto)
 
     def refresh_data(self):
         if os.path.isfile('listaprodotti/data/DatabaseProdotti.pickle') and os.stat('listaprodotti/data/DatabaseProdotti.pickle').st_size!=0:

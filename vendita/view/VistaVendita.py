@@ -109,7 +109,7 @@ class VistaVendita(QWidget):
         self.pushButton_indietro.setText(_translate("MainWindow", "< Indietro"))
         self.taglia.setItemText(0, _translate("MainWindow", "Taglia"))
         if self.flag:
-            self.vista_prodotto_da_vendere = VistaDisplayProdotto(self.prodotto_trovato, self.retranslateUi, self.controller)
+            self.vista_prodotto_da_vendere = VistaDisplayProdotto(self.prodotto_trovato, self.retranslateUi, self.controller, None)
             self.widget_vendita = self.vista_prodotto_da_vendere
             self.gridLayout_3.addWidget(self.widget_vendita, 0, 0, 1, 1)
 
