@@ -1,38 +1,30 @@
 [
   {
     "nome" : "Prodotti piu' venduti",
-    "quantita" : 10,
-    "contenuto" : []
-
+    "quantita" : 10
   },
   {
     "nome" : "Prodotti meno venduti",
-    "quantita" : 10,
-    "contenuto" : []
+    "quantita" : 10
   },
   {
     "nome" : "Prodotti piu' redditizi",
-    "quantita" : 10,
-    "contenuto" : []
+    "quantita" : 10
   },
   {
     "nome" : "Fornitori piu' pagati",
-    "quantita" : 3,
-    "contenuto" : []
+    "quantita" : 3
   },
   {
     "nome" : "Fornitori da cui acquistiamo di piu'",
-    "quantita" : 3,
-    "contenuto" : []
+    "quantita" : 3
   },
   {
     "nome" : "Fornitori piu' rapidi nella consegna",
-    "quantita" : 3,
-    "contenuto" : []
+    "quantita" : 3
   },
     {
     "nome" : "Andamento finanziario",
-    "quantita" : null,
-    "contenuto" : []
+    "quantita" : null
   }
 ]

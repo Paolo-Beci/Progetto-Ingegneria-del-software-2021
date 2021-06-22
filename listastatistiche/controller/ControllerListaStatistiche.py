@@ -13,3 +13,4 @@ class ControllerListaStatistiche():
     #Metodo dedicato a richiamare il metodo nella classe ListaStatistiche per ottenere una statistica dalla lista grazie all'indice
     def get_statistica_by_index(self, index):
         return self.model.get_statistica_by_index(index)
+

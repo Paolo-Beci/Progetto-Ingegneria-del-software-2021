@@ -11,7 +11,7 @@ class ControllerStatistica():
     def __init__(self, statistica):
         self.controller_listaprodotti = ControllerListaProdotti()
         self.controller_listaordini = ControllerListaOrdini()
-        #self.controller_listafornitori = ControllerListaFornitori()
+        # self.controller_listafornitori = ControllerListaFornitori()
         self.controller_listadelpersonale = ControllerListaDelPersonale()
         self.model = statistica
 
@@ -61,24 +61,24 @@ class ControllerStatistica():
         dizionario = {}
 
         for prodotto in lista_prodotti:
-            if prodotto.cod_prodotto not in dizionario.keys() and prodotto.stato == "Venduto" \
+            if prodotto.cod_prodotto not in dizionario.keys() and "Venduto" in prodotto.stato \
                     and prodotto.stagione == stagione:
                 if anno is None:
                     dizionario[prodotto.cod_prodotto] = 0
                 elif anno in prodotto.data_vendita:
                     dizionario[prodotto.cod_prodotto] = 0
 
-            for prodotto in lista_prodotti:
-                if prodotto.stagione == stagione and anno is None:
-                    if prodotto.data_vendita is not None and "," in prodotto.data_vendita:
-                        dizionario[prodotto.cod_prodotto] += 2
-                    elif prodotto.data_vendita is not None and "," not in prodotto["data_vendita"]:
-                        dizionario[prodotto.cod_prodotto] += 1
-                elif prodotto.stagione == stagione and prodotto.stato == "Venduto" and anno in prodotto.data_vendita:
-                    if prodotto.data_vendita is not None and "," in prodotto.data_vendita:
-                        dizionario[prodotto.cod_prodotto] += 2
-                    elif prodotto.data_vendita is not None and "," not in prodotto.data_vendita:
-                        dizionario[prodotto.cod_prodotto] += 1
+        for prodotto in lista_prodotti:
+            if prodotto.stagione == stagione and anno is None:
+                if prodotto.data_vendita is not None and "," in prodotto.data_vendita:
+                    dizionario[prodotto.cod_prodotto] += 2
+                elif prodotto.data_vendita is not None and "," not in prodotto.data_vendita:
+                    dizionario[prodotto.cod_prodotto] += 1
+            elif prodotto.stagione == stagione and "Venduto" in prodotto.stato and anno in prodotto.data_vendita:
+                if prodotto.data_vendita is not None and "," in prodotto.data_vendita:
+                    dizionario[prodotto.cod_prodotto] += 2
+                elif prodotto.data_vendita is not None and "," not in prodotto.data_vendita:
+                    dizionario[prodotto.cod_prodotto] += 1
 
         return dizionario
 
@@ -102,7 +102,7 @@ class ControllerStatistica():
         dizionario = {}
 
         for prodotto in lista_prodotti:
-            if prodotto.cod_prodotto not in dizionario.keys() and prodotto.stato == "Venduto" \
+            if prodotto.cod_prodotto not in dizionario.keys() and "Venduto" in prodotto.stato \
                     and prodotto.stagione == stagione:
                 if anno is None:
                     dizionario[prodotto.cod_prodotto] = prodotto.prezzo_vendita - prodotto.prezzo_acquisto
@@ -134,14 +134,14 @@ class ControllerStatistica():
             if ordine.cod_fornitore not in dizionario.keys() and ordine.stagione == stagione:
                 if anno is None:
                     dizionario[ordine.cod_fornitore] = 0
-                elif anno in ordine.data_arrivo_effettiva:
+                elif anno in ordine.data_arrivo_prevista:
                     dizionario[ordine.cod_fornitore] = 0
 
         for ordine in lista_ordini:
             if ordine.stagione == stagione:
                 if anno is None:
                     dizionario[ordine.cod_fornitore] += ordine.importo_totale
-                elif anno in ordine.data_arrivo_effettiva:
+                elif anno in ordine.data_arrivo_prevista:
                     dizionario[ordine.cod_fornitore] += ordine.importo_totale
 
         return dizionario
@@ -155,21 +155,21 @@ class ControllerStatistica():
             if ordine.cod_fornitore not in dizionario.keys() and ordine.stagione == stagione:
                 if anno == "":
                     dizionario[ordine.cod_fornitore] = 0
-                elif anno in ordine.data_arrivo_effettiva:
+                elif anno in ordine.data_arrivo_prevista:
                     dizionario[ordine.cod_fornitore] = 0
 
         for ordine in lista_ordini:
             if ordine.stagione == stagione:
                 if anno == "":
                     dizionario[ordine.cod_fornitore] += ordine.calzature_totali
-                elif anno in ordine.data_arrivo_effettiva:
+                elif anno in ordine.data_arrivo_prevista:
                     dizionario[ordine.cod_fornitore] += ordine.calzature_totali
 
         return dizionario
 
     # Metodo per calcolare i fornitori più rapidi nella consegna
     def forn_piu_rapidi_nella_consegna(self, anno, stagione):
-        lista_ordini = self.controller_listaordini
+        lista_ordini = self.controller_listaordini.get_lista_ordini()
         dizionario = {}
 
         for ordine in lista_ordini:
@@ -177,7 +177,7 @@ class ControllerStatistica():
                     and ordine.stagione == stagione:
                 if anno is None:
                     dizionario[ordine.cod_fornitore] = 0
-                elif anno in ordine.data_arrivo_effettiva:
+                elif anno in ordine.data_arrivo_prevista:
                     dizionario[ordine.cod_fornitore] = 0
 
         for ordine in lista_ordini:
@@ -196,25 +196,25 @@ class ControllerStatistica():
     # Metodo per calcolare l'andamento finanziario
     def andamento_finanziario(self, anno, stagione):
         diz_prod_vend = self.costruzione_dizionario(anno, stagione)
-        dizionario_af = {"spesa_tot": 0, "incasso": 0, "spesa_prodotti": 0, "guadagno": 0}
+        dizionario_af = {"Spesa totale": 0, "Incasso": 0, "Spesa prodotti": 0, "Guadagno": 0}
         lista_chiavi_usate = []
 
         lista_prodotti = self.controller_listaprodotti.get_lista_prodotti()
         for prodotto in lista_prodotti:
             if prodotto.cod_prodotto in diz_prod_vend.keys() \
                     and prodotto.cod_prodotto not in lista_chiavi_usate \
-                    and prodotto.stato == "Venduto" and anno in prodotto.data_vendita:
+                    and "Venduto" in prodotto.stato and anno in prodotto.data_vendita:
                 lista_chiavi_usate.append(prodotto.cod_prodotto)
-                dizionario_af["incasso"] += prodotto.prezzo_vendita * diz_prod_vend[prodotto.cod_prodotto]
-                dizionario_af["guadagno"] += (prodotto.prezzo_vendita - prodotto.prezzo_acquisto) * \
+                dizionario_af["Incasso"] += prodotto.prezzo_vendita * diz_prod_vend[prodotto.cod_prodotto]
+                dizionario_af["Guadagno"] += (prodotto.prezzo_vendita - prodotto.prezzo_acquisto) * \
                                              diz_prod_vend[prodotto.cod_prodotto]
 
-        lista_ordini = self.controller_listaordini
+        lista_ordini = self.controller_listaordini.get_lista_ordini()
         for ordine in lista_ordini:
             if ordine.stagione == stagione and ordine.stato == "In negozio" \
                     and anno in ordine.data_arrivo_effettiva:
-                dizionario_af["spesa_prodotti"] += ordine.importo_totale
-        dizionario_af["spesa_tot"] = dizionario_af["spesa_prodotti"]
+                dizionario_af["Spesa prodotti"] += ordine.importo_totale
+        dizionario_af["Spesa totale"] = dizionario_af["Spesa prodotti"]
 
         lista_del_personale = self.controller_listadelpersonale.get_lista_del_personale()
         for utente in lista_del_personale:
@@ -222,7 +222,6 @@ class ControllerStatistica():
                 d1 = datetime.strptime(utente.data_inizio_contratto, "%Y-%m-%d")
                 d2 = datetime.strptime(utente.data_scadenza_contratto, "%Y-%m-%d")
                 if d1.year <= int(anno) <= d2.year:
-                    dizionario_af["spesa_tot"] += utente.stipendio * 12
+                    dizionario_af["Spesa totale"] += utente.stipendio * 12
 
-        print(dizionario_af)
         return dizionario_af

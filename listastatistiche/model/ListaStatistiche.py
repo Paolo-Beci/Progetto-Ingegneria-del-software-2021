@@ -10,7 +10,7 @@ class ListaStatistiche():
         super(ListaStatistiche, self).__init__()
         self.lista_statistiche = []
 
-        with open('listastatistiche/data/lista_statistiche.json') as f:
+        with open('listastatistiche/data/DatabaseStatistiche.json') as f:
             lista_statistiche_iniziali = json.load(f)
         for statistica_iniziale in lista_statistiche_iniziali:
             self.aggiungi_statistica(Statistica(statistica_iniziale["nome"],
