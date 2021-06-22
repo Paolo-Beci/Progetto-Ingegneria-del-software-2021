@@ -1,11 +1,11 @@
 import time
-
 import numpy as np
 import matplotlib.pyplot as plt
+
 from PyQt5 import QtWidgets, QtCore, QtGui
 
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QTableWidgetItem
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QTableWidgetItem, QMessageBox
 
 from fornitore.model.Fornitore import Fornitore
 from listafornitori.controller.ControllerListaFornitori import ControllerListaFornitori
@@ -65,6 +65,7 @@ class VistaStatistica(QWidget):
             font = self.nessun_elem.font()
             font.setPointSize(18)
             self.nessun_elem.setFont(font)
+            self.setGeometry(100, 150, 0, 0)
             self.v_layout.addWidget(self.nessun_elem)
         else:
             self.tableWidget = QtWidgets.QTableWidget(self)
@@ -192,16 +193,31 @@ class VistaStatistica(QWidget):
 
     #Metodo che consente la visualizzazione dell'andamento finanziario
     def andamento_finanziario(self, dizionario_af):
-        self.setGeometry(125, 100, 0, 0)
-        self.setFixedWidth(1100)
-        self.setFixedHeight(500)
-        self.update_ui_af(dizionario_af)
-        self.immagine = QtWidgets.QLabel()
-        self.immagine.setObjectName("immagine")
-        self.immagine.setAlignment(QtCore.Qt.AlignCenter)
-        pixmap = QPixmap("listastatistiche/data/grafico.png")
-        self.immagine.setPixmap(pixmap)
-        self.v_layout.addWidget(self.immagine)
+        self.v_layout.setParent(None)
+        self.remo
+        cont = 0
+        for valore in dizionario_af.values():
+            if valore == 0:
+                cont += 1
+        if cont == 4:
+             self.nessun_elem = QLabel()
+             self.nessun_elem.setText("Nessun dato disponibile...")
+             font = self.nessun_elem.font()
+             font.setPointSize(18)
+             self.nessun_elem.setFont(font)
+             self.v_layout.addWidget(self.nessun_elem)
+
+        else:
+            self.setGeometry(125, 100, 0, 0)
+            self.setFixedWidth(1100)
+            self.setFixedHeight(500)
+            self.update_ui_af(dizionario_af)
+            self.immagine = QtWidgets.QLabel()
+            self.immagine.setObjectName("immagine")
+            self.immagine.setAlignment(QtCore.Qt.AlignCenter)
+            pixmap = QPixmap("listastatistiche/data/grafico.png")
+            self.immagine.setPixmap(pixmap)
+            self.v_layout.addWidget(self.immagine)
 
 
     # Metodo che in base alla statistica scelta mostra una vista differente
@@ -234,3 +250,4 @@ class VistaStatistica(QWidget):
             return "Primavera/Estate"
         elif self.stagione == "A/I":
             return "Autunno/Inverno"
+

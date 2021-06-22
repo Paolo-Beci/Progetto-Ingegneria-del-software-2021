@@ -234,7 +234,6 @@ class ControllerStatistica():
         else:
             data = str(utente.data_inizio_contratto)
             data_divisa = data.split("/")
-            print(data_divisa)
             giorno = data_divisa[0]
             mese = data_divisa[1]
             anno = data_divisa[2]

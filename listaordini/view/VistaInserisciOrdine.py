@@ -372,7 +372,7 @@ class VistaInserisciOrdine(QWidget):
 
         # Controllo se l'ordine che si vuole inserire è già presente in lista.
         for ordine in self.lista_dinamica_ordini:
-            if str(ordine.cod_fattura) == self.lineEdit_cod_fattura.text():
+            if str(ordine.cod_fattura) == self.lineEdit_cod_fattura.text() and str(ordine.cod_fornitore)== self.lineEdit_cod_fornitore.text():
                 reply = QMessageBox.question(self, 'Attenzione', "L'ordine è già presente in lista, sovrasciverlo?",
                                              QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
                 if reply == QMessageBox.Yes:

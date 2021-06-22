@@ -1,3 +1,4 @@
+import sys
 from datetime import datetime
 import time
 from tkinter.tix import Form
@@ -149,6 +150,7 @@ class VistaListaStatistiche(QWidget):
         if len(self.list_view.selectedIndexes()) > 0:
             selected = self.list_view.selectedIndexes()[0].row()
             statistica_selezionata = self.controller.get_statistica_by_index(selected)
+            print("QUI"+sys.executable)
             self.vista_statistica = VistaStatistica(statistica_selezionata, selected, anno, stagione)
             self.vista_statistica.show()
 
@@ -191,25 +193,25 @@ class VistaListaStatistiche(QWidget):
     # Metodo per avviare il filtraggio, dopo aver cliccato il bottone "Filtra"
     def filter_button_click(self):
         anno = self.anno_line.text()
-        #try:
-        if anno == "":
-            anno = datetime.today().year
-        if int(anno) and 2050 > int(anno) > 1950:
-            if self.combo.currentIndex() == 0:
-                self.show_statistica(str(anno), "P/E")
-            elif self.combo.currentIndex() == 1:
-                self.show_statistica(str(anno), "A/I")
-        else:
-            self.popup_error_data()
-        #except:
-        #self.popup_error_formato_data()
+        try:
+            if anno == "":
+                anno = datetime.today().year
+            if int(anno) and 2050 > int(anno) > 1950:
+                if self.combo.currentIndex() == 0:
+                    self.show_statistica(str(anno), "P/E")
+                elif self.combo.currentIndex() == 1:
+                    self.show_statistica(str(anno), "A/I")
+            else:
+                self.popup_error_data()
+        except:
+            self.popup_error_formato_data()
 
     # Metodo che informa l'utente dell'errato inserimento dell'anno. Viene lanciato quando l'utente inseisce una stringa.
     def popup_error_formato_data(self):
         msg = QMessageBox()
         msg.setWindowTitle("ATTENZIONE")
         msg.setText(
-            "Hai inserito l'anno in modo errato!!! \n Per favore inseriscilo correttamente nella seguente forma YYYY.")
+            "Hai inserito l'anno in modo errato!!! \n Per favore inseriscilo correttamente nel seguente formato YYYY.")
         msg.setIcon(QMessageBox.Warning)
         time.sleep(0.3)
         msg.exec_()
