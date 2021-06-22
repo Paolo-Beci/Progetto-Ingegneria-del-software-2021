@@ -2,7 +2,7 @@ import datetime
 import sys
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import QTime, QTimer, Qt
+from PyQt5.QtCore import QTime, QTimer, Qt, QSize
 from PyQt5.QtGui import QFont, QPixmap
 from PyQt5.QtWidgets import QWidget, QLabel, QMessageBox, QSplashScreen
 import time
@@ -20,22 +20,29 @@ from vendita.view.VistaVendita import VistaVendita
     VISTA HOME
 """
 
+
 class VistaHome(QWidget):
     def __init__(self, parent=None):
         super(VistaHome, self).__init__(parent)
-        self.controller_lista_del_personale= ControllerListaDelPersonale()
+        self.controller_lista_del_personale = ControllerListaDelPersonale()
 
         ############################
+        # FONT
+        font = QtGui.QFont()
+        font.setPointSize(25)
 
         ''' 
             Costruzione parte statica dell'interfaccia
         '''
-        #Icona di avvio
+        # Icona di avvio
+
         avvio_icon = QSplashScreen()
-        avvio_icon.setPixmap(QPixmap('listaprodotti/data/images/logo_mini.png'))
+        avvio_icon.setPixmap(QPixmap('listaprodotti/data/images/logo_start.jpg'))
         avvio_icon.show()
+        time.sleep(2)
         self.setObjectName("Home")
         self.resize(965, 530)
+        self.setStyleSheet("background-color: rgb(255, 255, 255);")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_mini.png'), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.setWindowIcon(icon)
@@ -51,10 +58,17 @@ class VistaHome(QWidget):
         sizePolicy.setHeightForWidth(self.pushButton_vendita.sizePolicy().hasHeightForWidth())
         self.pushButton_vendita.setSizePolicy(sizePolicy)
         self.pushButton_vendita.setMinimumSize(QtCore.QSize(130, 60))
-        font = QtGui.QFont()
-        font.setPointSize(12)
         self.pushButton_vendita.setFont(font)
         self.pushButton_vendita.setObjectName("pushButton_vendita")
+        self.pushButton_vendita.setStyleSheet("QPushButton {\n"
+                                              "    border-radius:22px;\n"
+                                              "    background-color:rgb(228, 107, 41);\n"
+                                              "    color:white;\n"
+                                              "}")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_vendita.png'))
+        self.pushButton_vendita.setIcon(icon)
+        self.pushButton_vendita.setIconSize(QSize(300, 150))
         self.gridLayout_2.addWidget(self.pushButton_vendita, 5, 1, 1, 1)
 
         self.label = QtWidgets.QLabel(self)
@@ -70,10 +84,17 @@ class VistaHome(QWidget):
         sizePolicy.setHeightForWidth(self.pushButton_prodotti.sizePolicy().hasHeightForWidth())
         self.pushButton_prodotti.setSizePolicy(sizePolicy)
         self.pushButton_prodotti.setMinimumSize(QtCore.QSize(130, 60))
-        font = QtGui.QFont()
-        font.setPointSize(12)
         self.pushButton_prodotti.setFont(font)
         self.pushButton_prodotti.setObjectName("pushButton_prodotti")
+        self.pushButton_prodotti.setStyleSheet("QPushButton {\n"
+                                               "    border-radius:22px;\n"
+                                               "    background-color:rgb(26, 108, 218);\n"
+                                               "    color:white;\n"
+                                               "}")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_prodotti.png'))
+        self.pushButton_prodotti.setIcon(icon)
+        self.pushButton_prodotti.setIconSize(QSize(300, 150))
         self.gridLayout_2.addWidget(self.pushButton_prodotti, 5, 5, 1, 1)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
@@ -107,6 +128,32 @@ class VistaHome(QWidget):
                                             QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_4.addItem(spacerItem8, 1, 2, 2, 1)
 
+        self.label_2 = QtWidgets.QLabel(self)
+        self.label_2.setAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignTop)
+        self.label_2.setObjectName("label_2")
+        self.gridLayout_2.addWidget(self.label_2, 6, 1, 1, 1)
+        self.label_3 = QtWidgets.QLabel(self)
+        self.label_3.setAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignTop)
+        self.label_3.setObjectName("label_3")
+        self.gridLayout_2.addWidget(self.label_3, 6, 3, 1, 1)
+        self.label_4 = QtWidgets.QLabel(self)
+        self.label_4.setAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignTop)
+        self.label_4.setObjectName("label_4")
+        self.gridLayout_2.addWidget(self.label_4, 6, 5, 1, 1)
+        self.label_5 = QtWidgets.QLabel(self)
+        self.label_5.setAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignTop)
+        self.label_5.setObjectName("label_5")
+        self.gridLayout_2.addWidget(self.label_5, 8, 1, 1, 1)
+        self.label_6 = QtWidgets.QLabel(self)
+        self.label_6.setAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignTop)
+        self.label_6.setObjectName("label_6")
+        self.gridLayout_2.addWidget(self.label_6, 8, 3, 1, 1)
+        self.label_7 = QtWidgets.QLabel(self)
+        self.label_7.setAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignTop)
+        self.label_7.setObjectName("label_7")
+        self.gridLayout_2.addWidget(self.label_7, 8, 5, 1, 1)
+        self.gridLayout.addLayout(self.gridLayout_2, 2, 0, 1, 2)
+
         # DATA
         font_data = QFont('Open Sans', 20)
         self.label_data = QLabel()
@@ -121,13 +168,13 @@ class VistaHome(QWidget):
         self.gridLayout_4.addItem(spacerItem9, 3, 1, 1, 1)
 
         # ORARIO
-        font_clock= QFont('Open Sans', 40, QFont.Bold)
-        self.label_clock= QLabel()
+        font_clock = QFont('Open Sans', 40, QFont.Bold)
+        self.label_clock = QLabel()
         self.label_clock.setAlignment(Qt.AlignCenter)
         self.label_clock.setFont(font_clock)
         self.label_clock.setMinimumSize(QtCore.QSize(240, 50))
         self.label_clock.setMaximumSize(QtCore.QSize(16777215, 60))
-        self.label_clock.setObjectName("label_clock")        
+        self.label_clock.setObjectName("label_clock")
         self.gridLayout_4.addWidget(self.label_clock, 1, 1, 1, 1)
 
         self.gridLayout_2.addLayout(self.gridLayout_4, 0, 2, 1, 3)
@@ -145,10 +192,17 @@ class VistaHome(QWidget):
         sizePolicy.setHeightForWidth(self.pushButton_ordini.sizePolicy().hasHeightForWidth())
         self.pushButton_ordini.setSizePolicy(sizePolicy)
         self.pushButton_ordini.setMinimumSize(QtCore.QSize(130, 60))
-        font = QtGui.QFont()
-        font.setPointSize(12)
         self.pushButton_ordini.setFont(font)
         self.pushButton_ordini.setObjectName("pushButton_ordini")
+        self.pushButton_ordini.setStyleSheet("QPushButton {\n"
+                                             "    border-radius:22px;\n"
+                                             "    background-color:rgb(26, 108, 218);\n"
+                                             "    color:white;\n"
+                                             "}")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_ordini.png'))
+        self.pushButton_ordini.setIcon(icon)
+        self.pushButton_ordini.setIconSize(QSize(300, 150))
         self.gridLayout_2.addWidget(self.pushButton_ordini, 5, 3, 1, 1)
         spacerItem13 = QtWidgets.QSpacerItem(100, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_2.addItem(spacerItem13, 5, 4, 3, 1)
@@ -156,7 +210,7 @@ class VistaHome(QWidget):
         self.pushButton_ordini.clicked.connect(self.go_lista_ordini)
         self.pushButton_vendita.clicked.connect(self.go_vista_vendita)
 
-        timer= QTimer(self)
+        timer = QTimer(self)
         timer.timeout.connect(self.show_time)
         timer.start(1000)
         self.show_time()
@@ -168,16 +222,27 @@ class VistaHome(QWidget):
     '''
         Costruzione parte dinamica dell'interfaccia  
     '''
+
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
 
-        # passo la data odierna alla label_data
-        data_odierna= datetime.datetime.now()
-        self.label_data.setText("%s/%s/%s"%((data_odierna.day,data_odierna.month,data_odierna.year)))
+        # FONT
+        font = QtGui.QFont()
+        font.setPointSize(20)
 
-        self.pushButton_vendita.setText(_translate("Home", "Area vendita"))
-        self.pushButton_prodotti.setText(_translate("Home", "Area prodotti"))
-        self.pushButton_ordini.setText(_translate("Home", "Area ordini"))
+        # passo la data odierna alla label_data
+        data_odierna = datetime.datetime.now()
+        self.label_data.setText("%s/%s/%s" % ((data_odierna.day, data_odierna.month, data_odierna.year)))
+
+        #self.pushButton_vendita.setText(_translate("Home", "Vendita"))
+        self.pushButton_prodotti.setText(_translate("Home", ""))
+        self.pushButton_ordini.setText(_translate("Home", ""))
+        self.label_2.setFont(font)
+        self.label_2.setText(_translate("Home", "Vendita"))
+        self.label_4.setFont(font)
+        self.label_4.setText(_translate("Home", "Prodotti"))
+        self.label_3.setFont(font)
+        self.label_3.setText(_translate("Home", "Ordini"))
 
         # Parti visibili solo dopo aver effettuato il login (get_status==True)
         if self.controller_lista_del_personale.get_status():
@@ -189,6 +254,11 @@ class VistaHome(QWidget):
             self.push_button_login.setSizePolicy(sizePolicy)
             self.push_button_login.setMinimumSize(QtCore.QSize(100, 20))
             self.push_button_login.setObjectName("push_button_login")
+            self.push_button_login.setStyleSheet("QPushButton {\n"
+                                                 "    border-radius:22px;\n"
+                                                 "    background-color:rgb(26, 108, 218);\n"
+                                                 "    color:white;\n"
+                                                 "}")
             self.gridLayout_3.addWidget(self.push_button_login, 1, 1, 1, 1)
             self.push_button_login.setText(_translate("Home", "LOGOUT"))
             self.push_button_login.clicked.connect(self.go_login)
@@ -200,10 +270,17 @@ class VistaHome(QWidget):
             sizePolicy.setHeightForWidth(self.pushButton_personale.sizePolicy().hasHeightForWidth())
             self.pushButton_personale.setSizePolicy(sizePolicy)
             self.pushButton_personale.setMinimumSize(QtCore.QSize(130, 60))
-            font = QtGui.QFont()
-            font.setPointSize(12)
             self.pushButton_personale.setFont(font)
             self.pushButton_personale.setObjectName("pushButton_personale")
+            self.pushButton_personale.setStyleSheet("QPushButton {\n"
+                                                    "    border-radius:22px;\n"
+                                                    "    background-color:rgb(26, 108, 218);\n"
+                                                    "    color:white;\n"
+                                                    "}")
+            icon = QtGui.QIcon()
+            icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_personale.png'))
+            self.pushButton_personale.setIcon(icon)
+            self.pushButton_personale.setIconSize(QSize(300, 150))
             self.gridLayout_2.addWidget(self.pushButton_personale, 7, 5, 1, 1)
 
             self.pushButton_fornitori = QtWidgets.QPushButton(self)
@@ -213,10 +290,17 @@ class VistaHome(QWidget):
             sizePolicy.setHeightForWidth(self.pushButton_fornitori.sizePolicy().hasHeightForWidth())
             self.pushButton_fornitori.setSizePolicy(sizePolicy)
             self.pushButton_fornitori.setMinimumSize(QtCore.QSize(130, 60))
-            font = QtGui.QFont()
-            font.setPointSize(12)
             self.pushButton_fornitori.setFont(font)
             self.pushButton_fornitori.setObjectName("pushButton_fornitori")
+            self.pushButton_fornitori.setStyleSheet("QPushButton {\n"
+                                                    "    border-radius:22px;\n"
+                                                    "    background-color:rgb(26, 108, 218);\n"
+                                                    "    color:white;\n"
+                                                    "}")
+            icon = QtGui.QIcon()
+            icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_fornitori.png'))
+            self.pushButton_fornitori.setIcon(icon)
+            self.pushButton_fornitori.setIconSize(QSize(300, 150))
             self.gridLayout_2.addWidget(self.pushButton_fornitori, 7, 1, 1, 1)
 
             self.pushButton_statistiche = QtWidgets.QPushButton(self)
@@ -226,18 +310,31 @@ class VistaHome(QWidget):
             sizePolicy.setHeightForWidth(self.pushButton_statistiche.sizePolicy().hasHeightForWidth())
             self.pushButton_statistiche.setSizePolicy(sizePolicy)
             self.pushButton_statistiche.setMinimumSize(QtCore.QSize(130, 60))
-            font = QtGui.QFont()
-            font.setPointSize(12)
             self.pushButton_statistiche.setFont(font)
             self.pushButton_statistiche.setObjectName("pushButton_statistiche")
+            self.pushButton_statistiche.setStyleSheet("QPushButton {\n"
+                                                      "    border-radius:22px;\n"
+                                                      "    background-color:rgb(26, 108, 218);\n"
+                                                      "    color:white;\n"
+                                                      "}")
+            icon = QtGui.QIcon()
+            icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_statistiche.png'))
+            self.pushButton_statistiche.setIcon(icon)
+            self.pushButton_statistiche.setIconSize(QSize(300, 150))
             self.gridLayout_2.addWidget(self.pushButton_statistiche, 7, 3, 1, 1)
 
-            self.pushButton_personale.setText(_translate("Home", "Area del personale"))
+            self.pushButton_personale.setText(_translate("Home", ""))
             self.pushButton_personale.clicked.connect(self.go_lista_del_personale)
-            self.pushButton_fornitori.setText(_translate("Home", "Area fornitori"))
+            self.pushButton_fornitori.setText(_translate("Home", ""))
             self.pushButton_fornitori.clicked.connect(self.go_lista_fornitori)
-            self.pushButton_statistiche.setText(_translate("Home", "Area statistiche"))
+            self.pushButton_statistiche.setText(_translate("Home", ""))
             self.pushButton_statistiche.clicked.connect(self.go_lista_statistiche)
+            self.label_5.setFont(font)
+            self.label_5.setText(_translate("Home", "Fornitori"))
+            self.label_6.setFont(font)
+            self.label_6.setText(_translate("Home", "Statistiche"))
+            self.label_7.setFont(font)
+            self.label_7.setText(_translate("Home", "Personale"))
         else:
             self.push_button_login = QtWidgets.QPushButton(self)
             sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.Fixed)
@@ -245,20 +342,21 @@ class VistaHome(QWidget):
             sizePolicy.setVerticalStretch(0)
             sizePolicy.setHeightForWidth(self.push_button_login.sizePolicy().hasHeightForWidth())
             self.push_button_login.setSizePolicy(sizePolicy)
-            self.push_button_login.setMinimumSize(QtCore.QSize(100, 20))
+            self.push_button_login.setMinimumSize(QtCore.QSize(150, 60))
             self.push_button_login.setObjectName("push_button_login")
             self.gridLayout_3.addWidget(self.push_button_login, 1, 1, 1, 1)
             self.push_button_login.setText(_translate("Home", "LOGIN"))
             self.push_button_login.clicked.connect(self.go_login)
 
     def show_time(self):
-        currentTime= QTime.currentTime()
-        display_text= currentTime.toString("hh:mm:ss")
+        currentTime = QTime.currentTime()
+        display_text = currentTime.toString("hh:mm:ss")
         self.label_clock.setText(display_text)
 
     '''
         Area Statistiche
     '''
+
     def go_lista_statistiche(self):
         self.vista_lista_statistiche = VistaListaStatistiche()
         self.vista_lista_statistiche.showMaximized()
@@ -267,6 +365,7 @@ class VistaHome(QWidget):
     '''
          Area Prodotti
     '''
+
     def go_lista_prodotti(self):
         self.vista_lista_prodotti = VistaListaProdotti()
         self.vista_lista_prodotti.showMaximized()
@@ -274,6 +373,7 @@ class VistaHome(QWidget):
     '''
          Area Fornitori
     '''
+
     def go_lista_fornitori(self):
         self.vista_lista_fornitori = VistaListaFornitori()
         self.vista_lista_fornitori.showMaximized()
@@ -282,6 +382,7 @@ class VistaHome(QWidget):
     '''
          Area Ordini
     '''
+
     def go_lista_ordini(self):
         self.vista_lista_ordini = VistaListaOrdini()
         self.vista_lista_ordini.showMaximized()
@@ -290,6 +391,7 @@ class VistaHome(QWidget):
     '''
          Area Vendita
     '''
+
     def go_vista_vendita(self):
         self.vista_vendita = VistaVendita()
         self.vista_vendita.show()
@@ -297,6 +399,7 @@ class VistaHome(QWidget):
     '''
          Area Del Personale
     '''
+
     def go_lista_del_personale(self):
         self.vista_lista_del_personale = VistaListaDelPersonale()
         self.vista_lista_del_personale.showMaximized()
@@ -305,6 +408,7 @@ class VistaHome(QWidget):
     '''
          Login
     '''
+
     def go_login(self):
         if not self.controller_lista_del_personale.get_status():
             self.vista_login = VistaLogin(self.controller_lista_del_personale, self.retranslateUi)
