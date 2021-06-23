@@ -262,10 +262,12 @@ class VistaListaFornitori(QWidget):
         self.lista_fornitori = self.controller.get_lista_fornitori()
         self.lista_dinamica = self.lista_fornitori[:]
         codice_cerca = self.lineEdit_cerca.text()
-        codice = codice_cerca.capitalize()
+        codice_cerca= codice_cerca.upper()
         elementi_da_rimuovere = []
         for fornitore in self.lista_dinamica:
-            if not (codice in str(fornitore.cod_fornitore)):
+            cod_fornitore= str(fornitore.cod_fornitore)
+            cod_fornitore= cod_fornitore.upper()
+            if not (codice_cerca in cod_fornitore):
                 elementi_da_rimuovere.append(fornitore)
         for fornitore in elementi_da_rimuovere:
             if fornitore in self.lista_dinamica:

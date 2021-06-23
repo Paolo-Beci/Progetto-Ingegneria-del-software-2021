@@ -264,10 +264,12 @@ class VistaListaDelPersonale(QWidget):
         self.lista_del_personale = self.controller_lista_del_personale.get_lista_del_personale()
         self.lista_dinamica = self.lista_del_personale[:]
         codice_cerca= self.lineEdit_cerca.text()
-        codice= codice_cerca.capitalize()
+        codice_cerca= codice_cerca.upper()
         elementi_da_rimuovere = []
         for utente in self.lista_dinamica:
-            if not (codice in str(utente.cod_utente)):
+            cod_utente= str(utente.cod_utente)
+            cod_utente= cod_utente.upper()
+            if not (codice_cerca in cod_utente):
                 elementi_da_rimuovere.append(utente)
         for utente in elementi_da_rimuovere:
             if utente in self.lista_dinamica:

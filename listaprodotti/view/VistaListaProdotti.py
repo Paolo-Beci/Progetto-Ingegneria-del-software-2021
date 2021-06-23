@@ -329,11 +329,13 @@ class VistaListaProdotti(QWidget):
 
         self.cerca_flag = True
         codice_cerca = self.cerca.text()
-        codice = codice_cerca.capitalize()
+        codice_cerca = codice_cerca.upper()
         elementi_da_rimuovere = []
         if codice_cerca.isalnum() and codice_cerca.startswith('S'):
             for prodotto in self.lista_prodotti_cercati:
-                if not (codice in str(prodotto.cod_prodotto)):
+                cod_prodotto= str(prodotto.cod_prodotto)
+                cod_prodotto= cod_prodotto.upper()
+                if not (codice_cerca in cod_prodotto):
                     elementi_da_rimuovere.append(prodotto)
             for prodotto in elementi_da_rimuovere:
                 if prodotto in self.lista_prodotti_cercati:

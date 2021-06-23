@@ -273,10 +273,12 @@ class VistaListaOrdini(QWidget):
         self.lista_ordini = self.controller_lista_ordini.get_lista_ordini()
         self.lista_dinamica_ordini = self.lista_ordini[:]
         codice_cerca = self.lineEdit_cerca.text()
-        codice = codice_cerca.capitalize()
+        codice_cerca = codice_cerca.upper()
         elementi_da_rimuovere = []
         for ordine in self.lista_dinamica_ordini:
-            if not (codice in str(ordine.cod_fattura)):
+            cod_fattura= str(ordine.cod_fattura)
+            cod_fattura= cod_fattura.upper()
+            if not (codice_cerca in cod_fattura):
                 elementi_da_rimuovere.append(ordine)
         for ordine in elementi_da_rimuovere:
             if ordine in self.lista_dinamica_ordini:

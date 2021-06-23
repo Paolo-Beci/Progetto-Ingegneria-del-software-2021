@@ -263,7 +263,11 @@ class VistaHome(QWidget):
             self.pushButton_personale.setMaximumWidth(self.width / 6)
             self.pushButton_personale.setFont(font)
             self.pushButton_personale.setObjectName("pushButton_personale")
-            self.pushButton_personale.setStyleSheet("QPushButton {\n""   background-color: rgb(26, 108, 218);\n""   border-width: 2px;\n""   border-radius: 10px;\n""   font: bold 12px;\n""   padding: 6px;\n""   color: white;\n""}")
+            self.pushButton_personale.setStyleSheet("QPushButton {\n"
+                                                    "    border-radius:22px;\n"
+                                                    "    background-color:rgb(26, 108, 218);\n"
+                                                    "    color:white;\n"
+                                                    "}")
             icon = QtGui.QIcon()
             icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_personale.png'))
             self.pushButton_personale.setIcon(icon)
