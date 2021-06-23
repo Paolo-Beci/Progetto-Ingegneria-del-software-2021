@@ -22,6 +22,11 @@ class VistaModificaProdotto(QWidget):
         font.setPixelSize(15)
         font.setWeight(75)
 
+        # ICONA
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_mini.png'), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        self.setWindowIcon(icon)
+
         self.centralwidget = QtWidgets.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
@@ -45,6 +50,14 @@ class VistaModificaProdotto(QWidget):
         self.pushButton_annulla = QtWidgets.QPushButton(self.widget)
         self.pushButton_annulla.setObjectName("pushButton_annulla")
         self.horizontalLayout.addWidget(self.pushButton_annulla)
+        self.pushButton_annulla.setStyleSheet("QPushButton {\n"
+                                               "   background-color:white;\n"
+                                               "   border-width: 2px;\n"
+                                               "   border-radius: 10px;\n"
+                                               "   border: 2px solid gray;\n"
+                                               "   font: bold 12px;\n"
+                                               "   padding: 6px;\n"
+                                               "}")
         self.pushButton_annulla.clicked.connect(self.close)
         # SALVA
         spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
@@ -53,6 +66,14 @@ class VistaModificaProdotto(QWidget):
         self.pushButton_salva.setFont(font)
         self.pushButton_salva.setObjectName("pushButton_salva")
         self.horizontalLayout.addWidget(self.pushButton_salva)
+        self.pushButton_salva.setStyleSheet("QPushButton {\n"
+                                               "   background-color: rgb(26, 108, 218);\n"
+                                               "   border-width: 2px;\n"
+                                               "   border-radius: 10px;\n"
+                                               "   font: bold 12px;\n"
+                                               "   padding: 6px;\n"
+                                               "   color: white;\n"
+                                               "}")
         self.pushButton_salva.clicked.connect(self.controllo_click)
         spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem3)

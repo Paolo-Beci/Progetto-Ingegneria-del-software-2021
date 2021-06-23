@@ -86,17 +86,20 @@ class VistaProdotto(QWidget):
         self.pushButton_modifica = QtWidgets.QPushButton(self.widget_2)
         self.pushButton_modifica.setObjectName("pushButton_modifica")
         self.gridLayout.addWidget(self.pushButton_modifica, 5, 2, 1, 1)
+        self.pushButton_modifica.setStyleSheet("QPushButton {\n""   background-color: rgb(26, 108, 218);\n""   border-width: 2px;\n""   border-radius: 10px;\n""   font: bold 12px;\n""   padding: 6px;\n""   color: white;\n""}")
         self.pushButton_modifica.clicked.connect(self.modifica_prodotto_click)
         # elimina button
         self.pushButton_elimina = QtWidgets.QPushButton(self.widget_2)
         self.pushButton_elimina.setObjectName("pushButton_elimina")
         self.gridLayout.addWidget(self.pushButton_elimina, 5, 1, 1, 1)
+        self.pushButton_elimina.setStyleSheet("QPushButton {\n""   background-color: red;\n""   border-width: 2px;\n""   border-radius: 10px;\n""   font: bold 12px;\n""   padding: 6px;\n""   color: white;\n""}")
         self.pushButton_elimina.clicked.connect(self.elimina_prodotto_click)
         # indetro button
         self.pushButton_indietro = QtWidgets.QPushButton(self.widget_2)
         self.pushButton_indietro.setObjectName("pushButton_indietro")
         self.gridLayout.addWidget(self.pushButton_indietro, 0, 0, 1, 1)
-        self.pushButton_indietro.clicked.connect(self.show_back_click)
+        self.pushButton_indietro.setStyleSheet("QPushButton {\n" "   background-color:white;\n" "   border-width: 2px;\n""   border-radius: 10px;\n""   border: 2px solid gray;\n""   font: bold 12px;\n""   padding: 6px;\n""}")
+        self.pushButton_indietro.clicked.connect(self.close)
         # groupbox prezzi e sconti
         self.groupBox_prezzi_sconti = QtWidgets.QGroupBox(self.widget_2)
         self.groupBox_prezzi_sconti.setObjectName("groupBox_prezzi_sconti")
@@ -220,7 +223,4 @@ class VistaProdotto(QWidget):
         self.vista_modifica_prodotto = VistaModificaProdotto(self.controller_lista_prodotti, self.update_ui, self.prodotto)
         self.vista_modifica_prodotto.showMaximized()
         time.sleep(0.3)
-        self.close()
-
-    def show_back_click(self):
         self.close()

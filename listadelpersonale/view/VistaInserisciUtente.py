@@ -74,6 +74,8 @@ class VistaInserisciUtente(QWidget):
         self.btn_ok = QPushButton("OK")
         self.btn_ok.clicked.connect(self.inserisci_utente)
         self.v_layout.addWidget(self.btn_ok)
+        self.btn_ok.setStyleSheet("QPushButton {\n""   background-color: rgb(26, 108, 218);\n""   border-width: 2px;\n""   border-radius: 10px;\n""   font: bold 12px;\n""   padding: 6px;\n""   color: white;\n""}")
+
 
         self.setLayout(self.v_layout)
         self.setWindowTitle("Inserisci utente")

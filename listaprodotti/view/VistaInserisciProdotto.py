@@ -1,4 +1,4 @@
-from PyQt5 import QtCore, QtWidgets
+from PyQt5 import QtCore, QtWidgets, QtGui
 from PyQt5.QtWidgets import QWidget, QMessageBox
 from prodotto.model.Prodotto import Prodotto
 from listaordini.controller.ControllerListaOrdini import ControllerListaOrdini
@@ -23,6 +23,10 @@ class VistaInserisciProdotto(QWidget):  # sistema anche le altre chiamate da vis
         self.ordine = ordine
 
         #######################################################################
+
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_mini.png'), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        self.setWindowIcon(icon)
 
         self.setObjectName("Form")
         self.resize(370, 643)
@@ -335,6 +339,14 @@ class VistaInserisciProdotto(QWidget):  # sistema anche le altre chiamate da vis
         self.pushButton_salva.setObjectName("pushButton_salva")
         self.pushButton_salva.clicked.connect(self.controllo_click)
         self.verticalLayout.addWidget(self.pushButton_salva)
+        self.pushButton_salva.setStyleSheet("QPushButton {\n"
+                                               "   background-color: rgb(26, 108, 218);\n"
+                                               "   border-width: 2px;\n"
+                                               "   border-radius: 10px;\n"
+                                               "   font: bold 12px;\n"
+                                               "   padding: 6px;\n"
+                                               "   color: white;\n"
+                                               "}")
         self.verticalLayout_2.addLayout(self.verticalLayout)
 
         self.retranslateUi()

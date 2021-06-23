@@ -80,6 +80,7 @@ class VistaInserisciOrdine(QWidget):
         self.pushButton_salva.setObjectName("pushButton_salva")
         self.pushButton_salva.clicked.connect(self.inserisci_ordine)
         self.horizontalLayout.addWidget(self.pushButton_salva)
+        self.pushButton_salva.setStyleSheet("QPushButton {\n""   background-color: rgb(26, 108, 218);\n""   border-width: 2px;\n""   border-radius: 10px;\n""   font: bold 12px;\n""   padding: 6px;\n""   color: white;\n""}")
         spacerItem5 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem5)
         self.pushButton_annulla = QtWidgets.QPushButton(self)
