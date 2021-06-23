@@ -26,7 +26,6 @@ class VistaDisplayProdotto(QWidget):
         font.setWeight(75)
 
         self.setObjectName("Form")
-        # self.resize(400, 500)
         self.gridLayout_2 = QtWidgets.QGridLayout(self)
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.gridLayout = QtWidgets.QGridLayout()
@@ -53,6 +52,14 @@ class VistaDisplayProdotto(QWidget):
         self.gridLayout.addWidget(self.label_marca, 1, 1, 1, 1)
         self.pushButton_dettagli = QtWidgets.QPushButton(self)
         self.pushButton_dettagli.setObjectName("pushButton_dettagli")
+        self.pushButton_dettagli.setStyleSheet("QPushButton {\n"
+                                            "   background-color:rgb(26, 108, 218);\n"
+                                            "   border-width: 2px;\n"
+                                            "   border-radius: 10px;\n"
+                                            "   font: bold 12px;\n"
+                                            "   padding: 6px;\n"
+                                            "   color: white;\n"
+                                            "}")
         self.pushButton_dettagli.clicked.connect(self.dettagli_click)
         self.gridLayout.addWidget(self.pushButton_dettagli, 4, 0, 1, 2)
         self.label_nome = QtWidgets.QLabel(self)

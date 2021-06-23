@@ -11,6 +11,11 @@ class VistaLogin(QWidget):
         ''' 
             Costruzione parte statica dell'interfaccia
         '''
+        # ICONA
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_mini.png'), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        self.setWindowIcon(icon)
+
         self.setObjectName("Form")
         self.resize(500, 300)
         self.gridLayout_2 = QtWidgets.QGridLayout(self)
@@ -20,6 +25,7 @@ class VistaLogin(QWidget):
         self.pushButton_login = QtWidgets.QPushButton(self)
         self.pushButton_login.setObjectName("pushButton_login")
         self.gridLayout.addWidget(self.pushButton_login, 8, 2, 1, 1)
+        self.pushButton_login.setStyleSheet("QPushButton {\n""   background-color: green;\n""   border-width: 2px;\n""min-width: 80px;\n""border-radius: 10px;\n""   font: bold 12px;\n""   padding: 6px;\n""   color: white;\n""}")
         self.pushButton_login.clicked.connect(self.login)
         self.lineEdit_password = QtWidgets.QLineEdit(self)
         self.lineEdit_password.setObjectName("lineEdit_password")
@@ -36,6 +42,7 @@ class VistaLogin(QWidget):
         self.pushButton_annulla = QtWidgets.QPushButton(self)
         self.pushButton_annulla.setObjectName("pushButton_annulla")
         self.gridLayout.addWidget(self.pushButton_annulla, 8, 0, 1, 1)
+        self.pushButton_annulla.setStyleSheet("QPushButton {\n" "   background-color:white;\n" "   border-width: 2px;\n""   border-radius: 10px;\n""   border: 2px solid gray;\n""   font: bold 12px;\n""   padding: 6px;\n""}")
         self.pushButton_annulla.clicked.connect(self.close)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem, 5, 2, 1, 1)

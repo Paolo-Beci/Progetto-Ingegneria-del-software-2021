@@ -1,4 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import QSize
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QApplication, QWidget, QMessageBox
 
@@ -39,6 +40,13 @@ class VistaVendita(QWidget):
         self.cerca = QtWidgets.QLineEdit(self.widget)
         self.cerca.setObjectName("cerca")
         self.gridLayout_3.addWidget(self.cerca, 1, 2, 1, 1)
+        self.cerca.setStyleSheet("QLineEdit {\n"
+                                 "   border-width: 2px;\n"
+                                 "   border-radius: 10px;\n"
+                                 "   border: 2px solid gray;\n"
+                                 "   font: 12px;\n"
+                                 "   padding: 6px;\n"
+                                 "}")
         self.cerca.returnPressed.connect(self.cerca_prodotto)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.MinimumExpanding,
                                            QtWidgets.QSizePolicy.Minimum)
@@ -47,7 +55,17 @@ class VistaVendita(QWidget):
         self.gridLayout_3.addItem(spacerItem1, 0, 5, 1, 1)
         self.pushButton_indietro = QtWidgets.QPushButton(self.widget)
         self.pushButton_indietro.setObjectName("pushButton_indietro")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_home.png'))
+        self.pushButton_indietro.setIcon(icon)
+        self.pushButton_indietro.setIconSize(QSize(50, 50))
         self.gridLayout_3.addWidget(self.pushButton_indietro, 0, 0, 1, 1)
+        self.pushButton_indietro.setStyleSheet("QPushButton {\n"
+                                    "   background-color:white;\n"
+                                    "   border-width: 2px;\n"
+                                    "   border-radius: 10px;\n"
+                                    "   padding: 6px;\n"
+                                    "}")
         self.pushButton_indietro.clicked.connect(self.close)
         self.logo = QtWidgets.QLabel(self.widget)
         self.logo.setObjectName("logo")
@@ -62,6 +80,13 @@ class VistaVendita(QWidget):
         for count in range(16, 49):
             self.taglia.addItem(str(count))
         self.gridLayout_3.addWidget(self.taglia, 0, 2, 1, 1)
+        self.taglia.setStyleSheet("QComboBox {\n"
+                                 "   background-color:rgb(26, 108, 218);\n"
+                                 "   border-width: 2px;\n"
+                                 "   font: 12px;\n"
+                                 "   padding: 3px;\n"
+                                 "   color: white;\n"
+                                 "}")
         self.gridLayout.addWidget(self.widget, 0, 0, 1, 1)
         self.widget_2 = QtWidgets.QWidget(self)
         self.widget_2.setObjectName("widget_2")
@@ -86,6 +111,7 @@ class VistaVendita(QWidget):
         self.pushButton = QtWidgets.QPushButton(self.widget_3)
         self.pushButton.setObjectName("pushButton")
         self.horizontalLayout.addWidget(self.pushButton)
+        self.pushButton.setStyleSheet("QPushButton {\n""   background-color: rgb(228, 107, 41);\n""   border-width: 2px;\n""   border-radius:bold 15px;\n""   font: bold 12px;\n""   padding: 10px;\n""   color: white;\n""}")
         self.pushButton.clicked.connect(self.vendi)
         spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem4)
@@ -106,7 +132,6 @@ class VistaVendita(QWidget):
         self.setWindowTitle(_translate("MainWindow", "Vendi prodotto"))
         self.pushButton.setText(_translate("MainWindow", "VENDI"))
         self.cerca.setPlaceholderText(_translate("MainWindow", "Cerca per codice prodotto"))
-        self.pushButton_indietro.setText(_translate("MainWindow", "< Indietro"))
         self.taglia.setItemText(0, _translate("MainWindow", "Taglia"))
         if self.flag:
             self.vista_prodotto_da_vendere = VistaDisplayProdotto(self.prodotto_trovato, self.retranslateUi, self.controller, None)

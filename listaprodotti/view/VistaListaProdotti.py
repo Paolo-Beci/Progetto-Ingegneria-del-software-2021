@@ -1,4 +1,5 @@
 from PyQt5 import QtCore, QtWidgets, QtGui
+from PyQt5.QtCore import QSize
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QWidget, QLabel, QMessageBox, QApplication
 import time
@@ -26,6 +27,7 @@ class VistaListaProdotti(QWidget):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_mini.png'), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.setWindowIcon(icon)
+        self.setStyleSheet("background-color: rgb(255, 255, 255);")
 
         self.centralwidget = QtWidgets.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
@@ -67,6 +69,13 @@ class VistaListaProdotti(QWidget):
         self.cerca.setPlaceholderText("Cerca per Cod. prodotto")
         self.cerca.setClearButtonEnabled(False)
         self.gridLayout_3.addWidget(self.cerca, 0, 10, 1, 1)
+        self.cerca.setStyleSheet("QLineEdit {\n"
+                                  "   border-width: 2px;\n"
+                                  "   border-radius: 10px;\n"
+                                  "   border: 2px solid gray;\n"
+                                  "   font: 12px;\n"
+                                  "   padding: 6px;\n"
+                                  "}")
         self.cerca.returnPressed.connect(self.cerca_prodotto)
         # inserisci prodotto
         self.inserisci_button = QtWidgets.QPushButton(self.topWidget)
@@ -76,6 +85,14 @@ class VistaListaProdotti(QWidget):
         sizePolicy.setHeightForWidth(self.inserisci_button.sizePolicy().hasHeightForWidth())
         self.inserisci_button.setSizePolicy(sizePolicy)
         self.inserisci_button.setObjectName("inserisci_button")
+        self.inserisci_button.setStyleSheet("QPushButton {\n"
+                                        "   background-color:rgb(26, 108, 218);\n"
+                                        "   border-width: 2px;\n"
+                                        "   border-radius: 10px;\n"
+                                        "   font: bold 12px;\n"
+                                        "   padding: 6px;\n"
+                                        "   color: white;\n"
+                                        "}")
         self.gridLayout_3.addWidget(self.inserisci_button, 0, 9, 1, 1)
         self.inserisci_button.clicked.connect(self.show_inserisci_prodotto)
         # ----------FILTRI COMBOBOX--------------
@@ -84,6 +101,13 @@ class VistaListaProdotti(QWidget):
         self.taglia.setObjectName("taglia")
         for count in range(16, 49):
             self.taglia.addItem(str(count))
+        self.taglia.setStyleSheet("QComboBox {\n"
+                                        "   background-color:rgb(26, 108, 218);\n"
+                                        "   border-width: 2px;\n"
+                                        "   font: 12px;\n"
+                                        "   padding: 3px;\n"
+                                        "   color: white;\n"
+                                        "}")
         self.gridLayout_3.addWidget(self.taglia, 3, 7, 1, 1)
         self.taglia.currentIndexChanged.connect(self.filtro_combobox)
         # genere
@@ -95,12 +119,26 @@ class VistaListaProdotti(QWidget):
         self.genere.addItem("Bambino")
         self.genere.addItem("Bambina")
         self.gridLayout_3.addWidget(self.genere, 3, 6, 1, 1)
+        self.genere.setStyleSheet("QComboBox {\n"
+                                  "   background-color:rgb(26, 108, 218);\n"
+                                  "   border-width: 2px;\n"
+                                  "   font: 12px;\n"
+                                  "   padding: 3px;\n"
+                                  "   color: white;\n"
+                                  "}")
         self.genere.currentIndexChanged.connect(self.filtro_combobox)
         # tipo
         self.tipo = QtWidgets.QComboBox(self.topWidget)
         self.tipo.setObjectName("tipo")
         self.tipo.addItems(["Eleganti", "Eleganti", "Sneakers", "Sportive", "Trekking"])
         self.gridLayout_3.addWidget(self.tipo, 3, 5, 1, 1)
+        self.tipo.setStyleSheet("QComboBox {\n"
+                                  "   background-color:rgb(26, 108, 218);\n"
+                                  "   border-width: 2px;\n"
+                                  "   font: 12px;\n"
+                                  "   padding: 3px;\n"
+                                  "   color: white;\n"
+                                  "}")
         self.tipo.currentIndexChanged.connect(self.filtro_combobox)
         # collezione
         self.collezione = QtWidgets.QComboBox(self.topWidget)
@@ -109,6 +147,13 @@ class VistaListaProdotti(QWidget):
         self.collezione.addItem("Primavera / Estate")
         self.collezione.addItem("Autunno / Inverno")
         self.gridLayout_3.addWidget(self.collezione, 3, 8, 1, 1)
+        self.collezione.setStyleSheet("QComboBox {\n"
+                                  "   background-color:rgb(26, 108, 218);\n"
+                                  "   border-width: 2px;\n"
+                                  "   font: 12px;\n"
+                                  "   padding: 3px;\n"
+                                  "   color: white;\n"
+                                  "}")
         self.collezione.currentIndexChanged.connect(self.filtro_combobox)
         # marca
         self.marca = QtWidgets.QComboBox(self.topWidget)
@@ -117,6 +162,13 @@ class VistaListaProdotti(QWidget):
         for item in self.controller_lista_prodotti.get_lista_marche():
             self.marca.addItem(str(item))
         self.gridLayout_3.addWidget(self.marca, 3, 4, 1, 1)
+        self.marca.setStyleSheet("QComboBox {\n"
+                                  "   background-color:rgb(26, 108, 218);\n"
+                                  "   border-width: 2px;\n"
+                                  "   font: 12px;\n"
+                                  "   padding: 3px;\n"
+                                  "   color: white;\n"
+                                  "}")
         self.marca.currentIndexChanged.connect(self.filtro_combobox)
         # spacer
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
@@ -138,26 +190,54 @@ class VistaListaProdotti(QWidget):
         # in_arrivo button
         self.in_arrivo = QtWidgets.QPushButton(self.topWidget)
         self.in_arrivo.setObjectName("in_arrivo")
+        self.in_arrivo.setStyleSheet("QPushButton {\n"
+                                            "   background-color:rgb(26, 108, 218);\n"
+                                            "   border-width: 2px;\n"
+                                            "   border-radius: 10px;\n"
+                                            "   font: bold 12px;\n"
+                                            "   padding: 6px;\n"
+                                            "   color: white;\n"
+                                            "}")
         self.gridLayout_3.addWidget(self.in_arrivo, 1, 0, 1, 1)
-        # self.filtro_in_arrivo = self.filtro_lista(True, None, None, None)
         self.in_arrivo.clicked.connect(self.show_in_arrivo)
         # in_negozio button
         self.in_negozio = QtWidgets.QPushButton(self.topWidget)
         self.in_negozio.setObjectName("in_negozio")
+        self.in_negozio.setStyleSheet("QPushButton {\n"
+                                            "   background-color:rgb(26, 108, 218);\n"
+                                            "   border-width: 2px;\n"
+                                            "   border-radius: 10px;\n"
+                                            "   font: bold 12px;\n"
+                                            "   padding: 6px;\n"
+                                            "   color: white;\n"
+                                            "}")
         self.gridLayout_3.addWidget(self.in_negozio, 1, 1, 1, 1)
-        # self.filtro_in_negozio = self.filtro_lista(None, True, None, None)
         self.in_negozio.clicked.connect(self.show_in_negozio)
         # venduto button
         self.venduto = QtWidgets.QPushButton(self.topWidget)
         self.venduto.setObjectName("venduto")
+        self.venduto.setStyleSheet("QPushButton {\n"
+                                            "   background-color:rgb(26, 108, 218);\n"
+                                            "   border-width: 2px;\n"
+                                            "   border-radius: 10px;\n"
+                                            "   font: bold 12px;\n"
+                                            "   padding: 6px;\n"
+                                            "   color: white;\n"
+                                            "}")
         self.gridLayout_3.addWidget(self.venduto, 1, 2, 1, 1)
-        # self.filtro_venduto = self.filtro_lista(None, None, True, None)
         self.venduto.clicked.connect(self.show_venduto)
         # reso button
         self.reso = QtWidgets.QPushButton(self.topWidget)
         self.reso.setObjectName("reso")
+        self.reso.setStyleSheet("QPushButton {\n"
+                                            "   background-color:rgb(26, 108, 218);\n"
+                                            "   border-width: 2px;\n"
+                                            "   border-radius: 10px;\n"
+                                            "   font: bold 12px;\n"
+                                            "   padding: 6px;\n"
+                                            "   color: white;\n"
+                                            "}")
         self.gridLayout_3.addWidget(self.reso, 1, 3, 1, 1)
-        # self.filtro_reso = self.filtro_lista(None, None, None, True)
         self.reso.clicked.connect(self.show_reso)
 
         # indietro
@@ -168,6 +248,16 @@ class VistaListaProdotti(QWidget):
         sizePolicy.setHeightForWidth(self.indietro.sizePolicy().hasHeightForWidth())
         self.indietro.setSizePolicy(sizePolicy)
         self.indietro.setObjectName("indietro")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_home.png'))
+        self.indietro.setIcon(icon)
+        self.indietro.setIconSize(QSize(50, 50))
+        self.indietro.setStyleSheet("QPushButton {\n"
+                                "   background-color:white;\n"
+                                "   border-width: 2px;\n"
+                                "   border-radius: 10px;\n"
+                                "   padding: 6px;\n"
+                                "}")
         self.gridLayout_3.addWidget(self.indietro, 0, 0, 1, 1)
         self.indietro.clicked.connect(self.close)
 
@@ -214,7 +304,6 @@ class VistaListaProdotti(QWidget):
         self.in_negozio.setText(_translate("MainWindow", "IN NEGOZIO"))
         self.collezione.setItemText(0, _translate("MainWindow", "Collezione"))
         self.venduto.setText(_translate("MainWindow", "VENDUTO"))
-        self.indietro.setText(_translate("MainWindow", "< Indietro"))
         self.reso.setText(_translate("MainWindow", "RESO"))
         self.inserisci_button.setText(_translate("MainWindow", "Inserisci prodotto"))
 

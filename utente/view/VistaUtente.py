@@ -112,7 +112,9 @@ class VistaUtente(QWidget):
         btn_modifica.clicked.connect(self.show_modifica_utente)
         # li aggiungo al widget
         self.v_layout.addWidget(btn_elimina)
+        btn_elimina.setStyleSheet("QPushButton {\n""   background-color: red;\n""   border-width: 2px;\n""   border-radius: 10px;\n""   font: bold 12px;\n""   padding: 6px;\n""   color: white;\n""}")
         self.v_layout.addWidget(btn_modifica)
+        btn_modifica.setStyleSheet("QPushButton {\n""   background-color: rgb(26, 108, 218);\n""   border-width: 2px;\n""   border-radius: 10px;\n""   font: bold 12px;\n""   padding: 6px;\n""   color: white;\n""}")
         self.setLayout(self.v_layout)
         self.setWindowTitle("Utente")
 

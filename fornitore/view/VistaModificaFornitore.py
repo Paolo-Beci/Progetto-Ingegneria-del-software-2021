@@ -48,12 +48,14 @@ class VistaModificaFornitore(QWidget):
         self.pushButton_3 = QtWidgets.QPushButton(self.horizontalLayoutWidget)
         self.pushButton_3.setObjectName("pushButton_3")
         self.horizontalLayout_3.addWidget(self.pushButton_3)
+        self.pushButton_3.setStyleSheet("QPushButton {\n""   background-color: rgb(26, 108, 218);\n""   border-width: 2px;\n""   border-radius: 10px;\n""   font: bold 12px;\n""   padding: 6px;\n""   color: white;\n""}")
         self.pushButton_3.setDefault(True)
         self.pushButton_3.clicked.connect(self.save_data)
         #Tasto ANNULLA
         self.pushButton_4 = QtWidgets.QPushButton(self.horizontalLayoutWidget)
         self.pushButton_4.setObjectName("pushButton_4")
         self.horizontalLayout_3.addWidget(self.pushButton_4)
+        self.pushButton_4.setStyleSheet("QPushButton {\n" "   background-color:white;\n" "   border-width: 2px;\n""   border-radius: 10px;\n""   border: 2px solid gray;\n""   font: bold 12px;\n""   padding: 6px;\n""}")
         self.pushButton_4.clicked.connect(self.close)
 
         self.gridLayoutWidget = QtWidgets.QWidget(self)

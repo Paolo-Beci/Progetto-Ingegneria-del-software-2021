@@ -1,4 +1,5 @@
 from PyQt5 import QtWidgets, QtCore, QtGui
+from PyQt5.QtCore import QSize
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QWidget, QTableWidgetItem
 
@@ -10,6 +11,8 @@ from utente.view.VistaUtente import VistaUtente
 class VistaListaDelPersonale(QWidget):
     def __init__(self):
         super(VistaListaDelPersonale, self).__init__()
+        self.setStyleSheet("background-color: rgb(255, 255, 255);")
+
         self.controller_lista_del_personale = ControllerListaDelPersonale()
         # boolean: mi permettono di verificare se sto visualizzando in lista utenti amministratori o dipendenti
         self.dipendente = False
@@ -42,8 +45,10 @@ class VistaListaDelPersonale(QWidget):
         self.pushButton_apri.setObjectName("pushButton_apri")
         self.pushButton_apri.clicked.connect(self.show_utente)
         self.verticalLayout_2.addWidget(self.pushButton_apri)
+        self.pushButton_apri.setStyleSheet("QPushButton {\n""   background-color: rgb(26, 108, 218);\n""   border-width: 2px;\n""   border-radius: 10px;\n""   font: bold 12px;\n""   padding: 6px;\n""   color: white;\n""}")
         self.pushButton_nuovo = QtWidgets.QPushButton(self)
         self.pushButton_nuovo.setObjectName("pushButton_nuovo")
+        self.pushButton_nuovo.setStyleSheet("QPushButton {\n""   background-color: rgb(26, 108, 218);\n""   border-width: 2px;\n""   border-radius: 10px;\n""   font: bold 12px;\n""   padding: 6px;\n""   color: white;\n""}")
         self.pushButton_nuovo.clicked.connect(self.show_inserisci_utente)
         self.verticalLayout_2.addWidget(self.pushButton_nuovo)
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
@@ -65,6 +70,13 @@ class VistaListaDelPersonale(QWidget):
         self.lineEdit_cerca.setPlaceholderText("Cerca per codice")
         self.lineEdit_cerca.returnPressed.connect(self.filter_cerca)
         self.gridLayout.addWidget(self.lineEdit_cerca, 2, 6, 1, 1)
+        self.lineEdit_cerca.setStyleSheet("QLineEdit {\n"
+                                 "   border-width: 2px;\n"
+                                 "   border-radius: 10px;\n"
+                                 "   border: 2px solid gray;\n"
+                                 "   font: 12px;\n"
+                                 "   padding: 6px;\n"
+                                 "}")
         self.label_logo = QtWidgets.QLabel(self)
         self.label_logo.setMinimumSize(QtCore.QSize(200, 0))
         self.label_logo.setAlignment(QtCore.Qt.AlignCenter)
@@ -79,7 +91,17 @@ class VistaListaDelPersonale(QWidget):
         self.pushButton_indietro = QtWidgets.QPushButton(self)
         self.pushButton_indietro.setObjectName("pushButton_indietro")
         self.pushButton_indietro.clicked.connect(self.close)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_home.png'))
+        self.pushButton_indietro.setIcon(icon)
+        self.pushButton_indietro.setIconSize(QSize(50, 50))
         self.gridLayout.addWidget(self.pushButton_indietro, 1, 1, 1, 1)
+        self.pushButton_indietro.setStyleSheet("QPushButton {\n"
+                                               "   background-color:white;\n"
+                                               "   border-width: 2px;\n"
+                                               "   border-radius: 10px;\n"
+                                               "   padding: 6px;\n"
+                                               "}")
         spacerItem4 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem4, 2, 7, 1, 1)
         self.tableWidget = QtWidgets.QTableWidget(self)
@@ -120,6 +142,7 @@ class VistaListaDelPersonale(QWidget):
         self.pushButton_stato1.setObjectName("pushButton_stato1")
         self.pushButton_stato1.clicked.connect(self.filter_dipendente)
         self.gridLayout_3.addWidget(self.pushButton_stato1, 0, 1, 1, 1)
+        self.pushButton_stato1.setStyleSheet("QPushButton {\n""   background-color: rgb(26, 108, 218);\n""   border-width: 2px;\n""min-width: 80px;\n""   border-radius: 10px;\n""   font: bold 12px;\n""   padding: 6px;\n""   color: white;\n""}")
         spacerItem7 = QtWidgets.QSpacerItem(10, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_3.addItem(spacerItem7, 0, 2, 1, 1)
         self.pushButton_stato2 = QtWidgets.QPushButton(self)
@@ -130,12 +153,14 @@ class VistaListaDelPersonale(QWidget):
         self.pushButton_stato2.setObjectName("pushButton_stato2")
         self.pushButton_stato2.clicked.connect(self.filter_amministratore)
         self.gridLayout_3.addWidget(self.pushButton_stato2, 0, 3, 1, 1)
+        self.pushButton_stato2.setStyleSheet("QPushButton {\n""   background-color: rgb(26, 108, 218);\n""   border-width: 2px;\n""min-width: 80px;\n""   border-radius: 10px;\n""   font: bold 12px;\n""   padding: 6px;\n""   color: white;\n""}")
         spacerItem8 = QtWidgets.QSpacerItem(10, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_3.addItem(spacerItem8, 0, 4, 1, 1)
         self.pushButton_all = QtWidgets.QPushButton(self)
         self.pushButton_all.setObjectName("pushButton_all")
         self.pushButton_all.clicked.connect(self.filter_all)
         self.gridLayout_3.addWidget(self.pushButton_all, 0, 5, 1, 1)
+        self.pushButton_all.setStyleSheet("QPushButton {\n""   background-color: rgb(26, 108, 218);\n""   border-width: 2px;\n""min-width: 80px;\n""   border-radius: 10px;\n""   font: bold 12px;\n""   padding: 6px;\n""   color: white;\n""}")
         self.gridLayout.addLayout(self.gridLayout_3, 3, 1, 1, 2)
         spacerItem9 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
         self.gridLayout.addItem(spacerItem9, 0, 1, 1, 7)
@@ -153,7 +178,6 @@ class VistaListaDelPersonale(QWidget):
         _translate = QtCore.QCoreApplication.translate
         self.pushButton_apri.setText(_translate("Form", "Apri"))
         self.pushButton_nuovo.setText(_translate("Form", "Nuovo"))
-        self.pushButton_indietro.setText(_translate("Form", "<-  Indietro"))
         self.pushButton_stato1.setText(_translate("Form", "Dipendente"))
         self.pushButton_stato2.setText(_translate("Form", "Amministratore"))
         self.pushButton_all.setText(_translate("Form", "All"))
