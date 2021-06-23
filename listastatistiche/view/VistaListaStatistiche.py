@@ -1,11 +1,10 @@
 import sys
 from datetime import datetime
 import time
-from tkinter.tix import Form
 
 from PyQt5 import QtGui, QtWidgets
 from PyQt5.QtGui import QStandardItemModel, QStandardItem, QPixmap
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton, QLineEdit, QFormLayout, QMessageBox
+from PyQt5.QtWidgets import QWidget, QListView, QMessageBox
 from PyQt5 import QtCore
 
 from listastatistiche.controller.ControllerListaStatistiche import ControllerListaStatistiche

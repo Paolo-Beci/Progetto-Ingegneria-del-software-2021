@@ -145,18 +145,7 @@ class VistaHome(QWidget):
         self.label_4.setAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignTop)
         self.label_4.setObjectName("label_4")
         self.gridLayout_2.addWidget(self.label_4, 6, 5, 1, 1)
-        self.label_5 = QtWidgets.QLabel(self)
-        self.label_5.setAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignTop)
-        self.label_5.setObjectName("label_5")
-        self.gridLayout_2.addWidget(self.label_5, 8, 1, 1, 1)
-        self.label_6 = QtWidgets.QLabel(self)
-        self.label_6.setAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignTop)
-        self.label_6.setObjectName("label_6")
-        self.gridLayout_2.addWidget(self.label_6, 8, 3, 1, 1)
-        self.label_7 = QtWidgets.QLabel(self)
-        self.label_7.setAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignTop)
-        self.label_7.setObjectName("label_7")
-        self.gridLayout_2.addWidget(self.label_7, 8, 5, 1, 1)
+
         self.gridLayout.addLayout(self.gridLayout_2, 2, 0, 1, 2)
 
         # DATA
@@ -336,10 +325,22 @@ class VistaHome(QWidget):
             self.pushButton_fornitori.clicked.connect(self.go_lista_fornitori)
             self.pushButton_statistiche.setText(_translate("Home", ""))
             self.pushButton_statistiche.clicked.connect(self.go_lista_statistiche)
+            self.label_5 = QtWidgets.QLabel(self)
+            self.label_5.setAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignTop)
+            self.label_5.setObjectName("label_5")
+            self.gridLayout_2.addWidget(self.label_5, 8, 1, 1, 1)
             self.label_5.setFont(font)
             self.label_5.setText(_translate("Home", "Fornitori"))
+            self.label_6 = QtWidgets.QLabel(self)
+            self.label_6.setAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignTop)
+            self.label_6.setObjectName("label_6")
+            self.gridLayout_2.addWidget(self.label_6, 8, 3, 1, 1)
             self.label_6.setFont(font)
             self.label_6.setText(_translate("Home", "Statistiche"))
+            self.label_7 = QtWidgets.QLabel(self)
+            self.label_7.setAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignTop)
+            self.label_7.setObjectName("label_7")
+            self.gridLayout_2.addWidget(self.label_7, 8, 5, 1, 1)
             self.label_7.setFont(font)
             self.label_7.setText(_translate("Home", "Personale"))
         else:
@@ -421,14 +422,26 @@ class VistaHome(QWidget):
             self.vista_login = VistaLogin(self.controller_lista_del_personale, self.retranslateUi)
             self.vista_login.show()
         else:
-            self.controller_lista_del_personale.set_status(False)
-            self.gridLayout_2.removeWidget(self.pushButton_personale)
-            self.pushButton_personale.deleteLater()
-            self.gridLayout_2.removeWidget(self.pushButton_fornitori)
-            self.pushButton_fornitori.deleteLater()
-            self.gridLayout_2.removeWidget(self.pushButton_statistiche)
-            self.pushButton_statistiche.deleteLater()
-            self.retranslateUi()
+            reply = QMessageBox.question(self, "Logout?",
+                                         "Sicuro di voler uscire dal tuo account?",
+                                         QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+            if reply == QMessageBox.Yes:
+                self.controller_lista_del_personale.set_status(False)
+                self.gridLayout_2.removeWidget(self.pushButton_personale)
+                self.pushButton_personale.deleteLater()
+                self.gridLayout_2.removeWidget(self.label_7)
+                self.label_7.deleteLater()
+                self.gridLayout_2.removeWidget(self.pushButton_fornitori)
+                self.pushButton_fornitori.deleteLater()
+                self.gridLayout_2.removeWidget(self.label_5)
+                self.label_5.deleteLater()
+                self.gridLayout_2.removeWidget(self.pushButton_statistiche)
+                self.pushButton_statistiche.deleteLater()
+                self.gridLayout_2.removeWidget(self.label_6)
+                self.label_6.deleteLater()
+                self.retranslateUi()
+            else:
+                return
 
     def closeEvent(self, event):
         reply = QMessageBox.question(self, 'Chiudere?',
