@@ -30,6 +30,7 @@ class VistaInserisciProdotto(QWidget):  # sistema anche le altre chiamate da vis
 
         self.setObjectName("Form")
         self.resize(370, 643)
+        self.setStyleSheet("background-color: white;")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.verticalLayout = QtWidgets.QVBoxLayout()

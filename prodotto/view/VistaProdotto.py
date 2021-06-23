@@ -21,6 +21,7 @@ class VistaProdotto(QWidget):
         self.lista_prodotti_filtrata = lista_prodotti
         self.setObjectName("MainWindow")
         self.resize(1173, 700)
+        self.setStyleSheet("background-color: white;")
 
         # FONT
         font = QtGui.QFont()

@@ -30,6 +30,7 @@ class VistaInserisciOrdine(QWidget):
         '''
         self.setObjectName("Form")
         self.resize(962, 780)
+        self.setStyleSheet("background-color: white;")
 
         # Inserimento icona
         icon = QtGui.QIcon()

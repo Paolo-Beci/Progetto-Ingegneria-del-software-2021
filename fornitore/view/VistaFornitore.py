@@ -98,7 +98,7 @@ class VistaFornitore(QWidget):
         btn_modifica.clicked.connect(self.show_modifica_fornitore)
         #li aggiungo al widget
         self.v_layout.addWidget(btn_elimina)
-        self.btn_elimina.setStyleSheet("QPushButton {\n"
+        btn_elimina.setStyleSheet("QPushButton {\n"
                                               "   background-color: red;\n"
                                               "   border-width: 2px;\n"
                                               "   border-radius: 10px;\n"
@@ -107,7 +107,7 @@ class VistaFornitore(QWidget):
                                               "   color: white;\n"
                                               "}")
         self.v_layout.addWidget(btn_modifica)
-        self.btn_modifica.setStyleSheet("QPushButton {\n"
+        btn_modifica.setStyleSheet("QPushButton {\n"
                                                "   background-color: rgb(26, 108, 218);\n"
                                                "   border-width: 2px;\n"
                                                "   border-radius: 10px;\n"

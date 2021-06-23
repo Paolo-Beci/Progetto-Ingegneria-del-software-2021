@@ -29,6 +29,7 @@ class VistaListaDelPersonale(QWidget):
         '''
         self.setObjectName("Form")
         self.resize(1121, 576)
+        self.setStyleSheet("background-color: white;")
         #Inserimento icona
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_mini.png'), QtGui.QIcon.Normal, QtGui.QIcon.On)

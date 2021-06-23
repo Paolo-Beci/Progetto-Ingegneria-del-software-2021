@@ -41,7 +41,7 @@ class VistaHome(QWidget):
         #time.sleep(2)              # RIMUOVERE COMMENTO
         self.setObjectName("Home")
         self.resize(965, 530)
-        self.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.setStyleSheet("background-color: white;")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_mini.png'), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.setWindowIcon(icon)

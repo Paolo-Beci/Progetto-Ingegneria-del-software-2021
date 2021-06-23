@@ -1,7 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QSize
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QApplication, QWidget, QMessageBox
+from PyQt5.QtWidgets import QWidget, QMessageBox
 
 from listaprodotti.controller.ControllerListaProdotti import ControllerListaProdotti
 from listaprodotti.view.VistaDisplayProdotto import VistaDisplayProdotto

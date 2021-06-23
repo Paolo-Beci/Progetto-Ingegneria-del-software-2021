@@ -22,6 +22,7 @@ class VistaInserisciFornitore(QWidget):
         ''' 
             Costruzione parte statica dell'interfaccia
         '''
+        self.setStyleSheet("background-color: white;")
 
         # Inserimento icona
         icon = QtGui.QIcon()

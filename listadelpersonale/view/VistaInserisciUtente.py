@@ -21,6 +21,7 @@ class VistaInserisciUtente(QWidget):
         ''' 
             Costruzione parte statica dell'interfaccia
         '''
+        self.setStyleSheet("background-color: white;")
         self.setMinimumSize(250, 700)
         self.v_layout = QVBoxLayout()
 
