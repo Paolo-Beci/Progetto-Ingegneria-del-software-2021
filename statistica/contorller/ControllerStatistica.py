@@ -1,11 +1,9 @@
-import json
 from datetime import datetime
 
 from listadelpersonale.controller.ControllerListaDelPersonale import ControllerListaDelPersonale
 from listafornitori.controller.ControllerListaFornitori import ControllerListaFornitori
 from listaordini.controller.ControllerListaOrdini import ControllerListaOrdini
 from listaprodotti.controller.ControllerListaProdotti import ControllerListaProdotti
-from utente.controller.ControllerUtente import ControllerUtente
 
 
 class ControllerStatistica():

@@ -1,4 +1,4 @@
-import time, os
+import time
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -188,9 +188,10 @@ class VistaStatistica(QWidget):
         index = np.arange(len(dizionario_af.keys()))
         plt.bar(index, dizionario_af.values(), color=colors)
         plt.xticks(index, dizionario_af.keys(), size=10)
-        #plt.show()
 
         plt.savefig("listastatistiche/data/grafico.png")
+        plt.show()
+
 
     #Metodo che consente la visualizzazione dell'andamento finanziario
     def andamento_finanziario(self, dizionario_af):
@@ -216,7 +217,6 @@ class VistaStatistica(QWidget):
             pixmap = QPixmap("listastatistiche/data/grafico.png")
             self.immagine.setPixmap(pixmap)
             self.v_layout.addWidget(self.immagine)
-            #os.remove("listastatistiche/data/grafico.png")
 
     # Metodo che in base alla statistica scelta mostra una vista differente
     def smistatore_viste(self):
