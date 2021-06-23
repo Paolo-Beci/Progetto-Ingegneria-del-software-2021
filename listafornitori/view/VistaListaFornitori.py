@@ -1,7 +1,7 @@
 from PyQt5 import QtWidgets, QtGui, QtCore
 from PyQt5.QtCore import QSize
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QWidget, QTableWidgetItem
+from PyQt5.QtWidgets import QWidget, QTableWidgetItem, QApplication
 
 from fornitore.view.VistaFornitore import VistaFornitore
 from listafornitori.controller.ControllerListaFornitori import ControllerListaFornitori
@@ -26,6 +26,13 @@ class VistaListaFornitori(QWidget):
         ''' 
             Costruzione parte statica dell'interfaccia
         '''
+
+        #Come prendere le dimensioni dello schermo
+        self.desktop = QApplication.desktop()
+        self.screenRect = self.desktop.screenGeometry()
+        self.width = self.screenRect.width()
+        self.height = self.screenRect.height()
+
         self.setObjectName("Form")
         self.resize(1121, 576)
         self.setStyleSheet("background-color: white;")
@@ -118,12 +125,12 @@ class VistaListaFornitori(QWidget):
         self.tableWidget.setHorizontalHeaderItem(4, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(5, item)
-        self.tableWidget.setColumnWidth(0, 100)
-        self.tableWidget.setColumnWidth(1, 200)
-        self.tableWidget.setColumnWidth(2, 200)
-        self.tableWidget.setColumnWidth(3, 200)
-        self.tableWidget.setColumnWidth(4, 200)
-        self.tableWidget.setColumnWidth(5, 200)
+        self.tableWidget.setColumnWidth(0, self.width/8)
+        self.tableWidget.setColumnWidth(1, self.width/7.05)
+        self.tableWidget.setColumnWidth(2, self.width/7.05)
+        self.tableWidget.setColumnWidth(3, self.width/7.05)
+        self.tableWidget.setColumnWidth(4, self.width/7.05)
+        self.tableWidget.setColumnWidth(5, self.width/7.05)
         self.gridLayout.addWidget(self.tableWidget, 5, 1, 1, 6)
         spacerItem5 = QtWidgets.QSpacerItem(10, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
         self.gridLayout.addItem(spacerItem5, 4, 1, 1, 7)
