@@ -12,7 +12,7 @@ class ListaDelPersonale:
         self.lista_del_personale = []
         self.refresh_data()
         #boolean: abilita o disabilita il login amministratore
-        self.login = True # Da reimpostare a False!
+        self.login = False
 
     def inserisci_utente(self, utente):
         self.lista_del_personale.append(utente)

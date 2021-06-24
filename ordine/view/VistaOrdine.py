@@ -49,6 +49,7 @@ class VistaOrdine(QWidget):
         self.pushButton_indietro.setMaximumSize(QtCore.QSize(130, 16777215))
         self.pushButton_indietro.setObjectName("pushButton_indietro")
         self.gridLayout.addWidget(self.pushButton_indietro, 1, 4, 1, 1)
+        self.pushButton_indietro.setStyleSheet("QPushButton {\n" "   background-color:white;\n" "   border-width: 2px;\n""   border-radius: 10px;\n""   border: 2px solid gray;\n""   font: bold 12px;\n""   padding: 6px;\n""}")
         self.pushButton_indietro.clicked.connect(self.close)
         self.label_6 = QtWidgets.QLabel(self)
         font = QtGui.QFont()

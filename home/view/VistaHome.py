@@ -42,7 +42,7 @@ class VistaHome(QWidget):
         avvio_icon = QSplashScreen()
         avvio_icon.setPixmap(QPixmap('listaprodotti/data/images/logo_start.jpg'))
         avvio_icon.show()
-        #time.sleep(2)              # RIMUOVERE COMMENTO
+        time.sleep(2)
         self.setObjectName("Home")
         self.resize(965, 530)
         self.setStyleSheet("background-color: white;")
@@ -70,7 +70,7 @@ class VistaHome(QWidget):
                                               "    background-color:rgb(228, 107, 41);\n"
                                               "    color:white;\n"
                                               "    border-style: outset;\n" 
-                                              "    border-width: 5px;\n"    
+                                              "    border-width: 4px;\n"    
                                               "    border-color: black;\n"  
                                               "}")
         icon = QtGui.QIcon()
@@ -101,7 +101,7 @@ class VistaHome(QWidget):
                                                "    background-color:rgb(26, 108, 218);\n"
                                                "    color:white;\n"
                                                "    border-style: outset;\n" 
-                                               "    border-width: 5px;\n"    
+                                               "    border-width: 4px;\n"    
                                                "    border-color: black;\n"  
                                                "}")
         icon = QtGui.QIcon()
@@ -202,7 +202,7 @@ class VistaHome(QWidget):
                                              "    background-color:rgb(26, 108, 218);\n"
                                              "    color:white;\n"
                                              "    border-style: outset;\n" 
-                                             "    border-width: 5px;\n"    
+                                             "    border-width: 4px;\n"    
                                              "    border-color: black;\n"  
                                              "}")
         icon = QtGui.QIcon()
@@ -281,7 +281,7 @@ class VistaHome(QWidget):
                                                     "    background-color:rgb(26, 108, 218);\n"
                                                     "    color:white;\n"
                                                     "    border-style: outset;\n"
-                                                    "    border-width: 5px;\n"
+                                                    "    border-width: 4px;\n"
                                                     "    border-color: black;\n"
                                                     "}")
             icon = QtGui.QIcon()
@@ -305,7 +305,7 @@ class VistaHome(QWidget):
                                                     "    background-color:rgb(26, 108, 218);\n"
                                                     "    color:white;\n"
                                                     "    border-style: outset;\n" 
-                                                    "    border-width: 5px;\n"    
+                                                    "    border-width: 4px;\n"    
                                                     "    border-color: black;\n"  
                                                     "}")
             icon = QtGui.QIcon()
@@ -329,7 +329,7 @@ class VistaHome(QWidget):
                                                       "    background-color:rgb(26, 108, 218);\n"
                                                       "    color:white;\n"
                                                       "    border-style: outset;\n" 
-                                                      "    border-width: 5px;\n"    
+                                                      "    border-width: 4px;\n"    
                                                       "    border-color: black;\n"  
                                                       "}")
             icon = QtGui.QIcon()
@@ -376,7 +376,7 @@ class VistaHome(QWidget):
                                                  "    background-color:rgb(26, 108, 218);\n"
                                                  "    color:white;\n"
                                                  "    border-style: outset;\n" 
-                                                 "    border-width: 100px;\n"    
+                                                 "    border-width: 1px;\n"    
                                                  "    border-color: black;\n"  
                                                  "    padding: 6px;\n"
                                                  "}")

@@ -46,5 +46,21 @@
    "stipendio": 1200,
    "username": null,
    "password": null
- }
+ },
+  {
+    "cod_utente": 4,
+    "nome": "Prof",
+    "cognome": "Corradini",
+    "data_nascita": "16/11/1961",
+    "luogo_nascita": "Ancona",
+    "cod_fiscale": "ZZINTN61S16E799U",
+    "inizio_lavoro": "01/11/1990",
+    "scad_contratto": null,
+    "ruolo": "A",
+    "indirizzo_residenza": "Via Brecce Bianche, 4",
+    "n_telefonico": 3430217459,
+    "stipendio": null,
+    "username": "prof",
+    "password": "prof"
+  }
 ]
