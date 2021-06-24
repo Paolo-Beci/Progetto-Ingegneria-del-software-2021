@@ -11,7 +11,6 @@ from utente.view.VistaUtente import VistaUtente
 class VistaListaDelPersonale(QWidget):
     def __init__(self):
         super(VistaListaDelPersonale, self).__init__()
-        self.setStyleSheet("background-color: rgb(255, 255, 255);")
 
         self.controller_lista_del_personale = ControllerListaDelPersonale()
         # boolean: mi permettono di verificare se sto visualizzando in lista utenti amministratori o dipendenti
@@ -27,7 +26,7 @@ class VistaListaDelPersonale(QWidget):
         ''' 
             Costruzione parte statica dell'interfaccia
         '''
-
+        self.setStyleSheet("background-color: rgb(255, 255, 255);")
         # Come prendere le dimensioni dello schermo
         self.desktop = QApplication.desktop()
         self.screenRect = self.desktop.screenGeometry()

@@ -258,8 +258,9 @@ class VistaHome(QWidget):
             sizePolicy.setVerticalStretch(0)
             sizePolicy.setHeightForWidth(self.push_button_login.sizePolicy().hasHeightForWidth())
             self.push_button_login.setSizePolicy(sizePolicy)
-            self.push_button_login.setMinimumSize(QtCore.QSize(100, 20))
+            self.push_button_login.setMinimumSize(QtCore.QSize(150, self.height / 22))
             self.push_button_login.setObjectName("push_button_login")
+            self.push_button_login.setMaximumSize(self.width / 13, self.height / 22)
             self.push_button_login.setStyleSheet("QPushButton {\n""   background-color: rgb(26, 108, 218);\n""   border-width: 2px;\n""   border-radius: 10px;\n""   font: bold 12px;\n""   padding: 6px;\n""   color: white;\n""}")
             self.gridLayout_3.addWidget(self.push_button_login, 1, 1, 1, 1)
             self.push_button_login.setText(_translate("Home", "LOGOUT"))
@@ -369,17 +370,10 @@ class VistaHome(QWidget):
             sizePolicy.setVerticalStretch(0)
             sizePolicy.setHeightForWidth(self.push_button_login.sizePolicy().hasHeightForWidth())
             self.push_button_login.setSizePolicy(sizePolicy)
-            self.push_button_login.setMinimumSize(QtCore.QSize(150, 60))
+            self.push_button_login.setMinimumSize(QtCore.QSize(150, self.height / 22))
             self.push_button_login.setObjectName("push_button_login")
-            self.push_button_login.setStyleSheet("QPushButton {\n"
-                                                 "    border-radius:22px;\n"
-                                                 "    background-color:rgb(26, 108, 218);\n"
-                                                 "    color:white;\n"
-                                                 "    border-style: outset;\n" 
-                                                 "    border-width: 1px;\n"    
-                                                 "    border-color: black;\n"  
-                                                 "    padding: 6px;\n"
-                                                 "}")
+            self.push_button_login.setMaximumSize(self.width / 13, self.height / 22)
+            self.push_button_login.setStyleSheet("QPushButton {\n""   background-color: rgb(26, 108, 218);\n""   border-width: 2px;\n""   border-radius: 10px;\n""   font: bold 12px;\n""   padding: 6px;\n""   color: white;\n""}")
             self.gridLayout_3.addWidget(self.push_button_login, 1, 1, 1, 1)
             self.push_button_login.setText(_translate("Home", "LOGIN"))
             self.push_button_login.clicked.connect(self.go_login)
