@@ -131,7 +131,7 @@ class VistaVendita(QWidget):
         _translate = QtCore.QCoreApplication.translate
         self.setWindowTitle(_translate("MainWindow", "Vendi prodotto"))
         self.pushButton.setText(_translate("MainWindow", "VENDI"))
-        self.cerca.setPlaceholderText(_translate("MainWindow", "Cerca per codice prodotto"))
+        self.cerca.setPlaceholderText(_translate("MainWindow", "Inserisci codice e premi invio"))
         self.taglia.setItemText(0, _translate("MainWindow", "Taglia"))
         if self.flag:
             self.vista_prodotto_da_vendere = VistaDisplayProdotto(self.prodotto_trovato, self.retranslateUi, self.controller, None)
