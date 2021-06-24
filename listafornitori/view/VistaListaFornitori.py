@@ -8,9 +8,8 @@ from listafornitori.controller.ControllerListaFornitori import ControllerListaFo
 from listafornitori.view.VistaInserisciFornitore import VistaInserisciFornitore
 
 class VistaListaFornitori(QWidget):
-    def __init__(self, parent=None):
+    def __init__(self):
         super(VistaListaFornitori, self).__init__()
-        self.setStyleSheet("background-color: rgb(255, 255, 255);")
 
         self.controller = ControllerListaFornitori()
         # boolean: mi permettono di verificare se sto visualizzando in lista fornitori standard o premium
@@ -26,7 +25,7 @@ class VistaListaFornitori(QWidget):
         ''' 
             Costruzione parte statica dell'interfaccia
         '''
-
+        self.setStyleSheet("background-color: rgb(255, 255, 255);")
         #Come prendere le dimensioni dello schermo
         self.desktop = QApplication.desktop()
         self.screenRect = self.desktop.screenGeometry()
