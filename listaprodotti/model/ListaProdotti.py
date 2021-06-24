@@ -17,7 +17,7 @@ class ListaProdotti:
         self.lista_marche = []
         self.refresh_data()
 
-    def aggiungi_prodotto(self, prodotto):
+    def inserisci_prodotto(self, prodotto):
         self.lista_prodotti.append(prodotto)
         self.save_data()
 

@@ -51,6 +51,9 @@ class ControllerProdotto:
     def set_cod_fornitore(self, cod_fornitore):
         self.model.cod_fornitore = cod_fornitore
 
+    def set_cod_prodotto(self, cod_prodotto):
+        self.model.cod_prodotto = cod_prodotto
+
     def set_data_ordine(self, data_ordine):
         self.model.data_ordine = data_ordine
 
