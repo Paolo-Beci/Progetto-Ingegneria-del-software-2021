@@ -113,7 +113,7 @@ class VistaDisplayProdotto(QWidget):
 
         self.label_marca.setText(_translate("Form", "Marca: " + str(self.prodotto.marca)))
         self.pushButton_dettagli.setText(_translate("Form", "Dettagli"))
-        if str(self.prodotto.nome) == None:
+        if str(self.prodotto.nome) == "None":
             self.label_nome.setText(_translate("Form", "Nome: Nessuno"))
         else:
             self.label_nome.setText(_translate("Form", "Nome: " + str(self.prodotto.nome)))
