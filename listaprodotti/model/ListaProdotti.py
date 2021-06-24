@@ -17,10 +17,6 @@ class ListaProdotti:
         self.lista_marche = []
         self.refresh_data()
 
-    def aggiungi_prodotto(self, prodotto):
-        self.lista_prodotti.append(prodotto)
-        self.save_data()
-
     def get_lista_prodotti(self):
         return self.lista_prodotti
 
@@ -35,15 +31,11 @@ class ListaProdotti:
     def get_dimensione_lista(self):
         return len(self.lista_prodotti)
 
-    def get_dimensione_lista_marche(self):
-        return len(self.lista_marche)
-
     def get_prodotto_by_code(self, code):
         for prodotto in self.lista_prodotti:
             if prodotto.cod_prodotto == code:
                 return prodotto
 
-    # Giuseppe
     def get_anno_prodotto_by_code(self, codice):
         for prodotto in self.lista_prodotti:
             if prodotto.cod_prodotto == codice and prodotto.data_ordine is not None:
@@ -51,7 +43,6 @@ class ListaProdotti:
                 anno = splitted_date[2]
                 return anno
 
-    # Giuseppe
     def get_nome_prodotto_by_code(self, codice):
         for prodotto in self.lista_prodotti:
             if prodotto.cod_prodotto == codice and prodotto.nome is not None:
@@ -73,6 +64,10 @@ class ListaProdotti:
         for prodotto in self.lista_prodotti:
             if prodotto.cod_prodotto == codice:
                 return prodotto.quantita
+
+    def aggiungi_prodotto(self, prodotto):
+        self.lista_prodotti.append(prodotto)
+        self.save_data()
 
     def elimina_prodotto(self, codice_prodotto, lista_prodotti_filtrata):
         for prodotto in self.lista_prodotti:
