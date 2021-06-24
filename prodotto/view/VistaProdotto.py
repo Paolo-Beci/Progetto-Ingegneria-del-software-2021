@@ -8,7 +8,6 @@ from prodotto.view.VistaModificaProdotto import VistaModificaProdotto
 
 """
     VISUALIZZAZIONE DEI PARAMETRI DEL PRODOTTO
-    DA FARE: Sistemare elimina prodotto che non funzia
 """
 
 
