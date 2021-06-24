@@ -5,11 +5,11 @@ from listaordini.controller.ControllerListaOrdini import ControllerListaOrdini
 
 """
     INSERISCI NUOVO PRODOTTO
-    permette di inserire un nuovo prodotto nel database
+        Permette di inserire un nuovo prodotto nel database
 """
 
 
-class VistaInserisciProdotto(QWidget):  # sistema anche le altre chiamate da vistaProdotto
+class VistaInserisciProdotto(QWidget):
     def __init__(self, controller_lista_prodotti, update_ui, inserimento_da_ordine, lista_prodotti_ordine,
                  lista_prodotti_filtrata, ordine):
         super(VistaInserisciProdotto, self).__init__()

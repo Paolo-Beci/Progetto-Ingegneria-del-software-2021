@@ -2,7 +2,6 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 from PyQt5.QtCore import QSize
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QWidget, QLabel, QMessageBox, QApplication
-import time
 
 from listaordini.controller.ControllerListaOrdini import ControllerListaOrdini
 from listaprodotti.controller.ControllerListaProdotti import ControllerListaProdotti

@@ -8,6 +8,7 @@ from prodotto.view.VistaProdotto import VistaProdotto
 
 """
     DISPLAY DEL SINGOLO PRODOTTO IN VistaListaProdotti
+        Contiene le informazioni necessarie per costruire l'interfaccia di ogni singola tile di VistaListaProdotti
 """
 
 

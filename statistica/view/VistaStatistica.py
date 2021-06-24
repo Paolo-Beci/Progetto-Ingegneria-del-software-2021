@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from PyQt5 import QtWidgets, QtCore, QtGui
 
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QTableWidgetItem, QMessageBox, QApplication
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QTableWidgetItem, QApplication
 
 from fornitore.model.Fornitore import Fornitore
 from listafornitori.controller.ControllerListaFornitori import ControllerListaFornitori
