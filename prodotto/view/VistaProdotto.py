@@ -88,7 +88,7 @@ class VistaProdotto(QWidget):
         self.pushButton_modifica.setObjectName("pushButton_modifica")
         self.gridLayout.addWidget(self.pushButton_modifica, 5, 2, 1, 1)
         self.pushButton_modifica.setStyleSheet("QPushButton {\n""   background-color: rgb(26, 108, 218);\n""   border-width: 2px;\n""   border-radius: 10px;\n""   font: bold 12px;\n""   padding: 6px;\n""   color: white;\n""}")
-        self.pushButton_modifica.clicked.connect(self.modifica_prodotto_click)
+        self.pushButton_modifica.clicked.connect(self.show_modifica_prodotto)
         # elimina button
         self.pushButton_elimina = QtWidgets.QPushButton(self.widget_2)
         self.pushButton_elimina.setObjectName("pushButton_elimina")
@@ -220,7 +220,7 @@ class VistaProdotto(QWidget):
         self.update_ui()
         self.close()
 
-    def modifica_prodotto_click(self):
+    def show_modifica_prodotto(self):
         self.vista_modifica_prodotto = VistaModificaProdotto(self.controller_lista_prodotti, self.update_ui, self.prodotto)
         self.vista_modifica_prodotto.showMaximized()
         time.sleep(0.3)

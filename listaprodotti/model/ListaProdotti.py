@@ -35,21 +35,10 @@ class ListaProdotti:
     def get_dimensione_lista(self):
         return len(self.lista_prodotti)
 
-    def get_dimensione_lista_marche(self):
-        return len(self.lista_marche)
-
     def get_prodotto_by_code(self, code):
         for prodotto in self.lista_prodotti:
             if prodotto.cod_prodotto == code:
                 return prodotto
-
-    # Giuseppe
-    def get_anno_prodotto_by_code(self, codice):
-        for prodotto in self.lista_prodotti:
-            if prodotto.cod_prodotto == codice and prodotto.data_ordine is not None:
-                splitted_date = prodotto.data_ordine.split("/")
-                anno = splitted_date[2]
-                return anno
 
     # Giuseppe
     def get_nome_prodotto_by_code(self, codice):
@@ -58,21 +47,6 @@ class ListaProdotti:
                 return prodotto.nome
             elif prodotto.cod_prodotto == codice and prodotto.nome is None:
                 return "Nessun nome"
-
-    def get_prezzo_prodotto_by_code(self, codice):
-        for prodotto in self.lista_prodotti:
-            if prodotto.cod_prodotto == codice:
-                return prodotto.prezzo_vendita
-
-    def get_marca_prodotto_by_code(self, codice):
-        for prodotto in self.lista_prodotti:
-            if prodotto.cod_prodotto == codice:
-                return prodotto.marca
-
-    def get_quantita_prodotto_by_code(self, codice):
-        for prodotto in self.lista_prodotti:
-            if prodotto.cod_prodotto == codice:
-                return prodotto.quantita
 
     def elimina_prodotto(self, codice_prodotto, lista_prodotti_filtrata):
         for prodotto in self.lista_prodotti:
