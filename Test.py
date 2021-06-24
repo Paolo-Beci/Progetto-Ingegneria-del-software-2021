@@ -28,7 +28,7 @@ class Test(unittest.TestCase):
 
     def test_visualizza_prodotto(self):
         prodotto = self.controller_listaprodotti.get_prodotto_by_code(self.prodotto.cod_prodotto)
-        self.assertTrue(prodotto is self.prodotto)
+        self.assertTrue(prodotto, self.prodotto)
 
 
 if __name__ == '__main__':
