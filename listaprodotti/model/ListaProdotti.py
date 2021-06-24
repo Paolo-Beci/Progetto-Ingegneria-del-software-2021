@@ -54,6 +54,7 @@ class ListaProdotti:
                 self.lista_prodotti.remove(prodotto)
                 lista_prodotti_filtrata.remove(prodotto)
 
+    # Metodo: ricarica in lista i dati da file pickle, se esistente e non vuoto, o dal file json
     def refresh_data(self):
         if os.path.isfile('listaprodotti/data/DatabaseProdotti.pickle') and os.stat('listaprodotti/data/DatabaseProdotti.pickle').st_size!=0:
             with open('listaprodotti/data/DatabaseProdotti.pickle', 'rb') as f:

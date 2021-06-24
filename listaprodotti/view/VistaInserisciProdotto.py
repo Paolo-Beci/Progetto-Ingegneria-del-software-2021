@@ -23,7 +23,9 @@ class VistaInserisciProdotto(QWidget):
         self.ordine = ordine
 
         #######################################################################
-
+        '''
+            Costruzione parte statica dell'interfaccia  
+        '''
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_mini.png'), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.setWindowIcon(icon)
@@ -354,6 +356,9 @@ class VistaInserisciProdotto(QWidget):
         self.setWindowTitle("Inserisci prodotto")
         QtCore.QMetaObject.connectSlotsByName(self)
 
+    '''
+        Costruzione parte dinamica dell'interfaccia  
+    '''
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
         self.label_codice_prodotto.setText(_translate("Form", "Codice prodotto"))

@@ -80,8 +80,8 @@ class VistaLogin(QWidget):
         QtCore.QMetaObject.connectSlotsByName(self)
 
     '''
-        Costruzione parte dinamica dell'interfaccia  
-    '''
+            Costruzione parte dinamica dell'interfaccia  
+        '''
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
         self.setWindowTitle(_translate("Form", "Login"))
@@ -109,6 +109,7 @@ class VistaLogin(QWidget):
         else:
             self.popup_errore()
 
+    # Metodo: consente la visualizzazione di un messaggio di errore nel caso l'utente inserisca un username o una password errata
     def popup_errore(self):
         msg = QMessageBox()
         msg.setWindowTitle("ATTENZIONE")
@@ -119,5 +120,6 @@ class VistaLogin(QWidget):
         msg.setDefaultButton(QMessageBox.Yes)
         msg.exec_()
 
+    # Metodo: consente di eseguire una determinata azione alla chiusura dell'interfaccia
     def closeEvent(self, event):
         self.update_ui()
