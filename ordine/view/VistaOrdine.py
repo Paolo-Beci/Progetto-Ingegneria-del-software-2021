@@ -1,5 +1,5 @@
 import time
-from PyQt5.QtWidgets import QWidget, QTableWidgetItem, QMessageBox
+from PyQt5.QtWidgets import QWidget, QTableWidgetItem, QMessageBox, QApplication
 from PyQt5 import QtCore, QtWidgets, QtGui
 
 from listaprodotti.view.VistaInserisciProdotto import VistaInserisciProdotto
@@ -27,6 +27,13 @@ class VistaOrdine(QWidget):
         ''' 
             Costruzione parte statica dell'interfaccia
         '''
+
+        # Come prendere le dimensioni dello schermo
+        self.desktop = QApplication.desktop()
+        self.screenRect = self.desktop.screenGeometry()
+        self.width = self.screenRect.width()
+        self.height = self.screenRect.height()
+
         # Inserimento icona
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_mini.png'), QtGui.QIcon.Normal, QtGui.QIcon.On)
@@ -81,12 +88,12 @@ class VistaOrdine(QWidget):
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(5, item)
 
-        self.tableWidget.setColumnWidth(0, 150)
-        self.tableWidget.setColumnWidth(1, 200)
-        self.tableWidget.setColumnWidth(2, 200)
-        self.tableWidget.setColumnWidth(3, 150)
-        self.tableWidget.setColumnWidth(4, 180)
-        self.tableWidget.setColumnWidth(5, 180)
+        self.tableWidget.setColumnWidth(0, self.width/10)
+        self.tableWidget.setColumnWidth(1, self.width/7)
+        self.tableWidget.setColumnWidth(2, self.width/7)
+        self.tableWidget.setColumnWidth(3, self.width/8)
+        self.tableWidget.setColumnWidth(4, self.width/8)
+        self.tableWidget.setColumnWidth(5, self.width/7.3)
         self.gridLayout.addWidget(self.tableWidget, 2, 2, 11, 7)
         self.pushButton_aggiungi_prodotto = QtWidgets.QPushButton(self)
         self.pushButton_aggiungi_prodotto.setMinimumSize(QtCore.QSize(100, 0))
@@ -115,7 +122,7 @@ class VistaOrdine(QWidget):
         font = QtGui.QFont()
         font.setPointSize(11)
         self.label.setFont(font)
-        self.label.setObjectName("label")
+        self.label.setObjectName("label_icon")
         self.gridLayout.addWidget(self.label, 2, 0, 1, 1)
         self.label_9 = QtWidgets.QLabel(self)
         font = QtGui.QFont()
@@ -179,6 +186,10 @@ class VistaOrdine(QWidget):
         self.horizontalLayout.addItem(spacerItem7)
         self.pushButton_elimina = QtWidgets.QPushButton(self)
         self.pushButton_elimina.setObjectName("pushButton_elimina")
+        self.pushButton_elimina.setStyleSheet("QPushButton {\n"
+                                              "    background-color:rgb(255, 0, 0);\n"
+                                              "    color:white;\n"
+                                              "}")
         self.pushButton_elimina.clicked.connect(self.elimina_ordine_click)
         self.horizontalLayout.addWidget(self.pushButton_elimina)
         self.pushButton_elimina.setStyleSheet("QPushButton {\n""   background-color: red;\n""   border-width: 2px;\n""   border-radius: 10px;\n""   font: bold 12px;\n""   padding: 6px;\n""   color: white;\n""}")

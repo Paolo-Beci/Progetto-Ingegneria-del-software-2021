@@ -1,7 +1,7 @@
 import sys
 
 from PyQt5 import QtWidgets, QtCore, QtGui
-from PyQt5.QtWidgets import QWidget, QTableWidgetItem, QMessageBox
+from PyQt5.QtWidgets import QWidget, QTableWidgetItem, QMessageBox, QApplication
 
 from listaprodotti.view.VistaInserisciProdotto import VistaInserisciProdotto
 from ordine.model.Ordine import Ordine
@@ -28,6 +28,13 @@ class VistaInserisciOrdine(QWidget):
         ''' 
             Costruzione parte statica dell'interfaccia
         '''
+
+        # Come prendere le dimensioni dello schermo
+        self.desktop = QApplication.desktop()
+        self.screenRect = self.desktop.screenGeometry()
+        self.width = self.screenRect.width()
+        self.height = self.screenRect.height()
+
         self.setObjectName("Form")
         self.resize(962, 780)
         self.setStyleSheet("background-color: white;")
@@ -126,12 +133,12 @@ class VistaInserisciOrdine(QWidget):
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(5, item)
 
-        self.tableWidget.setColumnWidth(0, 150)
-        self.tableWidget.setColumnWidth(1, 200)
-        self.tableWidget.setColumnWidth(2, 200)
-        self.tableWidget.setColumnWidth(3, 150)
-        self.tableWidget.setColumnWidth(4, 180)
-        self.tableWidget.setColumnWidth(5, 180)
+        self.tableWidget.setColumnWidth(0, self.width/7.72)
+        self.tableWidget.setColumnWidth(1, self.width/7.72)
+        self.tableWidget.setColumnWidth(2, self.width/7.72)
+        self.tableWidget.setColumnWidth(3, self.width/7.72)
+        self.tableWidget.setColumnWidth(4, self.width/7.72)
+        self.tableWidget.setColumnWidth(5, self.width/7.72)
         self.gridLayout.addWidget(self.tableWidget, 2, 2, 26, 5)
         self.label_cod_fattura = QtWidgets.QLabel(self)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)

@@ -2,6 +2,7 @@ import sys, time
 from datetime import datetime
 
 from PyQt5 import QtGui, QtWidgets
+from PyQt5.QtCore import QSize
 from PyQt5.QtGui import QStandardItemModel, QStandardItem, QPixmap
 from PyQt5.QtWidgets import QWidget, QListView, QMessageBox
 from PyQt5 import QtCore
@@ -20,6 +21,7 @@ class VistaListaStatistiche(QWidget):
         self.setObjectName("Form")
         self.setEnabled(True)
         self.resize(1046, 676)
+        self.setStyleSheet("background-color: white;")
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -53,6 +55,7 @@ class VistaListaStatistiche(QWidget):
         self.prod_button.setObjectName("prod_button")
         self.prod_button.clicked.connect(self.filter_prodotti)
         self.gridLayout_3.addWidget(self.prod_button, 0, 0, 1, 1)
+        self.prod_button.setStyleSheet("QPushButton {\n""   background-color: rgb(26, 108, 218);\n""   border-width: 2px;\n""   border-radius: 10px;\n""   font: bold 12px;\n""   padding: 6px;\n""   color: white;\n""}")
         self.combo = QtWidgets.QComboBox(self)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -65,11 +68,19 @@ class VistaListaStatistiche(QWidget):
         self.combo.addItem("")
         self.combo.addItem("")
         self.gridLayout_3.addWidget(self.combo, 0, 5, 1, 1)
+        self.combo.setStyleSheet("QComboBox {\n"
+                                 "   background-color:rgb(26, 108, 218);\n"
+                                 "   border-width: 2px;\n"
+                                 "   font: 12px;\n"
+                                 "   padding: 3px;\n"
+                                 "   color: white;\n"
+                                 "}")
 
         self.forn_button = QtWidgets.QPushButton(self)
         self.forn_button.setObjectName("forn_button")
         self.forn_button.clicked.connect(self.filter_fornitori)
         self.gridLayout_3.addWidget(self.forn_button, 0, 1, 1, 1)
+        self.forn_button.setStyleSheet("QPushButton {\n""   background-color: rgb(26, 108, 218);\n""   border-width: 2px;\n""   border-radius: 10px;\n""   font: bold 12px;\n""   padding: 6px;\n""   color: white;\n""}")
 
         self.anno_line = QtWidgets.QLineEdit(self)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
@@ -82,6 +93,14 @@ class VistaListaStatistiche(QWidget):
         self.anno_line.setPlaceholderText("Inserisci l'anno da filtrare")
         self.anno_line.returnPressed.connect(self.filter_button_click)
         self.gridLayout_3.addWidget(self.anno_line, 0, 6, 1, 1)
+        self.anno_line.setStyleSheet("QLineEdit {\n"
+                                 "   border-width: 2px;\n"
+                                 "   border-radius: 10px;\n"
+                                 "   border: 2px solid gray;\n"
+                                 "   font: 12px;\n"
+                                 "   padding: 6px;\n"
+                                 "min-width: 170px;\n"
+                                 "}")
         self.list_view = QListView()
         self.listview_model = QStandardItemModel(self.list_view)
         self.listview_model.setObjectName("listItems")
@@ -96,6 +115,7 @@ class VistaListaStatistiche(QWidget):
         self.all_button.setObjectName("all_button")
         self.all_button.clicked.connect(self.filter_all)
         self.gridLayout_3.addWidget(self.all_button, 0, 2, 1, 1)
+        self.all_button.setStyleSheet("QPushButton {\n""   background-color: rgb(26, 108, 218);\n""   border-width: 2px;\n""   border-radius: 10px;\n""   font: bold 12px;\n""   padding: 6px;\n""   color: white;\n""}")
         self.gridLayout.addLayout(self.gridLayout_3, 3, 0, 1, 5)
 
         self.back_button = QtWidgets.QPushButton(self)
@@ -105,8 +125,18 @@ class VistaListaStatistiche(QWidget):
         sizePolicy.setHeightForWidth(self.back_button.sizePolicy().hasHeightForWidth())
         self.back_button.setSizePolicy(sizePolicy)
         self.back_button.setObjectName("back_button")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_home.png'))
+        self.back_button.setIcon(icon)
+        self.back_button.setIconSize(QSize(50, 50))
         self.back_button.clicked.connect(self.close)
         self.gridLayout.addWidget(self.back_button, 0, 0, 1, 1)
+        self.back_button.setStyleSheet("QPushButton {\n"
+                                    "   background-color:white;\n"
+                                    "   border-width: 2px;\n"
+                                    "   border-radius: 10px;\n"
+                                    "   padding: 6px;\n"
+                                    "}")
         spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem2, 0, 3, 1, 2)
         spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
@@ -124,6 +154,7 @@ class VistaListaStatistiche(QWidget):
         self.open_button.setObjectName("open_button")
         self.open_button.clicked.connect(self.filter_button_click)
         self.gridLayout_4.addWidget(self.open_button, 0, 1, 1, 1)
+        self.open_button.setStyleSheet("QPushButton {\n""   background-color: rgb(26, 108, 218);\n""   border-width: 2px;\n""   border-radius: 10px;\n""   font: bold 15px;\n""   padding: 6px;\n""   color: white;\n""}")
         spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.MinimumExpanding,
                                             QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_4.addItem(spacerItem4, 0, 0, 1, 1)
@@ -145,7 +176,6 @@ class VistaListaStatistiche(QWidget):
         self.combo.setItemText(0, _translate("Form", "Primavera/Estate"))
         self.combo.setItemText(1, _translate("Form", "Autunno/Inverno"))
         self.open_button.setText(_translate("Form", "Apri"))
-        self.back_button.setText(_translate("Form", "<- Indietro"))
 
     # Metodo che consente di visualizzare la statistica selezionato
     def show_statistica(self, anno, stagione):

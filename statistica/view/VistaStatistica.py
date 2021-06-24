@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from PyQt5 import QtWidgets, QtCore, QtGui
 
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QTableWidgetItem, QMessageBox
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QTableWidgetItem, QMessageBox, QApplication
 
 from fornitore.model.Fornitore import Fornitore
 from listafornitori.controller.ControllerListaFornitori import ControllerListaFornitori
@@ -25,7 +25,12 @@ class VistaStatistica(QWidget):
         self.controller_prod = ControllerListaProdotti()
         self.controller_forn = ControllerListaFornitori()
 
-        self.setGeometry(200, 150, 400, 0)
+        self.desktop = QApplication.desktop()
+        self.screenRect = self.desktop.screenGeometry()
+        self.width = self.screenRect.width()
+        self.height = self.screenRect.height()
+
+        self.setGeometry(self.width/7, self.height/5, self.width/5, 0)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_mini.png'), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.setWindowIcon(icon)
@@ -65,7 +70,7 @@ class VistaStatistica(QWidget):
             font = self.nessun_elem.font()
             font.setPointSize(18)
             self.nessun_elem.setFont(font)
-            self.setGeometry(100, 150, 0, 0)
+            self.setGeometry(self.width/7, self.height/5, 0, 0)
             self.v_layout.addWidget(self.nessun_elem)
         else:
             self.tableWidget = QtWidgets.QTableWidget(self)
@@ -79,51 +84,51 @@ class VistaStatistica(QWidget):
             self.tableWidget.setHorizontalHeaderItem(2, item)
             item = QtWidgets.QTableWidgetItem()
             self.tableWidget.setHorizontalHeaderItem(3, item)
-            self.setFixedWidth(1010)
+            self.setFixedWidth(self.width/1.35)
             self.v_layout.addWidget(self.tableWidget)
 
             item = self.tableWidget.horizontalHeaderItem(0)
             item.setText(self._translate("Form", "Codice"))
 
             if self.selected == 0:
-                self.tableWidget.setColumnWidth(0, 240)
-                self.tableWidget.setColumnWidth(1, 240)
-                self.tableWidget.setColumnWidth(2, 240)
-                self.tableWidget.setColumnWidth(3, 240)
+                self.tableWidget.setColumnWidth(0, self.width/5.65)
+                self.tableWidget.setColumnWidth(1, self.width/5.65)
+                self.tableWidget.setColumnWidth(2, self.width/5.65)
+                self.tableWidget.setColumnWidth(3, self.width/5.65)
                 self.creazione_ct("Marca", "Nome", "Quantità vendute")
             elif self.selected == 1:
-                self.tableWidget.setColumnWidth(0, 240)
-                self.tableWidget.setColumnWidth(1, 240)
-                self.tableWidget.setColumnWidth(2, 240)
-                self.tableWidget.setColumnWidth(3, 240)
+                self.tableWidget.setColumnWidth(0, self.width/5.65)
+                self.tableWidget.setColumnWidth(1, self.width/5.65)
+                self.tableWidget.setColumnWidth(2, self.width/5.65)
+                self.tableWidget.setColumnWidth(3, self.width/5.65)
                 self.creazione_ct("Marca", "Nome", "Quantità vendute")
             elif self.selected == 2:
-                self.tableWidget.setColumnWidth(0, 240)
-                self.tableWidget.setColumnWidth(1, 240)
-                self.tableWidget.setColumnWidth(2, 240)
-                self.tableWidget.setColumnWidth(3, 240)
+                self.tableWidget.setColumnWidth(0, self.width/5.65)
+                self.tableWidget.setColumnWidth(1, self.width/5.65)
+                self.tableWidget.setColumnWidth(2, self.width/5.65)
+                self.tableWidget.setColumnWidth(3, self.width/5.65)
                 self.creazione_ct("Marca", "Nome", "Guadagno (in €)")
             elif self.selected == 3:
-                self.tableWidget.setColumnWidth(0, 240)
-                self.tableWidget.setColumnWidth(1, 240)
-                self.tableWidget.setColumnWidth(2, 240)
-                self.tableWidget.setColumnWidth(3, 242)
+                self.tableWidget.setColumnWidth(0, self.width/5.65)
+                self.tableWidget.setColumnWidth(1, self.width/5.65)
+                self.tableWidget.setColumnWidth(2, self.width/5.65)
+                self.tableWidget.setColumnWidth(3, self.width/5.5)
                 self.creazione_ct("Nome", "Stato", "Importo totale (in €)")
             elif self.selected == 4:
-                self.tableWidget.setColumnWidth(0, 290)
-                self.tableWidget.setColumnWidth(1, 290)
-                self.tableWidget.setColumnWidth(2, 290)
-                self.tableWidget.setColumnWidth(3, 290)
-                self.setFixedWidth(1200)
-                self.setGeometry(100, 150, 0, 0)
+                self.tableWidget.setColumnWidth(0, self.width/4.7)
+                self.tableWidget.setColumnWidth(1, self.width/4.7)
+                self.tableWidget.setColumnWidth(2, self.width/4.7)
+                self.tableWidget.setColumnWidth(3, self.width/4.7)
+                self.setFixedWidth(self.width/1.135)
+                self.setGeometry(self.width/15, self.height/5, 0, 0)
                 self.creazione_ct("Nome", "Stato", "Calzature totali")
             elif self.selected == 5:
-                self.tableWidget.setColumnWidth(0, 290)
-                self.tableWidget.setColumnWidth(1, 290)
-                self.tableWidget.setColumnWidth(2, 290)
-                self.tableWidget.setColumnWidth(3, 290)
-                self.setFixedWidth(1200)
-                self.setGeometry(100, 150, 0, 0)
+                self.tableWidget.setColumnWidth(0, self.width/4.7)
+                self.tableWidget.setColumnWidth(1, self.width/4.7)
+                self.tableWidget.setColumnWidth(2, self.width/4.7)
+                self.tableWidget.setColumnWidth(3, self.width/4.7)
+                self.setFixedWidth(self.width/1.135)
+                self.setGeometry(self.width/15, self.height/5, 0, 0)
                 self.creazione_ct("Nome", "Stato", "Giorni di ritardo")
 
             row = 0
@@ -131,13 +136,13 @@ class VistaStatistica(QWidget):
             for (codice, valore) in lista_ordinata:
                 if self.selected == 0 or self.selected == 1 or self.selected == 2:
                     self.tableWidget.setMinimumHeight(330)
-                    self.setFixedHeight(400)
+                    self.setFixedHeight(self.width/3.4)
                     prodotto = self.controller_prod.get_prodotto_by_code(codice)
                     self.tableWidget.setColumnCount(4)
                     self.riempimento_tabella(prodotto, codice, str(valore), row)
                 elif self.selected == 3 or self.selected == 4 or self.selected == 5:
                     self.tableWidget.setMinimumHeight(120)
-                    self.setFixedHeight(190)
+                    self.setFixedHeight(self.width/7)
                     fornitore = self.controller_forn.get_fornitore_by_code(codice)
                     self.tableWidget.setColumnCount(4)
                     self.riempimento_tabella(fornitore, codice, str(valore), row)
