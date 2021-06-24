@@ -30,6 +30,10 @@ class VistaHome(QWidget):
         # FONT
         font = QtGui.QFont()
         font.setPointSize(25)
+        self.desktop = QApplication.desktop()
+        self.screenRect = self.desktop.screenGeometry()
+        self.width = self.screenRect.width()
+        self.height = self.screenRect.height()
 
         ''' 
             Costruzione parte statica dell'interfaccia
@@ -57,21 +61,23 @@ class VistaHome(QWidget):
         sizePolicy.setHeightForWidth(self.pushButton_vendita.sizePolicy().hasHeightForWidth())
         self.pushButton_vendita.setSizePolicy(sizePolicy)
         self.pushButton_vendita.setMinimumSize(QtCore.QSize(130, 60))
+        self.pushButton_vendita.setMinimumHeight(self.height/5)
+        self.pushButton_vendita.setMaximumHeight(self.height/5)
         self.pushButton_vendita.setFont(font)
         self.pushButton_vendita.setObjectName("pushButton_vendita")
         self.pushButton_vendita.setStyleSheet("QPushButton {\n"
                                               "    border-radius:22px;\n"
                                               "    background-color:rgb(228, 107, 41);\n"
                                               "    color:white;\n"
+                                              "    border-style: outset;\n" 
+                                              "    border-width: 5px;\n"    
+                                              "    border-color: black;\n"  
                                               "}")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_vendita.png'))
         self.pushButton_vendita.setIcon(icon)
-        self.desktop = QApplication.desktop()
-        self.screenRect = self.desktop.screenGeometry()
-        self.width = self.screenRect.width()
-        self.height = self.screenRect.height()
-        self.pushButton_vendita.setIconSize(QSize(self.width / 6, self.height / 6))
+
+        self.pushButton_vendita.setIconSize(QSize(self.width / 7, self.height / 7))
         self.gridLayout_2.addWidget(self.pushButton_vendita, 5, 1, 1, 1)
 
         self.label = QtWidgets.QLabel(self)
@@ -94,11 +100,14 @@ class VistaHome(QWidget):
                                                "    border-radius:22px;\n"
                                                "    background-color:rgb(26, 108, 218);\n"
                                                "    color:white;\n"
+                                               "    border-style: outset;\n" 
+                                               "    border-width: 5px;\n"    
+                                               "    border-color: black;\n"  
                                                "}")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_prodotti.png'))
         self.pushButton_prodotti.setIcon(icon)
-        self.pushButton_prodotti.setIconSize(QSize(self.width / 5, self.height / 5))
+        self.pushButton_prodotti.setIconSize(QSize(self.width / 6, self.height / 6))
         self.gridLayout_2.addWidget(self.pushButton_prodotti, 5, 5, 1, 1)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
@@ -192,11 +201,14 @@ class VistaHome(QWidget):
                                              "    border-radius:22px;\n"
                                              "    background-color:rgb(26, 108, 218);\n"
                                              "    color:white;\n"
+                                             "    border-style: outset;\n" 
+                                             "    border-width: 5px;\n"    
+                                             "    border-color: black;\n"  
                                              "}")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_ordini.png'))
         self.pushButton_ordini.setIcon(icon)
-        self.pushButton_ordini.setIconSize(QSize(self.width / 8, self.height / 8))
+        self.pushButton_ordini.setIconSize(QSize(self.width / 9, self.height / 9))
         self.gridLayout_2.addWidget(self.pushButton_ordini, 5, 3, 1, 1)
         spacerItem13 = QtWidgets.QSpacerItem(100, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_2.addItem(spacerItem13, 5, 4, 3, 1)
@@ -259,7 +271,8 @@ class VistaHome(QWidget):
             sizePolicy.setVerticalStretch(0)
             sizePolicy.setHeightForWidth(self.pushButton_personale.sizePolicy().hasHeightForWidth())
             self.pushButton_personale.setSizePolicy(sizePolicy)
-            self.pushButton_personale.setMinimumSize(QtCore.QSize(130, 60))
+            self.pushButton_personale.setMinimumSize(QtCore.QSize(130, self.height/5))
+            self.pushButton_personale.setMaximumHeight(self.height/5)
             self.pushButton_personale.setMaximumWidth(self.width / 6)
             self.pushButton_personale.setFont(font)
             self.pushButton_personale.setObjectName("pushButton_personale")
@@ -267,11 +280,14 @@ class VistaHome(QWidget):
                                                     "    border-radius:22px;\n"
                                                     "    background-color:rgb(26, 108, 218);\n"
                                                     "    color:white;\n"
+                                                    "    border-style: outset;\n"
+                                                    "    border-width: 5px;\n"
+                                                    "    border-color: black;\n"
                                                     "}")
             icon = QtGui.QIcon()
             icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_personale.png'))
             self.pushButton_personale.setIcon(icon)
-            self.pushButton_personale.setIconSize(QSize(self.width / 5, self.height / 5))
+            self.pushButton_personale.setIconSize(QSize(self.width / 6, self.height / 6))
             self.gridLayout_2.addWidget(self.pushButton_personale, 7, 5, 1, 1)
 
             self.pushButton_fornitori = QtWidgets.QPushButton(self)
@@ -281,17 +297,21 @@ class VistaHome(QWidget):
             sizePolicy.setHeightForWidth(self.pushButton_fornitori.sizePolicy().hasHeightForWidth())
             self.pushButton_fornitori.setSizePolicy(sizePolicy)
             self.pushButton_fornitori.setMinimumSize(QtCore.QSize(130, self.height / 5))
+            self.pushButton_fornitori.setMaximumHeight(self.height/ 5)
             self.pushButton_fornitori.setFont(font)
             self.pushButton_fornitori.setObjectName("pushButton_fornitori")
             self.pushButton_fornitori.setStyleSheet("QPushButton {\n"
                                                     "    border-radius:22px;\n"
                                                     "    background-color:rgb(26, 108, 218);\n"
                                                     "    color:white;\n"
+                                                    "    border-style: outset;\n" 
+                                                    "    border-width: 5px;\n"    
+                                                    "    border-color: black;\n"  
                                                     "}")
             icon = QtGui.QIcon()
             icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_fornitori.png'))
             self.pushButton_fornitori.setIcon(icon)
-            self.pushButton_fornitori.setIconSize(QSize(self.width / 6, self.height / 6))
+            self.pushButton_fornitori.setIconSize(QSize(self.width / 7, self.height / 7))
             self.gridLayout_2.addWidget(self.pushButton_fornitori, 7, 1, 1, 1)
 
             self.pushButton_statistiche = QtWidgets.QPushButton(self)
@@ -302,16 +322,20 @@ class VistaHome(QWidget):
             self.pushButton_statistiche.setSizePolicy(sizePolicy)
             self.pushButton_statistiche.setMinimumSize(QtCore.QSize(130, 60))
             self.pushButton_statistiche.setFont(font)
+            self.pushButton_statistiche.setMaximumHeight(self.height/5)
             self.pushButton_statistiche.setObjectName("pushButton_statistiche")
             self.pushButton_statistiche.setStyleSheet("QPushButton {\n"
                                                       "    border-radius:22px;\n"
                                                       "    background-color:rgb(26, 108, 218);\n"
                                                       "    color:white;\n"
+                                                      "    border-style: outset;\n" 
+                                                      "    border-width: 5px;\n"    
+                                                      "    border-color: black;\n"  
                                                       "}")
             icon = QtGui.QIcon()
             icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_statistiche.png'))
             self.pushButton_statistiche.setIcon(icon)
-            self.pushButton_statistiche.setIconSize(QSize(self.width / 6, self.height / 6))
+            self.pushButton_statistiche.setIconSize(QSize(self.width / 7, self.height / 7))
             self.gridLayout_2.addWidget(self.pushButton_statistiche, 7, 3, 1, 1)
 
             self.pushButton_personale.setText(_translate("Home", ""))
@@ -351,6 +375,9 @@ class VistaHome(QWidget):
                                                  "    border-radius:22px;\n"
                                                  "    background-color:rgb(26, 108, 218);\n"
                                                  "    color:white;\n"
+                                                 "    border-style: outset;\n" 
+                                                 "    border-width: 100px;\n"    
+                                                 "    border-color: black;\n"  
                                                  "    padding: 6px;\n"
                                                  "}")
             self.gridLayout_3.addWidget(self.push_button_login, 1, 1, 1, 1)
