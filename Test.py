@@ -1,13 +1,12 @@
-import unittest, sys
-
-#sys.path.append("C:\Users\Giuseppe\PycharmProjects\Progetto-Ingegneria-del-software-2021\listaprodotti\data")
+import unittest
 from listaprodotti.controller.ControllerListaProdotti import ControllerListaProdotti
+from listaprodotti.view.VistaListaProdotti import VistaListaProdotti
+from prodotto.controller.ControllerProdotto import ControllerProdotto
 
 from prodotto.model.Prodotto import Prodotto
 
 """
     CLASSE DI TEST DEL PROGRAMMA
-    DA FARE: test per ogni componente
 """
 
 
@@ -21,15 +20,43 @@ class Test(unittest.TestCase):
                                  quantita=1, prezzo_acquisto=60, prezzo_vendita=120, stagione="P/E", stato="Venduto",
                                  sconto_consigliato=20, sconto=15, data_vendita="26/03/2021")
 
+        self.controller_prodotto = ControllerProdotto(self.prodotto)
+
     def test_inserisci_prodotto(self):
         self.assertIsNotNone(self.prodotto.cod_prodotto)
         self.controller_listaprodotti.inserisci_prodotto(self.prodotto)
         self.assertTrue(self.prodotto in self.model_lista_prodotti)
 
+    def test_filtra_lista_prodotti(self):
+        # self.vista_lista_prodotti = VistaListaProdotti()
+        print("QUI")
+        #self.vista_lista_prodotti.filtro_lista(False, False, True, False)
+        #model_lista_filtrata= self.vista_lista_prodotti.lista_prodotti_filtrata
+        elementi_da_rimuovere= []
+        for prodotto in self.model_lista_prodotti:
+            if prodotto.stato != "Venduto":
+                elementi_da_rimuovere.append(prodotto)
+        for prodotto in elementi_da_rimuovere:
+            self.model_lista_prodotti.remove(prodotto)
+        elementi_da_rimuovere.clear()
+
+        for prodotto in self.model_lista_prodotti:
+            print(prodotto.stato)
+            if "Venduto" not in prodotto.stato:
+                self.fail()
+
     def test_visualizza_prodotto(self):
         prodotto = self.controller_listaprodotti.get_prodotto_by_code(self.prodotto.cod_prodotto)
         self.assertTrue(prodotto, self.prodotto)
 
+    def test_modifica_prodotto(self):
+        self.controller_prodotto.set_cod_prodotto("S02")
+        self.assertEqual(self.controller_prodotto.get_cod_prodotto(), "S02")
+
+    def test_elimina_prodotto(self):
+        self.assertIsNotNone(self.model_lista_prodotti)
+        self.controller_listaprodotti.elimina_prodotto_by_codice(self.prodotto.cod_prodotto, self.model_lista_prodotti)
+        self.assertTrue(self.prodotto not in self.model_lista_prodotti)
 
 if __name__ == '__main__':
     unittest.main()

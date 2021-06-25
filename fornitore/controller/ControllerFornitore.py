@@ -26,7 +26,10 @@ class ControllerFornitore:
         return self.model.rappresentante
 
     def get_data_affiliazione(self):
-        return self.model.data_affiliazione
+        if self.model.data_affiliazione is None:
+            return "00/00/0000"
+        else:
+            return self.model.data_affiliazione
 
     def get_stato(self):
         if self.model.stato == "S":
@@ -58,10 +61,7 @@ class ControllerFornitore:
         self.model.rappresentante= rappresentante
 
     def set_data_affiliazione(self, data_affiliazione):
-        if self.model.data_affiliazione is None:
-            return "00/00/0000"
-        else:
-            return self.model.data_affiliazione
+        self.model.data_affiliazione= data_affiliazione
 
     def set_stato(self, stato):
         if stato=="Standard":

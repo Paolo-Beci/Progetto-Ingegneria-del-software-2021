@@ -27,7 +27,7 @@ class VistaListaProdotti(QWidget):
         icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_mini.png'), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.setWindowIcon(icon)
         self.setStyleSheet("background-color: rgb(255, 255, 255);")
-
+        self.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.centralwidget = QtWidgets.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
@@ -39,6 +39,10 @@ class VistaListaProdotti(QWidget):
         font.setPixelSize(20)
         font.setWeight(75)
 
+
+        ''' 
+            Costruzione parte statica dell'interfaccia
+        '''
         # ---------------topWidget------------------
         self.topWidget = QtWidgets.QWidget(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
@@ -290,6 +294,9 @@ class VistaListaProdotti(QWidget):
         self.retranslateUi()
         QtCore.QMetaObject.connectSlotsByName(self)
 
+    '''
+        Costruzione parte dinamica dell'interfaccia  
+    '''
     def retranslateUi(self):
         for i in reversed(range(self.gridLayout_2.count())):
             self.gridLayout_2.itemAt(i).widget().setParent(None)
@@ -314,7 +321,6 @@ class VistaListaProdotti(QWidget):
     """
          Eventi trigger click dei bottoni
     """
-
     def show_inserisci_prodotto(self):
         self.vista_inserisci_prodotto = VistaInserisciProdotto(self.controller_lista_prodotti, self.retranslateUi,
                                                                False, None, self.lista_prodotti_filtrata, None)

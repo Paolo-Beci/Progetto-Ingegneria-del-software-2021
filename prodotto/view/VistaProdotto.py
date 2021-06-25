@@ -28,6 +28,9 @@ class VistaProdotto(QWidget):
         font.setPixelSize(22)
         font.setWeight(75)
 
+        ''' 
+            Costruzione parte statica dell'interfaccia
+        '''
         self.centralwidget = QtWidgets.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
@@ -87,10 +90,14 @@ class VistaProdotto(QWidget):
         self.pushButton_modifica.setObjectName("pushButton_modifica")
         self.gridLayout.addWidget(self.pushButton_modifica, 5, 2, 1, 1)
         self.pushButton_modifica.setStyleSheet("QPushButton {\n""   background-color: rgb(26, 108, 218);\n""   border-width: 2px;\n""   border-radius: 10px;\n""   font: bold 12px;\n""   padding: 6px;\n""   color: white;\n""}")
-        self.pushButton_modifica.clicked.connect(self.modifica_prodotto_click)
+        self.pushButton_modifica.clicked.connect(self.show_modifica_prodotto)
         # elimina button
         self.pushButton_elimina = QtWidgets.QPushButton(self.widget_2)
         self.pushButton_elimina.setObjectName("pushButton_elimina")
+        self.pushButton_elimina.setStyleSheet("QPushButton {\n"
+                                              "    background-color:rgb(255, 0, 0);\n"
+                                              "    color:white;\n"
+                                              "}")
         self.gridLayout.addWidget(self.pushButton_elimina, 5, 1, 1, 1)
         self.pushButton_elimina.setStyleSheet("QPushButton {\n""   background-color: red;\n""   border-width: 2px;\n""   border-radius: 10px;\n""   font: bold 12px;\n""   padding: 6px;\n""   color: white;\n""}")
         self.pushButton_elimina.clicked.connect(self.elimina_prodotto_click)
@@ -154,7 +161,7 @@ class VistaProdotto(QWidget):
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.immagine)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.label = QtWidgets.QLabel(self.immagine)
-        self.label.setObjectName("label")
+        self.label.setObjectName("label_icon")
         if os.path.isfile('listaprodotti/data/images/' + str(self.prodotto.cod_prodotto) + '.jpg'):
             pixmap = QPixmap('listaprodotti/data/images/' + str(self.prodotto.cod_prodotto) + '.jpg')
         else:
@@ -174,6 +181,9 @@ class VistaProdotto(QWidget):
         self.retranslateUi(self)
         QtCore.QMetaObject.connectSlotsByName(self)
 
+    ''' 
+        Costruzione parte dinamica dell'interfaccia
+    '''
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Prodotto"))
@@ -219,7 +229,7 @@ class VistaProdotto(QWidget):
         self.update_ui()
         self.close()
 
-    def modifica_prodotto_click(self):
+    def show_modifica_prodotto(self):
         self.vista_modifica_prodotto = VistaModificaProdotto(self.controller_lista_prodotti, self.update_ui, self.prodotto)
         self.vista_modifica_prodotto.showMaximized()
         time.sleep(0.3)

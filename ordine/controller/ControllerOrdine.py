@@ -34,12 +34,6 @@ class ControllerOrdine:
     def get_stato(self):
         return self.model.stato
 
-    def get_importo_totale(self):
-        return self.model.importo_totale
-
-    def get_calzature_totali(self):
-        return self.model.calzature_totali
-
     ################# SETTER #################
 
     def set_cod_fattura(self, cod_fattura):
@@ -59,12 +53,6 @@ class ControllerOrdine:
 
     def set_stagione(self, stagione):
         self.model.stagione= stagione
-
-    def set_importo_totale(self, importo_totale):
-        self.model.importo_totale= importo_totale
-
-    def set_calzature_totali(self, calzature_totali):
-        self.model.calzature_totali= calzature_totali
 
     def set_stato(self, stato):
         self.model.stato= stato

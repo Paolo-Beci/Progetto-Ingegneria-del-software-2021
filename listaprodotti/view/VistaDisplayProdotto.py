@@ -26,6 +26,9 @@ class VistaDisplayProdotto(QWidget):
         font.setPixelSize(20)
         font.setWeight(75)
 
+        '''
+            Costruzione parte statica dell'interfaccia  
+        '''
         self.setObjectName("Form")
         self.gridLayout_2 = QtWidgets.QGridLayout(self)
         self.gridLayout_2.setObjectName("gridLayout_2")
@@ -61,7 +64,7 @@ class VistaDisplayProdotto(QWidget):
                                             "   padding: 6px;\n"
                                             "   color: white;\n"
                                             "}")
-        self.pushButton_dettagli.clicked.connect(self.dettagli_click)
+        self.pushButton_dettagli.clicked.connect(self.show_prodotto)
         self.gridLayout.addWidget(self.pushButton_dettagli, 4, 0, 1, 2)
         self.label_nome = QtWidgets.QLabel(self)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
@@ -108,6 +111,9 @@ class VistaDisplayProdotto(QWidget):
         self.retranslateUi()
         QtCore.QMetaObject.connectSlotsByName(self)
 
+    '''
+       Costruzione parte dinamica dell'interfaccia  
+    '''
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
 
@@ -121,6 +127,6 @@ class VistaDisplayProdotto(QWidget):
         self.label_taglia.setText(_translate("Form", "Taglia: " + str(self.prodotto.taglia)))
         self.label_quantita.setText(_translate("Form", "Quantità: " + str(self.prodotto.quantita)))
 
-    def dettagli_click(self):
+    def show_prodotto(self):
         self.vista_prodotto = VistaProdotto(self.prodotto, self.update_ui, self.controller, self.lista_prodotti_filtrata)
         self.vista_prodotto.showMaximized()

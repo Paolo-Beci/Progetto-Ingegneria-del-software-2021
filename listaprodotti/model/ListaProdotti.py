@@ -17,6 +17,10 @@ class ListaProdotti:
         self.lista_marche = []
         self.refresh_data()
 
+    def inserisci_prodotto(self, prodotto):
+        self.lista_prodotti.append(prodotto)
+        self.save_data()
+
     def get_lista_prodotti(self):
         return self.lista_prodotti
 
@@ -36,13 +40,7 @@ class ListaProdotti:
             if prodotto.cod_prodotto == code:
                 return prodotto
 
-    def get_anno_prodotto_by_code(self, codice):
-        for prodotto in self.lista_prodotti:
-            if prodotto.cod_prodotto == codice and prodotto.data_ordine is not None:
-                splitted_date = prodotto.data_ordine.split("/")
-                anno = splitted_date[2]
-                return anno
-
+    # Giuseppe
     def get_nome_prodotto_by_code(self, codice):
         for prodotto in self.lista_prodotti:
             if prodotto.cod_prodotto == codice and prodotto.nome is not None:
@@ -50,31 +48,13 @@ class ListaProdotti:
             elif prodotto.cod_prodotto == codice and prodotto.nome is None:
                 return "Nessun nome"
 
-    def get_prezzo_prodotto_by_code(self, codice):
-        for prodotto in self.lista_prodotti:
-            if prodotto.cod_prodotto == codice:
-                return prodotto.prezzo_vendita
-
-    def get_marca_prodotto_by_code(self, codice):
-        for prodotto in self.lista_prodotti:
-            if prodotto.cod_prodotto == codice:
-                return prodotto.marca
-
-    def get_quantita_prodotto_by_code(self, codice):
-        for prodotto in self.lista_prodotti:
-            if prodotto.cod_prodotto == codice:
-                return prodotto.quantita
-
-    def aggiungi_prodotto(self, prodotto):
-        self.lista_prodotti.append(prodotto)
-        self.save_data()
-
     def elimina_prodotto(self, codice_prodotto, lista_prodotti_filtrata):
         for prodotto in self.lista_prodotti:
             if prodotto.cod_prodotto == codice_prodotto:
                 self.lista_prodotti.remove(prodotto)
                 lista_prodotti_filtrata.remove(prodotto)
 
+    # Metodo: ricarica in lista i dati da file pickle, se esistente e non vuoto, o dal file json
     def refresh_data(self):
         if os.path.isfile('listaprodotti/data/DatabaseProdotti.pickle') and os.stat('listaprodotti/data/DatabaseProdotti.pickle').st_size!=0:
             with open('listaprodotti/data/DatabaseProdotti.pickle', 'rb') as f:

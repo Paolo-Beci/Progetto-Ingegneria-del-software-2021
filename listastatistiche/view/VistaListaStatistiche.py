@@ -17,7 +17,9 @@ class VistaListaStatistiche(QWidget):
         self.controller = ControllerListaStatistiche()
 
         #################################################
-        '''COSTRUZIONE INTERFACCIA'''
+        '''
+           Costruzione parte statica dell'interfaccia  
+        '''
         self.setObjectName("Form")
         self.setEnabled(True)
         self.resize(1046, 676)
@@ -166,6 +168,9 @@ class VistaListaStatistiche(QWidget):
         self.retranslateUi()
         QtCore.QMetaObject.connectSlotsByName(self)
 
+    '''
+        Costruzione parte dinamica dell'interfaccia  
+    '''
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
         # imposto il testo degli oggetti dell'interfaccia
