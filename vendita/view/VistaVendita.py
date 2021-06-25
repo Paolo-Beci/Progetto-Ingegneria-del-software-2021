@@ -1,3 +1,4 @@
+import datetime
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QSize
 from PyQt5.QtGui import QPixmap
@@ -154,13 +155,15 @@ class VistaVendita(QWidget):
     def vendi(self):
         if self.flag:
             self.prodotto_trovato.stato = "Venduto"
+            data_odierna = datetime.datetime.now()
+            self.prodotto_trovato.data_vendita = str("%s/%s/%s" % (data_odierna.day, data_odierna.month, data_odierna.year))
             self.popup_venduto()
 
     def popup_errore(self):
         msg = QMessageBox()
         msg.setWindowTitle("ATTENZIONE")
         msg.setText(
-            "Hai inserito un codice prodotto non valido oppure presente nel database! \n\n"
+            "Hai inserito un codice prodotto già venduto oppure non presente nel database! \n\n"
             "Prova con un formato codice del tipo: S03 o con una nuova taglia")
         msg.setIcon(QMessageBox.Warning)
         msg.setStandardButtons(QMessageBox.Yes)

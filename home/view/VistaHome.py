@@ -228,9 +228,8 @@ class VistaHome(QWidget):
         QtCore.QMetaObject.connectSlotsByName(self)
 
     '''
-        Costruzione parte dinamica dell'interfaccia  
+            Costruzione parte dinamica dell'interfaccia  
     '''
-
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
 
@@ -380,67 +379,47 @@ class VistaHome(QWidget):
             self.push_button_login.setText(_translate("Home", "LOGIN"))
             self.push_button_login.clicked.connect(self.go_login)
 
+    # Metodo: consente la visualizzazione dell'orario
     def show_time(self):
         currentTime = QTime.currentTime()
         display_text = currentTime.toString("hh:mm:ss")
         self.label_clock.setText(display_text)
 
-    '''
-        Area Statistiche
-    '''
-
+    # Metodo: consente l'acceso all'area delle statistiche
     def go_lista_statistiche(self):
         self.vista_lista_statistiche = VistaListaStatistiche()
         self.vista_lista_statistiche.showMaximized()
         time.sleep(0.3)
 
-    '''
-         Area Prodotti
-    '''
-
+    # Metodo: consente l'acceso all'area dei prodotti
     def go_lista_prodotti(self):
         self.vista_lista_prodotti = VistaListaProdotti()
         self.vista_lista_prodotti.showMaximized()
 
-    '''
-         Area Fornitori
-    '''
-
+    # Metodo: consente l'accesso all'area dei fornitori
     def go_lista_fornitori(self):
         self.vista_lista_fornitori = VistaListaFornitori()
         self.vista_lista_fornitori.showMaximized()
         time.sleep(0.3)
 
-    '''
-         Area Ordini
-    '''
-
+    # Metodo: consente l'accesso all'area dei ordini
     def go_lista_ordini(self):
         self.vista_lista_ordini = VistaListaOrdini()
         self.vista_lista_ordini.showMaximized()
         time.sleep(0.3)
 
-    '''
-         Area Vendita
-    '''
-
+    # Metodo: consente l'accesso all'area vendita
     def go_vista_vendita(self):
         self.vista_vendita = VistaVendita()
         self.vista_vendita.show()
 
-    '''
-         Area Del Personale
-    '''
-
+    # Metodo: consente l'accesso all'area del personale
     def go_lista_del_personale(self):
         self.vista_lista_del_personale = VistaListaDelPersonale()
         self.vista_lista_del_personale.showMaximized()
         time.sleep(0.3)
 
-    '''
-         Login
-    '''
-
+    # Metodo: consente l'accesso all'area riservata all'amministratore
     def go_login(self):
         if not self.controller_lista_del_personale.get_status():
             self.vista_login = VistaLogin(self.controller_lista_del_personale, self.retranslateUi)
@@ -467,6 +446,7 @@ class VistaHome(QWidget):
             else:
                 return
 
+    #Metodo: verifica che l'utente sia consapevole della scelta presa
     def closeEvent(self, event):
         reply = QMessageBox.question(self, 'Chiudere?',
                                      'Sicuro di voler chiudere il programma?',

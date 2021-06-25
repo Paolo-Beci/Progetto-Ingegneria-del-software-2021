@@ -26,6 +26,9 @@ class VistaDisplayProdotto(QWidget):
         font.setPixelSize(20)
         font.setWeight(75)
 
+        '''
+            Costruzione parte statica dell'interfaccia  
+        '''
         self.setObjectName("Form")
         self.gridLayout_2 = QtWidgets.QGridLayout(self)
         self.gridLayout_2.setObjectName("gridLayout_2")
@@ -108,6 +111,9 @@ class VistaDisplayProdotto(QWidget):
         self.retranslateUi()
         QtCore.QMetaObject.connectSlotsByName(self)
 
+    '''
+       Costruzione parte dinamica dell'interfaccia  
+    '''
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
 

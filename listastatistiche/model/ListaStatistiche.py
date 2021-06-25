@@ -1,6 +1,4 @@
 import json
-import pickle
-import os.path  # Ci consente di leggere all'interno di una cartella
 
 from statistica.model.Statistica import Statistica
 

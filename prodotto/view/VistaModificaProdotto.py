@@ -22,6 +22,9 @@ class VistaModificaProdotto(QWidget):
         font.setPixelSize(15)
         font.setWeight(75)
 
+        ''' 
+            Costruzione parte statica dell'interfaccia
+        '''
         # ICONA
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap('listaprodotti/data/images/logo_mini.png'), QtGui.QIcon.Normal, QtGui.QIcon.On)
@@ -289,6 +292,9 @@ class VistaModificaProdotto(QWidget):
         self.retranslateUi(self)
         QtCore.QMetaObject.connectSlotsByName(self)
 
+    ''' 
+        Costruzione parte statica dell'interfaccia
+    '''
     def retranslateUi(self, MainWindow):
         index = 0
         _translate = QtCore.QCoreApplication.translate
