@@ -52,6 +52,8 @@ class ListaProdotti:
         for prodotto in self.lista_prodotti:
             if prodotto.cod_prodotto == codice_prodotto:
                 self.lista_prodotti.remove(prodotto)
+        for prodotto in lista_prodotti_filtrata:
+            if prodotto.cod_prodotto == codice_prodotto:
                 lista_prodotti_filtrata.remove(prodotto)
 
     # Metodo: ricarica in lista i dati da file pickle, se esistente e non vuoto, o dal file json
