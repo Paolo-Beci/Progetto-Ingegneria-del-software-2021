@@ -1,6 +1,5 @@
 import unittest
 from listaprodotti.controller.ControllerListaProdotti import ControllerListaProdotti
-from listaprodotti.view.VistaListaProdotti import VistaListaProdotti
 from prodotto.controller.ControllerProdotto import ControllerProdotto
 
 from prodotto.model.Prodotto import Prodotto
@@ -28,10 +27,6 @@ class Test(unittest.TestCase):
         self.assertTrue(self.prodotto in self.model_lista_prodotti)
 
     def test_filtra_lista_prodotti(self):
-        # self.vista_lista_prodotti = VistaListaProdotti()
-        print("QUI")
-        #self.vista_lista_prodotti.filtro_lista(False, False, True, False)
-        #model_lista_filtrata= self.vista_lista_prodotti.lista_prodotti_filtrata
         elementi_da_rimuovere= []
         for prodotto in self.model_lista_prodotti:
             if prodotto.stato != "Venduto":
@@ -41,7 +36,6 @@ class Test(unittest.TestCase):
         elementi_da_rimuovere.clear()
 
         for prodotto in self.model_lista_prodotti:
-            print(prodotto.stato)
             if "Venduto" not in prodotto.stato:
                 self.fail()
 
