@@ -400,7 +400,12 @@ class VistaInserisciProdotto(QWidget):
         #######################################################################
 
     def controllo_click(self):
-        if str(self.lineEdit_quantita.text()).isalpha() or str(self.lineEdit_sconto.text()).isalpha() or str(self.lineEdit_sconto_consigliato.text()).isalpha()\
+        if str(self.lineEdit_codice_prodotto.text()) =="" or str(self.lineEdit_nome.text()) =="" or str(self.lineEdit_marca.text()) =="" or str(self.lineEdit_colore.text()) ==""\
+                or str(self.lineEdit_prezzo_vendita.text()) =="" or str(self.lineEdit_materiale.text()) =="" or str(self.lineEdit_prezzo_acquisto.text()) ==""\
+                or str(self.lineEdit_sconto_consigliato.text()) =="" or str(self.lineEdit_quantita.text()) =="" or str(self.lineEdit_codice_fattura.text()) ==""\
+                or str(self.lineEdit_codice_fornitore.text()) =="":
+            self.popup_errore()
+        elif str(self.lineEdit_quantita.text()).isalpha() or str(self.lineEdit_sconto.text()).isalpha() or str(self.lineEdit_sconto_consigliato.text()).isalpha()\
                 or str(self.lineEdit_prezzo_vendita.text()).isalpha() or str(self.lineEdit_prezzo_acquisto.text()).isalpha():
             self.popup_errore()
         else:
