@@ -142,11 +142,14 @@ class VistaVendita(QWidget):
     def cerca_prodotto(self):
         cod_prodotto_cerca = str(self.cerca.text())
         cod_prodotto = cod_prodotto_cerca.capitalize()
-        for prodotto in self.controller.get_lista_prodotti():
-            if str(prodotto.cod_prodotto) == str(cod_prodotto) and int(prodotto.taglia) == int(self.taglia.currentText()) and str(prodotto.stato) == "In negozio":
-                self.prodotto_trovato = prodotto
-                self.flag = True
-        print(self.prodotto_trovato)
+        if self.taglia.currentText()!="Taglia":
+            for prodotto in self.controller.get_lista_prodotti():
+                if str(prodotto.cod_prodotto) == str(cod_prodotto) and int(prodotto.taglia) == int(self.taglia.currentText()) and str(prodotto.stato) == "In negozio":
+                    self.prodotto_trovato = prodotto
+                    self.flag = True
+        else:
+            return
+        #print(self.prodotto_trovato)
         if self.prodotto_trovato is None:
             self.popup_errore()
 
@@ -163,7 +166,7 @@ class VistaVendita(QWidget):
         msg = QMessageBox()
         msg.setWindowTitle("ATTENZIONE")
         msg.setText(
-            "Hai inserito un codice prodotto già venduto oppure non presente nel database! \n\n"
+            "Codice prodotto già venduto oppure non presente nel database! \n\n"
             "Prova con un formato codice del tipo: S03 o con una nuova taglia")
         msg.setIcon(QMessageBox.Warning)
         msg.setStandardButtons(QMessageBox.Yes)
