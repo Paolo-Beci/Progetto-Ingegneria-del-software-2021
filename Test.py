@@ -36,7 +36,6 @@ class Test(unittest.TestCase):
         elementi_da_rimuovere.clear()
 
         for prodotto in self.model_lista_prodotti:
-            print(prodotto.stato)
             if "Venduto" not in prodotto.stato:
                 self.fail()
 
