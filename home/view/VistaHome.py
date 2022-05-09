@@ -266,6 +266,9 @@ class VistaHome(QWidget):
             self.gridLayout_3.addWidget(self.push_button_login, 1, 1, 1, 1)
             self.push_button_login.setText(_translate("Home", "LOGOUT"))
             self.push_button_login.clicked.connect(self.go_login)
+            #print(self.push_button_login.saveGeometry)
+            #print(int(self.push_button_login.x()))
+            print("culo")
 
             self.pushButton_personale = QtWidgets.QPushButton(self)
             sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
@@ -460,3 +463,7 @@ class VistaHome(QWidget):
         else:
             if not type(event) == bool:
                 event.ignore()
+
+    def get_pushbuttonlogin_pos(self):
+        return(self.push_button_login.pos())
+        
